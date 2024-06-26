@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper 
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sl.qr.mh.service.databaseMapper">
+
+    <!-- [조회] 로그인과 회원가입 할 때 사용자 정보 체크 -->
+    <select id="searchUserParam" parameterType="String" resultType="hashMap">
+        select * from qruser where id = #{userId}
+    </select>
+
+    <!-- [추가] 회원가입할 때 등록한 사용자 정보 > 아이디/이름/비밀번호/이메일/전화번호 -->
+    <!-- GS 인증에 필요한 최소한의 기능 개발을 위해 사용자 권한 제외 -->
+    <insert id="insertUserParam" parameterType="hashMap">
+        insert into qruser(id, password, name, email, phone)
+        values(#{userId}, #{userPassword}, #{userName}, #{userEmail}, #{userPhone})
+    </insert>
+
+</mapper>

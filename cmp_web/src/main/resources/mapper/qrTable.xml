@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper 
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sl.qr.mh.service.databaseMapper">
+
+    <!-- [조회] 등록된 QR정보 조회 > IDX/권한/좌표/호스트/포트/QR이미지/요청 -->
+    <select id="searchQRAllParam2" parameterType="hashMap" resultType="hashMap">
+        select idx, sRackNumber, sRackLocation, sServerName, sPortNumber,
+                    eRackNumber, eRackLocation, eServerName, ePortNumber,
+                    qrStart, qrEnd, qrStartImage, qrEndImage
+        from autocarqr
+        where 1=1
+        and sRackNumber   Like CONCAT('%', #{sRackNumber},   '%')
+        and sRackLocation Like CONCAT('%', #{sRackLocation}, '%')
+        and sServerName   Like CONCAT('%', #{sServerName},   '%')
+        and sPortNumber   Like CONCAT('%', #{sPortNumber},   '%')
+        and eRackNumber   Like CONCAT('%', #{eRackNumber},   '%')
+        and eRackLocation Like CONCAT('%', #{eRackLocation}, '%')
+        and eServerName   Like CONCAT('%', #{eServerName},   '%')
+        and ePortNumber   Like CONCAT('%', #{ePortNumber},   '%')
+    </select>
+
+    <!-- [조회] 등록된 QR정보 조회 > IDX/권한/좌표/호스트/포트/QR이미지/요청 -->
+    <select id="searchQRAllParam" parameterType="String" resultType="hashMap">
+        select idx, sRackNumber, sRackLocation, sServerName, sPortNumber,
+                    eRackNumber, eRackLocation, eServerName, ePortNumber,
+                    qrStart, qrEnd, qrStartImage, qrEndImage
+        from autocarqr
+    </select>
+
+    <!-- [추가] 입력한 QR정보 등록 > 권한/좌표/호스트/포트/QR이미지/요청 -->
+    <insert id="insertQRParam" parameterType="hashMap">
+        insert into autocarqr(sRackNumber, sRackLocation, sServerName, sPortNumber, 
+					          eRackNumber, eRackLocation, eServerName, ePortNumber, 
+					          qrStart, qrEnd, qrStartImage, qrEndImage)
+        values( #{sRackNumber},
+                #{sRackLocation},
+                #{sServerName},
+                #{sPortNumber},
+                #{eRackNumber},
+                #{eRackLocation},
+                #{eServerName},
+                #{ePortNumber},
+                #{qrStart},
+                #{qrEnd},
+                #{qrStartImage},
+                #{qrEndImage})
+    </insert>
+
+    <!-- [삭제] 시스템에서 제거요청된 데이터 삭제 -->
+    <delete id="deleteQRParam" parameterType="String">
+        delete from autocarqr
+        where idx = #{idx}
+    </delete>
+
+    <!-- [변경] 시스템에서 변경요청된 데이터 변경 -->
+    <update id="updateQRParam" parameterType="hashMap">
+        update autocarqr
+        set sRackNumber   = #{sRackNumber},
+            sRackLocation = #{sRackLocation},
+            sServerName   = #{sServerName},
+            sPortNumber   = #{sPortNumber},
+            eRackNumber   = #{eRackNumber},
+            eRackLocation = #{eRackLocation},
+            eServerName   = #{eServerName},
+            ePortNumber   = #{ePortNumber}
+        where idx = #{idx}
+    </update>
+
+</mapper>

@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>QR System</title>
+	<link rel="stylesheet" href="/css/css.css" />
+</head>
+
+<body>
+
+	<div class="wrap">
+		<header>
+			<div class="inner">
+				<div class="logo" onclick="location.href='./index.html'">
+					<img src="/images/logo/logo_.png" alt="logo" />
+				</div>
+			<ul class="sub-con">
+				<li>관리자 <span>님</span></li>
+	            <li><input type="button" id="targetBtn" value="돌아가기" onclick="moveQR()"/></li>
+			</ul>
+			</div>
+		</header>
+		<main>
+			<div class="title-box">
+				<h3 class="back-icon">
+					<span class="back" onclick="moveQR()" ><img src="/images/icon/mingcute_left-fill.svg" alt="left-arrow" />
+					</span>
+					QR System Management
+				</h3>
+				<div class="info-txt">
+					<span class="icon"><img src="/images/icon/info-icon.svg" alt="icon" /></span>
+		            <span>
+		            	QR 시스템의 관리 페이지 입니다. 사용자 정보 및 활동 내역을 확인할 수 있습니다.
+					</span>
+				</div>
+			</div>
+
+        <div class="tab-menu">
+			<ul>
+				<li data-tabmenu="tab1" onclick="systemUserInfo(this)">
+			  		사용자 정보
+				</li>
+				<li onclick="systemQRLogTable(this)" data-tabmenu="tab2">사용 기록</li>
+			</ul>
+        </div>
+			<div class="tab">
+				<div class="tab-item active" data-tab="tab1">
+					<div class="top-con">
+						<div class="btn-box">
+							<button class="add" onclick="qrAddModal()">추가</button>
+							<button class="modify" onclick="qrModifyModal()">변경</button>
+							<button class="delete">삭제</button>
+						</div>
+					</div>
+					<div class="table-wrap">
+						<div class="systemDiv"></div>
+					</div>
+				</div>
+			</div>
+		</main>
+		<footer>
+			<div class="inner">
+				<p class="copyright">
+            		COPYRIGHT © 2024 서림정보통신 ALL RIGHTS RESERVED.
+				</p>
+			</div>
+		</footer>
+    </div>
+
+	<script src="/js/axios.min.js"></script>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/function.js"></script>
+    <script src="/js/modal.js"></script>
+	<script>
+		const tabMenuClick = document.querySelector('.tab-menu ul li');
+		tabMenuClick.click();
+		
+		const qrAddModal = () => {
+            renderModal(
+              "qrcodeAdd",
+              "시스템 계정 추가",
+              "/sl/qr/userAddModal",
+              "취소",
+              "회원가입",
+            );
+          };
+          
+          
+		/* let sessionJoinChk = document.getElementById("sessionJoinChk").value;
+  		let sessionMessage = document.getElementById("sessionMessage").value;
+
+  		if((sessionJoinChk != '') && (sessionJoinChk == "no")){
+  			alert(sessionMessage);
+  		} */
+	</script>   
+</body>
+
+</html>

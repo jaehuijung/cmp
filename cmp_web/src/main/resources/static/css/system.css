@@ -1,0 +1,109 @@
+body{
+    display: grid;
+}
+
+#sep{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width:100%;
+}
+
+#btnLeft{
+    display: block;
+    float:left;    
+}
+
+#targetBtn{
+    width:75px; 
+    height:50px; 
+    margin-right:20px;
+}
+
+#btnRight{
+    display: block;
+    float:right;
+}
+
+#btnRightDiv{
+    display:inline-block;
+    margin-right:20px;
+}
+
+#btnRightBtn{
+    width:80px; 
+    height:50px;
+}
+
+#content{
+    width:100%;
+    display: grid;
+}
+
+.systemWrap {
+    display: flex;
+}
+
+.systemMenu{
+    width:110px;
+}
+
+#systemBtn{
+    display:flex;    
+    justify-content: center;
+    width:100px;
+    height:50px; 
+    margin-right: 20px;
+    margin-bottom: 5px;
+}
+
+.systemDiv{
+    width:100%; 
+    height:350px; 
+    overflow:auto;
+}
+
+.systemTable{
+    width: 100%;
+}
+
+/* 사용자 정보 변경 */
+#userInfoFormDiv{
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#userInfoFormBtn{
+    display: inline-block;
+    margin-right: 10px;
+}
+
+label{
+    display: inline-block;
+    width:85px;
+    height: 25px;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+#userInfoFormInput{
+    width: 260px;
+    height: 25px;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+input[id='userPageBtn']{
+    width: 75px;
+    height: 30px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+/* QR 변경요청 */
+#updateInput{
+    border: 0;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+}

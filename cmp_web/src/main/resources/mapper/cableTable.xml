@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper 
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sl.qr.mh.service.cableMapper">
+
+ 
+    <select id="selectCableList" resultType="sl.qr.mh.vo.Cable">
+    
+SELECT
+@rownum:=@rownum+1 AS rownum, CCC.* FROM (
+SELECT * FROM cable AA 
+LEFT JOIN (
+SELECT id sqr_id,portnum s_portnum,slotnum s_slotnum,qr_encode s_qr_encode,qr_image s_qr_image,group_name,eqp_name,eqp_direct,hostname s_hostname,rack_name s_rack_name,unit_position s_unit_position,rack_id s_rack_id FROM cable_qrcode F
+LEFT JOIN 
+(SELECT A.id dummy,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position,rack_id FROM equipment A
+JOIN rack B ON B.id = A.rack_id
+JOIN bizgroup C ON C.id = A.group_id) E ON E.dummy = F.eqp_id
+) BB ON AA.s_qr_id = BB.sqr_id
+LEFT JOIN 
+(
+SELECT id eqr_id,portnum e_portnum,slotnum e_slotnum,qr_encode e_qr_encode,qr_image e_qr_image,hostname e_hostname,rack_name e_rack_name,unit_position e_unit_position FROM cable_qrcode F
+LEFT JOIN 
+(SELECT A.id dummy,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position FROM equipment A
+JOIN rack B ON B.id = A.rack_id
+JOIN bizgroup C ON C.id = A.group_id) E ON E.dummy = F.eqp_id
+) CC ON AA.e_qr_id = CC.eqr_id
+ORDER BY s_rack_id,cast(s_unit_position AS UNSIGNED INTEGER) DESC
+) CCC, (SELECT @rownum:=0) TMP;
+
+
+
+<!--   
+	
+** Cable -> start qr, end qr join  	
+** mysql  rownum 구현
+SELECT
+@rownum:=@rownum+1, b.*
+FROM buyingboard b, (SELECT @rownum:=0) TMP;
+ -->
+
+
+    </select>
+    
+    
+      <!-- QR코드 조회 -->
+     <select id="selectQRList" resultType="sl.qr.mh.vo.QR">
+     SELECT F.id qr_id,portnum,slotnum,qr_encode,qr_image,group_name,eqp_name,eqp_direct,hostname,rack_name,unit_position,rack_id FROM cable_qrcode F
+LEFT JOIN 
+(SELECT A.id,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position,rack_id FROM equipment A
+JOIN rack B ON B.id = A.rack_id
+JOIN bizgroup C ON C.id = A.group_id) E ON E.id = F.eqp_id
+     </select>
+     
+     
+    
+    <update id="updateQR" parameterType="sl.qr.mh.vo.QR">
+        update cable_qrcode
+      <!---  set qr_encode   = #{qr_encode}, -->
+      set      qr_image = #{qr_image}
+        where id = #{qr_id}
+    </update>
+
+	  <select id="selectEqpList" resultType="sl.qr.mh.vo.Equipment">
+	SELECT
+@rownum:=@rownum+1 AS rownum, b.* FROM (
+  SELECT A.id eqp_id,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position,rack_id,m_company,yearofintroduct,model FROM equipment A
+JOIN rack B ON B.id = A.rack_id
+JOIN bizgroup C ON C.id = A.group_id
+)b ,(SELECT @rownum:=0) TMP;
+	  </select>
+	    <select id="selectBizList" resultType="sl.qr.mh.vo.Group">
+			SELECT id,group_name from bizgroup;
+</select>
+ <select id="selectRackList" resultType="sl.qr.mh.vo.Rack">
+SELECT id,name FROM rack;
+</select>
+ <select id="checkHostname" parameterType="String" resultType="String">
+ SELECT hostname FROM equipment WHERE hostname = #{hostaname}
+ </select>
+ 
+ 
+</mapper>

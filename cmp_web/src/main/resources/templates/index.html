@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>QR Login</title>
+    <link rel="stylesheet" href="/css/css.css" />
+</head>
+
+<body>
+
+	<!-- <hr id="sep"> -->
+	<input type="hidden" id="sessionLoginChk" th:value="${session.loginChk}" />
+	<input type="hidden" id="sessionMessage" th:value="${session.message}" />
+	<!-- 
+	<div id="menuBtn">                
+		<div id="btnLeft">
+			<img src="/logo.png">
+		</div>
+		<div id="btnRight">
+		</div>
+	</div>
+	<hr id="sep">
+	<div class="subTitle">
+		<p style="font-size:30px;">QR Login</p>
+		<hr id="sep">
+		<p>페이지 소개 : QR 메뉴 로그인 페이지입니다.<br>
+		ㅇ [로그인] 입력한 정보로 로그인<br>
+		ㅇ [회원가입] 회원가입 페이지 이동<br>
+		ㅇ [아이디/비밀번호 찾기] 아이디/비밀번호 찾기 페이지 이동 (현재 미구현)<br>
+		ㅇ 관리자 계정 : test / 1234 <br>
+	    ㅇ 사용자 계정 : test1 / 1234 (회원가입에서 직접 생성가능) <br>
+		ㅇ 회원가입 후 관리자에게 사용자 권한 인가요청 필요 </p>
+	</div>
+	<hr id="sep">
+	<form action="/sl/user/login" id="formDiv" method="post">
+		<div id="formDiv">
+			<div>
+				<label>ID</label>
+				<input type="text" 
+						placeholder="test" 
+						onfocus="this.placeholder=''"
+						onblur="this.placeholder='test'"
+						name="userId">
+			</div>
+			
+			<div>
+				<label>password</label>
+				<input type="text"
+						placeholder="123456" 
+						onfocus="this.placeholder=''"
+						onblur="this.placeholder='123456'"
+						name="userPassword">
+			</div>						
+		</div>	
+
+		<div id="formDiv">
+			<input type="submit" id="loginBtn" value="로그인">			
+		</div>
+    </form>
+	<hr id="sep">	
+	<div>
+		<input type="button" id="joinBtn" value="회원가입" onclick="moveJoin()"/>
+		아이디/비밀번호 로직 구현 안됨
+		<input type="button" id="findBtn" value="아이디/비밀번호 찾기" onclick="moveJoin()"/>
+	</div>
+	<hr id="sep"> -->
+	
+	<div class="lg-wrap lg-bg">
+		<div class="lg-box">
+			<div class="lg-box-wrap">
+				<div class="lg-head">
+					<img src="/images/logo/logo_.png" alt="logo" />
+				</div>
+				<div class="lg-inputbox">
+					<div class="pj-title">
+						<p>SMART CMP <span>(cable management platform)</span></p>
+					</div>
+					<form action="/sl/user/login" id="formDiv" method="post">
+						<div class="input-form">
+							<input type="text" placeholder="ID" name="userId" />
+						</div>
+						<div class="input-form">
+							<input type="password" placeholder="PASSWORD" name="userPassword" />
+						</div>
+						<div class="input-form">
+							<input type="submit" value="LOGIN" />
+						</div>
+						<!-- <a href="./join.html">회원가입</a> -->
+					</form>
+				</div>
+			</div>
+	        <!-- <div class="bt-text">
+	          <p>※ 회원 가입 후 관리자에게 사용자 권한을 요청해야 합니다.</p>
+	        </div> -->
+		</div>
+    </div>
+
+	<script src="/js/axios.min.js"></script>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/function.js"></script>
+	<script>
+		let sessionLoginChk = document.getElementById("sessionLoginChk").value;
+		let sessionMessage = document.getElementById("sessionMessage").value;
+		
+		if((sessionLoginChk != '') && (sessionLoginChk == "no")){
+			alert(sessionMessage);
+		}
+	</script>
+</body>
+
+</html>

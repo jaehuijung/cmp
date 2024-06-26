@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Thymeleaf Layout Test</title>
+    <link rel="stylesheet" href="/css/css.css" />
+</head>
+<body>
+    <div class="wrap">
+        <header>
+            <div class="inner">
+                <div class="logo" onclick="location.href='/sl/qr/showqr'">
+                    <img src="/images/logo/logo_.png" alt="logo" />
+                </div>
+                <ul class="sub-con">
+                    <li>관리자 <span>님</span></li>
+                    <li>
+                        <form action="/sl/qr/systempage" class="btnRightDiv" method="post">
+                            <input type="submit" id="btnRightBtn" value="시스템관리">
+                        </form>
+                    </li>
+                    <li>
+                        <form action="/sl/user/logout" class="btnRightDiv" method="post">
+                            <input type="submit" id="btnRightBtn" value="로그아웃">
+                        </form>
+                    </li>
+
+                </ul>
+            </div>
+        </header>
+        <div id="contents">
+            <div>aaa</div>
+
+            <!-- Thymeleaf Content 가 들어갈 영역 -->
+            <th:block layout:fragment="content"></th:block>
+
+            <div>aaa</div>
+        </div>
+        <footer>
+            <div class="inner">
+                <p class="copyright">
+                    COPYRIGHT © 2022 서림정보통신 ALL RIGHTS RESERVED.
+                </p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>QR Join</title>
+	<link rel="stylesheet" href="/css/join.css" />
+</head>
+
+<body>
+	<hr id="sep">
+	<input type="hidden" id="sessionJoinChk" th:value="${session.joinChk}" />
+	<input type="hidden" id="sessionMessage" th:value="${session.message}" />
+
+	<div id="menuBtn">                
+		<div id="btnLeft">
+				<img src="/logo.png">
+		</div>
+		
+		<div id="btnRight">
+			<input type="button" id="joinBtn" value="돌아가기" onclick="moveLogin()"/>				
+		</div>
+	</div>
+	
+	<hr id="sep">
+
+	<div class="subTitle">
+					
+		<p style="font-size:30px;">QR Join</p>
+
+		<p>페이지 소개 : QR 회원가입 페이지입니다.<br>
+		ㅇ [돌아가기] 로그인 페이지로 이동<br>
+		ㅇ [회원가입] 입력한 정보로 회원가입</p>
+	</div>
+
+	<hr id="sep">
+
+	<form action="/sl/user/join" method="post">
+		<div id="formDiv">
+			<div>
+				<label>* ID</label>
+				<input type="text" 
+						placeholder="test" 
+						onfocus="this.placeholder=''"
+						onblur="this.placeholder='test'"						
+						required
+						oninvalid="this.setCustomValidity('이름은 필수입력값입니다.')" 
+						name="userId"
+						id="formInput">
+			</div>
+			
+			<div>
+				<label>* password</label>
+				<input type="text" 
+						placeholder="123456" 
+						onfocus="this.placeholder=''"
+						onblur="this.placeholder='123456'"						
+						required
+						oninvalid="this.setCustomValidity('비밀번호는 필수 입력값입니다.')" 
+						name="userPassword"
+						id="formInput">
+			</div>
+			
+			<div>
+				<label>name</label>
+				<input type="text" 
+						value=""
+						placeholder="명회" 
+						onfocus="this.placeholder=''"
+						onblur="this.placeholder='명회'"
+						name="userName"
+						id="formInput">
+			</div>
+
+			<div>
+				<label>email</label>
+				<input type="text" 
+						value=""
+						placeholder="gumh@seolimict.co.kr" 
+						onfocus="this.placeholder=''"
+						onblur="this.placeholder='gumh@seolimict.co.kr'"
+						name="userEmail"
+						id="formInput">
+			</div>
+			
+			<div>
+				<label>phone</label>
+				<input type="tel" 						
+						minlength="10" 
+						maxlength="11"
+						value=""
+						placeholder="01026906894" 
+						onfocus="this.placeholder=''"
+						onblur="this.placeholder='010-2690-6894'"
+						oninvalid="this.setCustomValidity('10자리 이상 입력하세요. (최대 11자리)')" 
+						name="userPhone"
+						id="formInput">
+			</div>
+		</div>	
+
+		<div id="formDiv">
+			<input type="submit" value="회원가입">
+		</div>
+        
+    </form>
+
+	<hr id="sep">
+
+	<script src="/js/axios.min.js"></script>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/function.js"></script>
+	<script>		
+		let sessionJoinChk = document.getElementById("sessionJoinChk").value;
+		let sessionMessage = document.getElementById("sessionMessage").value;
+
+		if((sessionJoinChk != '') && (sessionJoinChk == "no")){
+			alert(sessionMessage);
+		}
+	</script>	
+</body>
+
+</html>

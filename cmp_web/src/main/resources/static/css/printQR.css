@@ -1,0 +1,95 @@
+body{
+    display: grid;
+    margin : 0;
+    padding : 0;
+}
+
+#sep{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width:100%;
+}
+
+#QRPrintHead {
+    margin-left: 25px;
+}
+
+.QRPrintTable{
+    width: 95%;
+    /* width: 21cm; */
+    /* min-height: 29.7cm; */
+    min-height: 20cm;
+    padding: 0.5cm;
+    margin: 0 auto;
+    background:#eee;
+}
+
+.QRPrintWrap{
+    text-align: center;
+}
+
+.printWrap{
+    page-break-before:always;
+
+    display: inline-flex;
+    flex-direction: row;
+    margin-right: 30px;
+}
+
+.printLeftWrap{
+    display: flex;
+    border-right: 1px dashed;
+    margin: 0px 0px 10px 0px;
+    padding: 5px 0px 5px 5px;
+    background-color: yellow;
+}
+
+.printRightWrap{
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 0px 0px 10px 0px;
+    padding: 5px 5px 5px 0px;
+    background-color: yellow;
+}
+
+.printLeftImgSrc{
+    display: flex;
+    align-items: center;
+}
+
+.printLeftLabelSrc{    
+    padding-left: 10px;
+    text-align: left;
+
+    display: flex;
+    align-items: center;
+}
+
+.printRightImgSrc{
+    display: flex;
+    align-items: center;
+}
+
+.printRightLabelSrc{
+    padding-right: 10px;
+    text-align: right;
+
+    display: flex;
+    align-items: center;
+}
+
+.printImg{
+    width:50px;
+    height: 50px;
+}
+
+.printLabel{
+    font-size: 12px;
+    width: 200px;
+}
+
+.printBtn{
+    margin-right: 5px;
+    width:50px;
+    height: 30px;
+}
