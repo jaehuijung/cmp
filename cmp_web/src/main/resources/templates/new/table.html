@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/new_default_layout}">
+
+<div layout:fragment="content">
+	
+	
+		
+
+		  <main id="main" class="main">
+
+		    <div class="pagetitle">
+		      <h1>선번장목록조회</h1>
+		      <nav>
+		        <ol class="breadcrumb">
+		          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+		          <li class="breadcrumb-item">선번장관리</li>
+		          <li class="breadcrumb-item active">선번장목록조회</li>
+		        </ol>
+		      </nav>
+		    </div><!-- End Page Title -->
+
+		    <section class="section">
+		      <div class="row">
+		        <div class="col-lg-12">
+
+		          
+
+		          <div class="card">
+		            <div class="card-body">
+		              <h5 class="card-title">Small tables</h5>
+		              <p>Add <code>.table-sm</code> to make any <code>.table</code> more compact by cutting all cell padding in half.</p>
+					  <!-- Bordered Table -->
+					  <div class="CableListDiv"></div>
+		            </div>
+		          </div>
+
+		        </div>
+		      </div>
+		    </section>
+
+		  </main><!-- End #main -->
+		
+	</main>
+	<th:block layout:fragment="script">
+			
+	<script th:src="@{/js/axios.min.js}"></script>
+			<script th:src="@{/js/jquery.min.js}"></script>
+			<script th:src="@{/js/jsfunction.js}"></script>
+			<script>CableListTable();</script>
+			
+	</th:block>
+</div>
+
+
+
+</html>
