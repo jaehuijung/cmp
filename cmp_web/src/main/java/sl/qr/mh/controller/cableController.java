@@ -12,6 +12,13 @@ public class cableController {
 	@GetMapping("/test")
 	public String test(HttpSession session,
 			HttpServletRequest request) {
+		return "new/table";
+		        
+	}
+	
+	@GetMapping("/cablelist")
+	public String getcableList(HttpSession session,
+			HttpServletRequest request) {
 		return "/cablelist";
 		        
 	}
