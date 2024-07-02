@@ -15,11 +15,12 @@ public interface cableMapper {
 	
 	//public List<HashMap<String, String>> systemUserParam(String userId);
 	
-	public List<Cable> selectCableList();
+	public List<Cable> selectCableList(Cable vo);
 	public List<QR> selectQRList();
 	public void updateQR(QR qr);
 	public List<Equipment> selectEqpList();
 	public List<Group> selectBizList();
 	public List<Rack> selectRackList();
 	public String checkHostname(String hostname);
+	public int selectCableListTotalCount(Cable vo);
 }

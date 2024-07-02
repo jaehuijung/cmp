@@ -1,5 +1,6 @@
 package sl.qr.mh.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -33,17 +34,19 @@ public class cableManageController {
 		this.bcrypt = bcrypt;
 	}
 	
-	
-	
-	@GetMapping(value = "/test/cable/list")
-	    public List<Cable> getCableListData(
-	            HttpSession session,
+		@GetMapping(value = "/test/cable/list")
+	public List<HashMap<String, Object>> getCableListData(Cable vo,
+			  HttpSession session,
 	            HttpServletRequest request) {
-	        //log.info("qr search!");
-	        List<Cable> selectCableList = cableservice.selectCableList();
 
-	        return selectCableList;
+			//System.out.println("---------------------------------");
+			//System.out.println("---------------------------------"+vo.getE_hostname());
+	 
+			List<HashMap<String, Object>> selectCableList = cableservice.selectCableList(vo);
+
+	       return selectCableList;
     }
+	
 	
 	@GetMapping(value = "/test/quipment/list")
     public List<Equipment> getEquipmentListData(
@@ -63,7 +66,6 @@ public class cableManageController {
 		 * 
 		 * }
 		 */
-
         return selectEquipmentList;
 }
 	@GetMapping(value = "/test/group/list")
@@ -87,7 +89,10 @@ public class cableManageController {
 		 
 
         return selectGroupList;
-}
+	}
+	
+
+	
 	
 	@GetMapping(value = "/test/rack/list")
     public List<Rack> getRackListData(

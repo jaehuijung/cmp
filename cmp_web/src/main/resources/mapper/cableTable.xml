@@ -7,13 +7,13 @@
 <mapper namespace="sl.qr.mh.service.cableMapper">
 
  
-    <select id="selectCableList" resultType="sl.qr.mh.vo.Cable">
+    <select id="selectCableList" parameterType="sl.qr.mh.vo.Cable" resultType="sl.qr.mh.vo.Cable">
     
 SELECT
 @rownum:=@rownum+1 AS rownum, CCC.* FROM (
 SELECT * FROM cable AA 
 LEFT JOIN (
-SELECT id sqr_id,portnum s_portnum,slotnum s_slotnum,qr_encode s_qr_encode,qr_image s_qr_image,group_name,eqp_name,eqp_direct,hostname s_hostname,rack_name s_rack_name,unit_position s_unit_position,rack_id s_rack_id FROM cable_qrcode F
+SELECT id sqr_id,portnum s_portnum,slotnum s_slotnum,qr_encode s_qr_encode,qr_image s_qr_image,group_name s_group_name,eqp_name s_eqp_name,eqp_direct s_eqp_direct,hostname s_hostname,rack_name s_rack_name,unit_position s_unit_position,rack_id s_rack_id FROM cable_qrcode F
 LEFT JOIN 
 (SELECT A.id dummy,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position,rack_id FROM equipment A
 JOIN rack B ON B.id = A.rack_id
@@ -21,14 +21,42 @@ JOIN bizgroup C ON C.id = A.group_id) E ON E.dummy = F.eqp_id
 ) BB ON AA.s_qr_id = BB.sqr_id
 LEFT JOIN 
 (
-SELECT id eqr_id,portnum e_portnum,slotnum e_slotnum,qr_encode e_qr_encode,qr_image e_qr_image,hostname e_hostname,rack_name e_rack_name,unit_position e_unit_position FROM cable_qrcode F
+SELECT id eqr_id,portnum e_portnum,slotnum e_slotnum,qr_encode e_qr_encode,qr_image e_qr_image,group_name e_group_name,hostname e_hostname,rack_name e_rack_name,unit_position e_unit_position FROM cable_qrcode F
 LEFT JOIN 
 (SELECT A.id dummy,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position FROM equipment A
 JOIN rack B ON B.id = A.rack_id
 JOIN bizgroup C ON C.id = A.group_id) E ON E.dummy = F.eqp_id
 ) CC ON AA.e_qr_id = CC.eqr_id
+WHERE 1=1 
+ <if test="s_group_name != null and s_group_name != ''">
+    AND s_group_name = '${s_group_name}'
+</if>
+<if test="e_group_name != null and e_group_name != ''">
+    AND e_group_name = '${e_group_name}'
+</if>
+ <if test="s_eqp_name != null and s_eqp_name != ''">
+    AND s_eqp_name LIKE CONCAT('%',#{s_eqp_name},'%')
+</if>
+ <if test="e_eqp_name != null and e_eqp_name != ''">
+    AND e_eqp_name LIKE CONCAT('%',#{e_eqp_name},'%')
+</if>
+ <if test="s_hostname != null and s_hostname != ''">
+    AND s_hostname = '${s_hostname}'
+</if>
+ <if test="e_hostname != null and e_hostname != ''">
+    AND e_hostname = '${e_hostname}'
+</if>
+<if test="s_rack_name != null and s_rack_name != ''">
+    AND s_rack_name = '${s_rack_name}'
+</if>
+<if test="e_rack_name != null and e_rack_name != ''">
+    AND e_rack_name = '${e_rack_name}'
+</if>
 ORDER BY s_rack_id,cast(s_unit_position AS UNSIGNED INTEGER) DESC
-) CCC, (SELECT @rownum:=0) TMP;
+) CCC, (SELECT @rownum:=#{offset}) TMP
+LIMIT #{offset},#{limit};
+
+
 
 
 
@@ -43,6 +71,52 @@ FROM buyingboard b, (SELECT @rownum:=0) TMP;
 
 
     </select>
+    
+    
+    <select id="selectCableListTotalCount" parameterType="sl.qr.mh.vo.Cable" resultType="int">
+	SELECT COUNT(*) FROM cable AA 
+LEFT JOIN (
+SELECT id sqr_id,portnum s_portnum,slotnum s_slotnum,qr_encode s_qr_encode,qr_image s_qr_image,group_name s_group_name,eqp_name s_eqp_name,eqp_direct s_eqp_direct,hostname s_hostname,rack_name s_rack_name,unit_position s_unit_position,rack_id s_rack_id FROM cable_qrcode F
+LEFT JOIN 
+(SELECT A.id dummy,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position,rack_id FROM equipment A
+JOIN rack B ON B.id = A.rack_id
+JOIN bizgroup C ON C.id = A.group_id) E ON E.dummy = F.eqp_id
+) BB ON AA.s_qr_id = BB.sqr_id
+LEFT JOIN 
+(
+SELECT id eqr_id,portnum e_portnum,slotnum e_slotnum,qr_encode e_qr_encode,qr_image e_qr_image,group_name e_group_name,hostname e_hostname,rack_name e_rack_name,unit_position e_unit_position FROM cable_qrcode F
+LEFT JOIN 
+(SELECT A.id dummy,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position FROM equipment A
+JOIN rack B ON B.id = A.rack_id
+JOIN bizgroup C ON C.id = A.group_id) E ON E.dummy = F.eqp_id
+) CC ON AA.e_qr_id = CC.eqr_id
+WHERE 1=1 
+  <if test="s_group_name != null and s_group_name != ''">
+    AND s_group_name = '${s_group_name}'
+</if>
+<if test="e_group_name != null and e_group_name != ''">
+    AND e_group_name = '${e_group_name}'
+</if>
+ <if test="s_eqp_name != null and s_eqp_name != ''">
+    AND s_eqp_name LIKE CONCAT('%',#{s_eqp_name},'%')
+</if>
+ <if test="e_eqp_name != null and e_eqp_name != ''">
+    AND e_eqp_name LIKE CONCAT('%',#{e_eqp_name},'%')
+</if>
+ <if test="s_hostname != null and s_hostname != ''">
+    AND s_hostname = '${s_hostname}'
+</if>
+ <if test="e_hostname != null and e_hostname != ''">
+    AND e_hostname = '${e_hostname}'
+</if>
+<if test="s_rack_name != null and s_rack_name != ''">
+    AND s_rack_name = '${s_rack_name}'
+</if>
+<if test="e_rack_name != null and e_rack_name != ''">
+    AND e_rack_name = '${e_rack_name}'
+</if>
+	</select>
+
     
     
       <!-- QR코드 조회 -->

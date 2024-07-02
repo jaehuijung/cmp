@@ -201,21 +201,36 @@ function GroupListTable() {
 	axios.get( url )
 			.then(function(res) {
 				
-				
+			
 				let groupList = res.data;		
-				$(".GroupListTable").remove();
+				$('#s_group_name').empty();
+				$('#e_group_name').empty();
+				var soption,eoption;
 				
-				html = "";
-			    html += "<div class='GroupListTable'>";	
-				html += "<select id='mainCate' name='mainCate' style='width:200px;'>"
-				html += "<option value=''>선택</option>";
+				soption = $("<option value=''>선택</option>");
+				eoption = $("<option value=''>선택</option>");    
+			    $('#s_group_name').append(soption);
+				
+				
+				$('#e_group_name').append(eoption);
+				//html = "";
+				
+				//html += "<select class='form-select' id='s_group_name' style='font-size: 13px;height:30px;'>"
+				//html += "<option value=''>선택</option>";
 				groupList.forEach((element) => {
-				html += "<option value='>" + element.id +"'>" + element.group_name + "</option>";
-				});
+				//html += "<option value='" + element.group_name +"'>" + element.group_name + "</option>";
+				
 		       
-				html += "</select>"
-				html += "</div>"
-				$(".GroupListDiv").append(html);
+				//html += "</select>"
+				soption = $("<option value='" + element.group_name +"'>" + element.group_name + "</option>");   
+				$('#s_group_name').append(soption);
+				
+				eoption = $("<option value='" + element.group_name +"'>" + element.group_name + "</option>");   
+				$('#e_group_name').append(eoption);
+
+
+				});
+				//$(".GroupListDiv").append(html);
 			})
 	
 }
@@ -273,11 +288,20 @@ function RackListTable() {
 		axios.get( url )
 				.then(function(res) {
 					
+
+					let rackList = res.data;
+					//$(".RackListTable").remove();
+
+					//$('#s_rack_name').empty();
+					//$('#e_rack_name').empty();
+					var soption, eoption;
+
+					soption = $("<option value=''>선택</option>");
+					eoption = $("<option value=''>선택</option>");
 					
-					let rackList = res.data;		
-					$(".RackListTable").remove();
-					
-					html = "";
+					$('#s_rack_name').append(soption);
+					$('#e_rack_name').append(eoption);
+					/*html = "";
 				    html += "<div class='RackListTable'>";	
 					html += "<select id='mainCate' name='mainCate' style='width:200px;'>"
 					html += "<option value=''>선택</option>";
@@ -286,8 +310,16 @@ function RackListTable() {
 					});
 			       
 					html += "</select>"
-					html += "</div>"
-					$(".RackListDiv").append(html);
+					html += "</div>"*/
+					rackList.forEach((element) => {
+					soption = $("<option value='" + element.name +"'>" + element.name + "</option>");   
+					$('#s_rack_name').append(soption);
+									
+					eoption = $("<option value='" + element.name +"'>" + element.name + "</option>");   
+					$('#e_rack_name').append(eoption);
+					
+					//$(".RackListDiv").append(html);
+					});
 				})
 	
 }
@@ -350,6 +382,216 @@ function EqpListTable(){
 		})
 }
 
+				  
+function SearchCableinfo() {
+	html = "";
+	html += "<div class='CableListInfo'><p style='margin-top:30px;'><i class='bi bi-check'></i>검색버튼 클릭시 목록조회 가능(컬럼 항목 체크)</p>"
+	html += "<p><i class='bi bi-check'></i> 조건을 입력하지 않고 검색시 전체 목록 검색</p></div>"
+	$(".CableListDiv").append(html);
+}
+
+
+function SearchCableList(page){
+	
+	let url = urlPre + '/test/cable/list';
+	let s_group_name = document.getElementById("s_group_name").value;
+	let s_eqp_name = document.getElementById("s_eqp_name").value;
+	let s_rack_name = document.getElementById("s_rack_name").value;
+	let s_unit_position = document.getElementById("s_unit_position").value;
+	let s_hostname = document.getElementById("s_hostname").value;
+	let e_group_name = document.getElementById("e_group_name").value;
+	let e_eqp_name = document.getElementById("e_eqp_name").value;
+	let e_rack_name = document.getElementById("e_rack_name").value;
+	let e_unit_position = document.getElementById("e_unit_position").value;
+	let e_hostname = document.getElementById("e_hostname").value;
+	let c_type = document.getElementById("c_type").value;
+	let c_velocity = document.getElementById("c_velocity").value;
+	let c_color = document.getElementById("c_color").value;
+	let current_page_no = page;
+
+
+	let c_s_group_name = document.getElementById("c_s_group_name");
+	let c_s_eqp_name = document.getElementById("c_s_eqp_name");
+	let c_s_eqp_direct = document.getElementById("c_s_eqp_direct");
+	let c_s_rack_name = document.getElementById("c_s_rack_name");
+	let c_s_unit_position = document.getElementById("c_s_unit_position");
+	let c_s_hostname = document.getElementById("c_s_hostname");
+	let c_s_slotnum = document.getElementById("c_s_slotnum");
+	let c_s_portnum = document.getElementById("c_s_portnum");
+	let c_e_eqp_name = document.getElementById("c_e_eqp_name");
+	let c_e_rack_name = document.getElementById("c_e_rack_name");
+	let c_e_unit_position = document.getElementById("c_e_unit_position");
+	let c_e_hostname = document.getElementById("c_e_hostname");
+	let c_e_slotnum = document.getElementById("c_e_slotnum");
+	let c_e_portnum = document.getElementById("c_e_portnum");
+	let c_c_velocity = document.getElementById("c_c_velocity");
+	let c_c_type = document.getElementById("c_c_type");
+	let c_c_color = document.getElementById("c_c_color");
+		
+	
+    var s_chk_length = 
+											
+	axios.get( url, {params:{	s_group_name : s_group_name,
+		  		  			s_eqp_name : s_eqp_name,
+		  		  			s_rack_name : s_rack_name,
+		  		  			s_unit_position : s_unit_position,
+		  		  			s_hostname : s_hostname,
+		  		  			e_group_name : e_group_name,
+		  		  			e_eqp_name : e_eqp_name,
+		  		  			e_rack_name : e_rack_name,
+		  					e_unit_position : e_unit_position,
+		  					e_hostname : e_hostname,
+		  					c_type : c_type,
+		  					c_velocity : c_velocity,
+							c_color : c_color,
+							current_page_no : current_page_no
+						}})
+		.then(function(res) {
+		
+			//console.log("db search!", res.data);
+			
+			
+		       
+			console.log(res.data[0].pagination);
+			//console.log("*************", res.data);
+			let cableList = res.data[0].list;
+			let s_colspn=0,e_colspn=0,c_colspn=0;
+			$(".tcount").remove();
+			$(".CableListInfo").remove();
+			$(".dpagination").remove();		
+			$(".CableListTable").remove();
+			$("#CableColDiv").remove();
+			html = "";
+			html += "<div class='tcount' style='margin-top:20px;'>Total Count : "+res.data[0].totalCount+"</div>";
+		    html += "<div class='CableListTable'>";	
+			html += "<table class='table table-bordered'>"
+			//html += "<div id='CableColDiv'></div>"
+			//html += "<tr class='table-secondary' style='text-align: center;'><th colspan=2>구분</th><th colspan=9>출발지</th><th colspan=5>목적지</th><th colspan=3>회선</th></tr>"
+			html += "<tr class='table-secondary'  style='text-align: center;'>"
+			html += 	"<th><input type='checkbox' name='mastarChkbox' onclick=QRChkFunction(this)></th>"
+			html += 	"<th>NO</th>"
+			if (c_s_group_name.checked) {
+				s_colspn++;
+			html += 	"<th>장비그룹명</th>" }
+			if (c_s_eqp_name.checked) {
+				s_colspn++;
+			html += 	"<th>장비명</th>" }
+			if (c_s_eqp_direct.checked) {
+				s_colspn++;
+			html += 	"<th>장비방향</th>"}
+			if (c_s_rack_name.checked) {
+				s_colspn++;
+			html += 	"<th>렉번호</th>" }
+			if (c_s_unit_position.checked) {
+				s_colspn++;
+			html += 	"<th>유닛번호</th>" }
+			if (c_s_hostname.checked) {
+				s_colspn++;
+			html += 	"<th>호스트명</th>" }
+			if (c_s_slotnum.checked) {
+				s_colspn++;
+			html += 	"<th>슬롯번호</th>" }
+			if (c_s_portnum.checked) {
+				s_colspn++;
+			html += 	"<th>포트번호</th>" }
+			if (c_e_rack_name.checked) {
+				e_colspn++;
+			html += 	"<th>렉번호</th>" }
+			if (c_e_unit_position.checked) {
+				e_colspn++;
+			html += 	"<th>유닛번호</th>" }
+			if (c_e_hostname.checked) {
+				e_colspn++;
+			html += 	"<th>호스트명</th>" }
+			if (c_e_slotnum.checked) {
+				e_colspn++;
+			html += 	"<th>슬롯번호</th>" }
+			if (c_e_portnum.checked) {
+				e_colspn++;
+			html += 	"<th>포트번호</th>" }
+			if (c_c_velocity.checked) {
+				c_colspn++;
+			html += 	"<th>선속도</th>" }
+			if (c_c_type.checked) {
+				c_colspn++;
+			html += 	"<th>선구분</th>" }
+			if (c_c_color.checked) {
+				c_colspn++;
+			html += 	"<th>선색상</th>" }
+			html += "</tr><thead id='kk'></thread><tbody>"
+			
+			
+			console.log("s************", s_colspn);
+			console.log("e************", e_colspn);
+			console.log("c************", c_colspn);
+
+			cableList.forEach((element) => {
+						qrParams = "[" + element.s_rack_name + "-" + element.s_unit_position + "]　"
+								 + element.s_hostname + "_" + element.s_portnum + "&&" 
+								 + "[" + element.e_rack_name + "-" + element.e_unit_position + "]　"
+								 + element.e_hostname + "_" + element.e_portnum + "&&"
+								 + element.s_qr_image + "&&" 
+								 + element.e_qr_image;
+	
+			html += 	"<tr style='color:"+element.request+";text-align: center;'>";
+			html += 		"<td><input type='checkbox' name='chkbox' onclick=QRUpdateTextFunction(this) id="+element.idx +" value="+ qrParams +"></td>";
+			html += 		"<td>" + element.rownum	 + "</td>";	
+			if (c_s_group_name.checked) {
+			html += 		"<td>" + element.s_group_name	 + "</td>";	}
+			if (c_s_eqp_name.checked) {
+			html += 		"<td>" + element.s_eqp_name	 + "</td>";	}	
+			if (c_s_eqp_direct.checked) {
+			html += 		"<td>" + element.s_eqp_direct	 + "</td>"; }
+			if (c_s_rack_name.checked) {
+			html += 		"<td>" + element.s_rack_name	 + "</td>"; }
+			if (c_s_unit_position.checked) {
+			html += 		"<td>" + element.s_unit_position	 + "</td>"; }
+			if (c_s_hostname.checked) {
+			html += 		"<td>" + element.s_hostname	 + "</td>"; }
+			if (c_s_slotnum.checked) {
+			html += 		"<td>" + element.s_slotnum	 + "</td>"; }
+			if (c_s_portnum.checked) {
+			html += 		"<td>" + element.s_portnum	 + "</td>"; }
+			if (c_e_rack_name.checked) {
+			html += 		"<td>" + element.e_rack_name	 + "</td>" }
+			if (c_e_unit_position.checked) {
+			html += 		"<td>" + element.e_unit_position	 + "</td>" }
+			if (c_e_hostname.checked) {
+			html += 		"<td>" + element.e_hostname	 + "</td>" }
+			if (c_e_slotnum.checked) {
+			html += 		"<td>" + element.e_slotnum	 + "</td>" }
+			if (c_e_portnum.checked) {
+			html += 		"<td>" + element.e_portnum	 + "</td>" }
+			if (c_c_velocity.checked) {			
+			html += 		"<td>" + element.c_velocity	 + "</td>" }
+			if (c_c_type.checked) {
+			html += 		"<td>" + element.c_type	 + "</td>" }
+			if (c_c_color.checked) {
+			html += 		"<td>" + element.c_color   + "</td>" }
+			html += 	"</tr>";
+		
+	
+			});
+	       
+	html += "</tbody></table>"
+			html += "</div>"
+			html += "<div class='dpagination' style='display: flex;justify-content: center;padding-top: 8px;'>";
+			html += res.data[0].pagination;
+			html += "</div>";
+			thh = "<tr class='table-secondary' style='text-align: center;'><th colspan=2>구분</th><th colspan=" + s_colspn + ">출발지</th><th colspan=" + e_colspn +">목적지</th><th colspan=" + c_colspn + ">회선</th></tr>";
+			console.log("thh************", thh);
+			$(".CableListDiv").append(html);
+			$("#kk").append(thh);
+			//$(".CableColDiv").append(thh);
+			//let thcol = document.getElementById('CableColDiv');
+			//thcol.innerHTML = thh;
+			//thcol.apppend(thh);
+			//const element = document.getElementById('content');
+			 //element.innerHTML = "<div style='color:red'>A</div>";
+		})
+}
+
+
 
 
 function CableListTable(){
@@ -403,9 +645,9 @@ function CableListTable(){
 			html += 	"<tr style='color:"+element.request+";'>"
 			html += 		"<td><input type='checkbox' name='chkbox' onclick=QRUpdateTextFunction(this) id="+element.idx +" value="+ qrParams +"></td>";
 			html += 		"<td>" + element.rownum	 + "</td>"	
-			html += 		"<td>" + element.group_name	 + "</td>"	
-			html += 		"<td>" + element.eqp_name	 + "</td>"		
-			html += 		"<td>" + element.eqp_direct	 + "</td>"
+			html += 		"<td>" + element.s_group_name	 + "</td>"	
+			html += 		"<td>" + element.s_eqp_name	 + "</td>"		
+			html += 		"<td>" + element.s_eqp_direct	 + "</td>"
 			html += 		"<td>" + element.s_rack_name	 + "</td>"
 			html += 		"<td>" + element.s_unit_position	 + "</td>"
 			html += 		"<td>" + element.s_hostname	 + "</td>"

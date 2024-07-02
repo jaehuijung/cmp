@@ -1231,3 +1231,21 @@ h6 {
   font-size: 13px;
   color: #012970;
 }
+
+.input-label {
+  margin:5px 0px 0px;
+  padding:0px 4px 0px;
+  text-align: right;
+  font-size: 15px;
+}
+
+.input-text {
+  padding:0px 4px 0px;
+  text-align: right;
+  font-size: 15px;
+}
+.select-col {
+  padding-right: 5px;
+  display:inline;
+  font-size: 15px;
+}

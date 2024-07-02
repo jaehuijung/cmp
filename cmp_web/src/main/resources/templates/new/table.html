@@ -4,6 +4,9 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/new_default_layout}">
 
+	 
+	  
+	  
 <div layout:fragment="content">
 	
 	
@@ -12,26 +15,189 @@
 		  <main id="main" class="main">
 
 		    <div class="pagetitle">
-		      <h1>선번장목록조회</h1>
-		      <nav>
-		        <ol class="breadcrumb">
-		          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-		          <li class="breadcrumb-item">선번장관리</li>
-		          <li class="breadcrumb-item active">선번장목록조회</li>
-		        </ol>
-		      </nav>
+				<nav>
+						        <ol class="breadcrumb">
+						          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+						          <li class="breadcrumb-item">선번장관리</li>
+						          <li class="breadcrumb-item active">선번장목록조회</li>
+						        </ol>
+						      </nav>
+							  
+		      <h1 s style="padding:0px 0px 10px;">선번장목록조회</h1>
+		      
 		    </div><!-- End Page Title -->
 
 		    <section class="section">
 		      <div class="row">
 		        <div class="col-lg-12">
 
-		          
 
+		          
+					<div class="card">
+					                <div class="card-body"  style="padding-top: 10px;">
+					                    <div class="row"  >
+					                        <div class="col-1" style="text-align:right;margin-top: 5px;padding-left:auto;padding-right: 23px;font-size: 15px;">컬럼항목선택</div>
+					                        <div class="col-11" style="margin-top: 5px;margin-top: 5px;padding-left:30px;padding-right: auto;">
+					                            <div class="select-col"><input class="form-check-input" type="checkbox" id="c_s_group_name" checked> ⓢ장비그룹  </div>
+					                            <div class="select-col"><input class="form-check-input" type="checkbox" id="c_s_eqp_name" checked> ⓢ장비</div>
+					                            <div class="select-col"><input class="form-check-input" type="checkbox" id="c_s_eqp_direct" checked> ⓢ장비방향</div>
+					                            <div class="select-col"><input class="form-check-input" type="checkbox" id="c_s_rack_name" checked> ⓢ랙번호</div>
+					                            <div class="select-col"><input class="form-check-input" type="checkbox" id="c_s_unit_position" checked> ⓢ유닛번호</div>
+					                            <div class="select-col"><input class="form-check-input" type="checkbox" id="c_s_hostname" checked> ⓢ호스트명</div>
+					                            <div class="select-col"><input class="form-check-input" type="checkbox" id="c_s_slotnum" checked> ⓢ슬롯번호</div>
+					                            <div class="select-col"><input class="form-check-input" type="checkbox" id="c_s_portnum" checked> ⓢ포트번호</div>
+					                            <div class="select-col"><input class="form-check-input" type="checkbox" id="c_e_s_group_name" checked> ⓔ장비그룹 </div>
+					                            <div class="select-col"><input class="form-check-input" type="checkbox" id="c_e_eqp_name" checked> ⓔ장비</div>
+					                            <div class="select-col"><input class="form-check-input" type="checkbox" id="c_e_eqp_direct" checked> ⓔ장비방향</div>
+					                            <div class="select-col"><input class="form-check-input" type="checkbox" id="c_e_rack_name" checked> ⓔ랙번호</div>
+					                            <div class="select-col"><input class="form-check-input" type="checkbox" id="c_e_unit_position" checked> ⓔ유닛번호</div>
+					                            <div class="select-col"><input class="form-check-input" type="checkbox" id="c_e_hostname" checked> ⓔ호스트명</div>
+					                            <div class="select-col"><input class="form-check-input" type="checkbox" id="c_e_slotnum" checked> ⓔ슬롯번호</div>
+					                            <div class="select-col"><input class="form-check-input" type="checkbox" id="c_e_portnum" checked> ⓔ포트번호</div>
+												<div class="select-col"><input class="form-check-input" type="checkbox" id="c_c_velocity" checked> 선속도</div>
+					                            <div class="select-col"><input class="form-check-input" type="checkbox" id="c_c_type" checked> 선구분</div>
+					                            <div class="select-col"><input class="form-check-input" type="checkbox" id="c_c_color" checked> 선색상</div>
+					                        </div>
+					                    </div>
+					                    <div class="row">
+					                        <div class="col-11">
+					                    <!-- 검색 input 시작 -->
+					                    <div class="row" style="margin-top: 10px;">
+					                        <div class="col-1" style="text-align:right;margin-top: 5px;font-size: 15px;">출발지
+					                        </div>
+					                        <div class="col">
+					                            <div class="row">
+					                                <div class="col-sm-4 input-label">장비그룹</div>
+					                                <div class="col-sm-8 input-text">
+														<select class="form-select" id="s_group_name" style="font-size: 13px;height:30px;">	
+					                              		
+														</select>
+					                                </div>
+					                            </div>
+					                        </div>
+					                        <div class="col">
+					                            <div class="row">
+					                                <div class="col-sm-4 input-label">장비명</div>
+					                                <div class="col-sm-8 input-text"><input type="text" class="form-control" id="s_eqp_name" style="font-size: 13px;height:30px;"></div>
+					                            </div>
+					                        </div>
+					                        <div class="col">
+					                            <div class="row">
+					                                <div class="col-sm-4 input-label">호스트네임</div>
+					                                <div class="col-sm-8 input-text"><input type="text" class="form-control" id="s_hostname" style="font-size: 13px;height:30px;"></div>
+					                            </div>
+					                        </div>
+					                        <div class="col">
+					                            <div class="row">
+					                                <div class="col-sm-4 input-label">랙번호</div>
+					                                <div class="col-sm-8 input-text">
+					                                    <select class="form-select" id="s_rack_name" style="font-size: 13px;height:30px;">
+					                                     
+					                                    </select>
+					                                </div>
+					                            </div>
+					                        </div>
+					                        <div class="col">
+					                            <div class="row">
+					                                <div class="col-sm-4 input-label">유닛번호</div>
+					                                <div class="col-sm-8 input-text"><input type="text" class="form-control" id="s_unit_position" style="font-size: 13px;height:30px;"></div>
+					                            </div>
+					                        </div>
+					                    </div>
+					                    <div class="row" style="margin-top: 10px;">
+					                        <div class="col-1" style="text-align:right;margin-top: 5px;font-size: 15px;">목적지</div>
+					                        <div class="col">
+					                            <div class="row">
+					                                <div class="col-sm-4 input-label">장비그룹</div>
+					                                <div class="col-sm-8 input-text">
+					                                    <select class="form-select" id="e_group_name" style="font-size: 13px;height:30px;">
+					                                       
+					                                    </select>
+					                                </div>
+					                            </div>
+					                        </div>
+					                        <div class="col">
+					                            <div class="row">
+					                                <div class="col-sm-4 input-label">장비명</div>
+					                                <div class="col-sm-8 input-text"><input type="text" class="form-control" id="e_eqp_name" style="font-size: 13px;height:30px;"></div>
+					                            </div>
+					                        </div>
+					                        <div class="col">
+					                            <div class="row">
+					                                <div class="col-sm-4 input-label">호스트네임</div>
+					                                <div class="col-sm-8 input-text"><input type="text" class="form-control" id="e_hostname" style="font-size: 13px;height:30px;"></div>
+					                            </div>
+					                        </div>
+					                        <div class="col">
+					                            <div class="row">
+					                                <div class="col-sm-4 input-label">랙번호</div>
+					                                <div class="col-sm-8 input-text">
+					                                    <select class="form-select" id="e_rack_name" style="font-size: 13px;height:30px;">
+					                                       
+					                                    </select>
+					                                </div>
+					                            </div>
+					                        </div>
+					                        <div class="col">
+					                            <div class="row">
+					                                <div class="col-sm-4 input-label">유닛번호</div>
+					                                <div class="col-sm-8 input-text"><input type="text" class="form-control" id="e_unit_position" style="font-size: 13px;height:30px;"></div>
+					                            </div>
+					                        </div>
+					                    </div>
+
+					                    <div class="row" style="margin-top: 10px;">
+					                        <div class="col-1" style="text-align:right;margin-top: 5px;font-size: 15px;">회선</div>
+					                        <div class="col">
+					                            <div class="row">
+					                                <div class="col-sm-4 input-label">회선구분</div>
+					                                <div class="col-sm-8 input-text">
+					                                    <select class="form-select" id="c_type" style="font-size: 13px;height:30px;">
+					                                        <option selected>선택</option>
+					                                        <option value="1">-</option> 
+					                                    </select>
+					                                </div>
+					                            </div>
+					                        </div>
+					                        <div class="col">
+					                            <div class="row">
+					                                <div class="col-sm-4 input-label">회선속도</div>
+					                                <div class="col-sm-8 input-text"><input type="text" class="form-control" id="c_velocity" style="font-size: 13px;height:30px;"></div>
+					                            </div>
+					                        </div>
+					                        <div class="col">
+					                            <div class="row">
+					                                <div class="col-sm-4 input-label">회선색상</div>
+					                                <div class="col-sm-8 input-text"><input type="text" class="form-control" id="c_color" style="font-size: 13px;height:30px;"></div>
+					                            </div>
+					                        </div>
+					                        <div class="col"></div>
+					                        <div class="col"></div>
+					                    </div>
+
+					                    </div>
+
+					                    
+
+
+
+					                    <!-- 검색 input 종료 -->
+					                    <div class="col-1" style="text-align: center;">
+					                        <button type="button" class="btn btn-secondary btn-lg" style="font-size:15px;margin-top: 15px;" onclick="SearchCableList(1);">검색</button>
+					                    </div>
+					                </div>
+					               
+					            </div>
+					            </div>
+					      
+
+
+					
+					
+					
+					
 		          <div class="card">
 		            <div class="card-body">
-		              <h5 class="card-title">Small tables</h5>
-		              <p>Add <code>.table-sm</code> to make any <code>.table</code> more compact by cutting all cell padding in half.</p>
 					  <!-- Bordered Table -->
 					  <div class="CableListDiv"></div>
 		            </div>
@@ -49,7 +215,9 @@
 	<script th:src="@{/js/axios.min.js}"></script>
 			<script th:src="@{/js/jquery.min.js}"></script>
 			<script th:src="@{/js/jsfunction.js}"></script>
-			<script>CableListTable();</script>
+			<script>RackListTable()</script>
+			<script>GroupListTable();</script>
+			<script>SearchCableinfo();</script>
 			
 	</th:block>
 </div>

@@ -351,6 +351,7 @@ function EqpListTable(){
 }
 
 
+
 function CableListTable(){
 	let url = urlPre+'/test/cable/list';
 	axios.get( url )
