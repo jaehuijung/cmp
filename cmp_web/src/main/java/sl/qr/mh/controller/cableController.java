@@ -26,7 +26,7 @@ public class cableController {
 	@GetMapping("/eqplist")
 	public String geteqpList(HttpSession session,
 			HttpServletRequest request) {
-		return "/eqplist";
+		return "new/eqplist";
 		        
 	}
 	

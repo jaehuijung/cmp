@@ -456,13 +456,16 @@ function SearchCableList(page){
 			//console.log("*************", res.data);
 			let cableList = res.data[0].list;
 			let s_colspn=0,e_colspn=0,c_colspn=0;
-			$(".tcount").remove();
+			$(".tab-top").remove();
 			$(".CableListInfo").remove();
 			$(".dpagination").remove();		
 			$(".CableListTable").remove();
 			$("#CableColDiv").remove();
 			html = "";
-			html += "<div class='tcount' style='margin-top:20px;'>Total Count : "+res.data[0].totalCount+"</div>";
+			html += "<div class='tab-top' style='display: flex;width:100%'>";
+			html += "<div style='margin-top:20px;'>Total Count : "+res.data[0].totalCount+"</div>"
+			html += "<div  style='margin-top:5px;margin-left:auto;'><button type='button' class='btn btn-outline-secondary' style='margin:5px 0px 10px 10px'>엑셀 다운로드</button>";
+			html += "<button type='button' class='btn btn-outline-secondary'style='margin:5px 0px 10px 10px' onclick='QRPDFImg()'>PDF인쇄</button></div></div>";
 		    html += "<div class='CableListTable'>";	
 			html += "<table class='table table-bordered'>"
 			//html += "<div id='CableColDiv'></div>"
@@ -582,12 +585,7 @@ function SearchCableList(page){
 			console.log("thh************", thh);
 			$(".CableListDiv").append(html);
 			$("#kk").append(thh);
-			//$(".CableColDiv").append(thh);
-			//let thcol = document.getElementById('CableColDiv');
-			//thcol.innerHTML = thh;
-			//thcol.apppend(thh);
-			//const element = document.getElementById('content');
-			 //element.innerHTML = "<div style='color:red'>A</div>";
+
 		})
 }
 

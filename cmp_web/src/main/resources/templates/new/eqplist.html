@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/new_default_layout}">
+
+
+
+
+<div layout:fragment="content">
+
+
+
+
+	<main id="main" class="main"></main>
+	<th:block layout:fragment="script">
+
+		<script th:src="@{/js/axios.min.js}"></script>
+		<script th:src="@{/js/jquery.min.js}"></script>
+		<script th:src="@{/js/jsfunction.js}"></script>
+		<script>SearchCableinfo();</script>
+
+	</th:block>
+</div>
+
+
+
+</html>

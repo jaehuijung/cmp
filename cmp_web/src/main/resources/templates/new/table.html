@@ -199,6 +199,14 @@
 		          <div class="card">
 		            <div class="card-body">
 					  <!-- Bordered Table -->
+					  <form name='qrFormData' id='targetForm' method='GET' action='/api/qr/printqr' onsubmit='qrSubmit();'>
+					  									<input type='hidden' id='qrChk' name='qrChk' value=''/>
+					  									<input type='hidden' id='qrStart' name='qrStart' value=''/>
+					  									<input type='hidden' id='qrEnd' name='qrEnd' value=''/>
+					  									<input type='hidden' id='qrStartImage' name='qrStartImage' value=''/>
+					  									<input type='hidden' id='qrEndImage' name='qrEndImage' value=''/>
+					  									<!--<input type='submit' id='targetBtn' class="etc" value='EXCEL'/>-->
+					  								</form>
 					  <div class="CableListDiv"></div>
 		            </div>
 		          </div>
