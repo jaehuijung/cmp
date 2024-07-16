@@ -35,6 +35,7 @@ public class QRApiController {
     public QRApiController(
             qrService qrService,
             databaseService databaseService) {
+    	
         this.qrService = qrService;
         this.databaseService = databaseService;
         
@@ -51,13 +52,19 @@ public class QRApiController {
             @RequestParam Map<String, String> qrList) throws NumberFormatException, IOException {
         //log.info("qr print!");
     	
+    	
         Workbook wb = qrService.QRPrint(qrList);
         response.setContentType("ms-vnd/excel");
         response.setHeader("Content-Disposition", "attachment;filename=test.xlsx");
 
         wb.write(response.getOutputStream());
         wb.close();
+        
+		
     }
+    
+    
+	
     
     /**
      * @brief QR 정보 검색

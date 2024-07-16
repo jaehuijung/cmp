@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import sl.qr.mh.vo.User;
+
 @Mapper
 public interface databaseMapper {
 	
@@ -102,7 +104,9 @@ public interface databaseMapper {
 	 */
 	public void updateQRParam(Map<String, String> qrMap);
 
-
+	public User selectUser(User vo);
+	public void updateUser(User vo);
+	public void deleteUser(User vo);
 
 	
 }

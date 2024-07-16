@@ -27,6 +27,10 @@ function moveQRInsert(){
 	location.href = urlPre + '/sl/qr/insert';
 }
 
+
+
+	
+
 // [완료]
 // QR 등록
 function QRInsertDatabase(){
@@ -235,6 +239,47 @@ function GroupListTable() {
 	
 }
 
+function EqpGroupList(str) {
+	
+	
+	
+
+	let url = urlPre+'/test/group/list';
+	
+	axios.get( url )
+			.then(function(res) {
+				
+			
+				let groupList = res.data;		
+				$('#group_name').empty();
+				var soption,eoption;
+				
+				option = $("<option value=''>선택</option>");
+			    $('#group_name').append(option);
+				
+				
+				groupList.forEach((element) => {
+				option = $("<option value='" + element.group_name +"'>" + element.group_name + "</option>");   
+				$('#group_name').append(option);
+				
+				});
+				if(str != "" || str != null || str != undefined){
+					$('#group_name').val(str).prop("selected", true);
+				//	$('#group_name').val(str)).prop("selected", true);
+				}
+			})
+	
+}
+
+
+
+
+
+
+
+
+
+
 function checkhostnameExist(){
 	
 	const hostname = $("#hostname").val()
@@ -324,40 +369,96 @@ function RackListTable() {
 	
 }
 
-function EqpListTable(){
+function EqpRackList(str) {
+	let url = urlPre+'/test/rack/list';
+		
+		axios.get( url )
+				.then(function(res) {
+					
+
+					let rackList = res.data;
+					//$(".RackListTable").remove();
+
+					var option;
+
+					option = $("<option value=''>선택</option>");
+					
+					$('#rack_name').append(option);
+					
+					rackList.forEach((element) => {
+					option = $("<option value='" + element.name +"'>" + element.name + "</option>");   
+					$('#rack_name').append(option);
+									
+					});
+					
+					if(str != "" || str != null || str != undefined){
+									$('#rack_name').val(str).prop("selected", true);
+								//	$('#group_name').val(str)).prop("selected", true);
+					}
+					
+					
+				})
+	
+}
+
+function EqpListTable(page){
 	
 	let url = urlPre+'/test/quipment/list';
-	axios.get( url )
+	
+	/*html += "<table class='table table-bordered'><thead>"
+			html += "<tr><th colspan=11>출발지</th><th colspan=5>목적지</th><th colspan=3>회선</th></tr>"
+			html += "<tr>"
+			html += 	"<th><input type='checkbox' name='mastarChkbox' onclick=QRChkFunction(this)></th>"
+			html += 	"<th>NO</th>"
+			html += 	"<th>장비그룹명</th>"
+			html += 	"<th>장비명</th>"
+			html += 	"<th>장비방향</th>"
+			
+	*/		
+	let current_page_no = page;	
+	axios.get( url	, {params:{	
+								/*group_name : group_name,
+			  		  			eqp_name : eqp_name,
+			  		  			rack_name : rack_name,
+			  					unit_position : unit_position,
+			  					hostname : hostname,
+			  					m_company : m_company,
+			  					yearofintroduct : yearofintroduct,
+								model : model,*/
+								current_page_no : current_page_no
+							}} )
 		.then(function(res) {
 			console.log("db search!", res.data);
 			
-			let eqpList = res.data;		
+			//let eqpList = res.data;
+			let eqpList = res.data[0].list;		
 			$(".EquipmentListTable").remove();
 			html = "";
-		    html += "<div class='EquipmentListTable'>";	
-			html += "<table class='cable-list'><thead>"
+		    html += "<div class='EquipmentListTable' >";	
+			html += "<table class='table table-bordered'><thead>"
 
-			html += "<tr>"
-			html += 	"<th width=5%><input type='checkbox' name='mastarChkbox' onclick=QRChkFunction(this)></th>"
-			html += 	"<th width=5%>NO</th>"
-			html += 	"<th width=15%>장비그룹명</th>"
+			html += "<tr style='text-align: center;vertical-align: top;' class='table-secondary'>"
+		//	html += 	"<th width=5%><input type='checkbox' name='mastarChkbox' onclick=QRChkFunction(this)></th>"
+			html += 	"<th width=3%>NO</th>"
+			html += 	"<th width=10%>장비그룹명</th>"
 			html += 	"<th width=15%>장비명</th>"
 			html += 	"<th width=10%>장비방향</th>"
-			html += 	"<th width=5%>렉번호</th>"
+			html += 	"<th width=7%>렉번호</th>"
 			html += 	"<th width=5%>유닛번호</th>"
 			html += 	"<th width=16%>호스트명</th>"
-			html += 	"<th width=8%>제조사</th>"
-			html += 	"<th width=8%>모델</th>"
-			html += 	"<th width=8%>도입년도</th>"
-	
+			html += 	"<th width=6%>제조사</th>"
+			html += 	"<th width=6%>모델</th>"
+			html += 	"<th width=6%>도입년도</th>"
+			html += 	"<th width=11%>수정</th>"
+			//onclick="location.href='./index.html'"
 			html += "</tr></thread><tbody>"
 			
 
 			eqpList.forEach((element) => {
 						
 	      
-		    html += 	"<tr>"
-			html += 		"<td><input type='checkbox' name='chkbox' onclick=QRUpdateTextFunction(this)></td>";
+		    html += 	"<tr style='text-align: center;' >"
+		//	html += 		"<td><input type='checkbox' name='chkbox' onclick=QRUpdateTextFunction(this)></td>";
 			html += 		"<td>" + element.rownum	 + "</td>"	
 			html += 		"<td>" + element.group_name	 + "</td>"	
 			html += 		"<td>" + element.eqp_name	 + "</td>"		
@@ -367,8 +468,9 @@ function EqpListTable(){
 			html += 		"<td>" + element.hostname	 + "</td>"
 			html += 		"<td>" + element.m_company+ "</td>"
 			html += 		"<td>" +element.model	 + "</td>"
-			html += 		"<td>" +element.yearofintroduct	 + "</td>"
-
+			html += 		"<td>" +element.yearofintroduct	 + "</td>";
+			html += 		"<td><button type='button' class='btn btn-outline-secondary' onclick='eqp_update(" +  element.eqp_id + ");' style='font-size:10px;margin-right:5px;'>수정</button><button type='button' class='btn btn-outline-secondary' onclick='eqp_delete(" 
+							+  element.eqp_id + ");' style='font-size:10px;'>삭제</button></td>";
 			
 			
 		
@@ -377,12 +479,112 @@ function EqpListTable(){
 			});
 	       
 	html += "</tbody></table>"
-			html += "</div>"
+			
+			html += "<div class='dpagination' style='display: flex;justify-content: center;padding-top: 8px;'>";
+					html += res.data[0].pagination;
+					html += "</div>";
+					html += "</div>"
 			$(".EqpListDiv").append(html);
 		})
 }
 
-				  
+
+function SearchEqpinfo(str) {
+	
+	
+	let url = urlPre + '/test/quipment/search';
+	let search_keyword = 'hostname';
+	let chk = str;
+	let search_value;
+	if (chk == "s") {
+	 search_value= document.getElementById("c_s_hostname").value;
+	} else if(chk == "e") {
+     search_value= document.getElementById("c_e_hostname").value;	
+	}
+	
+	if(search_value==null || search_value=="") {
+		alert("호스트명을 입력하세요");
+		return;
+	}
+	
+	axios.get(url, {
+		params: {
+			search_keyword : search_keyword ,
+			search_value : search_value  
+		}})
+		.then(function(res) {
+
+			let sList = res.data;
+
+			html = '';
+			$(".EqpSearch").remove();
+			html += "<div class='EqpSearch'>";
+			
+			if (sList.length == 0) {
+				html += "<div>조회 Data가 없습니다.</div>";
+
+			} else {
+				
+				sList.forEach((element) => {
+					
+					param = chk + "," + element.hostname + "," + element.eqp_name + "," + element.rack_name + "," + element.unit_position;
+					param = param.replace(/ /g,"")
+					//param = element.hostname + "_" + element.unit_position;
+		
+	                html +=  "<div class='seleqp'>" + element.eqp_name +" ("+ element.hostname+ ")";
+					html +=  "<button type='button' class='btn btn-secondary' onclick='SetEqpinfo(\"" + param + "\")';>선택</button></div>";
+					
+
+				});
+			}
+			
+			html += "</div>";
+			$(".SearchDiv").append(html);
+		})
+}
+$('#staticBackdrop').on('hidden.bs.modal', function (e) {     
+	$('#c_s_hostname').val("");
+	//$('#c_e_hostname').val("");
+		$(".EqpSearch").remove();
+	
+})
+
+$('#end-cable').on('hidden.bs.modal', function (e) {     
+	$('#c_e_hostname').val("");
+	//$('#c_s_hostname').val("");
+		$(".EqpSearch").remove();
+	
+})
+
+function SetEqpinfo(str) {
+	
+	let seqp = str.split(',');
+	let chk = seqp[0];
+	let hostname = seqp[1];
+	let eqp_name = seqp[2];
+	let unit_position = seqp[3];
+	if (chk == "s") {
+	$('#s_hostname').val(seqp[1]);
+	$('#s_eqp_name').val(seqp[2]);
+	$('#s_rack_name').val(seqp[3]);
+	$('#s_unit_position').val(seqp[4]);
+	//$(".EqpSearch").remove();
+	$('#staticBackdrop').modal('hide');
+	
+	} else if(chk == "e") {
+		$('#e_hostname').val(seqp[1]);
+			$('#e_eqp_name').val(seqp[2]);
+			$('#e_rack_name').val(seqp[3]);
+			$('#e_unit_position').val(seqp[4]);
+			//$(".EqpSearch").remove();	
+	$('#end-cable').modal('hide');
+	}
+	//alert(eqp_name);
+	
+	
+}
+
+		  
 function SearchCableinfo() {
 	html = "";
 	html += "<div class='CableListInfo'><p style='margin-top:30px;'><i class='bi bi-check'></i>검색버튼 클릭시 목록조회 가능(컬럼 항목 체크)</p>"
@@ -409,7 +611,6 @@ function SearchCableList(page){
 	let c_color = document.getElementById("c_color").value;
 	let current_page_no = page;
 
-
 	let c_s_group_name = document.getElementById("c_s_group_name");
 	let c_s_eqp_name = document.getElementById("c_s_eqp_name");
 	let c_s_eqp_direct = document.getElementById("c_s_eqp_direct");
@@ -429,7 +630,7 @@ function SearchCableList(page){
 	let c_c_color = document.getElementById("c_c_color");
 		
 	
-    var s_chk_length = 
+    //var s_chk_length = 
 											
 	axios.get( url, {params:{	s_group_name : s_group_name,
 		  		  			s_eqp_name : s_eqp_name,
@@ -448,12 +649,7 @@ function SearchCableList(page){
 						}})
 		.then(function(res) {
 		
-			//console.log("db search!", res.data);
-			
-			
-		       
 			console.log(res.data[0].pagination);
-			//console.log("*************", res.data);
 			let cableList = res.data[0].list;
 			let s_colspn=0,e_colspn=0,c_colspn=0;
 			$(".tab-top").remove();
@@ -464,8 +660,11 @@ function SearchCableList(page){
 			html = "";
 			html += "<div class='tab-top' style='display: flex;width:100%'>";
 			html += "<div style='margin-top:20px;'>Total Count : "+res.data[0].totalCount+"</div>"
-			html += "<div  style='margin-top:5px;margin-left:auto;'><button type='button' class='btn btn-outline-secondary' style='margin:5px 0px 10px 10px'>엑셀 다운로드</button>";
+			html += "<div  style='margin-top:5px;margin-left:auto;'><button type='button' class='btn btn-outline-secondary' style='margin:5px 0px 10px 10px'>엑셀 다운로드</button>";		
 			html += "<button type='button' class='btn btn-outline-secondary'style='margin:5px 0px 10px 10px' onclick='QRPDFImg()'>PDF인쇄</button></div></div>";
+			//html += "<button type='button' class='btn btn-outline-secondary'style='margin:5px 0px 10px 10px' data-bs-toggle='modal' data-bs-target='#modalprint'>PDF인쇄</button></div></div>";
+			
+			//html += "<button type='button' class='btn btn-outline-secondary' style='margin:5px 0px 10px 10px' >PDF인쇄</button>"
 		    html += "<div class='CableListTable'>";	
 			html += "<table class='table table-bordered'>"
 			//html += "<div id='CableColDiv'></div>"
@@ -876,19 +1075,49 @@ function qrSubmit(){
 
 // [완료]
 // QR PDF
+
+function QRPDFPrint() {
+	html = "";
+		html += "<!DOCTYPE HTML>"
+		html += "<html>"
+		html += "<head>"
+		html += 	"<meta charset='utf-8'>"
+		html += 	"<title>QR Print</title>"
+		html += 	"<link rel='stylesheet' href='/css/printQR.css' />"
+		html += 	"<script src='/js/jquery.min.js'></script>"
+		html += "</head>"
+		html += "<body>"
+		html += "<a href='javascript:window.print();'>프린터하기</a>"
+		html += "<header><button type='button' id='print_btn'>프린트</button></header>"
+		html += "<section>safdasdf<section>"
+		html +=     "<script> 			$(document).on('click', '#print_btn' , function(e){ window.print(); }); </script>"
+		html += "</body>"
+		html += "</html>";
+		
+	let windowUrl = "";
+	let windowTarget = "_blank";
+	let windowOption = "width=1280, menubar=no, toolbar=no, location=no, status=no";
+	win = window.open(windowUrl, windowTarget, windowOption);
+	self.focus();
+	win.document.open();
+	win.document.write(html);
+	
+}
+
+
 function QRPDFImg(){
 	console.log("QR PDF print");	
 	let chkboxCnt = $("input:checkbox[name=chkbox]:checked")
-	
+
 	html = "";
 	html += "<!DOCTYPE HTML>"
-	html += "<html xmlns:th='http://www.thymeleaf.org'>"
+	html += "<html>"
 	html += "<head>"
 	html += 	"<meta charset='utf-8'>"
 	html += 	"<title>QR Print TEST</title>"
 	html += 	"<link rel='stylesheet' href='/css/printQR.css' />"
 	html += "</head>"
-	html += "<body>"
+	html += "<body><header>"
 	html += 	"<hr id='sep'>"	
 	html += 	"<div id= QRPrintHead>"		
 	html +=		"<p>※ 미리보기 영역은 QR 이미지가 어떤 모양인지 확인하기 위해 보여짐</p>"
@@ -898,13 +1127,16 @@ function QRPDFImg(){
 	html += 		"<input type='range'  id='printRange' value='1' min='1' max='3' step='0.01' oninput='QRPlusMinusFunction(this.value);'/>"
 	html += 		"<input type='button' class='printBtn' value='+' onClick='QRPlusFunction();'>"
 	html += 	"</div>"	
-	html += 	"<hr id='sep'>"
-	html += 	"<div class='QRPrintTable' id='QRPrintTable'>";
+	html += 	"<hr id='sep' style='margin:20px 0px;'></header>"
+	//html += 	"<div class='QRPrintTable' id='QRPrintTable'>";
 	html += 	"<div class='QRPrintWrap' id='QRPrintWrap'>";
 	for (let x=0; x<chkboxCnt.length; x++){
 		// 0 : 시작문자 1 : 끝문자 2 : 시작이미지 3 : 끝 이미지
 		let qrParams = chkboxCnt[x].value.split("&&");
-
+		//let start = qrParams[0];
+		//console.log("adsfdsadfdasf");
+		//console.log(chkboxCnt.length);
+		
 		html += "<div class='printWrap'>"
 		html += 	"<div class='printLeftWrap'>"
 		html += 		"<div class='printLeftImgSrc'>"
@@ -923,16 +1155,32 @@ function QRPDFImg(){
 		html += 		"</div>";
 		html += 	"</div>";
 		html += "</div>";
+	/*	html += "<div class='printWrap'>"
+		html += "<table style='margin:0px;padding:0px'>"
+		html += "			<tr>"
+		html += "						<td rowspan='2' style='width:50px;font-size:30px;text-align: center;vertical-align: top;padding:0px;margin:0px;'>S</td>"
+		html += "						<td rowspan='2' style='width:80px;vertical-align: top'><img src="+qrParams[2]+" style='width:35px;'></td>"
+		html += "						<td  class='qrtd'>[R09-31]</td><td  class='qrtd' style='width:200px;  border-right: 4px dashed black;'>PBBAIS01_S1_P01</td>"
+		html += "						<td  class='qrtd' style='width:120px; text-align:right;'>[R09-31]</td><td  class='qrtd'>PBBAIS01_S1_P01</td>"
+		html += "						<td rowspan='2' style='width:80px;text-align: right;vertical-align: top'><img src="+qrParams[3]+" style='width:35px;'></td>"
+		html += " 						<td rowspan='2' style='width:50px;font-size:30px;text-align: center;vertical-align: top;padding:0px;margin:0px;'>E</td>"
+		html += "					</tr>"
+		html += "					<tr>"
+		html += "						<td class='qrtd'>[R09-31]</td><td  class='qrtd' style='border-right: 4px dashed black;'>PBBAIS01_S1_P01</td>"
+		html += "						<td  class='qrtd' style='width:100px; text-align:right;'>[R09-31]</td><td  class='qrtd'>PBBAIS01_S1_P01</td>"
+		html += "					</tr>"
+		html += "				</table>"
+		html += 	"</div>";*/
 	}
 	html += 	"</div>"
-	html += 	"</div>"
+	//html += 	"</div>"
 	html += 	"<script src='/js/function.js'></script>"
 	html += "</body>"
 	html += "</html>";
 
 	let windowUrl = "";
 	let windowTarget = "_blank";
-	let windowOption = "width=1280, menubar=no, toolbar=no, location=no, status=no";
+	let windowOption = "width=900,height=800, menubar=no, toolbar=no, location=no, status=no";
 	win = window.open(windowUrl, windowTarget, windowOption);
 	self.focus();
 	win.document.open();
@@ -1077,5 +1325,44 @@ function systemQRLogTable(el){
 		html += "</div>"
 		$(".systemDiv").append(html);		
 	})
+}
+
+
+function userInfo() {
+	let url = urlPre+'/api/system/alluser';
+	
+		
+		axios.get( url )
+		.then(function(res) {
+			console.log("user search", res.data);
+			
+			let userList = res.data;		
+			//$(".userDiv").remove();
+
+			html = '';
+			html += "<table class='table table-bordered' style='margin-top:20px;'><tr class='table-secondary'  style='text-align: center;'>"
+			html += 	"<th>NO</th>"
+			html += 	"<th>ID</th>"		
+			html += 	"<th>Name</th>"
+			html += 	"<th>E-mail</th>"
+			html += 	"<th>Phone Number</th>" + "<th>수정</th></tr>"
+
+			userList.forEach((element,index) => {
+				let uid = element.id;
+				html += 	"<tr style='text-align: center;'>"
+				html += 		"<td>"+(index+1)+"</td>"
+				html += 		"<td>"+ uid +"</td>"
+				html += 		"<td>"+element.name +"</td>"
+				html += 		"<td>"+element.email+"</td>"
+				html += 		"<td>"+element.phone+"</td>"
+				html += 		"<td style='width:150px;'><button type='button' class='btn btn-outline-secondary' onclick=usr_update('" +  uid + "'); style='font-size:13px;margin-right:10px;'>수정</button><button type='button' class='btn btn-outline-secondary' onclick=usr_delete('" 	  
+				html += 		uid + "'); style='font-size:13px;'>삭제</button></td>";
+				html += 	"</tr>"
+			});
+			
+			html += "</table>"
+			$(".userDiv").append(html);
+		})
+	
 }
 

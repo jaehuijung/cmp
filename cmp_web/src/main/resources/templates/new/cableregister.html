@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/new_default_layout}">
+
+
+
+
+<div layout:fragment="content">
+
+
+
+
+	<main id="main" class="main">
+
+		<div class="pagetitle">
+			<nav>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+					<li class="breadcrumb-item">선번장관리</li>
+					<li class="breadcrumb-item active">선번장 추가</li>
+				</ol>
+			</nav>
+
+			<h1 style="padding: 0px 0px 10px;">선번장 추가</h1>
+
+		</div>
+		<!-- End Page Title -->
+		  <section class="section">
+		  
+		   <div class="card" style="padding:10px;">
+		   
+		   
+		   
+		   
+		          	<form id="CablewriteForm" action="/cable/insert" name="writeForm" method="post">
+		         <table class='table table-bordered'>
+		         <tr class='table-secondary'>
+		         <th style='text-align: center;'>출발지</th><th style='text-align: center;'>목적지</th>
+		         </tr>
+		         <tr>
+		         <td>
+		         <table class='table table-borderless'>
+		         	<tr>
+							<th>호스트명 <span style="color: red">*</span></th>
+							<td><div style="display:flex; justify-content: flex-start;">
+								<div style="margin-right:auto">
+								<input type="text" class="form-control" name="s_hostname" id="s_hostname" style="width:200px;height:35px;" readonly/></div>
+									<div>
+									<button type='button' class='btn btn-outline-secondary' data-bs-toggle="modal" data-bs-target="#staticBackdrop">장비선택</button>
+							
+							
+							<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">출발지 장비선택</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      
+         <div class="col">
+         		 <div class="row" style="padding:0px 20px;">
+         		호스트명 &nbsp; &nbsp;<input type="text" class="form-control" name="c_s_hostname" id="c_s_hostname" style="width:200px;height:35px;"  />&nbsp; &nbsp;
+         		<button type='button' class='btn btn-outline-secondary' onclick='SearchEqpinfo("s");' style='width:100px;'>검색</button>
+         		 </div>
+         		  <div class="row">
+         		  <div class="SearchDiv"></div>
+         		  </div>
+         </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+     <!--    <button type="button" class="btn btn-primary">Understood</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+									
+									</div>
+								</div>
+							</td>
+					</tr>
+					<tr>
+							<th>장비명 <span style="color: red">*</span></th>
+							<td><input type="text" class="form-control" name="s_eqp_name" id="s_eqp_name" style="font-size: 14px;height:35px;" readonly/></td>
+					</tr>
+					<tr>
+							<th>랙번호 <span style="color: red">*</span></th>
+							<td><input type="text" class="form-control" name="s_rack_name" id="s_rack_name" style="font-size: 14px;height:35px;" readonly/></td>
+					</tr>
+					<tr>
+							<th>유닛번호 <span style="color: red">*</span></th>
+							<td><input type="text" class="form-control" name="s_unit_position" id="s_unit_position" style="font-size: 14px;height:35px;" readonly/></td>
+					</tr>
+					<tr>
+							<th>슬롯번호 <span style="color: red">*</span></th>
+							<td><input type="text" class="form-control" name="s_slotnum" id="s_slotnum" style="font-size: 14px;height:35px;" /></td>
+					</tr>
+					<tr>
+							<th>포트번호 <span style="color: red">*</span></th>
+							<td><input type="text" class="form-control" name="s_portnum" id="s_portnum" style="font-size: 14px;height:35px;"/></td>
+					</tr>
+		         </table>
+		         
+		         
+		         </td>
+		         <td>
+		          <table class='table table-borderless'>
+		         	<tr>
+							<th width="100px">호스트명 <span style="color: red">*</span></th>
+							<td><div style="display:flex; justify-content: flex-start;">
+								<div style="margin-right:auto">
+								<input type="text" class="form-control" name="e_hostname" id="e_hostname" style="width:200px;height:35px;" readonly/></div>
+									<div>
+									<button type='button' class='btn btn-outline-secondary' data-bs-toggle="modal" data-bs-target="#end-cable">장비선택</button></div>
+									
+									
+<div class="modal fade" id="end-cable" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">목적지 장비선택</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      
+         <div class="col">
+         		 <div class="row"  style="padding:0px 20px;">
+         		호스트명&nbsp; &nbsp; <input type="text" class="form-control" name="c_e_hostname" id="c_e_hostname" style="width:150px;height:35px;"  />&nbsp; &nbsp;
+         		<button type='button' class='btn btn-outline-secondary' onclick='SearchEqpinfo("e");' style='width:100px;'>검색</button>
+         		 </div>
+         		  <div class="row">
+         		  <div class="SearchDiv"></div>
+         		  </div>
+         </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      <!--   <button type="button" class="btn btn-primary">Understood</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+								</div>
+							</td>
+					</tr>
+					<tr>
+							<th>장비명 <span style="color: red">*</span></th>
+							<td><input type="text" class="form-control" name="e_eqp_name" id="e_eqp_name" style="font-size: 14px;height:35px;" readonly/></td>
+					</tr>
+					<tr>
+							<th>랙번호 <span style="color: red">*</span></th>
+							<td><input type="text" class="form-control" name="e_rack_name" id="e_rack_name" style="font-size: 14px;height:35px;" readonly/></td>
+					</tr>
+					<tr>
+							<th>유닛번호 <span style="color: red">*</span></th>
+							<td><input type="text" class="form-control" name="e_unit_position" id="e_unit_position" style="font-size: 14px;height:35px;" readonly/></td>
+					</tr>
+					<tr>
+							<th>슬롯번호 <span style="color: red">*</span></th>
+							<td><input type="text" class="form-control" name="e_slotnum" id="e_slotnum" style="font-size: 14px;height:35px;"/></td>
+					</tr>
+					<tr>
+							<th>포트번호 <span style="color: red">*</span></th>
+							<td><input type="text" class="form-control" name="e_portnum" id="e_portnum" style="font-size: 14px;height:35px;"/></td>
+					</tr>
+		         </table>
+		         
+		         </td>
+		         </tr>
+		         <tr>
+		         <td colspan=2>
+		          <table class='table table-borderless'>
+		          <tr>
+							<th style='width:150px;'>선구분 <span style="color: red">*</span></th>
+							<td><select class="form-select" id="c_type" name="c_type" style="font-size: 14px;height:35px;width:300px;">	
+					                    <option value=''>선택</option>
+					                    <option value='광'>광</option>
+					                    <option value='UTP'>UTP</option>          		
+								</select>
+							</td>
+					</tr>
+					<tr>
+							<th style='width:150px;'>회선속도 <span style="color: red">*</span></th>
+							<td><input type="text" class="form-control" name="c_velocity" id="c_velocity" style="font-size: 14px;height:35px;width:300px;"/></td>
+					</tr>
+					<tr>
+							<th style='width:150px;'>회선색상 <span style="color: red">*</span></th>
+							<td><input type="text" class="form-control" name="c_color" id="c_color" style="font-size: 14px;height:35px;width:300px;"/></td>
+					</tr>
+		          
+		          </table>
+		         
+		         </td>
+		         </tr>
+		         </table>
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+		           
+		     
+		           <div style='display:flex;justify-content: center;'>
+				<div><button type='button' class='btn btn-outline-secondary' onclick='check();' style='margin:0px 10px'>저장</button></div>
+				<div><button type='button' class='btn btn-outline-secondary' onclick='goList();return false;' style='margin:0px 10px'>취소</button></div>
+			</div>
+		         
+		          
+		         </form>
+		            
+		   </div>
+		  
+		  </section>
+
+	
+	<!-- End #main -->
+
+	</main>
+	<th:block layout:fragment="script">
+
+		<script th:src="@{/js/axios.min.js}"></script>
+		<script th:src="@{/js/jquery.min.js}"></script>
+		<script th:src="@{/js/jsfunction.js}"></script>
+<script>
+				
+			function check() {
+				let fchk = document.getElementById("CablewriteForm");
+				
+				//alert(fchk.hostnameChecked.value);
+				
+				if (fchk.s_hostname.value == "" || fchk.s_hostname.value.length == 0) {
+					alert("출발지 장비를 선택해 주세요");
+					//let key1 = document.getElementsByName('group_name')[0]; 
+					 //  key1.focus();
+					 //  key1.select();
+					 //document.getElementById("group_name")[1].focus();
+
+				} /* else if (fchk.e_hostname.value == "" || fchk.e_hostname.length == 0) {
+					alert("목적지 장비를 선택해 주세요");
+					fchk.eqp_name.focus();
+				} else if (fchk.s_portnum.value == "" || fchk.s_portnum.value.length == 0) {
+					alert("출발지 포트번호를 입력해 주세요");
+					fchk.hostname.focus();
+				} else if (fchk.e_portnum.value == "" || fchk.e_portnum.length == 0) {
+					alert("목적지 포트번호를 입력해 주세요");
+					//fchk.hostnam.focus();
+				} else if (fchk.c_type.value == "" || fchk.c_type.value.length == 0) {
+					alert("회선구분을 선택해 주세요");
+				
+				} else if (fchk.c_velocity.value == "" || fchk.c_velocity.value.length == 0) {
+					alert("회선속도를 입력 해주세요");
+				
+				} else if (fchk.c_color.value == "" || fchk.c_color.length == 0) {
+					alert("회선색상을 입력 해주세요");
+				
+				}  */else {
+					//alert(document.writeForm.eqp_name.value);
+						fchk.submit();
+				}
+			}
+			
+			function goList() {
+			        location.href = "/cablelist";
+			    }
+			
+		
+		
+		</script>
+
+	</th:block>
+</div>
+
+
+
+</html>

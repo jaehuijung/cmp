@@ -17,14 +17,14 @@
 			        <a class="nav-link collapsed" data-bs-target="#cable-nav" data-bs-toggle="collapse" href="#">
 			          <i class="bi bi-upc-scan"></i><span>선번장관리</span><i class="bi bi-chevron-down ms-auto"></i>
 			        </a>
-			        <ul id="cable-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
+			        <ul id="cable-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
 			          <li>
-			            <a href="components-alerts.html"  class="active">
+			            <a id="cablelist_link" href="/test" class="a-link" >
 			              <i class="bi bi-circle"></i><span>선번장목록</span>
 			            </a>
 			          </li>
 			          <li>
-			            <a href="components-accordion.html">
+			            <a id="cablereg_link" href="/cableregister">
 			              <i class="bi bi-circle"></i><span>선번장추가</span>
 			            </a>
 			          </li>  
@@ -38,13 +38,13 @@
 			          <i class="ri ri-database-line"></i><span>장비관리</span><i class="bi bi-chevron-down ms-auto"></i>
 			        </a>
 			        <ul id="eqp-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-			          <li>
-			            <a href="tables-general.html" >
+			          <li >
+			            <a id="eqplist_link" href="/eqplist">
 			              <i class="bi bi-circle"></i><span>장비목록</span>
 			            </a>
 			          </li>
 			          <li>
-			            <a href="tables-data.html">
+			            <a id="eqpreg_link" href="/eqpregister">
 			              <i class="bi bi-circle"></i><span>장비추가</span>
 			            </a>
 			          </li>
@@ -56,18 +56,18 @@
 			          <i class="bi bi-person-circle"></i><span>사용자관리</span><i class="bi bi-chevron-down ms-auto"></i>
 			        </a>
 			        <ul id="user-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-			          <li>
-			            <a href="tables-general.html">
+			          <li >
+			            <a id="usrlist_link" href="/usr/list">
 			              <i class="bi bi-circle"></i><span>사용자목록</span>
 			            </a>
 			          </li>
 			          <li>
-			            <a href="tables-data.html">
+			            <a  id="usrreg_link" href="/usr/regster">
 			              <i class="bi bi-circle"></i><span>사용자추가</span>
 			            </a>
 			          </li>
 			           <li>
-			            <a href="tables-data.html">
+			            <a  href="tables-data.html">
 			              <i class="bi bi-circle"></i><span>권한관리</span>
 			            </a>
 			          </li>
@@ -89,6 +89,41 @@
 			    </ul>
 
 			  </aside><!-- End Sidebar-->
+			  <th:block layout:fragment="script">
+			  		<script th:src="@{/js/jquery.min.js}"></script>
+	
+			  			<script>
+			  			
+			  			 
+			  			var loc_path = location.pathname;
+			  			
+			  			if(loc_path == "/test"){
+			  				$("#cable-nav").addClass("show");
+							$("#cablelist_link").addClass("active");
+			  			} else if(loc_path == "/cableregister") {
+			  				$("#cable-nav").addClass("show");
+			  				$("#cablereg_link").addClass("active");
+			  			} else if(loc_path == "/eqplist") {
+			  				$("#eqp-nav").addClass("show");
+			  				$("#eqplist_link").addClass("active");
+			  			} else if(loc_path == "/eqpregister") {
+			  				$("#eqp-nav").addClass("show");
+							$("#eqpreg_link").addClass("active");
+			  			} else if(loc_path == "/usr/list") {
+			  				$("#user-nav").addClass("show");
+							$("#usrlist_link").addClass("active");
+			  			} else if(loc_path == "/usr/regster") {
+			  				$("#user-nav").addClass("show");
+			  				$("#usrreg_link").addClass("active");
+			  			}
+			  			
+			  			</script>
+			  	
+			  			
+			  				<!-- Template Main JS File -->
+		
+			  			
+			  </th:block>
 	
 </div>
 </html>

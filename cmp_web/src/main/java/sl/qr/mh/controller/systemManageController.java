@@ -2,7 +2,7 @@ package sl.qr.mh.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -20,7 +20,7 @@ public class systemManageController {
 	 * @param request SERVLET REQUEST
 	 * @return String
 	 */
-	@PostMapping(value = "/sl/qr/systempage")
+	@GetMapping(value = "/sl/qr/systempage")
 	public String systemPage(
 			HttpSession session,
 			HttpServletRequest request) throws Exception {

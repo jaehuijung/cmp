@@ -82,7 +82,7 @@ public class joinPageController {
 				url = "redirect:/sl/qr/systempage";
 			}
 
-			return "/system";
+			return "new/usrlist";
 		}
 
 }

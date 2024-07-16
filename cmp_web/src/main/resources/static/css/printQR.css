@@ -1,3 +1,29 @@
+	@media print{
+			header{opacity:0;visibility:hidden;display:none}
+
+@page {
+		 size: 9mm 120mm;
+		 size: landscape;
+		 top: 0px;
+		 left: 0px;
+		 margin:0;
+		 padding: 0;
+ }
+
+	}
+
+
+
+.qrtd {
+			font-size:10px;
+			padding: 0px;
+			margin:0px;
+			vertical-align: top;
+			height: 18px;
+
+}
+		
+	
 body{
     display: grid;
     margin : 0;
@@ -5,22 +31,22 @@ body{
 }
 
 #sep{
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 0px;
+    margin-bottom: 0px;
     width:100%;
 }
 
 #QRPrintHead {
-    margin-left: 25px;
+    margin-left: 0px;
 }
 
 .QRPrintTable{
-    width: 95%;
+    width: 100%;
     /* width: 21cm; */
     /* min-height: 29.7cm; */
-    min-height: 20cm;
-    padding: 0.5cm;
-    margin: 0 auto;
+  /*   min-height: 20cm; */
+    padding: 0px;
+    margin: 0px;
     background:#eee;
 }
 
@@ -29,61 +55,64 @@ body{
 }
 
 .printWrap{
-    page-break-before:always;
-
+    page-break-before:always; 
     display: inline-flex;
     flex-direction: row;
-    margin-right: 30px;
+    margin: 0;
+    padding: 0;
+    
+  
 }
 
 .printLeftWrap{
     display: flex;
     border-right: 1px dashed;
-    margin: 0px 0px 10px 0px;
-    padding: 5px 0px 5px 5px;
+    margin: 0;
+    padding: 0;
     background-color: yellow;
 }
 
 .printRightWrap{
     display: flex;
     flex-direction: row-reverse;
-    margin: 0px 0px 10px 0px;
-    padding: 5px 5px 5px 0px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
     background-color: yellow;
 }
 
 .printLeftImgSrc{
     display: flex;
-    align-items: center;
+    align-items: top;
 }
 
-.printLeftLabelSrc{    
-    padding-left: 10px;
-    text-align: left;
-
+.printLeftLabelSrc{  
+	margin:0px;
     display: flex;
-    align-items: center;
+    align-items: top;
+    vertical-align: top;
 }
 
 .printRightImgSrc{
     display: flex;
-    align-items: center;
+    align-items: top;
 }
 
 .printRightLabelSrc{
-    padding-right: 10px;
+	margin:0px;
+    vertical-align: top;
     text-align: right;
 
     display: flex;
-    align-items: center;
+    align-items: top;
 }
 
 .printImg{
-    width:50px;
-    height: 50px;
+    width:30px;
+    height: 30px;
 }
 
 .printLabel{
+	margin:0px;
     font-size: 12px;
     width: 200px;
 }

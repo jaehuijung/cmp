@@ -137,14 +137,69 @@ JOIN bizgroup C ON C.id = A.group_id) E ON E.id = F.eqp_id
         where id = #{qr_id}
     </update>
 
-	  <select id="selectEqpList" resultType="sl.qr.mh.vo.Equipment">
+	  <select id="selectEqpList" parameterType="sl.qr.mh.vo.Equipment" resultType="sl.qr.mh.vo.Equipment">
 	SELECT
 @rownum:=@rownum+1 AS rownum, b.* FROM (
   SELECT A.id eqp_id,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position,rack_id,m_company,yearofintroduct,model FROM equipment A
 JOIN rack B ON B.id = A.rack_id
 JOIN bizgroup C ON C.id = A.group_id
-)b ,(SELECT @rownum:=0) TMP;
+)b ,(SELECT @rownum:=#{offset}) TMP
+LIMIT #{offset},#{limit};
 	  </select>
+	  
+	  <select id="ExcelEqpList" parameterType="sl.qr.mh.vo.Equipment" resultType="sl.qr.mh.vo.Equipment">
+  SELECT A.id eqp_id,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position,rack_id,m_company,yearofintroduct,model FROM equipment A
+JOIN rack B ON B.id = A.rack_id
+JOIN bizgroup C ON C.id = A.group_id
+	  </select>
+	  
+
+	  
+	   <select id="selectSearchEqp" parameterType="sl.qr.mh.vo.Equipment" resultType="sl.qr.mh.vo.Equipment">
+  SELECT A.id eqp_id,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position,rack_id,m_company,yearofintroduct,model FROM equipment A
+JOIN rack B ON B.id = A.rack_id
+JOIN bizgroup C ON C.id = A.group_id
+where 1=1 
+<if test="search_keyword =='hostname'">
+    and hostname LIKE CONCAT('%',#{search_value},'%')
+</if>
+	  </select>
+	  
+	   <select id="selectupdateEqp" parameterType="sl.qr.mh.vo.Equipment" resultType="sl.qr.mh.vo.Equipment">
+  SELECT A.id eqp_id,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position,rack_id,m_company,yearofintroduct,model FROM equipment A
+JOIN rack B ON B.id = A.rack_id
+JOIN bizgroup C ON C.id = A.group_id
+where 1=1 and A.id = #{eqp_id};
+	  </select>
+	  
+	  <!-- [변경] 시스템에서 변경요청된 데이터 변경 -->
+    <update id="updateEqp" parameterType="sl.qr.mh.vo.Equipment">
+      UPDATE equipment 
+	SET
+	group_id = (select id from bizgroup where group_name = #{group_name}),
+	eqp_name = #{eqp_name},
+	hostname = #{hostname},
+	m_company = #{m_company},
+	model = #{model},
+	rack_id = (select id from rack where name = #{rack_name}),
+	eqp_direct = #{eqp_direct},
+	unit_position = #{unit_position},
+	yearofintroduct = #{yearofintroduct}
+	WHERE id = #{eqp_id};
+    </update>
+	  <delete id="deleteEqp" parameterType="sl.qr.mh.vo.Equipment">
+        delete from equipment
+        where id = #{eqp_id}
+    </delete>
+	  
+	  
+	  
+	   <select id="selectEqpListTotalCount" parameterType="sl.qr.mh.vo.Equipment" resultType="int">
+	   SELECT COUNT(*) FROM equipment A
+JOIN rack B ON B.id = A.rack_id
+JOIN bizgroup C ON C.id = A.group_id
+	   </select>
+	  
 	    <select id="selectBizList" resultType="sl.qr.mh.vo.Group">
 			SELECT id,group_name from bizgroup;
 </select>
@@ -155,5 +210,28 @@ SELECT id,name FROM rack;
  SELECT hostname FROM equipment WHERE hostname = #{hostaname}
  </select>
  
+ <insert id="insertEqp" parameterType="sl.qr.mh.vo.Equipment">
+	insert into equipment
+	(group_id,eqp_name,hostname,rack_id,eqp_direct,unit_position,m_company,yearofintroduct,model)
+	value ((select id from bizgroup where group_name=#{group_name}),#{eqp_name},#{hostname},
+	(select id from rack where name=#{rack_name}),#{eqp_direct},#{unit_position},#{m_company},#{yearofintroduct},#{model});
+</insert>
+
+<select id="selectQRid" resultType="int">
+SELECT MAX(id)+1 FROM cable_qrcode
+</select>
+
+
+ <insert id="insertQR" parameterType="sl.qr.mh.vo.QR">
+	insert into cable_qrcode (id,eqp_id,portnum,slotnum,qr_encode,qr_image) 
+	value (#{qr_id},(select id eqp_id from equipment where hostname=#{hostname}),#{portnum},#{slotnum},#{qr_encode},#{qr_image});       
+</insert>
+
+
+ <insert id="insertCable" parameterType="sl.qr.mh.vo.Cable">
+	insert into cable (s_qr_id,e_qr_id,c_velocity,c_type,c_color) 
+	value (#{s_qr_id},#{e_qr_id},#{c_velocity},#{c_type},#{c_color});    
+</insert>
+   
  
 </mapper>

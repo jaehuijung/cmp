@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
@@ -23,6 +24,8 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
+import sl.qr.mh.vo.Equipment;
+
 @Service
 public class qrService implements qrServiceI {
 	// Linux & windows 경로 설정
@@ -37,6 +40,45 @@ public class qrService implements qrServiceI {
      * @param qrList QR 일련번호가 담긴 맵 객체
      * @return Workbook
      */
+   public Workbook EqpExcel(List<Equipment> list) throws IOException {
+	   String templatesPath = staticPath + "qrTemplate" + sep + "Eqplistemplate.xlsx";
+       FileInputStream file = new FileInputStream(templatesPath);
+       Workbook wb = new XSSFWorkbook(file);
+		
+		  Sheet sheet = wb.getSheetAt(0); Row row; 
+		  int cnt =1; 
+		  for (Equipment vo : list) { 
+			  row = sheet.createRow(cnt);
+		  row.createCell(0).setCellValue(vo.getEqp_name());
+		  row.createCell(1).setCellValue(vo.getHostname());
+		  row.createCell(2).setCellValue("dsffd");
+		  row.createCell(3).setCellValue("dfjkjk");
+		  cnt++;
+		  
+		  }
+		 
+       
+       return wb;
+       
+       
+       /*
+		 * 
+		 * 
+		 * UserVO newTechAdmin = new UserVO();
+			newTechAdmin.setSearchCode(Constant.NEW_TECH_ADMIN_CODE);
+			List<UserVO> newTechAdminList = userService.getList(newTechAdmin);
+		 * 
+		 * for (UserVO userVO : newTechAdminList) { AnnounceVO announceVO = new
+		 * AnnounceVO(); announceVO.setSenderId(userId);
+		 * announceVO.setSenderName(userNm); announceVO.setTargetId(userVO.getUserId());
+		 * announceVO.setTargetName(userVO.getUserNm());
+		 * announceVO.setSubject(Constant.NEW_TECH_SUBJECT);
+		 * announceVO.setContent(userNm+"님이 [" + resultVO.getMainCateNm() + "] [" +
+		 * resultVO.getTechNo() + "] [" + resultVO.getArea() + "] 설계(변경) 반영을 제출하였습니다.");
+		 * announceService.announceInsert(announceVO); }
+		 */
+    	
+   }
     public Workbook QRPrint(Map<String, String> qrList) throws IOException {
         //log.info("qr print ...");
 

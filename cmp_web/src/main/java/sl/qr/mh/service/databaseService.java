@@ -7,6 +7,10 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
+import sl.qr.mh.vo.User;
+
+@Slf4j
 @Service
 public class databaseService {
 	
@@ -157,6 +161,22 @@ public class databaseService {
 			//log.info(">>> dbService... systemDeleteQR delete <<<");
 			databaseMapper.updateQRParam(qrMap);
 			//log.info(">>> fin <<<");
+		}
+		
+		public User selectUser(User vo) {
+			
+			vo = databaseMapper.selectUser(vo);
+			
+		
+			return vo;
+		}
+		
+		public void updateUser(User vo) {
+			databaseMapper.updateUser(vo);
+		}
+		
+		public void deleteUser(User vo) {
+			databaseMapper.deleteUser(vo);
 		}
 		
 

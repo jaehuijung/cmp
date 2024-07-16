@@ -49,11 +49,11 @@ public class cableManageController {
 	
 	
 	@GetMapping(value = "/test/quipment/list")
-    public List<Equipment> getEquipmentListData(
+    public List<HashMap<String, Object>> getEquipmentListData(Equipment vo,
             HttpSession session,
             HttpServletRequest request) {
-     
-        List<Equipment> selectEquipmentList = cableservice.selectEqpList();
+        //vo.setCurrent_page_no(1);
+		List<HashMap<String, Object>> selectEquipmentList = cableservice.selectEqpList(vo);
         
 		/*
 		 * Iterator<Equipment> it = selectEquipmentList.iterator(); while(it.hasNext())
@@ -68,6 +68,16 @@ public class cableManageController {
 		 */
         return selectEquipmentList;
 }
+	
+@GetMapping(value = "/test/quipment/search")
+public List<Equipment> getEqpSearchData(Equipment vo, HttpSession session,
+		HttpServletRequest request) {
+	
+	List<Equipment> list = cableservice.selectSearchEqp(vo);
+	
+	return list;
+}
+	
 	@GetMapping(value = "/test/group/list")
     public List<Group> getGroupListData(
             HttpSession session,

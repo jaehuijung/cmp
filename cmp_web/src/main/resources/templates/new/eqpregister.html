@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/new_default_layout}">
+
+
+
+
+<div layout:fragment="content">
+
+
+
+
+	<main id="main" class="main">
+		<div class="pagetitle">
+			<nav>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+					<li class="breadcrumb-item">장비관리</li>
+					<li class="breadcrumb-item active">장비추가</li>
+				</ol>
+			</nav>
+
+			<h1 style="padding: 0px 0px 10px;">장비추가</h1>
+
+		</div>
+		<!-- End Page Title -->
+
+		<section class="section">
+			<div class="card col-lg-4">
+				<div class="card-body">
+				
+				<form id="writeForm" action="/eqp/insert" name="writeForm" method="post">
+					<input type="hidden" id="hostnameChecked"  value="false"/>
+				
+				
+				<table class='table table-borderless'>
+				
+						<tr>
+							<th>장비그룹명 <span style="color: red">*</span></th>
+							<td>
+								
+								<select class="form-select" id="group_name" name="group_name" style="font-size: 14px;height:35px;">	
+					                              		
+								</select>
+							</td>
+						</tr>
+							<tr>
+							<th>장비명 <span style="color: red">*</span></th>
+							<td><input type="text" class="form-control" name="eqp_name" id="eqp_name" style="font-size: 14px;height:35px;"/></td>
+						</tr>
+						<tr>
+							<th>호스트명 <span style="color: red">*</span></th>
+							<td><div style="display:flex; justify-content: flex-start;">
+								<div style="margin-right:auto">
+								<input type="text" class="form-control" name="hostname" id="hostname" style="width:300px;height:35px;"/></div>
+									<div>
+									<button type='button' class='btn btn-outline-secondary' onclick='checkhostnameExist();'>중복체크</button></div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>장비방향 <span style="color: red">*</span></th>
+							<td>
+								<select  class="form-select" id="eqp_direct" name="eqp_direct" style="width:300px;height:35px;font-size: 14px;">
+									<option value=>선택</option>
+									<option value="전면">전면</option>
+									<option value="후면">후면</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th>랙번호 <span style="color: red">*</span></th>
+							<td>
+								<select class="form-select" id="rack_name" name="rack_name" style="font-size: 14px;height:35px;">
+					                                     
+					                                    </select>
+						
+							</td>
+						</tr>
+						<tr>
+							<th class="">유닛번호 <span style="color: red">*</span></th>
+							<td><input type="text" class="form-control" name="unit_position" id="unit_position" style="font-size: 14px;height:35px;"/></td>
+						</tr>
+
+						<tr>
+							<th>제조사</th>
+							<td><input type="text" class="form-control" name="m_company" id="m_company" style="font-size: 14px;height:35px;"/></td>
+						</tr>
+						<tr>
+							<th>모델명</th>
+							<td><input type="text" class="form-control" name="model" id="model" style="height:35px;font-size: 14px;" /></td>
+						</tr>
+						<tr>
+							<th>도입년도</th>
+							<td><input type="text" class="form-control" name="yearofintroduct" id="yearofintroduct" style="font-size: 14px;height:35px;"/></td>
+						</tr>
+				</table>
+					<div style='display:flex;justify-content: center;'>
+				<div><button type='button' class='btn btn-outline-secondary' onclick='check();' style='margin:0px 10px'>저장</button></div>
+				<div><button type='button' class='btn btn-outline-secondary' onclick='goList();return false;' style='margin:0px 10px'>취소</button></div>
+			</div>
+			
+				</div>
+			</div>
+		</section>
+		</form>
+	</main>
+	<th:block layout:fragment="script">
+
+		<script th:src="@{/js/axios.min.js}"></script>
+		<script th:src="@{/js/jquery.min.js}"></script>
+		<script th:src="@{/js/jsfunction.js}"></script>
+				<script>EqpGroupList()</script>
+				<script>EqpRackList()</script>
+	<script>
+				
+			function check() {
+				let fchk = document.getElementById("writeForm");
+				
+				//alert(fchk.hostnameChecked.value);
+				
+				if (fchk.group_name.value == "" || fchk.group_name.value.length == 0) {
+					alert("장비그룹명을 선택해 주세요");
+					//let key1 = document.getElementsByName('group_name')[0]; 
+					 //  key1.focus();
+					 //  key1.select();
+					 //document.getElementById("group_name")[1].focus();
+
+				} else if (fchk.eqp_name.value == "" || fchk.eqp_name.value.length == 0) {
+					alert("장비명을 입력해 주세요");
+					fchk.eqp_name.focus();
+				} else if (fchk.hostname.value == "" || fchk.hostname.value.length == 0) {
+					alert("호스트명을 입력해 주세요");
+					fchk.hostname.focus();
+				} else if (fchk.eqp_direct.value == "" || fchk.eqp_direct.value.length == 0) {
+					alert("장비방향을 선택해 주세요");
+					//fchk.hostnam.focus();
+				} else if (fchk.rack_name.value == "" || fchk.rack_name.value.length == 0) {
+					alert("랙번호를 선택해 주세요");
+				
+				} else if (fchk.hostnameChecked.value == "false") {
+					alert("호스트명 중복체크 해주세요");
+					fchk.hostname.focus();
+				} else {
+					//alert(document.writeForm.eqp_name.value);
+						fchk.submit();
+				}
+			}
+			
+			  function goList() {
+			        location.href = "/eqplist";
+			    }
+			
+		
+		</script>
+
+	</th:block>
+</div>
+
+
+
+</html>

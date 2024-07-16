@@ -18,9 +18,19 @@ public interface cableMapper {
 	public List<Cable> selectCableList(Cable vo);
 	public List<QR> selectQRList();
 	public void updateQR(QR qr);
-	public List<Equipment> selectEqpList();
+	public List<Equipment> selectEqpList(Equipment vo);
+	public List<Equipment> selectSearchEqp(Equipment vo);
 	public List<Group> selectBizList();
 	public List<Rack> selectRackList();
 	public String checkHostname(String hostname);
 	public int selectCableListTotalCount(Cable vo);
+	public int selectQRid();
+	public void insertQR(QR qr);
+	public void insertCable(Cable vo);
+	public int selectEqpListTotalCount(Equipment vo);
+	public void insertEqp(Equipment vo);
+	public Equipment selectupdateEqp(Equipment vo);
+	public void updateEqp(Equipment vo);
+	public void deleteEqp(Equipment vo);
+	//public List<Cable> ExcelEqpList
 }

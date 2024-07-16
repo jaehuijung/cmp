@@ -17,29 +17,26 @@
 			<nav>
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="index.html">Home</a></li>
-					<li class="breadcrumb-item">장비관리</li>
-					<li class="breadcrumb-item active">장비목록조회</li>
+					<li class="breadcrumb-item">사용자관리</li>
+					<li class="breadcrumb-item active">사용자목록조회</li>
 				</ol>
 			</nav>
 
-			<h1 style="padding: 0px 0px 10px;">장비목록조회</h1>
+			<h1 style="padding: 0px 0px 10px;">사용자목록조회</h1>
 
 		</div>
 		<!-- End Page Title -->
 
 		<section class="section">
 			<div class="card">
-				<div class="card-body">
-				<form name='updateForm' id='updateForm' method='GET' action='/eqp/update'>
-							<input type='hidden' id='update_eqp_id' name='eqp_id' value=''/>
+			<div class="card-body">
+				<form name='updateForm' id='updateForm' method='POST' action='/usr/updateform'>
+							<input type='hidden' id='update_usr_id' name='id' value=''/>
 				</form>
-				<form name='deleteForm' id='deleteForm' method='POST' action='/eqp/delete'>
-							<input type='hidden' id='del_eqp_id' name='eqp_id' value=''/>
+				<form name='deleteForm' id='deleteForm' method='POST' action='/usr/delete'>
+							<input type='hidden' id='del_usr_id' name='id' value=''/>
 				</form>
-			   <div  style='margin-top:5px;margin-left:auto;display: flex;justify-content: flex-end;' >
-			   <button type='button' class='btn btn-outline-secondary' style='margin:5px 0px 10px 10px;font-size:12px;' onclick="location.href='/eqp/exceldown'">엑셀 다운로드</button></div>
-					<div class="EqpListDiv"></div>
-				</div>
+			<div class="userDiv"></div>
 			</div>
 		</section>
 	</main>
@@ -48,27 +45,27 @@
 		<script th:src="@{/js/axios.min.js}"></script>
 		<script th:src="@{/js/jquery.min.js}"></script>
 		<script th:src="@{/js/jsfunction.js}"></script>
-		<script>EqpListTable(1);</script>
+		<script>userInfo();</script>
 		<script>
 		
-		function eqp_update(id) {
+		function usr_update(id) {
 			let fchk = document.getElementById("updateForm");
-			$('#update_eqp_id').val(id);
+			$('#update_usr_id').val(id);
 			//alert(id);
 			fchk.submit();
 			
 		};
 		
-		function eqp_delete(id) {
+		function usr_delete(id) {
 			let fchk = document.getElementById("deleteForm");
-			$('#del_eqp_id').val(id);
+			$('#del_usr_id').val(id);
 			fchk.submit();
 			
 		}
 		
 	
 		</script>
-
+		
 	</th:block>
 </div>
 
