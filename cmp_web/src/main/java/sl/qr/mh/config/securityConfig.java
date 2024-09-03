@@ -22,7 +22,7 @@ public class securityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
-                //.requiresChannel(channel -> channel.anyRequest().requiresSecure())
+                .requiresChannel(channel -> channel.anyRequest().requiresSecure())
                 .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
                 .build();
     }

@@ -2,7 +2,7 @@
 /**************** 전역변수 ****************/
 // base url
 //let urlPre = "https://mapleutil.site";
-let urlPre = "http://127.0.0.1:8080";
+let urlPre = "https://127.0.0.1";
 // let urlPre = "https://116.36.98.167";
 
 
@@ -171,9 +171,9 @@ function QRSearchTable(){
 				// "[" + "start랙번호" + "-" + "start랙위치" + "] " + "start서버명" + "_" + "start포트번호" + "&&"
 				// "[" + "end랙번호" + "-" + "end랙위치" + "] " + "end서버명" + "_" + "end포트번호" + "&&"
 				// "start이미지" + "&&" + "end이미지"
-				qrParams = "[" + element.sRackNumber + "-" + element.sRackLocation + "]　"
+				qrParams = "[" + element.sRackNumber + "-" + element.sRackLocation + "]"
 							+ element.sServerName + "_" + element.sPortNumber + "&&" 
-							+ "[" + element.eRackNumber + "-" + element.eRackLocation + "]　"
+							+ "[" + element.eRackNumber + "-" + element.eRackLocation + "]"
 							+ element.eServerName + "_" + element.ePortNumber + "&&"
 							+ element.qrStartImage + "&&" 
 							+ element.qrEndImage;
@@ -200,8 +200,7 @@ function QRSearchTable(){
 
 
 function GroupListTable() {
-	let url = urlPre+'/test/group/list';
-	
+	let url = urlPre+'/group/list'
 	axios.get( url )
 			.then(function(res) {
 				
@@ -244,7 +243,7 @@ function EqpGroupList(str) {
 	
 	
 
-	let url = urlPre+'/test/group/list';
+	let url = urlPre+'/group/list';
 	
 	axios.get( url )
 			.then(function(res) {
@@ -328,7 +327,7 @@ function resetUserIdExist() {
 }
 
 function RackListTable() {
-	let url = urlPre+'/test/rack/list';
+	let url = urlPre+'/rack/list';
 		
 		axios.get( url )
 				.then(function(res) {
@@ -370,7 +369,7 @@ function RackListTable() {
 }
 
 function EqpRackList(str) {
-	let url = urlPre+'/test/rack/list';
+	let url = urlPre+'/rack/list';
 		
 		axios.get( url )
 				.then(function(res) {
@@ -403,7 +402,7 @@ function EqpRackList(str) {
 
 function EqpListTable(page){
 	
-	let url = urlPre+'/test/quipment/list';
+	let url = urlPre+'/quipment/list';
 	
 	/*html += "<table class='table table-bordered'><thead>"
 			html += "<tr><th colspan=11>출발지</th><th colspan=5>목적지</th><th colspan=3>회선</th></tr>"
@@ -437,19 +436,19 @@ function EqpListTable(page){
 		    html += "<div class='EquipmentListTable' >";	
 			html += "<table class='table table-bordered'><thead>"
 
-			html += "<tr style='text-align: center;vertical-align: top;' class='table-secondary'>"
+			html += "<tr style='text-align: center;vertical-align: top;font-size:15px;' class='table-secondary'>"
 		//	html += 	"<th width=5%><input type='checkbox' name='mastarChkbox' onclick=QRChkFunction(this)></th>"
 			html += 	"<th width=3%>NO</th>"
-			html += 	"<th width=10%>장비그룹명</th>"
-			html += 	"<th width=15%>장비명</th>"
-			html += 	"<th width=10%>장비방향</th>"
-			html += 	"<th width=7%>렉번호</th>"
-			html += 	"<th width=5%>유닛번호</th>"
-			html += 	"<th width=16%>호스트명</th>"
-			html += 	"<th width=6%>제조사</th>"
-			html += 	"<th width=6%>모델</th>"
-			html += 	"<th width=6%>도입년도</th>"
-			html += 	"<th width=11%>수정</th>"
+			html += 	"<th width=8%>그룹명</th>"
+			html += 	"<th width=17%>장비명</th>"
+			html += 	"<th width=7%>장비방향</th>"
+			html += 	"<th width=7%>랙번호</th>"
+			html += 	"<th width=7%>유닛번호</th>"
+			html += 	"<th width=13%>호스트명</th>"
+			html += 	"<th width=7%>제조사</th>"
+			html += 	"<th width=7%>모델</th>"
+			html += 	"<th width=8%>도입년도</th>"
+			html += 	"<th width=11%>수정·삭제</th>"
 			//onclick="location.href='./index.html'"
 			html += "</tr></thread><tbody>"
 			
@@ -457,10 +456,10 @@ function EqpListTable(page){
 			eqpList.forEach((element) => {
 						
 	      
-		    html += 	"<tr style='text-align: center;' >"
+		    html += 	"<tr style='text-align: center;font-size:15px;' >"
 		//	html += 		"<td><input type='checkbox' name='chkbox' onclick=QRUpdateTextFunction(this)></td>";
 			html += 		"<td>" + element.rownum	 + "</td>"	
-			html += 		"<td>" + element.group_name	 + "</td>"	
+			html += 		"<td>" + element.group_name	 + "</td>"
 			html += 		"<td>" + element.eqp_name	 + "</td>"		
 			html += 		"<td>" + element.eqp_direct	 + "</td>"
 			html += 		"<td>" + element.rack_name	 + "</td>"
@@ -469,8 +468,8 @@ function EqpListTable(page){
 			html += 		"<td>" + element.m_company+ "</td>"
 			html += 		"<td>" +element.model	 + "</td>"
 			html += 		"<td>" +element.yearofintroduct	 + "</td>";
-			html += 		"<td><button type='button' class='btn btn-outline-secondary' onclick='eqp_update(" +  element.eqp_id + ");' style='font-size:10px;margin-right:5px;'>수정</button><button type='button' class='btn btn-outline-secondary' onclick='eqp_delete(" 
-							+  element.eqp_id + ");' style='font-size:10px;'>삭제</button></td>";
+			html += 		"<td><button type='button' class='btn btn-outline-secondary' onclick='eqp_update(" +  element.eqp_id + ");' style='font-size:13px;padding:3px 8px;margin-right:5px;'>수정</button><button type='button' class='btn btn-outline-secondary' onclick='eqp_delete(" 
+							+  element.eqp_id + ");' style='font-size:13px;padding:3px 8px;margin:0px;'>삭제</button></td>";
 			
 			
 		
@@ -492,7 +491,7 @@ function EqpListTable(page){
 function SearchEqpinfo(str) {
 	
 	
-	let url = urlPre + '/test/quipment/search';
+	let url = urlPre + '/quipment/search';
 	let search_keyword = 'hostname';
 	let chk = str;
 	let search_value;
@@ -595,7 +594,7 @@ function SearchCableinfo() {
 
 function SearchCableList(page){
 	
-	let url = urlPre + '/test/cable/list';
+	let url = urlPre + '/cable/list';
 	let s_group_name = document.getElementById("s_group_name").value;
 	let s_eqp_name = document.getElementById("s_eqp_name").value;
 	let s_rack_name = document.getElementById("s_rack_name").value;
@@ -610,9 +609,8 @@ function SearchCableList(page){
 	let c_velocity = document.getElementById("c_velocity").value;
 	let c_color = document.getElementById("c_color").value;
 	let current_page_no = page;
-
+	//let count_per_list = document.getElementById("count_per_list").value;
 	let c_s_group_name = document.getElementById("c_s_group_name");
-	let c_s_eqp_name = document.getElementById("c_s_eqp_name");
 	let c_s_eqp_direct = document.getElementById("c_s_eqp_direct");
 	let c_s_rack_name = document.getElementById("c_s_rack_name");
 	let c_s_unit_position = document.getElementById("c_s_unit_position");
@@ -645,7 +643,8 @@ function SearchCableList(page){
 		  					c_type : c_type,
 		  					c_velocity : c_velocity,
 							c_color : c_color,
-							current_page_no : current_page_no
+							current_page_no : current_page_no,
+							//count_per_list : count_per_list
 						}})
 		.then(function(res) {
 		
@@ -660,8 +659,19 @@ function SearchCableList(page){
 			html = "";
 			html += "<div class='tab-top' style='display: flex;width:100%'>";
 			html += "<div style='margin-top:20px;'>Total Count : "+res.data[0].totalCount+"</div>"
-			html += "<div  style='margin-top:5px;margin-left:auto;'><button type='button' class='btn btn-outline-secondary' style='margin:5px 0px 10px 10px'>엑셀 다운로드</button>";		
-			html += "<button type='button' class='btn btn-outline-secondary'style='margin:5px 0px 10px 10px' onclick='QRPDFImg()'>PDF인쇄</button></div></div>";
+			
+		    html += "<form name='qrFormData' id='targetForm' method='GET' action='/api/qr/printqr'>"
+			html += "					  									<input type='hidden' id='qrChk' name='qrChk' value=''/>"
+			html += "					  									<input type='hidden' id='qrStart' name='qrStart' value=''/>"
+			html += "					  									<input type='hidden' id='qrEnd' name='qrEnd' value=''/>"
+			html += "					  									<input type='hidden' id='qrStartImage' name='qrStartImage' value=''/>"
+			html += "					  									<input type='hidden' id='qrEndImage' name='qrEndImage' value=''/>"
+			html += "					  								</form>"
+			html += "<div  style='margin-top:5px;margin-left:auto;'><button type='button' class='btn btn-outline-secondary' style='margin:5px 0px 10px 10px;font-size:13px;padding:3px 8px;' onclick='excelsubmit();'>엑셀 다운로드</button>";		
+			html += "<button type='button' class='btn btn-outline-secondary'style='margin:5px 0px 10px 10px;font-size:13px;padding:3px 8px;' onclick='QRPDFImg()'>PDF인쇄</button></div>"
+			//html += "<select class='form-select' id='count_per_list' style='font-size: 12px;width:80px;height:30px;margin:10px 0px 0px 10px;'>"
+			//html += "<option value='10'>10줄</option><option value='20'>20줄</option><option value='30'>30줄</option></select>"
+			html += "</div>"
 			//html += "<button type='button' class='btn btn-outline-secondary'style='margin:5px 0px 10px 10px' data-bs-toggle='modal' data-bs-target='#modalprint'>PDF인쇄</button></div></div>";
 			
 			//html += "<button type='button' class='btn btn-outline-secondary' style='margin:5px 0px 10px 10px' >PDF인쇄</button>"
@@ -669,7 +679,7 @@ function SearchCableList(page){
 			html += "<table class='table table-bordered'>"
 			//html += "<div id='CableColDiv'></div>"
 			//html += "<tr class='table-secondary' style='text-align: center;'><th colspan=2>구분</th><th colspan=9>출발지</th><th colspan=5>목적지</th><th colspan=3>회선</th></tr>"
-			html += "<tr class='table-secondary'  style='text-align: center;'>"
+			html += "<tr class='table-secondary'  style='text-align: center;font-size:15px;'>"
 			html += 	"<th><input type='checkbox' name='mastarChkbox' onclick=QRChkFunction(this)></th>"
 			html += 	"<th>NO</th>"
 			if (c_s_group_name.checked) {
@@ -683,7 +693,7 @@ function SearchCableList(page){
 			html += 	"<th>장비방향</th>"}
 			if (c_s_rack_name.checked) {
 				s_colspn++;
-			html += 	"<th>렉번호</th>" }
+			html += 	"<th>랙번호</th>" }
 			if (c_s_unit_position.checked) {
 				s_colspn++;
 			html += 	"<th>유닛번호</th>" }
@@ -698,7 +708,7 @@ function SearchCableList(page){
 			html += 	"<th>포트번호</th>" }
 			if (c_e_rack_name.checked) {
 				e_colspn++;
-			html += 	"<th>렉번호</th>" }
+			html += 	"<th>랙번호</th>" }
 			if (c_e_unit_position.checked) {
 				e_colspn++;
 			html += 	"<th>유닛번호</th>" }
@@ -728,14 +738,18 @@ function SearchCableList(page){
 			console.log("c************", c_colspn);
 
 			cableList.forEach((element) => {
-						qrParams = "[" + element.s_rack_name + "-" + element.s_unit_position + "]　"
-								 + element.s_hostname + "_" + element.s_portnum + "&&" 
-								 + "[" + element.e_rack_name + "-" + element.e_unit_position + "]　"
-								 + element.e_hostname + "_" + element.e_portnum + "&&"
+				        let start_rack = String(element.s_rack_name).padStart(2, "0");
+						let end_rack = String(element.e_rack_name).padStart(2, "0");
+						let start_unit_position =  String(element.s_unit_position).padStart(2, "0");
+						let end_unit_position =  String(element.e_unit_position).padStart(2, "0");
+						qrParams = "[R" + start_rack + "-" + start_unit_position + "]"
+								 + element.s_hostname + "_" + element.s_slotnum + "_" + element.s_portnum + "&&" 
+								 + "[R" + end_rack + "-" + end_unit_position + "]"
+								 + element.e_hostname + "_" + element.e_slotnum + "_" + element.e_portnum + "&&"
 								 + element.s_qr_image + "&&" 
 								 + element.e_qr_image;
 	
-			html += 	"<tr style='color:"+element.request+";text-align: center;'>";
+			html += 	"<tr style='color:"+element.request+";text-align: center;font-size:15px;'>";
 			html += 		"<td><input type='checkbox' name='chkbox' onclick=QRUpdateTextFunction(this) id="+element.idx +" value="+ qrParams +"></td>";
 			html += 		"<td>" + element.rownum	 + "</td>";	
 			if (c_s_group_name.checked) {
@@ -792,7 +806,7 @@ function SearchCableList(page){
 
 
 function CableListTable(){
-	let url = urlPre+'/test/cable/list';
+	let url = urlPre+'/cable/list';
 	axios.get( url )
 		.then(function(res) {
 			console.log("db search!", res.data);
@@ -1114,8 +1128,8 @@ function QRPDFImg(){
 	html += "<html>"
 	html += "<head>"
 	html += 	"<meta charset='utf-8'>"
-	html += 	"<title>QR Print TEST</title>"
-	html += 	"<link rel='stylesheet' href='/css/printQR.css' />"
+	html += 	"<title>QR Print</title>"
+	html += 	"<link rel='stylesheet' href='/css/printQR2.css' />"
 	html += "</head>"
 	html += "<body><header>"
 	html += 	"<hr id='sep'>"	
@@ -1137,24 +1151,56 @@ function QRPDFImg(){
 		//console.log("adsfdsadfdasf");
 		//console.log(chkboxCnt.length);
 		
-		html += "<div class='printWrap'>"
-		html += 	"<div class='printLeftWrap'>"
-		html += 		"<div class='printLeftImgSrc'>"
-		html += 			"<img src="+qrParams[2]+" alt='img' class='printImg'>"
-		html += 		"</div>";
-		html += 		"<div class='printLeftLabelSrc'>"
-		html +=					"<p class='printLabel'>"+qrParams[0]+" <-> </br>"+qrParams[1]+"</p>";
-		html += 		"</div>";
-		html += 	"</div>";
-		html += 	"<div class='printRightWrap'>"
-		html += 		"<div class='printRightImgSrc'>"
-		html += 			"<img src="+qrParams[3]+" alt='img' class='printImg'>"
-		html += 		"</div>";
-		html += 		"<div class='printRightLabelSrc'>"
-		html +=					"<p class='printLabel'>"+qrParams[0]+" <-> </br>"+qrParams[1]+"</p>";
-		html += 		"</div>";
-		html += 	"</div>";
-		html += "</div>";
+		/*html += "<div class='printWrap'>"
+				html += 	"<div class='printLeftWrap'>"
+				html += 		"<div class='printLeftImgSrc'><p style='font-size:20px;	margin:0px 10px 0px;'>s</p>"
+				html += 			"<img src="+qrParams[2]+" alt='img' class='printImg'>"
+				html += 		"</div>";
+				html += 		"<div class='printLeftLabelSrc'>"
+				html +=					"<p align='left' class='printLabel' style='padding-left:20px;padding-right:30px'>"+qrParams[0]+" <-> </br>"+qrParams[1]+"</p>";
+				html += 		"</div>";
+				html += 	"</div>";
+				html += 	"<div class='printRightWrap'>"
+				html += 		"<div class='printRightImgSrc'>"
+				html += 			"<img src="+qrParams[3]+" alt='img' class='printImg'><p style='font-size:20px;	margin:0px 10px 0px;'>E</p>"
+				html += 		"</div>";
+				html += 		"<div class='printRightLabelSrc'>"
+				html +=					"<p class='printLabel'  style='padding-right:20px'>"+qrParams[0]+" <-> </br>"+qrParams[1]+"</p>";
+				html += 		"</div>";
+				html += 	"</div>";
+				html += "</div>";*/
+				
+				html += "<div class='printWrap'>"
+				html += "		<div class='printLeftWrap'>"
+				html += "		    <div class='SElebel'>S</div>"
+				html += "			<div class='printLeftImgSrc'>"
+				html += "				<img src="+qrParams[2]+" alt='img' class='printImg'>"
+				html += "			</div>"
+				html += "			<div class='printLeftLabelSrc'>"
+				html += "				<div class='infoLabel' align=left>"+qrParams[0]+"</div>"
+				html += "				<div class='infoLabel' align=left>"+qrParams[1]+"</div>"
+				html += "			</div>"
+				html += "			<div class='printLeftLabelSrc'>"
+				html += "				<div class='infoLabel'><-></div><div>&nbsp;</div>"
+				html += "			</div>"
+				html += "		</div>"
+				html += "		<div class='printRightWrap'>"
+				html += "		  <div class='SElebel'>E</div>"
+				html += "			 <div class='printRightImgSrc'>"
+				html += "				<img src="+qrParams[3]+" alt='img' class='printImg'>"
+				html += "			</div>"
+				html += "			<div class='printLeftLabelSrc'>"
+				html += "				<div class='infoLabel'><-></div><div>&nbsp;</div>"
+				html += "			</div>"
+				html += "			<div class='printRightLabelSrc'>"
+				html += "				<div class='infoLabel' align=left>"+qrParams[1]+"</div>"
+				html += "				<div class='infoLabel' align=left>"+qrParams[0]+"</div>"
+				html += "			</div>"
+				html += "		</div>"
+				html += "	</div>"		
+				
+				
+				
 	/*	html += "<div class='printWrap'>"
 		html += "<table style='margin:0px;padding:0px'>"
 		html += "			<tr>"
@@ -1355,8 +1401,8 @@ function userInfo() {
 				html += 		"<td>"+element.name +"</td>"
 				html += 		"<td>"+element.email+"</td>"
 				html += 		"<td>"+element.phone+"</td>"
-				html += 		"<td style='width:150px;'><button type='button' class='btn btn-outline-secondary' onclick=usr_update('" +  uid + "'); style='font-size:13px;margin-right:10px;'>수정</button><button type='button' class='btn btn-outline-secondary' onclick=usr_delete('" 	  
-				html += 		uid + "'); style='font-size:13px;'>삭제</button></td>";
+				html += 		"<td style='width:150px;'><button type='button' class='btn btn-outline-secondary' onclick=usr_update('" +  uid + "'); style='font-size:13px;padding:3px 8px;margin-right:10px;'>수정</button><button type='button' class='btn btn-outline-secondary' onclick=usr_delete('" 	  
+				html += 		uid + "'); style='font-size:13px;padding:3px 8px;'>삭제</button></td>";
 				html += 	"</tr>"
 			});
 			

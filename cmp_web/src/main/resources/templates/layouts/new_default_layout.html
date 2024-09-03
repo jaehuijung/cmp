@@ -28,13 +28,13 @@
 
 <body>
 	<!-- header fragment 사용 -->
-	<th:block th:replace="fragments/new_header :: headerFragment"></th:block>
+	<th:block th:replace="~{fragments/new_header :: headerFragment}"></th:block>
 	<!-- aside fragment 사용 -->
-	<th:block th:replace="fragments/new_aside :: asideFragment"></th:block>
+	<th:block th:replace="~{fragments/new_aside :: asideFragment}"></th:block>
 	<!-- content fragment 사용 -->
 	<th:block layout:fragment="content"></th:block>
 	<!-- footer fragment 사용 -->
-	<th:block th:replace="fragments/new_footer :: footerFragment"></th:block>
+	<th:block th:replace="~{fragments/new_footer :: footerFragment}"></th:block>
 	<!-- content script -->
 	
 	<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

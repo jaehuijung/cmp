@@ -48,7 +48,7 @@ public class loginPageController {
 			HttpServletRequest request) {
 		
 
-		return "/login";
+		return "login";
 	}
 	
 	/**
@@ -108,7 +108,7 @@ public class loginPageController {
 				session.setAttribute("message", "loginok");
 
 				//url = "redirect:/sl/qr/showqr";
-				url = "redirect:/test";
+				url = "redirect:/cablelist";
 			} else {
 				session.setAttribute("loginChk", "no");
 				session.setAttribute("message", "비밀번호가 다릅니다.");

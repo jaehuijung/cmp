@@ -28,14 +28,14 @@
 		<!-- End Page Title -->
 
 		<section class="section">
-			<div class="card col-lg-4">
+			<div class="card col-lg-8">
 				<div class="card-body">
 				
 				<form id="writeForm" action="/eqp/insert" name="writeForm" method="post">
 					<input type="hidden" id="hostnameChecked"  value="false"/>
 				
 				
-				<table class='table table-borderless'>
+				<table class='table table-borderless' style="margin-top:10px;">
 				
 						<tr>
 							<th>장비그룹명 <span style="color: red">*</span></th>
@@ -56,7 +56,7 @@
 								<div style="margin-right:auto">
 								<input type="text" class="form-control" name="hostname" id="hostname" style="width:300px;height:35px;"/></div>
 									<div>
-									<button type='button' class='btn btn-outline-secondary' onclick='checkhostnameExist();'>중복체크</button></div>
+									<button type='button' class='btn btn-outline-secondary' onclick='checkhostnameExist();' style="font-size:13px;padding:3px 15px;">중복체크</button></div>
 								</div>
 							</td>
 						</tr>
@@ -98,8 +98,8 @@
 						</tr>
 				</table>
 					<div style='display:flex;justify-content: center;'>
-				<div><button type='button' class='btn btn-outline-secondary' onclick='check();' style='margin:0px 10px'>저장</button></div>
-				<div><button type='button' class='btn btn-outline-secondary' onclick='goList();return false;' style='margin:0px 10px'>취소</button></div>
+				<div><button type='button' class='btn btn-outline-secondary' onclick='check();' style='margin:0px 10px;font-size:13px;padding:3px 15px;'>저장</button></div>
+				<div><button type='button' class='btn btn-outline-secondary' onclick='goList();return false;' style='margin:0px 10px;font-size:13px;padding:3px 15px;'>취소</button></div>
 			</div>
 			
 				</div>

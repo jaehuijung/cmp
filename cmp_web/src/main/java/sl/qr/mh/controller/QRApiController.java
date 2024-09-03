@@ -50,15 +50,16 @@ public class QRApiController {
             HttpServletRequest request,
             HttpServletResponse response,
             @RequestParam Map<String, String> qrList) throws NumberFormatException, IOException {
-        //log.info("qr print!");
+        log.info("qr print!");
     	
     	
-        Workbook wb = qrService.QRPrint(qrList);
-        response.setContentType("ms-vnd/excel");
-        response.setHeader("Content-Disposition", "attachment;filename=test.xlsx");
-
-        wb.write(response.getOutputStream());
-        wb.close();
+		
+		  Workbook wb = qrService.QRPrint(qrList);
+		  response.setContentType("ms-vnd/excel");
+		  response.setHeader("Content-Disposition", "attachment;filename=qrdown.xlsx");
+		  
+		  wb.write(response.getOutputStream()); wb.close();
+		 
         
 		
     }

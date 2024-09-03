@@ -49,10 +49,15 @@ public class qrService implements qrServiceI {
 		  int cnt =1; 
 		  for (Equipment vo : list) { 
 			  row = sheet.createRow(cnt);
-		  row.createCell(0).setCellValue(vo.getEqp_name());
-		  row.createCell(1).setCellValue(vo.getHostname());
-		  row.createCell(2).setCellValue("dsffd");
-		  row.createCell(3).setCellValue("dfjkjk");
+			  row.createCell(0).setCellValue(vo.getGroup_name());
+		  row.createCell(1).setCellValue(vo.getEqp_name());
+		  row.createCell(2).setCellValue(vo.getEqp_direct());
+		  row.createCell(3).setCellValue(vo.getRack_name());
+		  row.createCell(4).setCellValue(vo.getUnit_position());
+		  row.createCell(5).setCellValue(vo.getHostname());
+		  row.createCell(6).setCellValue(vo.getM_company());
+		  row.createCell(7).setCellValue(vo.getModel());
+		  row.createCell(8).setCellValue(vo.getYearofintroduct());
 		  cnt++;
 		  
 		  }

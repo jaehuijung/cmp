@@ -34,7 +34,7 @@ public class cableManageController {
 		this.bcrypt = bcrypt;
 	}
 	
-		@GetMapping(value = "/test/cable/list")
+		@GetMapping(value = "/cable/list")
 	public List<HashMap<String, Object>> getCableListData(Cable vo,
 			  HttpSession session,
 	            HttpServletRequest request) {
@@ -48,7 +48,7 @@ public class cableManageController {
     }
 	
 	
-	@GetMapping(value = "/test/quipment/list")
+	@GetMapping(value = "/quipment/list")
     public List<HashMap<String, Object>> getEquipmentListData(Equipment vo,
             HttpSession session,
             HttpServletRequest request) {
@@ -69,7 +69,7 @@ public class cableManageController {
         return selectEquipmentList;
 }
 	
-@GetMapping(value = "/test/quipment/search")
+@GetMapping(value = "/quipment/search")
 public List<Equipment> getEqpSearchData(Equipment vo, HttpSession session,
 		HttpServletRequest request) {
 	
@@ -78,7 +78,7 @@ public List<Equipment> getEqpSearchData(Equipment vo, HttpSession session,
 	return list;
 }
 	
-	@GetMapping(value = "/test/group/list")
+	@GetMapping(value = "/group/list")
     public List<Group> getGroupListData(
             HttpSession session,
             HttpServletRequest request) {
@@ -104,7 +104,7 @@ public List<Equipment> getEqpSearchData(Equipment vo, HttpSession session,
 
 	
 	
-	@GetMapping(value = "/test/rack/list")
+	@GetMapping(value = "/rack/list")
     public List<Rack> getRackListData(
             HttpSession session,
             HttpServletRequest request) {

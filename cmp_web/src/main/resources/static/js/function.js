@@ -2,7 +2,7 @@
 /**************** 전역변수 ****************/
 // base url
 //let urlPre = "https://mapleutil.site";
-let urlPre = "http://127.0.0.1:8080";
+let urlPre = "https://127.0.0.1";
 // let urlPre = "https://116.36.98.167";
 
 
@@ -196,7 +196,7 @@ function QRSearchTable(){
 
 
 function GroupListTable() {
-	let url = urlPre+'/test/group/list';
+	let url = urlPre+'/group/list';
 	
 	axios.get( url )
 			.then(function(res) {
@@ -268,7 +268,7 @@ function resetUserIdExist() {
 }
 
 function RackListTable() {
-	let url = urlPre+'/test/rack/list';
+	let url = urlPre+'/rack/list';
 		
 		axios.get( url )
 				.then(function(res) {
@@ -294,7 +294,7 @@ function RackListTable() {
 
 function EqpListTable(){
 	
-	let url = urlPre+'/test/quipment/list';
+	let url = urlPre+'/quipment/list';
 	axios.get( url )
 		.then(function(res) {
 			console.log("db search!", res.data);
@@ -353,7 +353,7 @@ function EqpListTable(){
 
 
 function CableListTable(){
-	let url = urlPre+'/test/cable/list';
+	let url = urlPre+'/cable/list';
 	axios.get( url )
 		.then(function(res) {
 			console.log("db search!", res.data);

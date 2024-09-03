@@ -549,6 +549,11 @@ main .data-table-wrap {
  padding: 10px 10px;	
 }
 
+.selbtn {
+	font-size:13px;
+	padding:3px 8px;
+}
+
 
 /* new */
 .QRTable td input[type=text] {border: 0; text-align: center;}

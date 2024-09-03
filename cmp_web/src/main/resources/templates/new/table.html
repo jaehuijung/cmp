@@ -38,7 +38,7 @@
 					                    <div class="row"  >
 					                        <div class="col-1" style="text-align:right;margin-top: 5px;padding-left:auto;padding-right: 23px;font-size: 13px;">컬럼항목선택</div>
 					                        <div class="col-11" style="margin-top: 5px;margin-top: 5px;padding-left:30px;padding-right: auto;">
-					                            <div class="select-col"><input class="form-check-input" type="checkbox" id="c_s_group_name" checked> ⓢ장비그룹  </div>
+					                            <div class="select-col"><input class="form-check-input" type="checkbox" id="c_s_group_name"> ⓢ장비그룹  </div>
 					                            <div class="select-col"><input class="form-check-input" type="checkbox" id="c_s_eqp_name" checked> ⓢ장비</div>
 					                            <div class="select-col"><input class="form-check-input" type="checkbox" id="c_s_eqp_direct"> ⓢ장비방향</div>
 					                            <div class="select-col"><input class="form-check-input" type="checkbox" id="c_s_rack_name" checked> ⓢ랙번호</div>
@@ -205,8 +205,10 @@
 					  									<input type='hidden' id='qrEnd' name='qrEnd' value=''/>
 					  									<input type='hidden' id='qrStartImage' name='qrStartImage' value=''/>
 					  									<input type='hidden' id='qrEndImage' name='qrEndImage' value=''/>
+					  									<input type='hidden' id='h' name='qrEndImage' value=''/>
 					  									<!--<input type='submit' id='targetBtn' class="etc" value='EXCEL'/>-->
 					  								</form>
+					  						
 					  <div class="CableListDiv"></div>
 					  
 					  
@@ -228,10 +230,16 @@
 			<script>RackListTable()</script>
 			<script>GroupListTable();</script>
 			<script>SearchCableinfo();</script>
-		
-				
+			<script>
+			let fchk = document.getElementById("targetForm");
+			function excelsubmit() {
+				qrSubmit();
+				fchk.submit();
+			}
 			
-	</th:block>
+		</script>
+</th:block>
+
 </div>
 
 

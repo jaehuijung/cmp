@@ -29,7 +29,7 @@ public class cableService {
 		
 		public List<HashMap<String, Object>> selectCableList(Cable vo) {
 			
-	
+	       // vo.g
 			int totalcnt = cableMapper.selectCableListTotalCount(vo);
 			PagingUtil pagingutil = new PagingUtil();
 			CommonForm commonForm = new CommonForm();
