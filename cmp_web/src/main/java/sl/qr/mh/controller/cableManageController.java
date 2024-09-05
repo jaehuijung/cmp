@@ -84,19 +84,6 @@ public List<Equipment> getEqpSearchData(Equipment vo, HttpSession session,
             HttpServletRequest request) {
      
         List<Group> selectGroupList = cableservice.selectBizList();
-        
-		
-		/*
-		 * Iterator<Group> it = selectGroupList.iterator(); while(it.hasNext()) {
-		 * 
-		 * 
-		 * Group g = it.next();
-		 * 
-		 * String test = g.getGroup_name(); log.info(test);
-		 * 
-		 * }
-		 */
-		 
 
         return selectGroupList;
 	}
