@@ -2,6 +2,7 @@ package sl.qr.mh.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,8 @@ public class cableController {
 
 	@GetMapping("/cablelist")
 	public String test(HttpSession session, HttpServletRequest request) {
-		return "new/table";
+		// return "new/table";
+		return "views/table";
 
 	}
 
@@ -46,19 +48,33 @@ public class cableController {
 
 	@GetMapping("/eqplist")
 	public String geteqpList(HttpSession session, HttpServletRequest request) {
-		return "new/eqplist";
+		// return "new/eqplist";
+		return "views/eqplist";
 
 	}
 
 	@GetMapping("/eqpregister")
 	public String geteqpRegister(HttpSession session, HttpServletRequest request) {
-		return "new/eqpregister";
+		// return "new/eqpregister";
+		return "views/eqpregister";
 
 	}
 
 	@GetMapping("/cableregister")
 	public String getcableRegister(HttpSession session, HttpServletRequest request) {
-		return "new/cableregister";
+		// return "new/cableregister";
+		return "views/cableregister";
+
+	}
+
+	@GetMapping("/eqp/detail")
+	public String geteqpDetailform(Equipment vo, HttpSession session, HttpServletRequest request, Model model) {
+
+		vo = cableservice.selectDetailEqp(vo);
+		model.addAttribute("Equipment", vo);
+
+		// return "new/eqpdetail";
+		return "views/eqpdetail";
 
 	}
 
@@ -67,7 +83,8 @@ public class cableController {
 
 		vo = cableservice.selectupdateEqp(vo);
 		model.addAttribute("Equipment", vo);
-		return "new/eqpupdate";
+		// return "new/eqpupdate";
+		return "views/eqpupdate";
 
 	}
 
@@ -75,7 +92,8 @@ public class cableController {
 	public String geteqpUpate(Equipment vo, HttpSession session, HttpServletRequest request, Model model) {
 
 		cableservice.updateEqp(vo);
-		return "new/eqplist";
+		// return "new/eqplist";
+		return "views/eqplist";
 
 	}
 
@@ -83,7 +101,8 @@ public class cableController {
 	public String eqpDelete(Equipment vo, HttpSession session, HttpServletRequest request, Model model) {
 
 		cableservice.deleteEqp(vo);
-		return "new/eqplist";
+		// return "new/eqplist";
+		return "views/eqplist";
 
 	}
 
@@ -97,7 +116,8 @@ public class cableController {
 	public String eqpinsert(Equipment vo, HttpServletRequest request) {
 
 		cableservice.insertEqp(vo);
-		return "new/eqplist";
+		// return "new/eqplist";
+		return "views/eqplist";
 	}
 
 	@GetMapping(value = "/eqp/exceldown")
@@ -120,7 +140,8 @@ public class cableController {
 
 		cableservice.insertCable(vo);
 
-		return "new/table";
+		// return "new/table";
+		return "views/table";
 	}
 
 }

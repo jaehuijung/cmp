@@ -1,6 +1,7 @@
 package sl.qr.mh.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -30,6 +31,9 @@ public interface cableMapper {
 	public int selectEqpListTotalCount(Equipment vo);
 	public void insertEqp(Equipment vo);
 	public Equipment selectupdateEqp(Equipment vo);
+
+	public Equipment selectDetailEqp(Equipment vo);
+
 	public void updateEqp(Equipment vo);
 	public void deleteEqp(Equipment vo);
 	//public List<Cable> ExcelEqpList

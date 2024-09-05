@@ -1,9 +1,8 @@
 
 /**************** 전역변수 ****************/
 // base url
-//let urlPre = "https://mapleutil.site";
-let urlPre = "https://127.0.0.1";
-// let urlPre = "https://116.36.98.167";
+ let urlPre = "https://127.0.0.1";
+ // let urlPre = "https://3.38.246.94";
 
 
 /**************** 로그인 ****************/
@@ -468,8 +467,11 @@ function EqpListTable(page){
 			html += 		"<td>" + element.m_company+ "</td>"
 			html += 		"<td>" +element.model	 + "</td>"
 			html += 		"<td>" +element.yearofintroduct	 + "</td>";
-			html += 		"<td><button type='button' class='btn btn-outline-secondary' onclick='eqp_update(" +  element.eqp_id + ");' style='font-size:13px;padding:3px 8px;margin-right:5px;'>수정</button><button type='button' class='btn btn-outline-secondary' onclick='eqp_delete(" 
-							+  element.eqp_id + ");' style='font-size:13px;padding:3px 8px;margin:0px;'>삭제</button></td>";
+			html += 		"<td>";
+			html +=         "<button type='button' class='btn btn-outline-secondary' onclick='eqp_detail(" +  element.eqp_id + ");' style='font-size:13px;padding:3px 8px;margin-right:5px;'>상세</button>";
+			html +=         "<button type='button' class='btn btn-outline-secondary' onclick='eqp_update(" +  element.eqp_id + ");' style='font-size:13px;padding:3px 8px;margin-right:5px;'>수정</button>";
+			html +=         "<button type='button' class='btn btn-outline-secondary' onclick='eqp_delete(" +  element.eqp_id + ");' style='font-size:13px;padding:3px 8px;margin:0px;'>삭제</button>";
+			html +=         "</td>";
 			
 			
 		

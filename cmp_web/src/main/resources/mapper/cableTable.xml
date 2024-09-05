@@ -1,237 +1,266 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!DOCTYPE mapper 
+<!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="sl.qr.mh.service.cableMapper">
 
- 
+
     <select id="selectCableList" parameterType="sl.qr.mh.vo.Cable" resultType="sl.qr.mh.vo.Cable">
-    
-SELECT
-@rownum:=@rownum+1 AS rownum, CCC.* FROM (
-SELECT * FROM cable AA 
-LEFT JOIN (
-SELECT id sqr_id,portnum s_portnum,slotnum s_slotnum,qr_encode s_qr_encode,qr_image s_qr_image,group_name s_group_name,eqp_name s_eqp_name,eqp_direct s_eqp_direct,hostname s_hostname,rack_name s_rack_name,unit_position s_unit_position,rack_id s_rack_id FROM cable_qrcode F
-LEFT JOIN 
-(SELECT A.id dummy,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position,rack_id FROM equipment A
-JOIN rack B ON B.id = A.rack_id
-JOIN bizgroup C ON C.id = A.group_id) E ON E.dummy = F.eqp_id
-) BB ON AA.s_qr_id = BB.sqr_id
-LEFT JOIN 
-(
-SELECT id eqr_id,portnum e_portnum,slotnum e_slotnum,qr_encode e_qr_encode,qr_image e_qr_image,group_name e_group_name,hostname e_hostname,rack_name e_rack_name,unit_position e_unit_position FROM cable_qrcode F
-LEFT JOIN 
-(SELECT A.id dummy,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position FROM equipment A
-JOIN rack B ON B.id = A.rack_id
-JOIN bizgroup C ON C.id = A.group_id) E ON E.dummy = F.eqp_id
-) CC ON AA.e_qr_id = CC.eqr_id
-WHERE 1=1 
- <if test="s_group_name != null and s_group_name != ''">
-    AND s_group_name = '${s_group_name}'
-</if>
-<if test="e_group_name != null and e_group_name != ''">
-    AND e_group_name = '${e_group_name}'
-</if>
- <if test="s_eqp_name != null and s_eqp_name != ''">
-    AND s_eqp_name LIKE CONCAT('%',#{s_eqp_name},'%')
-</if>
- <if test="e_eqp_name != null and e_eqp_name != ''">
-    AND e_eqp_name LIKE CONCAT('%',#{e_eqp_name},'%')
-</if>
- <if test="s_hostname != null and s_hostname != ''">
-    AND s_hostname = '${s_hostname}'
-</if>
- <if test="e_hostname != null and e_hostname != ''">
-    AND e_hostname = '${e_hostname}'
-</if>
-<if test="s_rack_name != null and s_rack_name != ''">
-    AND s_rack_name = '${s_rack_name}'
-</if>
-<if test="e_rack_name != null and e_rack_name != ''">
-    AND e_rack_name = '${e_rack_name}'
-</if>
-ORDER BY s_rack_id,cast(s_unit_position AS UNSIGNED INTEGER) DESC
-) CCC, (SELECT @rownum:=#{offset}) TMP
-LIMIT #{offset},#{limit};
+
+        SELECT
+        @rownum:=@rownum+1 AS rownum, CCC.* FROM (
+        SELECT * FROM cable AA
+        LEFT JOIN (
+        SELECT id sqr_id,portnum s_portnum,slotnum s_slotnum,qr_encode s_qr_encode,qr_image s_qr_image,group_name
+        s_group_name,eqp_name s_eqp_name,eqp_direct s_eqp_direct,hostname s_hostname,rack_name s_rack_name,unit_position
+        s_unit_position,rack_id s_rack_id FROM cable_qrcode F
+        LEFT JOIN
+        (SELECT A.id dummy,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position,rack_id
+        FROM equipment A
+        JOIN rack B ON B.id = A.rack_id
+        JOIN bizgroup C ON C.id = A.group_id) E ON E.dummy = F.eqp_id
+        ) BB ON AA.s_qr_id = BB.sqr_id
+        LEFT JOIN
+        (
+        SELECT id eqr_id,portnum e_portnum,slotnum e_slotnum,qr_encode e_qr_encode,qr_image e_qr_image,group_name
+        e_group_name,hostname e_hostname,rack_name e_rack_name,unit_position e_unit_position FROM cable_qrcode F
+        LEFT JOIN
+        (SELECT A.id dummy,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position FROM
+        equipment A
+        JOIN rack B ON B.id = A.rack_id
+        JOIN bizgroup C ON C.id = A.group_id) E ON E.dummy = F.eqp_id
+        ) CC ON AA.e_qr_id = CC.eqr_id
+        WHERE 1=1
+        <if test="s_group_name != null and s_group_name != ''">
+            AND s_group_name = '${s_group_name}'
+        </if>
+        <if test="e_group_name != null and e_group_name != ''">
+            AND e_group_name = '${e_group_name}'
+        </if>
+        <if test="s_eqp_name != null and s_eqp_name != ''">
+            AND s_eqp_name LIKE CONCAT('%',#{s_eqp_name},'%')
+        </if>
+        <if test="e_eqp_name != null and e_eqp_name != ''">
+            AND e_eqp_name LIKE CONCAT('%',#{e_eqp_name},'%')
+        </if>
+        <if test="s_hostname != null and s_hostname != ''">
+            AND s_hostname = '${s_hostname}'
+        </if>
+        <if test="e_hostname != null and e_hostname != ''">
+            AND e_hostname = '${e_hostname}'
+        </if>
+        <if test="s_rack_name != null and s_rack_name != ''">
+            AND s_rack_name = '${s_rack_name}'
+        </if>
+        <if test="e_rack_name != null and e_rack_name != ''">
+            AND e_rack_name = '${e_rack_name}'
+        </if>
+        ORDER BY s_rack_id,cast(s_unit_position AS UNSIGNED INTEGER) DESC
+        ) CCC, (SELECT @rownum:=#{offset}) TMP
+        LIMIT #{offset},#{limit};
 
 
+        <!--
 
-
-
-<!--   
-	
-** Cable -> start qr, end qr join  	
-** mysql  rownum 구현
-SELECT
-@rownum:=@rownum+1, b.*
-FROM buyingboard b, (SELECT @rownum:=0) TMP;
- -->
+        ** Cable -> start qr, end qr join
+        ** mysql  rownum 구현
+        SELECT
+        @rownum:=@rownum+1, b.*
+        FROM buyingboard b, (SELECT @rownum:=0) TMP;
+         -->
 
 
     </select>
-    
-    
-    <select id="selectCableListTotalCount" parameterType="sl.qr.mh.vo.Cable" resultType="int">
-	SELECT COUNT(*) FROM cable AA 
-LEFT JOIN (
-SELECT id sqr_id,portnum s_portnum,slotnum s_slotnum,qr_encode s_qr_encode,qr_image s_qr_image,group_name s_group_name,eqp_name s_eqp_name,eqp_direct s_eqp_direct,hostname s_hostname,rack_name s_rack_name,unit_position s_unit_position,rack_id s_rack_id FROM cable_qrcode F
-LEFT JOIN 
-(SELECT A.id dummy,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position,rack_id FROM equipment A
-JOIN rack B ON B.id = A.rack_id
-JOIN bizgroup C ON C.id = A.group_id) E ON E.dummy = F.eqp_id
-) BB ON AA.s_qr_id = BB.sqr_id
-LEFT JOIN 
-(
-SELECT id eqr_id,portnum e_portnum,slotnum e_slotnum,qr_encode e_qr_encode,qr_image e_qr_image,group_name e_group_name,hostname e_hostname,rack_name e_rack_name,unit_position e_unit_position FROM cable_qrcode F
-LEFT JOIN 
-(SELECT A.id dummy,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position FROM equipment A
-JOIN rack B ON B.id = A.rack_id
-JOIN bizgroup C ON C.id = A.group_id) E ON E.dummy = F.eqp_id
-) CC ON AA.e_qr_id = CC.eqr_id
-WHERE 1=1 
-  <if test="s_group_name != null and s_group_name != ''">
-    AND s_group_name = '${s_group_name}'
-</if>
-<if test="e_group_name != null and e_group_name != ''">
-    AND e_group_name = '${e_group_name}'
-</if>
- <if test="s_eqp_name != null and s_eqp_name != ''">
-    AND s_eqp_name LIKE CONCAT('%',#{s_eqp_name},'%')
-</if>
- <if test="e_eqp_name != null and e_eqp_name != ''">
-    AND e_eqp_name LIKE CONCAT('%',#{e_eqp_name},'%')
-</if>
- <if test="s_hostname != null and s_hostname != ''">
-    AND s_hostname = '${s_hostname}'
-</if>
- <if test="e_hostname != null and e_hostname != ''">
-    AND e_hostname = '${e_hostname}'
-</if>
-<if test="s_rack_name != null and s_rack_name != ''">
-    AND s_rack_name = '${s_rack_name}'
-</if>
-<if test="e_rack_name != null and e_rack_name != ''">
-    AND e_rack_name = '${e_rack_name}'
-</if>
-	</select>
 
-    
-    
-      <!-- QR코드 조회 -->
-     <select id="selectQRList" resultType="sl.qr.mh.vo.QR">
-     SELECT F.id qr_id,portnum,slotnum,qr_encode,qr_image,group_name,eqp_name,eqp_direct,hostname,rack_name,unit_position,rack_id FROM cable_qrcode F
-LEFT JOIN 
-(SELECT A.id,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position,rack_id FROM equipment A
-JOIN rack B ON B.id = A.rack_id
-JOIN bizgroup C ON C.id = A.group_id) E ON E.id = F.eqp_id
-     </select>
-     
-     
-    
+
+    <select id="selectCableListTotalCount" parameterType="sl.qr.mh.vo.Cable" resultType="int">
+        SELECT COUNT(*) FROM cable AA
+        LEFT JOIN (
+        SELECT id sqr_id,portnum s_portnum,slotnum s_slotnum,qr_encode s_qr_encode,qr_image s_qr_image,group_name
+        s_group_name,eqp_name s_eqp_name,eqp_direct s_eqp_direct,hostname s_hostname,rack_name s_rack_name,unit_position
+        s_unit_position,rack_id s_rack_id FROM cable_qrcode F
+        LEFT JOIN
+        (SELECT A.id dummy,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position,rack_id
+        FROM equipment A
+        JOIN rack B ON B.id = A.rack_id
+        JOIN bizgroup C ON C.id = A.group_id) E ON E.dummy = F.eqp_id
+        ) BB ON AA.s_qr_id = BB.sqr_id
+        LEFT JOIN
+        (
+        SELECT id eqr_id,portnum e_portnum,slotnum e_slotnum,qr_encode e_qr_encode,qr_image e_qr_image,group_name
+        e_group_name,hostname e_hostname,rack_name e_rack_name,unit_position e_unit_position FROM cable_qrcode F
+        LEFT JOIN
+        (SELECT A.id dummy,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position FROM
+        equipment A
+        JOIN rack B ON B.id = A.rack_id
+        JOIN bizgroup C ON C.id = A.group_id) E ON E.dummy = F.eqp_id
+        ) CC ON AA.e_qr_id = CC.eqr_id
+        WHERE 1=1
+        <if test="s_group_name != null and s_group_name != ''">
+            AND s_group_name = '${s_group_name}'
+        </if>
+        <if test="e_group_name != null and e_group_name != ''">
+            AND e_group_name = '${e_group_name}'
+        </if>
+        <if test="s_eqp_name != null and s_eqp_name != ''">
+            AND s_eqp_name LIKE CONCAT('%',#{s_eqp_name},'%')
+        </if>
+        <if test="e_eqp_name != null and e_eqp_name != ''">
+            AND e_eqp_name LIKE CONCAT('%',#{e_eqp_name},'%')
+        </if>
+        <if test="s_hostname != null and s_hostname != ''">
+            AND s_hostname = '${s_hostname}'
+        </if>
+        <if test="e_hostname != null and e_hostname != ''">
+            AND e_hostname = '${e_hostname}'
+        </if>
+        <if test="s_rack_name != null and s_rack_name != ''">
+            AND s_rack_name = '${s_rack_name}'
+        </if>
+        <if test="e_rack_name != null and e_rack_name != ''">
+            AND e_rack_name = '${e_rack_name}'
+        </if>
+    </select>
+
+
+    <!-- QR코드 조회 -->
+    <select id="selectQRList" resultType="sl.qr.mh.vo.QR">
+        SELECT F.id
+        qr_id,portnum,slotnum,qr_encode,qr_image,group_name,eqp_name,eqp_direct,hostname,rack_name,unit_position,rack_id
+        FROM cable_qrcode F
+        LEFT JOIN
+        (SELECT A.id,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position,rack_id FROM
+        equipment A
+        JOIN rack B ON B.id = A.rack_id
+        JOIN bizgroup C ON C.id = A.group_id) E ON E.id = F.eqp_id
+    </select>
+
+
     <update id="updateQR" parameterType="sl.qr.mh.vo.QR">
         update cable_qrcode
-      <!---  set qr_encode   = #{qr_encode}, -->
-      set      qr_image = #{qr_image}
+        <!---  set qr_encode   = #{qr_encode}, -->
+        set qr_image = #{qr_image}
         where id = #{qr_id}
     </update>
 
-	  <select id="selectEqpList" parameterType="sl.qr.mh.vo.Equipment" resultType="sl.qr.mh.vo.Equipment">
-	SELECT
-@rownum:=@rownum+1 AS rownum, b.* FROM (
-  SELECT A.id eqp_id,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position,rack_id,m_company,yearofintroduct,model FROM equipment A
-JOIN rack B ON B.id = A.rack_id
-JOIN bizgroup C ON C.id = A.group_id
-)b ,(SELECT @rownum:=#{offset}) TMP
-LIMIT #{offset},#{limit};
-	  </select>
-	  
-	  <select id="ExcelEqpList" parameterType="sl.qr.mh.vo.Equipment" resultType="sl.qr.mh.vo.Equipment">
-  SELECT A.id eqp_id,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position,rack_id,m_company,yearofintroduct,model FROM equipment A
-JOIN rack B ON B.id = A.rack_id
-JOIN bizgroup C ON C.id = A.group_id
-	  </select>
-	  
+    <select id="selectEqpList" parameterType="sl.qr.mh.vo.Equipment" resultType="sl.qr.mh.vo.Equipment">
+        SELECT
+        @rownum:=@rownum+1 AS rownum, b.* FROM (
+        SELECT A.id eqp_id,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name`
+        rack_name,A.unit_position,rack_id,m_company,yearofintroduct,model FROM equipment A
+        JOIN rack B ON B.id = A.rack_id
+        JOIN bizgroup C ON C.id = A.group_id
+        )b ,(SELECT @rownum:=#{offset}) TMP
+        LIMIT #{offset},#{limit};
+    </select>
 
-	  
-	   <select id="selectSearchEqp" parameterType="sl.qr.mh.vo.Equipment" resultType="sl.qr.mh.vo.Equipment">
-  SELECT A.id eqp_id,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position,rack_id,m_company,yearofintroduct,model FROM equipment A
-JOIN rack B ON B.id = A.rack_id
-JOIN bizgroup C ON C.id = A.group_id
-where 1=1 
-<if test="search_keyword =='hostname'">
-    and hostname LIKE CONCAT('%',#{search_value},'%')
-</if>
-	  </select>
-	  
-	   <select id="selectupdateEqp" parameterType="sl.qr.mh.vo.Equipment" resultType="sl.qr.mh.vo.Equipment">
-  SELECT A.id eqp_id,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position,rack_id,m_company,yearofintroduct,model FROM equipment A
-JOIN rack B ON B.id = A.rack_id
-JOIN bizgroup C ON C.id = A.group_id
-where 1=1 and A.id = #{eqp_id};
-	  </select>
-	  
-	  <!-- [변경] 시스템에서 변경요청된 데이터 변경 -->
+    <select id="ExcelEqpList" parameterType="sl.qr.mh.vo.Equipment" resultType="sl.qr.mh.vo.Equipment">
+        SELECT A.id eqp_id,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name`
+        rack_name,A.unit_position,rack_id,m_company,yearofintroduct,model FROM equipment A
+        JOIN rack B ON B.id = A.rack_id
+        JOIN bizgroup C ON C.id = A.group_id
+    </select>
+
+
+    <select id="selectSearchEqp" parameterType="sl.qr.mh.vo.Equipment" resultType="sl.qr.mh.vo.Equipment">
+        SELECT A.id eqp_id,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name`
+        rack_name,A.unit_position,rack_id,m_company,yearofintroduct,model FROM equipment A
+        JOIN rack B ON B.id = A.rack_id
+        JOIN bizgroup C ON C.id = A.group_id
+        where 1=1
+        <if test="search_keyword =='hostname'">
+            and hostname LIKE CONCAT('%',#{search_value},'%')
+        </if>
+    </select>
+
+    <select id="selectDetailEqp" parameterType="sl.qr.mh.vo.Equipment" resultType="sl.qr.mh.vo.Equipment">
+        SELECT
+        A.id eqp_id, C.group_name, A.eqp_name, A.eqp_direct, A.hostname, B.`name` rack_name, A.unit_position, rack_id,
+        m_company, yearofintroduct, model,
+        config_category , asset_category , asset_id , config_id , resource_name , ip_address , os_version ,
+        operating_department,
+        primary_operator , secondary_operator , primary_outsourced_operator , secondary_outsourced_operator ,
+        operating_status , eol_status , eos_status,
+        redundancy_config , network_operation_type , maintenance_contract_target , asset_acquisition_date ,
+        asset_disposal_date , acquisition_cost,
+        dbrain_number , domestic , installation_coordinates , installation_units , equipment_size_units , remarks
+        FROM equipment A
+        JOIN rack B ON B.id = A.rack_id
+        JOIN bizgroup C ON C.id = A.group_id
+        where 1=1 and A.id = #{eqp_id};
+    </select>
+
+    <select id="selectupdateEqp" parameterType="sl.qr.mh.vo.Equipment" resultType="sl.qr.mh.vo.Equipment">
+        SELECT A.id eqp_id,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name`
+        rack_name,A.unit_position,rack_id,m_company,yearofintroduct,model FROM equipment A
+        JOIN rack B ON B.id = A.rack_id
+        JOIN bizgroup C ON C.id = A.group_id
+        where 1=1 and A.id = #{eqp_id};
+    </select>
+
+    <!-- [변경] 시스템에서 변경요청된 데이터 변경 -->
     <update id="updateEqp" parameterType="sl.qr.mh.vo.Equipment">
-      UPDATE equipment 
-	SET
-	group_id = (select id from bizgroup where group_name = #{group_name}),
-	eqp_name = #{eqp_name},
-	hostname = #{hostname},
-	m_company = #{m_company},
-	model = #{model},
-	rack_id = (select id from rack where name = #{rack_name}),
-	eqp_direct = #{eqp_direct},
-	unit_position = #{unit_position},
-	yearofintroduct = #{yearofintroduct}
-	WHERE id = #{eqp_id};
+        UPDATE equipment
+        SET
+        group_id = (select id from bizgroup where group_name = #{group_name}),
+        eqp_name = #{eqp_name},
+        hostname = #{hostname},
+        m_company = #{m_company},
+        model = #{model},
+        rack_id = (select id from rack where name = #{rack_name}),
+        eqp_direct = #{eqp_direct},
+        unit_position = #{unit_position},
+        yearofintroduct = #{yearofintroduct}
+        WHERE id = #{eqp_id};
     </update>
-	  <delete id="deleteEqp" parameterType="sl.qr.mh.vo.Equipment">
+    <delete id="deleteEqp" parameterType="sl.qr.mh.vo.Equipment">
         delete from equipment
         where id = #{eqp_id}
     </delete>
-	  
-	  
-	  
-	   <select id="selectEqpListTotalCount" parameterType="sl.qr.mh.vo.Equipment" resultType="int">
-	   SELECT COUNT(*) FROM equipment A
-JOIN rack B ON B.id = A.rack_id
-JOIN bizgroup C ON C.id = A.group_id
-	   </select>
-	  
-	    <select id="selectBizList" resultType="sl.qr.mh.vo.Group">
-			SELECT id,group_name from bizgroup;
-</select>
- <select id="selectRackList" resultType="sl.qr.mh.vo.Rack">
-SELECT id,name FROM rack;
-</select>
- <select id="checkHostname" parameterType="String" resultType="String">
- SELECT hostname FROM equipment WHERE hostname = #{hostaname}
- </select>
- 
- <insert id="insertEqp" parameterType="sl.qr.mh.vo.Equipment">
-	insert into equipment
-	(group_id,eqp_name,hostname,rack_id,eqp_direct,unit_position,m_company,yearofintroduct,model)
-	value ((select id from bizgroup where group_name=#{group_name}),#{eqp_name},#{hostname},
-	(select id from rack where name=#{rack_name}),#{eqp_direct},#{unit_position},#{m_company},#{yearofintroduct},#{model});
-</insert>
-
-<select id="selectQRid" resultType="int">
-SELECT MAX(id)+1 FROM cable_qrcode
-</select>
 
 
- <insert id="insertQR" parameterType="sl.qr.mh.vo.QR">
-	insert into cable_qrcode (id,eqp_id,portnum,slotnum,qr_encode,qr_image) 
-	value (#{qr_id},(select id eqp_id from equipment where hostname=#{hostname}),#{portnum},#{slotnum},#{qr_encode},#{qr_image});       
-</insert>
+    <select id="selectEqpListTotalCount" parameterType="sl.qr.mh.vo.Equipment" resultType="int">
+        SELECT COUNT(*) FROM equipment A
+        JOIN rack B ON B.id = A.rack_id
+        JOIN bizgroup C ON C.id = A.group_id
+    </select>
+
+    <select id="selectBizList" resultType="sl.qr.mh.vo.Group">
+        SELECT id,group_name from bizgroup;
+    </select>
+    <select id="selectRackList" resultType="sl.qr.mh.vo.Rack">
+        SELECT id,name FROM rack;
+    </select>
+    <select id="checkHostname" parameterType="String" resultType="String">
+        SELECT hostname FROM equipment WHERE hostname = #{hostaname}
+    </select>
+
+    <insert id="insertEqp" parameterType="sl.qr.mh.vo.Equipment">
+        insert into equipment
+        (group_id,eqp_name,hostname,rack_id,eqp_direct,unit_position,m_company,yearofintroduct,model)
+        value ((select id from bizgroup where group_name=#{group_name}),#{eqp_name},#{hostname},
+        (select id from rack where
+        name=#{rack_name}),#{eqp_direct},#{unit_position},#{m_company},#{yearofintroduct},#{model});
+    </insert>
+
+    <select id="selectQRid" resultType="int">
+        SELECT MAX(id)+1 FROM cable_qrcode
+    </select>
 
 
- <insert id="insertCable" parameterType="sl.qr.mh.vo.Cable">
-	insert into cable (s_qr_id,e_qr_id,c_velocity,c_type,c_color) 
-	value (#{s_qr_id},#{e_qr_id},#{c_velocity},#{c_type},#{c_color});    
-</insert>
-   
- 
+    <insert id="insertQR" parameterType="sl.qr.mh.vo.QR">
+        insert into cable_qrcode (id,eqp_id,portnum,slotnum,qr_encode,qr_image)
+        value (#{qr_id},(select id eqp_id from equipment where
+        hostname=#{hostname}),#{portnum},#{slotnum},#{qr_encode},#{qr_image});
+    </insert>
+
+
+    <insert id="insertCable" parameterType="sl.qr.mh.vo.Cable">
+        insert into cable (s_qr_id,e_qr_id,c_velocity,c_type,c_color)
+        value (#{s_qr_id},#{e_qr_id},#{c_velocity},#{c_type},#{c_color});
+    </insert>
+
+
 </mapper>

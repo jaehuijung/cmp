@@ -31,14 +31,16 @@ public class userController {
 	@GetMapping("/usr/list")
 	public String getusrList(HttpSession session,
 			HttpServletRequest request) {
-		return "new/usrlist";
+ 		// return "new/usrlist";
+		return "views/usrlist";
 		        
 	}
 	
 	@GetMapping("/usr/regster")
 	public String getusrregster(HttpSession session,
 			HttpServletRequest request) {
-		return "new/userregster";
+		// return "new/userregster";
+		return "views/userregster";
 		        
 	}
 	

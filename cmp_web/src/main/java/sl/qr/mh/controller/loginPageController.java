@@ -48,7 +48,8 @@ public class loginPageController {
 			HttpServletRequest request) {
 		
 
-		return "login";
+		// return "login";
+		return "views/login";
 	}
 	
 	/**

@@ -77,14 +77,13 @@ public class cableService {
 		public Equipment selectupdateEqp(Equipment vo) {
 			return cableMapper.selectupdateEqp(vo);
 		}
-		/*
-		 * public List<Rack> selectRackList() {
-		 * 
-		 * 
-		 * }
-		 */
-		
-		public List<HashMap<String, Object>> selectEqpList(Equipment vo) {
+
+		public Equipment selectDetailEqp(Equipment vo) {
+			return cableMapper.selectDetailEqp(vo);
+		}
+
+
+	public List<HashMap<String, Object>> selectEqpList(Equipment vo) {
 
 			int totalcnt = cableMapper.selectEqpListTotalCount(vo);
 			PagingUtil pagingutil = new PagingUtil();
