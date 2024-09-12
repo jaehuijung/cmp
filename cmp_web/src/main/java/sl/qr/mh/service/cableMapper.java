@@ -29,8 +29,9 @@ public interface cableMapper {
 
 	// public Map<String, Object> getEqpUpdateList(String param); // 장비관리 > 장비목록 > 장비수정 리스트
 
-	public void insertEqpList(Map<String, Object> paramMap);
-
+	public void insertEqpList(Map<String, Object> paramMap); // 장비관리 > 장비목록 > 추가
+	public void updateEqpList(Map<String, Object> paramMap); // 장비관리 > 장비목록 > 수정
+	public void deleteEqpList(String deleteEqpTarget); // 장비관리 > 장비목록 > 삭제
 
 	/************************************/
 	// 아직 변경 안한놈들
@@ -48,10 +49,6 @@ public interface cableMapper {
 	public void insertQR(QR qr);
 	public void insertCable(Cable vo);
 
-
-
-	public void updateEqp(Equipment vo);
-	public void deleteEqp(Equipment vo);
 	//public List<Cable> ExcelEqpList
 
 
@@ -70,4 +67,6 @@ public interface cableMapper {
 	public Equipment selectupdateEqp(Equipment vo); // 장비관리 > 장비목록 > 장비수정 리스트
 
 	public void insertEqp(Equipment vo); // 장비관리 > 장비추가 > 추가
+	public void updateEqp(Equipment vo); // 장비관리 > 장비추가 > 수정
+	public void deleteEqp(Equipment vo); // 장비관리 > 장비목록 > 삭제
 }

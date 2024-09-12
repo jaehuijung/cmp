@@ -41,7 +41,7 @@ public class eqpManageController {
     // 장비관리 > 장비목록 페이지
     @GetMapping("/view")
     public String view(HttpSession session, HttpServletRequest request) {
-        return "/views/eqp/view";
+        return "views/eqp/view";
 
     }
 
@@ -53,14 +53,14 @@ public class eqpManageController {
     }
 
 
-    // 장비관리 > 장비목록 > 장비추가 > 추가
+    // 장비관리 > 장비목록 > 장비추가 모달 > 장비 데이터 추가
     @ResponseBody
     @PostMapping("/insert_eqp")
     public Map<String, Object> insert(@RequestParam Map<String, Object> insertMap) {
         return eqpManageService.insertEqpList(insertMap);
     }
 
-    // 장비관리 > 장비목록 > 장비수정 데이터
+    // 장비관리 > 장비목록 > 장비수정 모달 > 장비 데이터
     @ResponseBody
     @GetMapping("/update")
     public Map<String, Object> update(@RequestParam("eqp_id") String eqp_id) {
@@ -68,24 +68,30 @@ public class eqpManageController {
     }
 
 
-    // 장비관리 > 장비목록 > 장비수정 > 수정
+    // 장비관리 > 장비목록 > 장비수정 모달 > 장비 데이터 수정
+    @ResponseBody
     @PostMapping("/update_eqp")
-    public String update(Equipment vo, HttpSession session, HttpServletRequest request, Model model) {
-        cableservice.updateEqp(vo);
+    public Map<String, Object> update(@RequestParam Map<String, Object> updateMap) {
 
-        return "views/eqp/view";
+        // Map<String, Object> returnMap = new HashMap<>();
+        // return returnMap;
+
+        return eqpManageService.updateEqpList(updateMap);
     }
+
+    // 장비관리 > 장비목록 > 삭제
+    @ResponseBody
+    @PostMapping("/delete")
+    public Map<String, Object> delete(@RequestBody List<Map<String, Object>> deleteList) {
+        return eqpManageService.deleteEqpList(deleteList);
+    }
+
 
     /************************************/
     // 아직 변경 안한놈들
 
     // 장비관리 > 장비목록 > 삭제
-    @PostMapping("/delete")
-    public String eqpDelete(Equipment vo, HttpSession session, HttpServletRequest request, Model model) {
-        cableservice.deleteEqp(vo);
 
-        return "views/eqp/view";
-    }
 
     // 장비관리 > 장비추가 > 등록
     @GetMapping("/eqpinsert")
@@ -156,6 +162,21 @@ public class eqpManageController {
     @GetMapping("/detail")
     public Map<String, Object> detail1(@RequestParam("eqp_id") String eqp_id) {
         return eqpManageService.getEqpDetailList(eqp_id); // 상세 팝업에서 보여질 데이터
+    }
+
+    @PostMapping("/delete")
+    public String eqpDelete(Equipment vo, HttpSession session, HttpServletRequest request, Model model) {
+        cableservice.deleteEqp(vo);
+
+        return "views/eqp/view";
+    }
+
+    // 장비관리 > 장비목록 > 장비수정 모달 > 장비 데이터 수정
+    @PostMapping("/update_eqp")
+    public String update(Equipment vo, HttpSession session, HttpServletRequest request, Model model) {
+        cableservice.updateEqp(vo);
+
+        return "views/eqp/view";
     }
      */
 
