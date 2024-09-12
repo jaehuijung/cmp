@@ -289,8 +289,6 @@
     </main>
     <th:block layout:fragment="script">
 
-        <script th:src="@{/js/axios.min.js}"></script>
-        <script th:src="@{/js/jquery.min.js}"></script>
         <script th:src="@{/js/jsfunction.js}"></script>
         <script>
 
@@ -306,7 +304,8 @@
             }
 
             function goList() {
-                    location.href = "/cablelist";
+                   // location.href = "/cablelist";
+                   location.href = "/cable/view";
                 }
 
 

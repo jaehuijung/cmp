@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/new_default_layout}">
+
+<head>
+	<style>
+		.eqpth {
+			width: 150px;
+			text-align:center;
+			text-align:center;
+			align-content: center;
+		}
+		.eqpth2{
+			width: 70px;
+			text-align:center;
+			text-align:center;
+			align-content: center;
+		}
+
+		.form-control{
+			min-width: 150px;
+			width: max-content;
+			font-size: 14px;
+			height:35px;
+			text-align:center;
+			align-content: center;
+			border: 0;
+		}
+	</style>
+</head>
+<div layout:fragment="content">
+
+	<main id="main" class="main">
+		<div class="pagetitle">
+			<nav>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+					<li class="breadcrumb-item">장비관리</li>
+					<li class="breadcrumb-item active">장비 DETAIL</li>
+				</ol>
+			</nav>
+
+			<h1 style="padding: 0px 0px 10px;">장비 DETAIL</h1>
+
+		</div>
+		<!-- End Page Title -->
+
+		<section class="section">
+			<div class="card col-lg-8">
+				<div class="card-body">
+
+					<form id="writeForm" action="/eqpManage/update" name="writeForm" method="post">
+						<!--
+						<input type="hidden" id="sgroup_name"   th:value="${Equipment.group_name}"/>
+						<input type="hidden" id="seqp_direct"   th:value="${Equipment.eqp_direct}"/>
+						<input type="hidden" id="srack_name"   th:value="${Equipment.rack_name}"/>
+						-->
+
+						<p style="font-size: 25px; font-weight: bold; margin-top: 20px;">자산정보</p>
+						<div style="display: flex;">
+							<div style="width: 45%;">
+								<table class='table table-borderless' style="margin-top:10px;">
+
+                                    <tr>
+                                        <th class= "eqpth" colspan="2">구성분류</th>
+                                        <td><input type="text" class="form-control" readonly name="config_category" id="config_category" th:value="${#strings.defaultString(Equipment.config_category, '0')}"/></td>
+                                    </tr>
+									<tr>
+										<th class= "eqpth" colspan="2">자산ID</th>
+										<td><input type="text" class="form-control" readonly name="asset_id" id="asset_id"  th:value="${Equipment.asset_id != null ? Equipment.asset_id : 0 }"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth" colspan="2">제조사</th>
+										<td><input type="text" class="form-control" readonly name="m_company" id="m_company"  th:value="${Equipment.m_company}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth" colspan="2">운영부서</th>
+										<td><input type="text" class="form-control" readonly name="operating_department" id="operating_department"  th:value="${Equipment.operating_department}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth" rowspan="2">운영담당자</th>
+										<th class= "eqpth2" >정</th>
+										<td><input type="text" class="form-control" readonly name="primary_operator" id="primary_operator"  th:value="${Equipment.primary_operator}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth2" >부</th>
+										<td><input type="text" class="form-control" readonly name="secondary_operator" id="secondary_operator"  th:value="${Equipment.secondary_operator}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth" colspan="2">유지관리</br>계약대상여부</th>
+										<td><input type="text" class="form-control" readonly name="maintenance_contract_target" id="maintenance_contract_target"  th:value="${Equipment.maintenance_contract_target}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth" colspan="2">자산취득일자</th>
+										<td><input type="text" class="form-control" readonly name="asset_acquisition_date" id="asset_acquisition_date"  th:value="${Equipment.asset_acquisition_date}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth" colspan="2">도입금액</th>
+										<td><input type="text" class="form-control" readonly name="acquisition_cost" id="acquisition_cost"  th:value="${Equipment.acquisition_cost}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth" colspan="2">국산여부</th>
+										<td><input type="text" class="form-control" readonly name="domestic" id="domestic"  th:value="${Equipment.domestic}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth" rowspan="2">단종상태</th>
+										<th class= "eqpth2" >EOL</th>
+										<td><input type="text" class="form-control" readonly name="eol_status" id="eol_status"  th:value="${Equipment.eol_status}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth2" >EOS</th>
+										<td><input type="text" class="form-control" readonly name="eos_status" id="eos_status"  th:value="${Equipment.eos_status}"/></td>
+									</tr>
+								</table>
+							</div>
+							<div style="width: 45%; margin-left: 20px;">
+								<table class='table table-borderless' style="margin-top:10px;">
+
+									<tr>
+										<th class= "eqpth" colspan="2">자산분류</th>
+										<td><input type="text" class="form-control" readonly name="asset_category" id="asset_category"  th:value="${Equipment.asset_category}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth" colspan="2">구성ID</th>
+										<td><input type="text" class="form-control" readonly name="config_id" id="config_id"  th:value="${Equipment.config_id}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth" colspan="2">모델명</th>
+										<td><input type="text" class="form-control" readonly name="model" id="model" style="height:35px;font-size: 14px;" th:value="${Equipment.model}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth" colspan="2">운영상태</th>
+										<td><input type="text" class="form-control" readonly name="operating_status" id="operating_status"  th:value="${Equipment.operating_status}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth" rowspan="2">위탁운영사용자</th>
+										<th class= "eqpth2" >정</th>
+										<td><input type="text" class="form-control" readonly name="primary_outsourced_operator" id="primary_outsourced_operator"  th:value="${Equipment.primary_outsourced_operator}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth2" >부</th>
+										<td><input type="text" class="form-control" readonly name="secondary_outsourced_operator" id="secondary_outsourced_operator"  th:value="${Equipment.secondary_outsourced_operator}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth" colspan="2">이중화구성여부</th>
+										<td><input type="text" class="form-control" readonly name="redundancy_config" id="redundancy_config"  th:value="${Equipment.redundancy_config}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth" colspan="2">자산폐기일자</th>
+										<td><input type="text" class="form-control" readonly name="asset_disposal_date" id="asset_disposal_date"  th:value="${Equipment.asset_disposal_date}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth" colspan="2">디브레인번호</th>
+										<td><input type="text" class="form-control" readonly name="dbrain_number" id="dbrain_number"  th:value="${Equipment.dbrain_number}"/></td>
+									</tr>
+
+								</table>
+							</div>
+						</div>
+
+						<p style="font-size: 25px; font-weight: bold; margin-top: 20px;">상세정보</p>
+						<div style="display: flex;">
+							<div style="">
+								<table class='table table-borderless' style="margin-top:10px;">
+									<tr>
+										<th class= "eqpth" colspan="2">네트워크운영구분</th>
+										<td><input type="text" class="form-control" readonly name="network_operation_type" id="network_operation_type"  th:value="${Equipment.network_operation_type}"/></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div style="display: flex;">
+							<div style="width: 45%;">
+								<table class='table table-borderless' style="">
+									<tr>
+										<!-- <th class= "eqpth" colspan="2">호스트명 <span style="color: red">*</span></th> -->
+										<th class= "eqpth" colspan="2">호스트명</th>
+										<td>
+											<!--
+											<div style="display:flex; justify-content: flex-start;">
+												<div style="margin-right:auto">
+													<input type="text" class="form-control" name="hostname" id="hostname" style="width:300px;height:35px;" th:value="${Equipment.hostname}" readonly/></div>
+												<div>
+												<button type='button' class='btn btn-outline-secondary' onclick='checkhostnameExist();'>중복체크</button></div>
+                                            </div>
+											-->
+											<input type="text" class="form-control" readonly name="hostname" id="hostname" th:value="${Equipment.hostname}"/>
+										</td>
+									</tr>
+									<tr>
+										<th class= "eqpth" colspan="2">IP Address</th>
+										<td><input type="text" class="form-control" readonly name="ip_address" id="ip_address"  th:value="${Equipment.ip_address}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth" colspan="2">CPU</th>
+										<td><input type="text" class="form-control" readonly name="ip_address" id="ip_address"  th:value="${Equipment.ip_address}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth" colspan="2">MEM</th>
+										<td><input type="text" class="form-control" readonly name="ip_address" id="ip_address"  th:value="${Equipment.ip_address}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth" rowspan="2">설치좌표</th>
+										<th class= "eqpth2" >좌표</th>
+										<td><input type="text" class="form-control" readonly name="installation_coordinates" id="installation_coordinates"  th:value="${Equipment.installation_coordinates}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth2" >유닛수</th>
+										<td><input type="text" class="form-control" readonly name="installation_units" id="installation_units"  th:value="${Equipment.installation_units}"/></td>
+									</tr>
+								</table>
+							</div>
+							<div style="width: 45%; margin-left: 20px;">
+								<table class='table table-borderless' style="">
+
+									<tr>
+										<th class= "eqpth" colspan="2">구성자원명</th>
+										<td><input type="text" class="form-control" readonly name="resource_name" id="resource_name"  th:value="${Equipment.resource_name}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth" colspan="2">OS 버전</th>
+										<td><input type="text" class="form-control" readonly name="os_version" id="os_version"  th:value="${Equipment.os_version}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth" colspan="2">DISK</th>
+										<td><input type="text" class="form-control" readonly name="ip_address" id="ip_address"  th:value="${Equipment.ip_address}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth" colspan="2">시리얼번호</th>
+										<td><input type="text" class="form-control" readonly name="ip_address" id="ip_address"  th:value="${Equipment.ip_address}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth" colspan="2">장비크기(유닛수)</th>
+										<td><input type="text" class="form-control" readonly name="equipment_size_units" id="equipment_size_units"  th:value="${Equipment.equipment_size_units}"/></td>
+									</tr>
+
+
+								</table>
+							</div>
+						</div>
+						<div style="display: flex;">
+							<div style="width: 45%;">
+								<table class='table table-borderless' style="">
+									<tr>
+										<th class= "eqpth" rowspan="12">연결정보</th>
+										<th class= "eqpth2" >PORT</th>
+										<td><input type="text" class="form-control" name="installation_coordinates" id="installation_coordinates"  th:value="${Equipment.installation_coordinates}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth2" >IP</th>
+										<td><input type="text" class="form-control" name="installation_units" id="installation_units"  th:value="${Equipment.installation_units}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth2" >HOST</th>
+										<td><input type="text" class="form-control" name="installation_units" id="installation_units"  th:value="${Equipment.installation_units}"/></td>
+									</tr>
+
+									<tr>
+										<th class= "eqpth2" >PORT</th>
+										<td><input type="text" class="form-control" name="installation_units" id="installation_units"  th:value="${Equipment.installation_units}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth2" >IP</th>
+										<td><input type="text" class="form-control" name="installation_units" id="installation_units"  th:value="${Equipment.installation_units}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth2" >HOST</th>
+										<td><input type="text" class="form-control" name="installation_units" id="installation_units"  th:value="${Equipment.installation_units}"/></td>
+									</tr>
+
+									<tr>
+										<th class= "eqpth2" >PORT</th>
+										<td><input type="text" class="form-control" name="installation_units" id="installation_units"  th:value="${Equipment.installation_units}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth2" >IP</th>
+										<td><input type="text" class="form-control" name="installation_units" id="installation_units"  th:value="${Equipment.installation_units}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth2" >HOST</th>
+										<td><input type="text" class="form-control" name="installation_units" id="installation_units"  th:value="${Equipment.installation_units}"/></td>
+									</tr>
+
+									<tr>
+										<th class= "eqpth2" >PORT</th>
+										<td><input type="text" class="form-control" name="installation_units" id="installation_units"  th:value="${Equipment.installation_units}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth2" >IP</th>
+										<td><input type="text" class="form-control" name="installation_units" id="installation_units"  th:value="${Equipment.installation_units}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth2" >HOST</th>
+										<td><input type="text" class="form-control" name="installation_units" id="installation_units"  th:value="${Equipment.installation_units}"/></td>
+									</tr>
+								</table>
+							</div>
+							<div style="width: 45%; margin-left: 20px;">
+								<table class='table table-borderless' style="">
+									<tr>
+										<th class= "eqpth" rowspan="12">연결정보</th>
+										<th class= "eqpth2" >PORT</th>
+										<td><input type="text" class="form-control" name="installation_coordinates" id="installation_coordinates"  th:value="${Equipment.installation_coordinates}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth2" >IP</th>
+										<td><input type="text" class="form-control" name="installation_units" id="installation_units"  th:value="${Equipment.installation_units}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth2" >HOST</th>
+										<td><input type="text" class="form-control" name="installation_units" id="installation_units"  th:value="${Equipment.installation_units}"/></td>
+									</tr>
+
+									<tr>
+										<th class= "eqpth2" >PORT</th>
+										<td><input type="text" class="form-control" name="installation_units" id="installation_units"  th:value="${Equipment.installation_units}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth2" >IP</th>
+										<td><input type="text" class="form-control" name="installation_units" id="installation_units"  th:value="${Equipment.installation_units}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth2" >HOST</th>
+										<td><input type="text" class="form-control" name="installation_units" id="installation_units"  th:value="${Equipment.installation_units}"/></td>
+									</tr>
+
+									<tr>
+										<th class= "eqpth2" >PORT</th>
+										<td><input type="text" class="form-control" name="installation_units" id="installation_units"  th:value="${Equipment.installation_units}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth2" >IP</th>
+										<td><input type="text" class="form-control" name="installation_units" id="installation_units"  th:value="${Equipment.installation_units}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth2" >HOST</th>
+										<td><input type="text" class="form-control" name="installation_units" id="installation_units"  th:value="${Equipment.installation_units}"/></td>
+									</tr>
+
+									<tr>
+										<th class= "eqpth2" >PORT</th>
+										<td><input type="text" class="form-control" name="installation_units" id="installation_units"  th:value="${Equipment.installation_units}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth2" >IP</th>
+										<td><input type="text" class="form-control" name="installation_units" id="installation_units"  th:value="${Equipment.installation_units}"/></td>
+									</tr>
+									<tr>
+										<th class= "eqpth2" >HOST</th>
+										<td><input type="text" class="form-control" name="installation_units" id="installation_units"  th:value="${Equipment.installation_units}"/></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+
+						<div style='display:flex;justify-content: center;'>
+							<div><button type='button' class='btn btn-outline-secondary' onclick='check();' style='margin:0px 10px;font-size:13px;padding:3px 15px;'>저장 ... 수정 버튼으로 바꾸고 수정 페이지로 이동하도록</button></div>
+							<div><button type='button' class='btn btn-outline-secondary' onclick='goList();return false;' style='margin:0px 10px;font-size:13px;padding:3px 15px;'>취소</button></div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</section>
+
+	</main>
+	<th:block layout:fragment="script">
+
+
+		<script th:src="@{/js/common/axios.min.js}"></script>
+		<script th:src="@{/js/common/bootstrap.min.js}"></script>
+		<script th:src="@{/js/common/jquery.min.js}"></script>
+		<script th:src="@{/js/eqp.js}"></script>
+
+
+		<script>
+			let group_name = $('#sgroup_name').val();
+			let rack_name = $('#srack_name').val();
+			EqpGroupList(group_name);
+			EqpRackList(rack_name)
+		</script>
+
+		<script>
+
+			let heqp_direct = $('#seqp_direct').val();
+			$('#eqp_direct').val(heqp_direct).prop("selected", true);
+
+				function check() {
+					let fchk = document.getElementById("writeForm");
+
+					//alert(fchk.hostnameChecked.value);
+
+					if (fchk.group_name.value == "" || fchk.group_name.value.length == 0) {
+						alert("장비그룹명을 선택해 주세요");
+						//let key1 = document.getElementsByName('group_name')[0];
+						 //  key1.focus();
+						 //  key1.select();
+						 //document.getElementById("group_name")[1].focus();
+
+					} else if (fchk.eqp_name.value == "" || fchk.eqp_name.value.length == 0) {
+						alert("장비명을 입력해 주세요");
+						fchk.eqp_name.focus();
+					} else if (fchk.hostname.value == "" || fchk.hostname.value.length == 0) {
+						alert("호스트명을 입력해 주세요");
+						fchk.hostname.focus();
+					} else if (fchk.eqp_direct.value == "" || fchk.eqp_direct.value.length == 0) {
+						alert("장비방향을 선택해 주세요");
+						//fchk.hostnam.focus();
+					} else if (fchk.rack_name.value == "" || fchk.rack_name.value.length == 0) {
+						alert("랙번호를 선택해 주세요");
+
+					} /* else if (fchk.hostnameChecked.value == "false") {
+						alert("호스트명 중복체크 해주세요");
+						fchk.hostname.focus();
+					}  */else {
+						//alert(document.writeForm.eqp_name.value);
+							fchk.submit();
+					}
+				}
+
+				function goList() {
+					// location.href = "/eqplist";
+					location.href = "/eqpManage/view";
+				}
+
+			</script>
+
+	</th:block>
+</div>
+
+
+
+</html>

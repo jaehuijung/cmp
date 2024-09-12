@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/new_default_layout}">
+
+<head>
+    <style>
+        /* 추가, 수정 모달 크기... 나중에 공통으로 옮기기 */
+        .custom-width {
+            width: 1000px;
+        }
+    </style>
+</head>
+
+
+<div layout:fragment="content">
+
+
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item">장비관리</li>
+                    <li class="breadcrumb-item active">장비목록조회</li>
+                </ol>
+            </nav>
+
+            <h1 style="padding: 0px 0px 10px;">장비목록조회</h1>
+
+        </div>
+
+        <section class="section">
+            <div class="card">
+                <div class="card-body">
+                    <!--
+                    <form name='detailForm' id='detailForm' method='GET' action='/eqpManage/detail'>
+                        <input type='hidden' id='detail_eqp_id' name='eqp_id' value=''/>
+                    </form>
+                    <form name='updateForm' id='updateForm' method='GET' action='/eqpManage/update'>
+                        <input type='hidden' id='update_eqp_id' name='eqp_id' value=''/>
+                    </form>
+                    <form name='deleteForm' id='deleteForm' method='POST' action='/eqpManage/delete'>
+                        <input type='hidden' id='del_eqp_id' name='eqp_id' value=''/>
+                    </form>
+                    -->
+
+
+                    <div style='display: flex; justify-content: space-between;'>
+                        <div>
+                            <p id="eqpTotalCnt" style="margin:10px 0px 10px 0px;font-size:14px;padding:3px 8px;"></p>
+                        </div>
+                        <div>
+                            <button type='button' class='btn btn-outline-secondary'
+                                    style='margin:10px 0px 10px 10px;font-size:13px;padding:3px 8px;'
+                                    onclick="eqp_create_popup()">추가
+                            </button>
+                            <button type='button' class='btn btn-outline-secondary'
+                                    style='margin:10px 0px 10px 10px;font-size:13px;padding:3px 8px;'
+                                    onclick="eqp_deleteAll()">삭제
+                            </button>
+                            <button type='button' class='btn btn-outline-secondary'
+                                    style='margin:10px 0px 10px 10px;font-size:13px;padding:3px 8px;'
+                                    onclick="location.href='/eqp/exceldown'">엑셀 다운로드
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="tbl-bootstrap-wrap">
+                        <table id="eqpTable"></table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <th:block layout:fragment="script">
+
+        <script th:src="@{/js/common/axios.min.js}"></script>
+        <script th:src="@{/js/common/bootstrap.min.js}"></script>
+        <script th:src="@{/js/common/jquery.min.js}"></script>
+        <script th:src="@{/js/eqp.js}"></script>
+
+    </th:block>
+</div>
+
+
+</html>

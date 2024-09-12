@@ -13,7 +13,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import sl.qr.mh.service.cableService;
-import sl.qr.mh.vo.Cable;
 import sl.qr.mh.vo.Equipment;
 import sl.qr.mh.vo.Group;
 import sl.qr.mh.vo.Rack;
@@ -21,19 +20,20 @@ import sl.qr.mh.vo.Rack;
 @Slf4j
 @CrossOrigin(origins = "*", allowedHeaders = "*") /* CORS 어노테이션 */
 @RestController
-public class cableManageController {
+public class cableManageController1 {
 	
 	private final cableService cableservice;
 	private BCryptPasswordEncoder bcrypt;
 	
 	
-	public cableManageController(
+	public cableManageController1(
 			cableService cableservice,
 			BCryptPasswordEncoder bcrypt) {
 		this.cableservice = cableservice;
 		this.bcrypt = bcrypt;
 	}
-	
+
+	/*
 		@GetMapping(value = "/cable/list")
 	public List<HashMap<String, Object>> getCableListData(Cable vo,
 			  HttpSession session,
@@ -46,28 +46,22 @@ public class cableManageController {
 
 	       return selectCableList;
     }
+
+	 */
 	
-	
+	/*
+	// 장비관리 > 장비목록 > 리스트
+	// eqpManageController로 이동
 	@GetMapping(value = "/quipment/list")
     public List<HashMap<String, Object>> getEquipmentListData(Equipment vo,
             HttpSession session,
             HttpServletRequest request) {
         //vo.setCurrent_page_no(1);
 		List<HashMap<String, Object>> selectEquipmentList = cableservice.selectEqpList(vo);
-        
-		/*
-		 * Iterator<Equipment> it = selectEquipmentList.iterator(); while(it.hasNext())
-		 * {
-		 * 
-		 * 
-		 * Equipment eqp = it.next();
-		 * 
-		 * String test = eqp.getEqp_name(); log.info(test);
-		 * 
-		 * }
-		 */
+
         return selectEquipmentList;
-}
+	}
+	*/
 	
 @GetMapping(value = "/quipment/search")
 public List<Equipment> getEqpSearchData(Equipment vo, HttpSession session,

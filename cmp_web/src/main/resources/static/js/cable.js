@@ -1,10 +1,166 @@
 
-/**************** 전역변수 ****************/
 // base url
  let urlPre = "https://127.0.0.1";
- // let urlPre = "https://3.38.246.94";
 
-/* 시작 */
+
+$(function(){
+
+/*
+var columns = [
+    [
+        {
+            title: '구분',
+            field: 'division',
+            align: 'center',
+            valign: 'middle',
+            colspan: 2
+        },
+        {
+            title: '출발',
+            align: 'center',
+            valign: 'middle',
+            colspan: 3
+        },
+        {
+            title: '목적',
+            align: 'center',
+            valign: 'middle',
+            colspan: 3
+        }
+    ],
+    [
+        {
+            title: '1',
+            field: 'checkbox',
+            align: 'center',
+            valign: 'middle',
+            width: '10px',
+            formatter: function(value, row, index) {
+                return '<input type="checkbox" class="row-checkbox">';
+            }
+        },
+        {
+            title: 'no',
+            field: 'no',
+            align: 'center',
+            valign: 'middle',
+            width: '10px'
+        },
+        {
+            title: '이름',
+            field: 'departure_name',
+            align: 'center',
+            valign: 'middle',
+        },
+        {
+            title: '번호',
+            field: 'departure_number',
+            align: 'center',
+            valign: 'middle',
+        },
+        {
+            title: '주소',
+            field: 'departure_address',
+            align: 'center',
+            valign: 'middle',
+        },
+        {
+            title: '이름',
+            field: 'destination_name',
+            align: 'center',
+            valign: 'middle',
+        },
+        {
+            title: '번호',
+            field: 'destination_number',
+            align: 'center',
+            valign: 'middle',
+        },
+        {
+            title: '주소',
+            field: 'destination_address',
+            align: 'center',
+            valign: 'middle',
+        }
+    ]
+];
+
+let data = [
+    {
+        checkbox: '<input type="checkbox">',
+        no: '1',
+        departure_name: 'a1',
+        departure_number: '12',
+        departure_address: 'abc',
+        destination_name: 'a2',
+        destination_number: '41',
+        destination_address: 'awr'
+    },
+    {
+        checkbox: '<input type="checkbox">',
+        no: '2',
+        departure_name: 'b1',
+        departure_number: '123',
+        departure_address: 'def',
+        destination_name: 'b2',
+        destination_number: '321',
+        destination_address: 'trwea'
+    },
+    {
+        checkbox: '<input type="checkbox">',
+        no: '3',
+        departure_name: 'c1',
+        departure_number: '1234',
+        departure_address: 'ghi',
+        destination_name: 'c2',
+        destination_number: '5612',
+        destination_address: 'wtaw'
+    }
+];
+
+$('#table').bootstrapTable({
+    // data: data,
+    url: '/cableManage/list',
+    method: 'post',
+    queryParams: function(params) {
+        let test = "test";
+        params = {
+            offset: params.offset,
+            limit: params.limit,
+        }
+
+        return params;
+    },
+    cache: false,
+    pagination: true,
+    sidePagination: 'server',
+
+    classes: "txt-pd",
+    pageSize: 10,
+    columns: columns,
+    checkboxHeader: true,
+    showJumpTo: true,
+    sortOrder: 'ASC',
+    clickToSelect: false,
+    sortName: 'IDX',
+
+
+    responseHandler: function(res) {
+        return {
+            rows: res.rows,
+            total: res.total
+        }
+    },
+    onLoadSuccess: function(data) {
+        // 데이터 로드 성공 시 실행할 코드
+        debugger;
+    },
+});
+*/
+
+
+});
+
 
 // 선번장관리 > 선번장목록 > 장비그룹 리스트
 // ※ 수정필요!
@@ -65,20 +221,6 @@ function RackListTable() {
         });
     })
 }
-
-
-
-// 선번장관리 > 선번장목록 > 처음에 들어갔을 때 보여지는 문구...
-// ※ 필요없으니 나중에 지우기
-/*
-function SearchCableinfo() {
-	html = "";
-	html += "<div class='CableListInfo'><p style='margin-top:30px;'><i class='bi bi-check'></i>검색버튼 클릭시 목록조회 가능(컬럼 항목 체크)</p>"
-	html += "<p><i class='bi bi-check'></i> 조건을 입력하지 않고 검색시 전체 목록 검색</p></div>"
-	$(".CableListDiv").append(html);
-}
-*/
-
 
 
 // 선번장관리 > 선번장추가 > 호스트명 > 장비선택 > 호스트 검색 시 리스트
@@ -155,13 +297,32 @@ function SetEqpinfo(str) {
 	}
 }
 
+
+
+
+
+
+// 얘는 뭐하는 놈일까...
+$('#staticBackdrop').on('hidden.bs.modal', function (e) {     
+	$('#c_s_hostname').val("");
+    $(".EqpSearch").remove();
+})
+
+// 얘도 뭐하는 놈일까...
+$('#end-cable').on('hidden.bs.modal', function (e) {     
+	$('#c_e_hostname').val("");
+    $(".EqpSearch").remove();
+})
+
+
+
 // 선번장관리 > 선번장목록 > 선번장 리스트 그리기
 // ※ 수정필요
 // html연산 다 걷어내야함
 function SearchCableList(page){
 
     // let url = urlPre + '/cable/list';
-    let url = urlPre + '/cable/list';
+    let url = urlPre + '/cableManage/list';
     let s_group_name = document.getElementById("s_group_name").value;
     let s_eqp_name = document.getElementById("s_eqp_name").value;
     let s_rack_name = document.getElementById("s_rack_name").value;
@@ -192,7 +353,6 @@ function SearchCableList(page){
     let c_c_velocity = document.getElementById("c_c_velocity");
     let c_c_type = document.getElementById("c_c_type");
     let c_c_color = document.getElementById("c_c_color");
-
 
     axios.get( url, {params:{	s_group_name : s_group_name,
                                 s_eqp_name : s_eqp_name,
@@ -306,7 +466,7 @@ function SearchCableList(page){
             + element.e_qr_image;
 
             html += 	"<tr style='color:"+element.request+";text-align: center;font-size:15px;'>";
-            html += 		"<td><input type='checkbox' name='chkbox' onclick=QRUpdateTextFunction(this) id="+element.idx +" value="+ qrParams +"></td>";
+            html += 		"<td><input type='checkbox' name='chkbox' id="+element.idx +" value="+ qrParams +"></td>";
             html += 		"<td>" + element.rownum	 + "</td>";
 
             if (c_s_group_name.checked) {
@@ -360,206 +520,17 @@ function SearchCableList(page){
 }
 
 
-
-
-// 장비관리 > 장비상세, 장비수정, 장비추가 페이지에서 장비그룹 리스트
-// ※ 수정필요!
-// 이것두 바로 쿼리 날려서 모델에 데이터 담아오도록
-function EqpGroupList(str) {
-
-	let url = urlPre+'/group/list';
-
-	axios.get( url )
-    .then(function(res) {
-
-        let groupList = res.data;
-        $('#group_name').empty();
-        var soption,eoption;
-
-        option = $("<option value=''>선택</option>");
-        $('#group_name').append(option);
-
-        groupList.forEach((element) => {
-            option = $("<option value='" + element.group_name +"'>" + element.group_name + "</option>");   
-            $('#group_name').append(option);
-        });
-
-        if(str != "" || str != null || str != undefined){
-            $('#group_name').val(str).prop("selected", true);
-        }
-    })
-}
-
-// 장비관리 > 장비추가 > 중복체크 버튼
-// ※ 수정필요!
-// 사용할 수 없는 hostname일 경우 빈 칸으로 만들어주기
-function checkhostnameExist(){
-
-	const hostname = $("#hostname").val()
-
-	if(hostname.length == 0){
-		alert("hostname을 입력해주세요.")
-		return
-	}
-
-	$.ajax({
-			url : urlPre+'/check/hostname/' + hostname,
-			type: 'get',
-				dataType : 'text',
-				success : function(result){
-					if(result.trim() == 'true'){
-						alert('사용할 수 있는 hostname 입니다')
-						$("#hostnameChecked").val('true')
-
-					} else {
-						alert('사용할 수 없는 hostname 입니다')
-						$("#hostnameChecked").val('false')
-					}
-				}
-		   })
-}
-
-
-// 장비관리 > 장비상세, 장비수정, 장비추가 페이지에서 랙번호 리스트
-// ※ 수정필요!
-// 이것두 바로 쿼리 날려서 모델에 데이터 담아오도록
-function EqpRackList(str) {
-	let url = urlPre+'/rack/list';
-
-    axios.get( url )
-    .then(function(res) {
-        let rackList = res.data;
-
-        var option;
-        option = $("<option value=''>선택</option>");
-
-        $('#rack_name').append(option);
-
-        rackList.forEach((element) => {
-            option = $("<option value='" + element.name +"'>" + element.name + "</option>");   
-            $('#rack_name').append(option);
-        });
-
-        if(str != "" || str != null || str != undefined){
-            $('#rack_name').val(str).prop("selected", true);
-        }
-    })
-
-}
-
-// 장비관리 > 장비목록 > 장비 리스트 조회
-// ※ 수정필요!
-// 일단.. html 연산 다 걷어내기... 부트스트랩으로 어떻게 바꾸지...
-function EqpListTable(page){
-
-	let url = urlPre+'/quipment/list';
-
-	let current_page_no = page;
-	axios.get(  url	,
-	          { params:{ current_page_no : current_page_no }
-	        })
-    .then(function(res) {
-
-        let eqpList = res.data[0].list;
-        $(".EquipmentListTable").remove();
-        html = "";
-        html += "<div class='EquipmentListTable' >";
-        html += "<table class='table table-bordered'><thead>"
-
-        html += "<tr style='text-align: center;vertical-align: top;font-size:15px;' class='table-secondary'>"
-        html += 	"<th width=3%>NO</th>"
-        html += 	"<th width=8%>그룹명</th>"
-        html += 	"<th width=17%>장비명</th>"
-        html += 	"<th width=7%>장비방향</th>"
-        html += 	"<th width=7%>랙번호</th>"
-        html += 	"<th width=7%>유닛번호</th>"
-        html += 	"<th width=13%>호스트명</th>"
-        html += 	"<th width=7%>제조사</th>"
-        html += 	"<th width=7%>모델</th>"
-        html += 	"<th width=8%>도입년도</th>"
-        html += 	"<th width=11%>수정·삭제</th>"
-        html += "</tr></thread><tbody>"
-
-        eqpList.forEach((element) => {
-
-            html += 	"<tr style='text-align: center;font-size:15px;' >"
-            html += 		"<td>" + element.rownum	 + "</td>"
-            html += 		"<td>" + element.group_name	 + "</td>"
-            html += 		"<td>" + element.eqp_name	 + "</td>"
-            html += 		"<td>" + element.eqp_direct	 + "</td>"
-            html += 		"<td>" + element.rack_name	 + "</td>"
-            html += 		"<td>" + element.unit_position	 + "</td>"
-            html += 		"<td>" + element.hostname	 + "</td>"
-            html += 		"<td>" + element.m_company+ "</td>"
-            html += 		"<td>" +element.model	 + "</td>"
-            html += 		"<td>" +element.yearofintroduct	 + "</td>";
-            html += 		"<td>";
-            html +=         "<button type='button' class='btn btn-outline-secondary' onclick='eqp_detail(" +  element.eqp_id + ");' style='font-size:13px;padding:3px 8px;margin-right:5px;'>상세</button>";
-            html +=         "<button type='button' class='btn btn-outline-secondary' onclick='eqp_update(" +  element.eqp_id + ");' style='font-size:13px;padding:3px 8px;margin-right:5px;'>수정</button>";
-            html +=         "<button type='button' class='btn btn-outline-secondary' onclick='eqp_delete(" +  element.eqp_id + ");' style='font-size:13px;padding:3px 8px;margin:0px;'>삭제</button>";
-            html +=         "</td>";
-            html += 	"</tr>"
-        });
-
-        html += "</tbody></table>"
-
-        html += "<div class='dpagination' style='display: flex;justify-content: center;padding-top: 8px;'>";
-        html += res.data[0].pagination;
-        html += "</div>";
-        html += "</div>"
-
-        $(".EqpListDiv").append(html);
-    })
-}
-
-
-
-// 얘는 뭐하는 놈일까...
-$('#staticBackdrop').on('hidden.bs.modal', function (e) {     
-	$('#c_s_hostname').val("");
-    $(".EqpSearch").remove();
-})
-
-// 얘도 뭐하는 놈일까...
-$('#end-cable').on('hidden.bs.modal', function (e) {     
-	$('#c_e_hostname').val("");
-    $(".EqpSearch").remove();
-})
-
-
-
-
-// [완료]
 // 체크박스 모두선택/모두해제
 function QRChkFunction(ele){
 	const chkbox = document.getElementsByName('chkbox');
 	chkbox.forEach((box) => {
 		box.checked = ele.checked;
-		QRUpdateTextFunction(box);
 	})
 
 }
 
-// [완료]
-// input readOnly option settings
-function QRUpdateTextFunction(ele){
-	let updateColumn = document.getElementsByName("update"+ele.id);
-		
-	if(ele.checked == true){
-		for (let x=0; x<updateColumn.length; x++){
-			updateColumn[x].readOnly = false;
-		}
-	}
-	else if(ele.checked == false){
-		for (let x=0; x<updateColumn.length; x++){
-			updateColumn[x].readOnly = true;
-		}
-	}
-}
 
-/**************** 출력 ****************/
-// [완료]
-// QR EXCEL download
+// 엑셀 download
 function qrSubmit(){
     let chkBox = $("input:checkbox[name=chkbox]:checked");
     let startList = [];
@@ -597,8 +568,7 @@ function qrSubmit(){
 
 }
 
-// [완료]
-// QR PDF
+// PDF 다운로드 버튼
 function QRPDFImg(){
 	let chkboxCnt = $("input:checkbox[name=chkbox]:checked")
 
@@ -668,9 +638,8 @@ function QRPDFImg(){
 	win.document.write(html);
 }
 
-// [완료]
-// pdf button
-function QRPDFFunction() { 
+// pdf 저장 버튼
+function QRPDFFunction() {
 	let QRPrintHead = document.getElementById("QRPrintHead");
 	QRPrintHead.style.display = 'none';
 	
@@ -681,15 +650,13 @@ function QRPDFFunction() {
 let zoom = 1;
 let QRPrintTable = document.getElementById("QRPrintTable");
 
-// [완료]
-// pdf button
+// pdf 확대/축소 스크롤
 function QRPlusMinusFunction(values){
 	zoom = values;
 	QRPrintTable.style.zoom = zoom;
 }
 
-// [완료]
-// pdf button
+// pdf 확대 버튼
 function QRPlusFunction(){	
 	zoom = Number(zoom) + 0.25;
 	
@@ -701,8 +668,7 @@ function QRPlusFunction(){
 	document.getElementById('printRange').value = zoom;
 }
 
-// [완료]
-// pdf button
+// pdf 축소 버튼
 function QRMinusFunction(){
 	zoom = Number(zoom) - 0.25;
 	
@@ -712,46 +678,5 @@ function QRMinusFunction(){
 
 	QRPrintTable.style.zoom = zoom;
 	document.getElementById('printRange').value = zoom;
-}
-
-
-/************* 시스템 관리 *************/
-// 전체 사용자
-function userInfo() {
-	let url = urlPre+'/api/system/alluser';
-	
-		
-		axios.get( url )
-		.then(function(res) {
-			console.log("user search", res.data);
-			
-			let userList = res.data;		
-			//$(".userDiv").remove();
-
-			html = '';
-			html += "<table class='table table-bordered' style='margin-top:20px;'><tr class='table-secondary'  style='text-align: center;'>"
-			html += 	"<th>NO</th>"
-			html += 	"<th>ID</th>"		
-			html += 	"<th>Name</th>"
-			html += 	"<th>E-mail</th>"
-			html += 	"<th>Phone Number</th>" + "<th>수정</th></tr>"
-
-			userList.forEach((element,index) => {
-				let uid = element.id;
-				html += 	"<tr style='text-align: center;'>"
-				html += 		"<td>"+(index+1)+"</td>"
-				html += 		"<td>"+ uid +"</td>"
-				html += 		"<td>"+element.name +"</td>"
-				html += 		"<td>"+element.email+"</td>"
-				html += 		"<td>"+element.phone+"</td>"
-				html += 		"<td style='width:150px;'><button type='button' class='btn btn-outline-secondary' onclick=usr_update('" +  uid + "'); style='font-size:13px;padding:3px 8px;margin-right:10px;'>수정</button><button type='button' class='btn btn-outline-secondary' onclick=usr_delete('" 	  
-				html += 		uid + "'); style='font-size:13px;padding:3px 8px;'>삭제</button></td>";
-				html += 	"</tr>"
-			});
-			
-			html += "</table>"
-			$(".userDiv").append(html);
-		})
-	
 }
 

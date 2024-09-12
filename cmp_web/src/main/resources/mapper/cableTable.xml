@@ -263,4 +263,288 @@
     </insert>
 
 
+
+
+
+
+
+    <!-- 새로 추가한놈들 -->
+    <!-- 테스트 끝나면 위에 놈들 다 지워 -->
+
+    <select id="getCableTotalList" parameterType="map" resultType="map">
+        /** getCableTotalList ...
+            선번장관리 > 선번장목록 > 리스트 목록 */
+        SELECT
+            @rownum:=@rownum+1 AS rownum, CCC.*
+        FROM (
+            SELECT *
+            FROM cable AA
+            LEFT JOIN (
+                SELECT
+                    id sqr_id, portnum s_portnum, slotnum s_slotnum, qr_encode s_qr_encode, qr_image s_qr_image, group_name
+                    s_group_name,eqp_name s_eqp_name,eqp_direct s_eqp_direct,hostname s_hostname,rack_name s_rack_name,unit_position
+                    s_unit_position,rack_id s_rack_id
+                FROM cable_qrcode F
+                LEFT JOIN (
+                    SELECT
+                        A.id dummy,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position,rack_id
+                    FROM equipment A
+                    JOIN rack B ON B.id = A.rack_id
+                    JOIN bizgroup C ON C.id = A.group_id) E ON E.dummy = F.eqp_id
+            ) BB ON AA.s_qr_id = BB.sqr_id
+            LEFT JOIN(
+                SELECT
+                    id eqr_id, portnum e_portnum, slotnum e_slotnum, qr_encode e_qr_encode, qr_image e_qr_image, group_name
+                    e_group_name,hostname e_hostname,rack_name e_rack_name,unit_position e_unit_position FROM cable_qrcode F
+                LEFT JOIN(
+                    SELECT
+                        A.id dummy,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position
+                    FROM equipment A
+                    JOIN rack B ON B.id = A.rack_id
+                    JOIN bizgroup C ON C.id = A.group_id) E ON E.dummy = F.eqp_id
+            ) CC ON AA.e_qr_id = CC.eqr_id
+        WHERE 1=1
+        <if test="s_group_name != null and s_group_name != ''">
+            AND s_group_name = '${s_group_name}'
+        </if>
+        <if test="e_group_name != null and e_group_name != ''">
+            AND e_group_name = '${e_group_name}'
+        </if>
+        <if test="s_eqp_name != null and s_eqp_name != ''">
+            AND s_eqp_name LIKE CONCAT('%',#{s_eqp_name},'%')
+        </if>
+        <if test="e_eqp_name != null and e_eqp_name != ''">
+            AND e_eqp_name LIKE CONCAT('%',#{e_eqp_name},'%')
+        </if>
+        <if test="s_hostname != null and s_hostname != ''">
+            AND s_hostname = '${s_hostname}'
+        </if>
+        <if test="e_hostname != null and e_hostname != ''">
+            AND e_hostname = '${e_hostname}'
+        </if>
+        <if test="s_rack_name != null and s_rack_name != ''">
+            AND s_rack_name = '${s_rack_name}'
+        </if>
+        <if test="e_rack_name != null and e_rack_name != ''">
+            AND e_rack_name = '${e_rack_name}'
+        </if>
+        ORDER BY s_rack_id,cast(s_unit_position AS UNSIGNED INTEGER) DESC
+        ) CCC, (SELECT @rownum:=#{offset}) TMP
+        LIMIT #{offset},#{limit};
+    </select>
+
+    <select id="getCableTotalListCnt" parameterType="map" resultType="int">
+        /** getCableTotalListCnt ...
+            선번장관리 > 선번장 목록 > 리스트 개수 */
+        SELECT COUNT(*)
+        FROM cable AA
+        LEFT JOIN (
+            SELECT id sqr_id,portnum s_portnum,slotnum s_slotnum,qr_encode s_qr_encode,qr_image s_qr_image,group_name
+            s_group_name,eqp_name s_eqp_name,eqp_direct s_eqp_direct,hostname s_hostname,rack_name s_rack_name,unit_position
+            s_unit_position,rack_id s_rack_id FROM cable_qrcode F
+            LEFT JOIN
+            (SELECT A.id dummy,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position,rack_id
+            FROM equipment A
+            JOIN rack B ON B.id = A.rack_id
+            JOIN bizgroup C ON C.id = A.group_id) E ON E.dummy = F.eqp_id
+        ) BB ON AA.s_qr_id = BB.sqr_id
+        LEFT JOIN(
+            SELECT id eqr_id,portnum e_portnum,slotnum e_slotnum,qr_encode e_qr_encode,qr_image e_qr_image,group_name
+            e_group_name,hostname e_hostname,rack_name e_rack_name,unit_position e_unit_position FROM cable_qrcode F
+            LEFT JOIN
+            (SELECT A.id dummy,C.group_name,A.eqp_name,A.eqp_direct,A.hostname,B.`name` rack_name,A.unit_position FROM
+            equipment A
+            JOIN rack B ON B.id = A.rack_id
+            JOIN bizgroup C ON C.id = A.group_id) E ON E.dummy = F.eqp_id
+        ) CC ON AA.e_qr_id = CC.eqr_id
+        WHERE 1=1
+        <if test="s_group_name != null and s_group_name != ''">
+            AND s_group_name = '${s_group_name}'
+        </if>
+        <if test="e_group_name != null and e_group_name != ''">
+            AND e_group_name = '${e_group_name}'
+        </if>
+        <if test="s_eqp_name != null and s_eqp_name != ''">
+            AND s_eqp_name LIKE CONCAT('%',#{s_eqp_name},'%')
+        </if>
+        <if test="e_eqp_name != null and e_eqp_name != ''">
+            AND e_eqp_name LIKE CONCAT('%',#{e_eqp_name},'%')
+        </if>
+        <if test="s_hostname != null and s_hostname != ''">
+            AND s_hostname = '${s_hostname}'
+        </if>
+        <if test="e_hostname != null and e_hostname != ''">
+            AND e_hostname = '${e_hostname}'
+        </if>
+        <if test="s_rack_name != null and s_rack_name != ''">
+            AND s_rack_name = '${s_rack_name}'
+        </if>
+        <if test="e_rack_name != null and e_rack_name != ''">
+            AND e_rack_name = '${e_rack_name}'
+        </if>
+    </select>
+
+    <select id="getEqpTotalList" parameterType="Map" resultType="Map">
+        /* getEqpTotalList ...
+            장비관리 > 장비목록 > 리스트 목록  */
+        SELECT
+            A.id eqp_id,
+            A.eqp_name,
+            A.eqp_direct,
+            A.hostname,
+            A.unit_position,
+            rack_id,
+            m_company,
+            yearofintroduct,
+            model
+        FROM equipment A
+        LIMIT #{offset},#{limit};
+    </select>
+
+
+    <select id="getEqpTotalListCnt" parameterType="Map" resultType="int">
+        /* getEqpTotalListCnt ...
+            장비관리 > 장비목록 > 리스트 개수  */
+        SELECT COUNT(*)
+        FROM equipment A
+    </select>
+
+    <select id="getEqpDetailList" parameterType="String" resultType="Map">
+        /* getEqpDetailList ...
+           장비관리 > 장비목록 > 장비상세 리스트 */
+        SELECT
+            A.id AS eqp_id                    /* 장비 id */
+            /* , C.group_name                    장비 그룹명 (제외하라했는데 일단 나중에) */
+            , A.eqp_name                      /* 장비이름 */
+            , A.hostname                      /* 호스트명 */
+            , A.m_company                     /* 제조사 */
+            , A.model                         /* 모델 */
+            /* , A.rack_id                       랙번호  (제외하라했는데 일단 나중에)  */
+            /* , A.eqp_direct                    장비방향 (제외하라했는데 일단 나중에) */
+            , A.unit_position                 /* 유닛위치 */
+            , A.yearofintroduct               /* 도입년도 */
+            , A.created_at                    /* 생성일 */
+            , A.config_category               /* 구성분류 */
+            , A.asset_category                /* 자산분류 */
+            , A.asset_id                      /* 자산ID */
+            , A.config_id                     /* 구성ID */
+            , A.ip_address                    /* ip address */
+            , A.os_version                    /* OS 버전 */
+            , A.operating_department          /* 운영부서 */
+            , A.primary_operator              /* 운영담당자(정) */
+            , A.secondary_operator            /* 운영담당자(부) */
+            , A.primary_outsourced_operator   /* 위탁운영사용자(정) */
+            , A.secondary_outsourced_operator /* 위탁운영사용자(부) */
+            , A.operating_status              /* 운영상태 */
+            , A.eol_status                    /* 단종상태(EOL) */
+            , A.eos_status                    /* 단종상태(EOS) */
+            , A.redundancy_config             /* 이중화구성여부 */
+            , A.network_operation_type        /* 네트워크 운영 구분 */
+            , A.asset_acquisition_date        /* 자산취득일자 */
+            , A.asset_disposal_date           /* 자산폐기일자 */
+            , A.acquisition_cost              /* 도입금액 */
+            , A.dbrain_number                 /* 디브레인번호 */
+            , A.domestic                      /* 국산여부 */
+            , A.installation_coordinates      /* 설치 좌표(좌표) */
+            , A.installation_units            /* 설치 좌표(유닛수) */
+            , A.equipment_size_units          /* 장비 크기(유닛수) */
+            , A.remarks                       /* 비고 */
+            , A.resource_name                 /* 구성자원명 */
+            , A.maintenance_contract_target   /* 유지관리 계약대상여부 */
+            , A.cpu                           /* CPU */
+            , A.mem                           /* MEM */
+            , A.disk                          /* DISK */
+            , A.serial_number                 /* serial number */
+        FROM equipment A
+        /*
+        JOIN rack B ON B.id = A.rack_id
+        JOIN bizgroup C ON C.id = A.group_id
+        */
+        where 1=1 and A.id = #{eqp_id};
+    </select>
+
+    <insert id="insertEqpList" parameterType="Map">
+        /* insertEqpList ...
+            장비관리 > 장비목록 > 장비추가 > 추가 */
+        insert into equipment
+        (eqp_name
+        , hostname
+        , m_company
+        , model
+        , unit_position
+        , yearofintroduct
+        , created_at
+        , config_category
+        , asset_category
+        , asset_id
+        , config_id
+        , ip_address
+        , os_version
+        , operating_department
+        , primary_operator
+        , secondary_operator
+        , primary_outsourced_operator
+        , secondary_outsourced_operator
+        , operating_status
+        , eol_status
+        , eos_status
+        , redundancy_config
+        , network_operation_type
+        , asset_acquisition_date
+        , asset_disposal_date
+        , acquisition_cost
+        , dbrain_number
+        , domestic
+        , installation_coordinates
+        , installation_units
+        , equipment_size_units
+        , remarks
+        , resource_name
+        , maintenance_contract_target
+        , cpu
+        , mem
+        , disk
+        , serial_number)
+        values(
+        'eqpname test'
+        ,'hostname test'
+        ,'m_company test'
+        ,'model test'
+        ,'unit_position test'
+        ,'yearofintroduct test'
+        ,sysdate()
+        ,'config_category test'
+        ,'asset_category test'
+        ,'asset_id test'
+        ,'config_id test'
+        ,'ip_address test'
+        ,'os_version test'
+        ,'operation_department test'
+        ,'primary_operator test'
+        ,'secondary_operator test'
+        ,'primary_outsourced_operator'
+        ,'secondary_outsourced_operator'
+        ,'operating_status test'
+        ,'eol_status test'
+        ,'eos_status test'
+        ,'redundancy_config test'
+        ,'network_operation_type test'
+        ,sysdate()
+        ,sysdate()
+        ,1111
+        ,'dbrain_number test'
+        ,'domestic test'
+        ,'installation_coordinates test'
+        ,1111
+        ,11111
+        ,'remarks test'
+        ,'resource_name test'
+        ,'maintenance_contract_target test'
+        ,'cpu test'
+        ,'mem test'
+        ,'disk test'
+        ,'serial_number test'
+        );
+    </insert>
+
 </mapper>

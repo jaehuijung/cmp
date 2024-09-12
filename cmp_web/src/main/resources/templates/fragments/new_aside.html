@@ -19,12 +19,14 @@
 			        </a>
 			        <ul id="cable-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
 			          <li>
-			            <a id="cablelist_link" href="/cablelist" class="a-link" >
+						  <!-- <a id="cablelist_link" href="/cablelist" class="a-link" > -->
+						  <a id="cablelist_link" href="/cableManage/view" class="a-link" >
 			              <i class="bi bi-circle"></i><span>선번장목록</span>
 			            </a>
 			          </li>
 			          <li>
-			            <a id="cablereg_link" href="/cableregister">
+					  	<!-- <a id="cablereg_link" href="/cableregister"> -->
+			            <a id="cablereg_link" href="/cableManage/register">
 			              <i class="bi bi-circle"></i><span>선번장추가</span>
 			            </a>
 			          </li>  
@@ -39,14 +41,16 @@
 			        </a>
 			        <ul id="eqp-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
 			          <li >
-			            <a id="eqplist_link" href="/eqplist">
-			              <i class="bi bi-circle"></i><span>장비목록</span>
-			            </a>
+			            <!-- <a id="eqplist_link" href="/eqplist"> -->
+						<a id="eqplist_link" href="/eqpManage/view">
+							<i class="bi bi-circle"></i><span>장비목록</span>
+						</a>
 			          </li>
 			          <li>
-			            <a id="eqpreg_link" href="/eqpregister">
-			              <i class="bi bi-circle"></i><span>장비추가</span>
-			            </a>
+						  <!-- <a id="eqpreg_link" href="/eqpregister"> -->
+						  <a id="eqpreg_link" href="/eqpManage/register">
+			              	<i class="bi bi-circle"></i><span>장비추가</span>
+						  </a>
 			          </li>
 			        </ul>
 			      </li><!-- End Tables Nav -->
@@ -90,23 +94,27 @@
 
 			  </aside><!-- End Sidebar-->
 			  <th:block layout:fragment="script">
-			  		<script th:src="@{/js/jquery.min.js}"></script>
-	
+			  		<script th:src="@{/js/common/jquery.min.js}"></script>
+
 			  			<script>
 			  			
 			  			 
 			  			var loc_path = location.pathname;
 			  			
-			  			if(loc_path == "/cablelist"){
+			  			// if(loc_path == "/cablelist"){
+			  			if(loc_path == "/cable/view"){
 			  				$("#cable-nav").addClass("show");
 							$("#cablelist_link").addClass("active");
-			  			} else if(loc_path == "/cableregister") {
+			  			// } else if(loc_path == "/cableregister") {
+			  			} else if(loc_path == "/cable/register") {
 			  				$("#cable-nav").addClass("show");
 			  				$("#cablereg_link").addClass("active");
-			  			} else if(loc_path == "/eqplist") {
+			  			// } else if(loc_path == "/eqplist") {
+			  			} else if(loc_path == "/eqpManage/view") {
 			  				$("#eqp-nav").addClass("show");
 			  				$("#eqplist_link").addClass("active");
-			  			} else if(loc_path == "/eqpregister") {
+			  			// } else if(loc_path == "/eqpregister") {
+			  			} else if(loc_path == "/eqpManage/register") {
 			  				$("#eqp-nav").addClass("show");
 							$("#eqpreg_link").addClass("active");
 			  			} else if(loc_path == "/usr/list") {

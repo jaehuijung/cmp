@@ -33,6 +33,9 @@ public class cableController {
 		this.qrService = qrService;
 	}
 
+	/*
+	// 선번장관리
+	// cable > cableManageController로 이동
 	@GetMapping("/cablelist")
 	public String test(HttpSession session, HttpServletRequest request) {
 		// return "new/table";
@@ -40,12 +43,37 @@ public class cableController {
 
 	}
 
+	@GetMapping("/cableregister")
+	public String getcableRegister(HttpSession session, HttpServletRequest request) {
+		// return "new/cableregister";
+		return "views/cableregister";
+
+	}
+
+	@PostMapping("/cable/insert")
+	public String cableinsert(Cable vo, HttpServletRequest request) {
+		log.info("cable insert~~~~~ start hostname~~ : " + vo.getS_hostname());
+		log.info("cable insert~~~~~ end hostname~~ : " + vo.getE_hostname());
+
+		cableservice.insertCable(vo);
+
+		// return "new/table";
+		return "views/table";
+	}
+	 */
+
+	/*
+	// 지우기
 	@GetMapping("/test")
 	public String getcableList(HttpSession session, HttpServletRequest request) {
 		return "test";
 
 	}
+	 */
 
+	/*
+	// 장비관리
+	// eqp > eqpManageController로 이동
 	@GetMapping("/eqplist")
 	public String geteqpList(HttpSession session, HttpServletRequest request) {
 		// return "new/eqplist";
@@ -53,17 +81,11 @@ public class cableController {
 
 	}
 
+
 	@GetMapping("/eqpregister")
 	public String geteqpRegister(HttpSession session, HttpServletRequest request) {
 		// return "new/eqpregister";
 		return "views/eqpregister";
-
-	}
-
-	@GetMapping("/cableregister")
-	public String getcableRegister(HttpSession session, HttpServletRequest request) {
-		// return "new/cableregister";
-		return "views/cableregister";
 
 	}
 
@@ -120,9 +142,10 @@ public class cableController {
 		return "views/eqplist";
 	}
 
+
 	@GetMapping(value = "/eqp/exceldown")
 	public void exceldown(HttpSession session, HttpServletRequest request, HttpServletResponse response, Equipment vo)
-			throws NumberFormatException, IOException { 
+			throws NumberFormatException, IOException {
 
 		List<Equipment> list = cableservice.selectSearchEqp(vo);
 		Workbook wb = qrService.EqpExcel(list);
@@ -133,15 +156,7 @@ public class cableController {
 		wb.close();
 	}
 
-	@PostMapping("/cable/insert")
-	public String cableinsert(Cable vo, HttpServletRequest request) {
-		log.info("cable insert~~~~~ start hostname~~ : " + vo.getS_hostname());
-		log.info("cable insert~~~~~ end hostname~~ : " + vo.getE_hostname());
+	*/
 
-		cableservice.insertCable(vo);
-
-		// return "new/table";
-		return "views/table";
-	}
 
 }
