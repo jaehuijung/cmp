@@ -1,8 +1,5 @@
 
-// base url
-let urlPre = "https://127.0.0.1";
-// let urlPre = "https://3.38.246.94";
-
+// eqp table column
 var columns = [
     {
         title: '',
@@ -56,7 +53,7 @@ $(function(){
         url: '/eqpManage/list',
         method: 'post',
         queryParams: function(params) {
-            let searchEqpSearchInput = $("#searchEqpSearchInput").val();
+            let searchEqpSearchInput = $("#searchEqpSearchInput").val().trim();
             params.searchData = {
                 searchEqpSearchInput
             }
@@ -65,7 +62,8 @@ $(function(){
         },
         pageSize: 10, columns: columns, cache: false, undefinedText: "",
         pagination: true, sidePagination: 'server', checkboxHeader: true,
-        classes: "txt-pd", clickToSelect: false,
+        classes: "txt-\
+        \pd", clickToSelect: false,
         sortOrder: 'desc', sortName: 'ORDER',
         responseHandler: function(res) {
             return {
@@ -89,7 +87,7 @@ $(function(){
         },
         onClickCell: function (field, value, row, $element){
             if(!$element.hasClass("bs-checkbox")){
-                eqp_update_popup(row.eqp_id);
+                eqp_detail_popup(row.eqp_id);
             }
         },
     });
@@ -202,10 +200,9 @@ function searchState(type, isChecked){
 
 // 장비관리 > 장비목록 > 장비추가 모달
 function eqp_create_popup(){
-    let detailRow = "";
     Swal.fire({
         title: '장비 등록',
-        html: generateAssetInfoHTML(detailRow),
+        html: generateAssetInfoHTML(""),
         focusConfirm: false,
         confirmButtonText: '등록',
         cancelButtonText: '취소',
@@ -315,9 +312,7 @@ function eqp_create_popup(){
     });
 }
 
-// 장비관리 > 장비목록 > 장비수정 모달
-function eqp_update_popup(id) {
-
+function eqp_detail_popup(id){
     $.ajax({
         url : '/eqpManage/update?eqp_id='+id,
         type: 'get',
@@ -337,7 +332,7 @@ function eqp_update_popup(id) {
                 let detailRow = res.rows;
 
                 Swal.fire({
-                    title: '장비 수정',
+                    title: '장비 상세',
                     html: generateAssetInfoHTML(detailRow),
                     focusConfirm: false,
                     confirmButtonText: '수정',
@@ -345,6 +340,12 @@ function eqp_update_popup(id) {
                     showCancelButton: true,
                     customClass: {
                         popup: 'custom-width'
+                    },
+                    didOpen: () => {
+                        let inputs = document.querySelectorAll(".modalWrap input")
+                        inputs.forEach(input =>{
+                            input.readOnly = true;
+                        })
                     },
                     preConfirm: () => {
                         // 자산정보 (왼)
@@ -417,38 +418,163 @@ function eqp_update_popup(id) {
                 }).then((result) => {
                     // 수정 버튼 클릭 후 발생할 이벤트
                      if (result.isConfirmed) {
-                         let data = result.value;
-                         $.ajax({
-                             url : '/eqpManage/update_eqp',
-                             type: 'post',
-                             data : data,
-                             dataType : 'JSON',
-                             success : function(res){
-                                if (!res.errorCode){
-                                    Swal.fire({
-                                        title: '알림',
-                                        html: '데이터를 수정하는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.',
-                                        icon: 'error',
-                                        confirmButtonText: '확인'
-                                    });
-                                }
-                                else{
-                                    Swal.fire({
-                                        title: '알림',
-                                        html: '수정되었습니다.',
-                                        icon: 'info',
-                                        confirmButtonText: '확인'
-                                    }).then((result) => {
-                                        $("#eqpTable").bootstrapTable('refresh');
-                                    });
-                                }
-                             }
-                         })
+                         // let data = result.value;
+                         eqp_update_popup(id);
                      }
                 });
             }
         }
     })
+}
+
+// 장비관리 > 장비목록 > 장비수정 모달
+function eqp_update_popup(id) {
+    let target = $("#eqpTable").bootstrapTable('getSelections');
+    if(target.length > 1){
+        Swal.fire({
+            title: '알림',
+            html: '수정은 단건만 가능합니다.',
+            icon: 'info',
+            confirmButtonText: '확인'
+        });
+    }
+    else{
+        if(id == ""){
+            id = target[0].eqp_id;
+        }
+
+        $.ajax({
+            url : '/eqpManage/update?eqp_id='+id,
+            type: 'get',
+            dataType : 'JSON',
+            success : function(res){
+                let errorCode = res.errorCode;
+
+                if(!errorCode){
+                    Swal.fire({
+                        title: '알림',
+                        html: '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.',
+                        icon: 'error',
+                        confirmButtonText: '확인'
+                    });
+                }
+                else{
+                    let detailRow = res.rows;
+
+                    Swal.fire({
+                        title: '장비 수정',
+                        html: generateAssetInfoHTML(detailRow),
+                        focusConfirm: false,
+                        confirmButtonText: '저장',
+                        cancelButtonText: '취소',
+                        showCancelButton: true,
+                        customClass: {
+                            popup: 'custom-width'
+                        },
+                        preConfirm: () => {
+                            // 자산정보 (왼)
+                            const eqp_name = Swal.getPopup().querySelector('#eqp_name').value; // 장비명
+                            const config_category = Swal.getPopup().querySelector('#config_category').value; // 구성분류
+                            const asset_id = Swal.getPopup().querySelector('#asset_id').value; // 자산ID
+                            const m_company = Swal.getPopup().querySelector('#m_company').value; // 제조사
+                            const operating_department = Swal.getPopup().querySelector('#operating_department').value; // 운영부서
+                            const primary_operator = Swal.getPopup().querySelector('#primary_operator').value; // 운영담당자(정)
+                            const secondary_operator = Swal.getPopup().querySelector('#secondary_operator').value; // 운영담당자(부)
+                            const primary_outsourced_operator = Swal.getPopup().querySelector('#primary_outsourced_operator').value; // 위탁운영사용자(정)
+                            const secondary_outsourced_operator = Swal.getPopup().querySelector('#secondary_outsourced_operator').value; // 위탁운영사용자(부)
+                            const maintenance_contract_target = Swal.getPopup().querySelector('#maintenance_contract_target').value; // 유지관리계약대상여부
+                            const redundancy_config = Swal.getPopup().querySelector('#redundancy_config').value; // 이중화구성여부
+                            const domestic = Swal.getPopup().querySelector('#domestic').value; // 국산여부
+
+                            // 자산정보 (오)
+                            const asset_category = Swal.getPopup().querySelector('#asset_category').value; // 자산분류
+                            const config_id = Swal.getPopup().querySelector('#config_id').value; // 구성ID
+                            const model = Swal.getPopup().querySelector('#model').value; // 모델명
+                            const operating_status = Swal.getPopup().querySelector('#operating_status').value; // 운영상태
+                            const asset_acquisition_date = Swal.getPopup().querySelector('#asset_acquisition_date').value; // 자산취득일자
+                            const asset_disposal_date = Swal.getPopup().querySelector('#asset_disposal_date').value; // 자산폐기일자
+                            const yearofintroduct = Swal.getPopup().querySelector('#yearofintroduct').value; // 도입년도
+                            const acquisition_cost = Swal.getPopup().querySelector('#acquisition_cost').value; // 도입금액
+                            const unit_position = Swal.getPopup().querySelector('#unit_position').value; // 유닛번호
+                            const dbrain_number = Swal.getPopup().querySelector('#dbrain_number').value; // 디브레인번호
+                            const eol_status = Swal.getPopup().querySelector('#eol_status').value; // 단종상태(EOL)
+                            const eos_status = Swal.getPopup().querySelector('#eos_status').value; // 단종상태(EOS)
+
+                            // 상세정보 (왼)
+                            const network_operation_type = Swal.getPopup().querySelector('#network_operation_type').value; // 네트워크운영구분
+                            const hostname = Swal.getPopup().querySelector('#hostname').value; // 호스트명
+                            const ip_address = Swal.getPopup().querySelector('#ip_address').value; // IP 주소
+                            const serial_number = Swal.getPopup().querySelector('#serial_number').value; // 시리얼 번호
+                            const installation_coordinates = Swal.getPopup().querySelector('#installation_coordinates').value; // 설치좌표(좌표)
+                            const installation_units = Swal.getPopup().querySelector('#installation_units').value; // 설치좌표(유닛수)
+
+                            // 상세정보 (오)
+                            const resource_name = Swal.getPopup().querySelector('#resource_name').value; // 구성자원명
+                            const os_version = Swal.getPopup().querySelector('#os_version').value; // OS 버전
+                            const cpu = Swal.getPopup().querySelector('#cpu').value; // CPU
+                            const mem = Swal.getPopup().querySelector('#mem').value; // MEM
+                            const disk = Swal.getPopup().querySelector('#disk').value; // DISK
+                            const equipment_size_units = Swal.getPopup().querySelector('#equipment_size_units').value; // 장비크기(유닛수)
+
+                            if (!eqp_name) {
+                                Swal.showValidationMessage(`장비명은 필수 항목입니다.`);
+                            }
+
+                            return {
+                                // 자산 id
+                                eqp_id : id,
+
+                                // 자산정보(왼)
+                                eqp_name : eqp_name, config_category : config_category, asset_id : asset_id, m_company : m_company, operating_department : operating_department,
+                                primary_operator : primary_operator, secondary_operator : secondary_operator, primary_outsourced_operator : primary_outsourced_operator,
+                                secondary_outsourced_operator : secondary_outsourced_operator, maintenance_contract_target : maintenance_contract_target,
+                                redundancy_config : redundancy_config, domestic : domestic,
+                                // 자산정보(오)
+                                asset_category: asset_category, config_id: config_id, model: model, operating_status: operating_status, asset_acquisition_date: asset_acquisition_date,
+                                asset_disposal_date: asset_disposal_date, acquisition_cost: acquisition_cost, dbrain_number: dbrain_number, eol_status: eol_status, eos_status: eos_status,
+                                // 상세정보(왼)
+                                network_operation_type: network_operation_type, hostname: hostname, ip_address: ip_address, serial_number: serial_number,
+                                installation_coordinates: installation_coordinates, installation_units: installation_units,
+                                // 상세정보(오)
+                                resource_name: resource_name, os_version: os_version, cpu: cpu, mem: mem, disk: disk, equipment_size_units: equipment_size_units
+                             };
+                        }
+                    }).then((result) => {
+                        // 수정 버튼 클릭 후 발생할 이벤트
+                         if (result.isConfirmed) {
+                             let data = result.value;
+                             $.ajax({
+                                 url : '/eqpManage/update_eqp',
+                                 type: 'post',
+                                 data : data,
+                                 dataType : 'JSON',
+                                 success : function(res){
+                                    if (!res.errorCode){
+                                        Swal.fire({
+                                            title: '알림',
+                                            html: '데이터를 수정하는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.',
+                                            icon: 'error',
+                                            confirmButtonText: '확인'
+                                        });
+                                    }
+                                    else{
+                                        Swal.fire({
+                                            title: '알림',
+                                            html: '수정되었습니다.',
+                                            icon: 'info',
+                                            confirmButtonText: '확인'
+                                        }).then((result) => {
+                                            $("#eqpTable").bootstrapTable('refresh');
+                                        });
+                                    }
+                                 }
+                             })
+                         }
+                    });
+                }
+            }
+        })
+    }
 };
 
 // 장비관리 > 장비목록 > 삭제
@@ -490,8 +616,8 @@ function eqp_delete() {
 // 추가, 수정 모달 생성
 function generateAssetInfoHTML(detailRow) {
     return `
-        <p style="font-size: 25px; font-weight: bold; margin-top: 20px;">자산정보</p>
-        <div style="display: flex;">
+        <p style="font-size: 25px; font-weight: bold; margin-top: 20px; text-align: left;">자산정보</p>
+        <div class="modalWrap" style="display: flex;">
             <div style="width: 45%;">
                 <table class="swal2-table">
                     <tr>
@@ -603,9 +729,8 @@ function generateAssetInfoHTML(detailRow) {
             </div>
         </div>
 
-
-        <p style="font-size: 25px; font-weight: bold; margin-top: 20px;">상세정보</p>
-        <div style="display: flex;">
+        <p style="font-size: 25px; font-weight: bold; margin-top: 20px; text-align: left;">상세정보</p>
+        <div class="modalWrap" style="display: flex;">
             <div style="width: 45%;">
                 <table class='swal2-table'>
                     <tr>

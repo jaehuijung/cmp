@@ -1249,3 +1249,79 @@ h6 {
   display:inline;
   font-size: 13px;
 }
+
+
+
+
+/*--------------------------------------------------------------
+# 검색영역
+# class : .
+# id : #
+--------------------------------------------------------------*/
+
+.searchChkWrap {
+    display: flex; justify-content: space-between; margin-top:10px;
+}
+.searchChkWrap
+  > .searchChkColumn {
+    display: flex; align-items: center;
+}
+.searchChkWrap
+  > .searchChkColumn
+    > .searchTitle1 {
+    margin-left: 5px; margin-right: 10px; font-size: 18px; font-weight: bold; min-width: max-content;
+}
+.searchChkWrap
+    > .searchChkColumn
+        > .searchChk {
+    display: flex; margin-left: 10px;
+}
+.searchChkWrap
+    > .searchChkColumn
+        > .searchChk
+            > .searchTitle2 {
+    margin-left: 5px; font-size: 16px; min-width: max-content;
+}
+
+.searchSelectWrap {
+    display: flex; flex-wrap: wrap; align-items: center; margin-top: 25px;
+}
+
+.searchSelectWrap
+    > .searchSelect {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+.searchSelectWrap
+    > .searchSelect
+        > .searchTitle3 {
+    display: flex;
+    margin-left: 10px;
+    font-size: 14px;
+    width: 55px;
+    min-width: max-content;
+    text-align: center;
+    align-items: center;
+}
+.searchSelectWrap
+        > .searchSelectInput {
+    margin-left: 5px;
+    width: 120px;
+    height: 30px;
+}
+
+.searchSearchWrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 25px;
+}
+.searchSearchWrap
+    > .searchSearch {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: 5px;
+    width: 100%;
+}

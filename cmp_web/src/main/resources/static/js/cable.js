@@ -1,12 +1,9 @@
 
 // base url
-let urlPre = "https://127.0.0.1";
-// let urlPre = "https://3.38.246.94";
+// let urlPre = "https://127.0.0.1";
+let urlPre = "https://3.38.246.94";
 
-
-$(function(){
-
-/*
+// cable table column
 var columns = [
     [
         {
@@ -17,150 +14,189 @@ var columns = [
             colspan: 2
         },
         {
-            title: '출발',
+            title: '출발지',
             align: 'center',
             valign: 'middle',
-            colspan: 3
+            colspan: 6
         },
         {
-            title: '목적',
+            title: '목적지',
+            align: 'center',
+            valign: 'middle',
+            colspan: 5
+        },
+        {
+            title: '회선',
             align: 'center',
             valign: 'middle',
             colspan: 3
         }
     ],
     [
+        // 구분
         {
-            title: '1',
-            field: 'checkbox',
+            title: '',
+            field: '',
             align: 'center',
             valign: 'middle',
-            width: '10px',
-            formatter: function(value, row, index) {
-                return '<input type="checkbox" class="row-checkbox">';
-            }
+            checkbox: true
         },
         {
             title: 'no',
             field: 'no',
             align: 'center',
             valign: 'middle',
-            width: '10px'
+            width: '10px',
+            formatter: function(value, row, index) {
+                const tableOptions = $('#cableTable').bootstrapTable('getOptions');
+                return tableOptions.totalRows - ((tableOptions.pageNumber - 1) * tableOptions.pageSize) - index;
+            }
         },
+
+        // 출발지
         {
-            title: '이름',
-            field: 'departure_name',
+            title: '장비명',
+            field: 's_eqp_name',
             align: 'center',
             valign: 'middle',
         },
         {
-            title: '번호',
+            title: '랙번호',
             field: 'departure_number',
             align: 'center',
             valign: 'middle',
         },
         {
-            title: '주소',
-            field: 'departure_address',
+            title: '유닛번호',
+            field: 's_unit_position',
             align: 'center',
             valign: 'middle',
         },
         {
-            title: '이름',
-            field: 'destination_name',
+            title: '호스트명',
+            field: 's_hostname',
             align: 'center',
             valign: 'middle',
         },
         {
-            title: '번호',
-            field: 'destination_number',
+            title: '슬롯번호',
+            field: 's_slotnum',
             align: 'center',
             valign: 'middle',
         },
         {
-            title: '주소',
-            field: 'destination_address',
+            title: '포트번호',
+            field: 's_portnum',
+            align: 'center',
+            valign: 'middle',
+        },
+
+        // 목적지
+        {
+            title: '랙번호',
+            field: 'departure_number',
+            align: 'center',
+            valign: 'middle',
+        },
+        {
+            title: '유닛번호',
+            field: 'e_unit_position',
+            align: 'center',
+            valign: 'middle',
+        },
+        {
+            title: '호스트명',
+            field: 'e_hostname',
+            align: 'center',
+            valign: 'middle',
+        },
+        {
+            title: '슬롯번호',
+            field: 'e_slotnum',
+            align: 'center',
+            valign: 'middle',
+        },
+        {
+            title: '포트번호',
+            field: 'e_portnum',
+            align: 'center',
+            valign: 'middle',
+        },
+
+        // 회선
+        {
+            title: '선속도',
+            field: 'c_velocity',
+            align: 'center',
+            valign: 'middle',
+        },
+        {
+            title: '선구분',
+            field: 'c_type',
+            align: 'center',
+            valign: 'middle',
+        },
+        {
+            title: '선색상',
+            field: 'c_color',
             align: 'center',
             valign: 'middle',
         }
     ]
 ];
 
-let data = [
-    {
-        checkbox: '<input type="checkbox">',
-        no: '1',
-        departure_name: 'a1',
-        departure_number: '12',
-        departure_address: 'abc',
-        destination_name: 'a2',
-        destination_number: '41',
-        destination_address: 'awr'
-    },
-    {
-        checkbox: '<input type="checkbox">',
-        no: '2',
-        departure_name: 'b1',
-        departure_number: '123',
-        departure_address: 'def',
-        destination_name: 'b2',
-        destination_number: '321',
-        destination_address: 'trwea'
-    },
-    {
-        checkbox: '<input type="checkbox">',
-        no: '3',
-        departure_name: 'c1',
-        departure_number: '1234',
-        departure_address: 'ghi',
-        destination_name: 'c2',
-        destination_number: '5612',
-        destination_address: 'wtaw'
-    }
-];
+$(function(){
 
-$('#table').bootstrapTable({
-    // data: data,
-    url: '/cableManage/list',
-    method: 'post',
-    queryParams: function(params) {
-        let test = "test";
-        params = {
-            offset: params.offset,
-            limit: params.limit,
+    $('#cableTable').bootstrapTable({
+        url: '/cableManage/list',
+        method: 'post',
+        queryParams: function(params) {
+            let searchEqpSearchInput = $("#searchEqpSearchInput").val().trim();
+            params.searchData = {
+                searchEqpSearchInput
+            }
+
+            return params;
+        },
+        pageSize: 10, columns: columns, cache: false, undefinedText: "",
+        pagination: true, sidePagination: 'server', checkboxHeader: true,
+        classes: "txt-pd", clickToSelect: false,
+        sortOrder: 'desc', sortName: 'ORDER',
+        responseHandler: function(res) {
+            return {
+                rows: res.rows,
+                total: res.total,
+                errorCode: res.errorCode
+            }
+        },
+        onLoadSuccess: function(res) {
+            let errorCode = res.errorCode;
+            if (!errorCode){
+                Swal.fire({
+                    title: '알림',
+                    html: '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.',
+                    icon: 'error',
+                    confirmButtonText: '확인'
+                });
+            }
+
+            $("#cableTotalCnt").text("총 " + res.total + "건")
+        },
+        onClickCell: function (field, value, row, $element){
+            if(!$element.hasClass("bs-checkbox")){
+                eqp_detail_popup(row.eqp_id);
+            }
+        },
+    });
+
+    $('#searchEqpSearchInput').keyup(function(e){
+        if(e.which == 13){
+            searchEqpList();
         }
-
-        return params;
-    },
-    cache: false,
-    pagination: true,
-    sidePagination: 'server',
-
-    classes: "txt-pd",
-    pageSize: 10,
-    columns: columns,
-    checkboxHeader: true,
-    showJumpTo: true,
-    sortOrder: 'ASC',
-    clickToSelect: false,
-    sortName: 'IDX',
-
-
-    responseHandler: function(res) {
-        return {
-            rows: res.rows,
-            total: res.total
-        }
-    },
-    onLoadSuccess: function(data) {
-        // 데이터 로드 성공 시 실행할 코드
-        debugger;
-    },
-});
-*/
-
+    })
 
 });
+
 
 
 // 선번장관리 > 선번장목록 > 장비그룹 리스트

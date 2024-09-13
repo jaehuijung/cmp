@@ -8,7 +8,7 @@
 
 
     <select id="selectCableList" parameterType="sl.qr.mh.vo.Cable" resultType="sl.qr.mh.vo.Cable">
-
+    /* selectCableList ABCDEFG */
         SELECT
         @rownum:=@rownum+1 AS rownum, CCC.* FROM (
         SELECT * FROM cable AA
@@ -268,6 +268,13 @@
 
 
 
+
+
+
+
+
+
+
     <!-- 새로 추가한놈들 -->
     <!-- 테스트 끝나면 위에 놈들 다 지워 -->
 
@@ -401,10 +408,10 @@
         WHERE 1=1
         <if test="searchEqpSearchInput != null and searchEqpSearchInput != ''">
             AND (
-              A.eqp_name Like CONCAT('%', #{searchEqpSearchInput}, '%')  OR
-              A.hostname Like CONCAT('%', #{searchEqpSearchInput}, '%')  OR
-              A.m_company Like CONCAT('%', #{searchEqpSearchInput}, '%')  OR
-              A.model Like CONCAT('%', #{searchEqpSearchInput}, '%')
+              BINARY A.eqp_name Like CONCAT('%', #{searchEqpSearchInput}, '%')  OR
+              BINARY A.hostname Like CONCAT('%', #{searchEqpSearchInput}, '%')  OR
+              BINARY A.m_company Like CONCAT('%', #{searchEqpSearchInput}, '%')  OR
+              BINARY A.model Like CONCAT('%', #{searchEqpSearchInput}, '%')
             )
         </if>
         LIMIT #{offset},#{limit};
@@ -419,10 +426,10 @@
         WHERE 1=1
         <if test="searchEqpSearchInput != null and searchEqpSearchInput != ''">
             AND (
-            A.eqp_name Like CONCAT('%', #{searchEqpSearchInput}, '%')  OR
-            A.hostname Like CONCAT('%', #{searchEqpSearchInput}, '%')  OR
-            A.m_company Like CONCAT('%', #{searchEqpSearchInput}, '%')  OR
-            A.model Like CONCAT('%', #{searchEqpSearchInput}, '%')
+            BINARY A.eqp_name Like CONCAT('%', #{searchEqpSearchInput}, '%')  OR
+            BINARY A.hostname Like CONCAT('%', #{searchEqpSearchInput}, '%')  OR
+            BINARY A.m_company Like CONCAT('%', #{searchEqpSearchInput}, '%')  OR
+            BINARY A.model Like CONCAT('%', #{searchEqpSearchInput}, '%')
             )
         </if>
     </select>
@@ -474,11 +481,8 @@
             , A.disk                          /* DISK */
             , A.serial_number                 /* serial number */
         FROM equipment A
-        /*
-        JOIN rack B ON B.id = A.rack_id
-        JOIN bizgroup C ON C.id = A.group_id
-        */
-        where 1=1 and A.id = #{eqp_id};
+        WHERE 1=1
+        AND A.id = #{eqp_id};
     </select>
 
     <insert id="insertEqpList" parameterType="Map">

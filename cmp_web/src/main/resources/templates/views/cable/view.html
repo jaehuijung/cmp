@@ -8,6 +8,86 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/new_default_layout}">
 
+<head>
+
+    <style>
+        /* 이놈들 나중에 공통으로 옮겨야... */
+
+        /* 추가, 수정 모달 크기 */
+        .custom-width {
+            width: 1000px;
+        }
+
+        /* 검색 체크박스 */
+        .searchEqpChkWrap{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin-top:10px;
+        }
+        .searchEqpChkWrap > .searchEqpChkColumn{
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .searchEqpChkWrap > .searchEqpChkColumn > #searchEqpTitle1{
+            margin-left: 5px;
+            margin-right: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .searchEqpChkWrap > .searchEqpChkColumn > .searchEqpChk{
+            display: flex;
+            margin-left: 15px;
+        }
+        .searchEqpChkWrap > .searchEqpChk > .searchEqpTitle2{
+            margin-left: 5px;
+            font-size: 16px;
+        }
+
+        .searchEqpSelectWrap{
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-top: 25px;
+        }
+        .searchEqpSelectWrap > .searchEqpSelect{
+            display: flex;
+            align-items: center;
+            margin-left: 5px;
+        }
+        .searchEqpSelectWrap > .searchEqpSelect > #searchEqpTitle3{
+            margin-left: 10px;
+            font-size: 14px;
+            width: 55px;
+            text-align: center;
+        }
+        .searchEqpSelectWrap > .searchEqpSelect > .searchEqpSelectInput{
+            margin-left: 10px;
+            width: 120px;
+            height: 30px;
+        }
+
+        .searchEqpSearchWrap{
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-top: 25px;
+        }
+        .searchEqpSearchWrap > .searchEqpSearch{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 5px;
+            width: 100%;
+        }
+
+    </style>
+
+</head>
+
+
+
 <div layout:fragment="content">
 
     <main id="main" class="main">
@@ -23,6 +103,7 @@
             <h1 style="padding:0px 0px 10px;">선번장목록조회</h1>
 
         </div>
+
 
         <section class="section">
             <div class="row">
@@ -279,9 +360,179 @@
                         </div>
                     </div>
 
-                    <div class="tbl-bootstrap-wrap">
-                        <table id="table"></table>
-                    </div>
+
+
+                    <!-- ---------------------------------         ㄷㄷ7------------------ -->
+                    <div> 재작성 </div>
+
+                    <section class="section">
+                        <div class="card">
+                            <div class="card-body" style="padding-top: 10px;">
+
+                                <div class="searchEqpChkWrap">
+                                    <div class="searchEqpChkColumn">
+                                        <div id="searchEqpTitle1">출발지 컬럼선택</div>
+
+                                        <label class="searchEqpChk">
+                                            <input type="checkbox" class="selectStateChkAll" onchange="searchState('all', this.checked)" checked>
+                                            <span></span>
+                                            <div class="searchEqpTitle2" >전체</div>
+                                        </label>
+                                        <label class="searchEqpChk">
+                                            <input type="checkbox" class="selectStateChk" onchange="searchState('unitNumber', this.checked)" checked>
+                                            <span></span>
+                                            <div class="searchEqpTitle2" >장비명</div>
+                                        </label>
+                                        <label class="searchEqpChk">
+                                            <input type="checkbox" class="selectStateChk" onchange="searchState('model', this.checked)" checked>
+                                            <span></span>
+                                            <div class="searchEqpTitle2" >유닛번호</div>
+                                        </label>
+                                        <label class="searchEqpChk">
+                                            <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
+                                            <span></span>
+                                            <div class="searchEqpTitle2" >도입년도</div>
+                                        </label>
+
+                                        <label class="searchEqpChk">
+                                            <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
+                                            <span></span>
+                                            <div class="searchEqpTitle2" >호스트명</div>
+                                        </label>
+                                        <label class="searchEqpChk">
+                                            <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
+                                            <span></span>
+                                            <div class="searchEqpTitle2" >슬롯번호</div>
+                                        </label>
+                                        <label class="searchEqpChk">
+                                            <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
+                                            <span></span>
+                                            <div class="searchEqpTitle2" >포트번호</div>
+                                        </label>
+                                        <label class="searchEqpChk">
+                                            <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
+                                            <span></span>
+                                            <div class="searchEqpTitle2" > ... 추가</div>
+                                        </label>
+                                    </div>
+                                    <div class="searchEqpChkColumn">
+                                        <div id="searchEqpTitle1">목적지 컬럼선택</div>
+                                        <label class="searchEqpChk">
+                                            <input type="checkbox" class="selectStateChkAll" onchange="searchState('all', this.checked)" checked>
+                                            <span></span>
+                                            <div class="searchEqpTitle2" >전체</div>
+                                        </label>
+                                        <label class="searchEqpChk">
+                                            <input type="checkbox" class="selectStateChk" onchange="searchState('unitNumber', this.checked)" checked>
+                                            <span></span>
+                                            <div class="searchEqpTitle2" >장비명</div>
+                                        </label>
+                                        <label class="searchEqpChk">
+                                            <input type="checkbox" class="selectStateChk" onchange="searchState('model', this.checked)" checked>
+                                            <span></span>
+                                            <div class="searchEqpTitle2" >유닛번호</div>
+                                        </label>
+                                        <label class="searchEqpChk">
+                                            <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
+                                            <span></span>
+                                            <div class="searchEqpTitle2" >도입년도</div>
+                                        </label>
+
+                                        <label class="searchEqpChk">
+                                            <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
+                                            <span></span>
+                                            <div class="searchEqpTitle2" >호스트명</div>
+                                        </label>
+                                        <label class="searchEqpChk">
+                                            <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
+                                            <span></span>
+                                            <div class="searchEqpTitle2" >슬롯번호</div>
+                                        </label>
+                                        <label class="searchEqpChk">
+                                            <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
+                                            <span></span>
+                                            <div class="searchEqpTitle2" >포트번호</div>
+                                        </label>
+                                        <label class="searchEqpChk">
+                                            <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
+                                            <span></span>
+                                            <div class="searchEqpTitle2" > ... 추가</div>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="searchEqpSelectWrap">
+                                    <!--
+                                    연도 선택박스(도입년도 등), 그룹(유닛번호 등) 선택박스 영역
+                                    필요없다고 하면 지우기
+                                    -->
+                                    <div class="searchEqpSelect">
+                                        <div id="searchEqpTitle3">도입년도</div>
+                                        <input type="text" class="searchEqpSelectInput" id="searchEqpYear">
+                                    </div>
+                                    <div class="searchEqpSelect">
+                                        <div id="searchEqpTitle3">유닛번호</div>
+                                        <input type="text" class="searchEqpSelectInput" id="searchEqpUnitNumber">
+                                    </div>
+                                    <div class="searchEqpSelect">
+                                        <div id="searchEqpTitle3">슬롯번호</div>
+                                        <input type="text" class="searchEqpSelectInput" id="searchEqpUnitNumber">
+                                    </div>
+                                    <div class="searchEqpSelect">
+                                        <div id="searchEqpTitle3">회선구분</div>
+                                        <input type="text" class="searchEqpSelectInput" id="searchEqpUnitNumber">
+                                    </div>
+                                    <div class="searchEqpSelect">
+                                        <div id="searchEqpTitle3">... 추가</div>
+                                        <input type="text" class="searchEqpSelectInput" id="searchEqpUnitNumber">
+                                    </div>
+                                </div>
+
+                                <div class="searchEqpSearchWrap">
+                                    <div class="searchEqpSearch">
+                                        <input type="text" id="searchEqpSearchInput" style="width:90%; height:40px; padding-left: 10px;" placeholder="검색어를 입력해주세요"/>
+                                        <button type="button" class="btn btn-secondary btn-lg" style="margin-left: 10px; font-size: 15px;" onclick="searchEqpList();">검색</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="section">
+                        <div class="card">
+                            <div class="card-body">
+                                <div style='display: flex; justify-content: space-between;'>
+                                    <div>
+                                        <p id="eqpTotalCnt" style="margin:10px 0px 10px 0px;font-size:14px;padding:3px 8px;"></p>
+                                    </div>
+                                    <div>
+                                        <button type='button' class='btn btn-outline-secondary'
+                                                style='margin:10px 0px 10px 10px;font-size:13px;padding:3px 8px;'
+                                                onclick="cable_create_popup()">추가
+                                        </button>
+                                        <button type='button' class='btn btn-outline-secondary'
+                                                style='margin:10px 0px 10px 10px;font-size:13px;padding:3px 8px;'
+                                                onclick="cable_update_popup('')">수정
+                                        </button>
+                                        <button type='button' class='btn btn-outline-secondary'
+                                                style='margin:10px 0px 10px 10px;font-size:13px;padding:3px 8px;'
+                                                onclick="cable_delete()">삭제
+                                        </button>
+                                        <button type='button' class='btn btn-outline-secondary'
+                                                style='margin:10px 0px 10px 10px;font-size:13px;padding:3px 8px;'
+                                                onclick="location.href='/eqp/exceldown'">엑셀 다운로드
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="tbl-bootstrap-wrap">
+                                    <table id="cableTable"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
 
                 </div>
             </div>

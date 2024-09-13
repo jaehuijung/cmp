@@ -23,11 +23,12 @@
             display: flex;
             align-items: center;
         }
-        .searchEqpChkWrap > .searchEqpChkColumn > #searchEqpTitle1{
+        #searchEqpChkWrap > #searchEqpChkColumn > #searchEqpTitle1{
             margin-left: 5px;
             margin-right: 10px;
             font-size: 18px;
             font-weight: bold;
+            min-width: max-content;
         }
         .searchEqpChkWrap > .searchEqpChkColumn > .searchEqpChk{
             display: flex;
@@ -36,6 +37,7 @@
         .searchEqpChkWrap > .searchEqpChk > .searchEqpTitle2{
             margin-left: 5px;
             font-size: 16px;
+            min-width: max-content;
         }
 
         .searchEqpSelectWrap{
@@ -47,16 +49,17 @@
         .searchEqpSelectWrap > .searchEqpSelect{
             display: flex;
             align-items: center;
-            margin-left: 5px;
+            margin-right: 10px;
         }
         .searchEqpSelectWrap > .searchEqpSelect > #searchEqpTitle3{
             margin-left: 10px;
             font-size: 14px;
             width: 55px;
+            min-width: max-content;
             text-align: center;
         }
         .searchEqpSelectWrap > .searchEqpSelect > .searchEqpSelectInput{
-            margin-left: 10px;
+            margin-left: 5px;
             width: 120px;
             height: 30px;
         }
@@ -70,7 +73,7 @@
         .searchEqpSearchWrap > .searchEqpSearch{
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             margin-left: 5px;
             width: 100%;
         }
@@ -100,68 +103,69 @@
             <div class="card">
                 <div class="card-body" style="padding-top: 10px;">
 
-                    <div class="searchEqpChkWrap">
-                        <div class="searchEqpChkColumn">
-                            <div id="searchEqpTitle1">컬럼선택</div>
+                    <div class="searchChkWrap">
+                        <div class="searchChkColumn">
+                            <div class="searchTitle1">컬럼선택</div>
 
-                            <label class="searchEqpChk">
+                            <label class="searchChk">
                                 <input type="checkbox" class="selectStateChkAll" onchange="searchState('all', this.checked)" checked>
                                 <span></span>
-                                <div class="searchEqpTitle2" >전체</div>
+                                <div class="searchTitle2" >전체</div>
                             </label>
-                            <label class="searchEqpChk" style="display:none;">
+                            <label class="searchChk" style="display:none;">
                                 <input type="checkbox" class="selectStateChk" onchange="searchState('name', this.checked)" checked>
                                 <span></span>
-                                <div class="searchEqpTitle2" >장비명</div>
+                                <div class="searchTitle2" >장비명</div>
                             </label>
-                            <label class="searchEqpChk">
+                            <label class="searchChk">
                                 <input type="checkbox" class="selectStateChk" onchange="searchState('unitNumber', this.checked)" checked>
                                 <span></span>
-                                <div class="searchEqpTitle2" >유닛번호</div>
+                                <div class="searchTitle2" >유닛번호</div>
                             </label>
-                            <label class="searchEqpChk">
+                            <label class="searchChk">
                                 <input type="checkbox" class="selectStateChk" onchange="searchState('hostname', this.checked)" checked>
                                 <span></span>
-                                <div class="searchEqpTitle2" >호스트명</div>
+                                <div class="searchTitle2" >호스트명</div>
                             </label>
-                            <label class="searchEqpChk">
+                            <label class="searchChk">
                                 <input type="checkbox" class="selectStateChk" onchange="searchState('mCompany', this.checked)" checked>
                                 <span></span>
-                                <div class="searchEqpTitle2" >제조사</div>
+                                <div class="searchTitle2" >제조사</div>
                             </label>
-                            <label class="searchEqpChk">
+                            <label class="searchChk">
                                 <input type="checkbox" class="selectStateChk" onchange="searchState('model', this.checked)" checked>
                                 <span></span>
-                                <div class="searchEqpTitle2" >모델명</div>
+                                <div class="searchTitle2" >모델명</div>
                             </label>
-                            <label class="searchEqpChk">
+                            <label class="searchChk">
                                 <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
                                 <span></span>
-                                <div class="searchEqpTitle2" >도입년도</div>
+                                <div class="searchTitle2" >도입년도</div>
                             </label>
-                        </div>
-                    </div>
-
-                    <div class="searchEqpSelectWrap">
-                        <!--
-                        연도 선택박스(도입년도 등), 그룹(유닛번호 등) 선택박스 영역
-                        필요없다고 하면 지우기
-                        -->
-                        <div class="searchEqpSelect">
-                            <div id="searchEqpTitle3">도입년도</div>
-                            <input type="text" class="searchEqpSelectInput" id="searchEqpYear">
-                        </div>
-                        <div class="searchEqpSelect">
-                            <div id="searchEqpTitle3">유닛번호</div>
-                            <input type="text" class="searchEqpSelectInput" id="searchEqpUnitNumber">
                         </div>
                     </div>
 
                     <div class="searchEqpSearchWrap">
                         <div class="searchEqpSearch">
-                            <input type="text" id="searchEqpSearchInput" style="width:90%; height:40px;" placeholder="검색어를 입력해주세요"/>
-                            <button type="button" class="btn btn-secondary btn-lg" style="margin-left: 10px; font-size: 15px;" onclick="searchEqpList();">검색</button>
+                            <input type="text" id="searchEqpSearchInput" style="width:90%; height:40px; padding-left: 10px;" placeholder="검색어를 입력해주세요"/>
+                            <button type="button" class="btn btn-secondary btn-lg" style="margin-left: 10px; font-size: 15px; min-width: max-content;" onclick="searchEqpList();">검색</button>
                         </div>
+                    </div>
+
+
+                    <div class="searchSelectWrap">
+                        <!--
+                        연도 선택박스(도입년도 등), 그룹(유닛번호 등) 선택박스 영역
+                        필요없다고 하면 지우기
+                        -->
+                        <label class="searchSelect">
+                            <div class="searchTitle3" style="margin-left: 10px;">도입년도</div>
+                            <input type="text" class="searchEqpSelectInput" />
+                        </label>
+                        <label class="searchSelect">
+                            <div class="searchTitle3" style="margin-left: 10px;">유닛번호</div>
+                            <input type="text" class="searchEqpSelectInput" />
+                        </label>
                     </div>
 
                 </div>
@@ -179,6 +183,10 @@
                             <button type='button' class='btn btn-outline-secondary'
                                     style='margin:10px 0px 10px 10px;font-size:13px;padding:3px 8px;'
                                     onclick="eqp_create_popup()">추가
+                            </button>
+                            <button type='button' class='btn btn-outline-secondary'
+                                    style='margin:10px 0px 10px 10px;font-size:13px;padding:3px 8px;'
+                                    onclick="eqp_update_popup('')">수정
                             </button>
                             <button type='button' class='btn btn-outline-secondary'
                                     style='margin:10px 0px 10px 10px;font-size:13px;padding:3px 8px;'

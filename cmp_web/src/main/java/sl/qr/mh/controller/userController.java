@@ -32,7 +32,7 @@ public class userController {
 	public String getusrList(HttpSession session,
 			HttpServletRequest request) {
  		// return "new/usrlist";
-		return "views/usrlist";
+		return "views/old/usrlist";
 		        
 	}
 	
@@ -40,7 +40,7 @@ public class userController {
 	public String getusrregster(HttpSession session,
 			HttpServletRequest request) {
 		// return "new/userregster";
-		return "views/userregster";
+		return "views/old/userregster";
 		        
 	}
 	
@@ -51,7 +51,7 @@ public class userController {
 		usr = databaseService.selectUser(vo);
 		log.info("kkkkkkddddkkkkkkkkkkkkkkkkkk"+usr.getPassword());
 		model.addAttribute("User",usr);
-		return "new/usrupdate";
+		return "views/old/usrupdate";
 		        
 	}
 	
@@ -63,7 +63,7 @@ public class userController {
 			vo.setPassword(bcrypt.encode(pass));
 		}
 		databaseService.updateUser(vo);
-	return "new/usrlist";
+	return "views/old/usrlist";
 		        
 	}
 	
@@ -73,7 +73,7 @@ public class userController {
 			HttpServletRequest request) {
 		
 		databaseService.deleteUser(vo);
-		return "new/usrlist";
+		return "views/old/usrlist";
 		        
 	}
 
