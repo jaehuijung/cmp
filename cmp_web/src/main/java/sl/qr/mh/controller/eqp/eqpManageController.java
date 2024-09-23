@@ -119,6 +119,17 @@ public class eqpManageController {
         return eqpManageService.insertExcelList(file);
     }
 
+    @ResponseBody
+    @PostMapping("/excelResponse")
+    public void excelResponse(@RequestBody Map<String, Object> paramMap, HttpServletResponse response) throws IOException {
+        Workbook wb = eqpManageService.saveResultEquipment(paramMap);
+        response.setContentType("ms-vnd/excel");
+        response.setHeader("Content-Disposition", "attachment;filename=saveResultEquipment.xlsx");
+
+        wb.write(response.getOutputStream());
+        wb.close();
+    }
+
     /************************************/
     // 아직 변경 안한놈들
 

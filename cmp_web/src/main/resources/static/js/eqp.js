@@ -853,62 +853,67 @@ function excel_upload(){
         customClass: {
             popup: 'custom-width'
         },
-        preConfirm: () => {
-            // 자산정보 (왼)
-            // const eqp_name = Swal.getPopup().querySelector('#eqp_name').value; // 장비명
-
-            // if (!eqp_name) {
-            //     Swal.showValidationMessage(`파일 검증 후 저장해주세요.`);
-            // }
-
-            return {
-                test : 'test'
-             };
-        }
     }).then((result) => {
+
         if (result.isConfirmed) {
-            Swal.fire({
-                title: '알림',
-                html: '반드시 선택된 파일이 검증파일인지 확인하세요. 장비 목록을 저장하시겠습니까?',
-                icon: 'info',
-                confirmButtonText: '저장',
-                cancelButtonText: '취소',
-                showCancelButton: true,
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    let data = result.value;
-                    $.ajax({
-                        url : '/eqpManage/updateEqp',
-                        type: 'post',
-                        data : data,
-                        dataType : 'JSON',
-                        success : function(res){
-                            if (!res.errorCode){
+            let data = $("#excelFile")[0].files[0];
+            if(data != undefined){
+                Swal.fire({
+                    title: '알림',
+                    html: '반드시 선택된 파일이 검증파일인지 확인하세요. 장비 목록을 저장하시겠습니까?',
+                    icon: 'info',
+                    confirmButtonText: '저장',
+                    cancelButtonText: '취소',
+                    showCancelButton: true,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        let formData = new FormData();
+                        formData.append("file", data);
+
+                        $.ajax({
+                            url : '/eqpManage/excelSave',
+                            type: 'post',
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            success : function(res){
                                 Swal.fire({
                                     title: '알림',
-                                    html: '데이터를 수정하는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.',
-                                    icon: 'error',
-                                    confirmButtonText: '확인'
-                                });
-                            }
-                            else{
-                                Swal.fire({
-                                    title: '알림',
-                                    html: '수정되었습니다.',
+                                    html: '데이터 저장 내역</br>성공 : '+ res.successList.length +'건</br>실패 : '+ res.failList.length +'건',
                                     icon: 'info',
                                     confirmButtonText: '확인'
-                                }).then((result) => {
-                                    $("#eqpTable").bootstrapTable('refresh');
+                                })
+                                .then((result) => {
+                                    $.ajax({
+                                        url : '/eqpManage/saveResultEquipment',
+                                        type: 'post',
+                                        data: JSON.stringify(res),
+                                        contentType: 'application/json',
+                                        processData: false,
+                                        success : function(res){
+                                            $("#eqpTable").bootstrapTable('refresh');
+                                        }
+                                    });
                                 });
                             }
-                        }
-                    })
-                }
+                        })
+                    }
 
-                if(result.isDismissed){
+                    if(result.isDismissed){
+                        excel_upload();
+                    }
+                })
+            }
+            else{
+                Swal.fire({
+                    title: '알림',
+                    html: '엑셀 파일을 먼저 업로드하세요.',
+                    icon: 'error',
+                    confirmButtonText: '확인'
+                }).then((result) => {
                     excel_upload();
-                }
-            })
+                });
+            }
         }
     })
 }

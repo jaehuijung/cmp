@@ -10,6 +10,7 @@ import sl.qr.mh.service.cableMapper;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -158,6 +159,8 @@ public class eqpManageService {
     @Transactional
     public Map<String, Object> insertExcelList(MultipartFile file) throws IOException {
         Map<String, Object> returnMap = new HashMap<>();
+        List<Map<String, Object>> successList = new ArrayList<>();
+        List<Map<String, Object>> failList = new ArrayList<>();
 
         Workbook wb = new XSSFWorkbook(file.getInputStream());
         Sheet sheet = wb.getSheetAt(1);
@@ -166,41 +169,48 @@ public class eqpManageService {
         Row rowHeader = sheet.getRow(0);
 
         for(int rowIndex=3; rowIndex < sheetRowNumber; rowIndex++) {
-            returnMap.put("errorCode", false);
+            Map<String, Object> insertExcelMap = new HashMap<>();
             try {
                 Row row = sheet.getRow(rowIndex);
 
-                Map<String, Object> excelCellProcessMap = new HashMap<>();
-                excelCellProcessMap.put("errorCode", true);
-
                 if (row != null) {
-                    Map<String, Object> insertExcelMap = new HashMap<>();
-
                     for (int cnt = 1; cnt < 41; cnt++) {
                         Cell cellHeader = rowHeader.getCell(cnt);
                         Cell cellValue = row.getCell(cnt);
 
-                        insertExcelMap.put(cellHeader.getStringCellValue(), cellValue);
+                        insertExcelMap.putAll(excelCellProcess(cellHeader, cellValue));
                     }
-
                 }
 
-                // cableMapper.insertEqpList(paramMap);
-                returnMap.put("errorCode",true);
+                // insert mapper
+                cableMapper.insertEqpList(insertExcelMap);
+                successList.add(insertExcelMap);
 
             } catch (Exception e) {
-                log.error(e.getMessage());
+                failList.add(insertExcelMap);
             }
         }
+
+        returnMap.put("successList", successList);
+        returnMap.put("failList", failList);
 
         return returnMap;
     }
 
+    public Workbook saveResultEquipment(Map<String, Object> paramMap) throws IOException {
+        String resultPath = "equipmentResultTemplate.xlsx";
+        FileInputStream file = new FileInputStream(resultPath);
+        Workbook wb = new XSSFWorkbook(file);
+
+        return wb;
+    }
+
     private final String sep = "/";
-    private final String staticPath = System.getProperty("user.dir") + sep + "src" + sep + "main" + sep + "resources" + sep + "static" + sep + "excelTemplate" + sep + "equipmentUploadTemplate.xlsx";
+    private final String staticPath = System.getProperty("user.dir") + sep + "src" + sep + "main" + sep + "resources" + sep + "static" + sep + "excelTemplate" + sep;
 
     public Workbook excelTemplate() throws IOException {
-        FileInputStream file = new FileInputStream(staticPath);
+        String uploadPath = "equipmentUploadTemplate.xlsx";
+        FileInputStream file = new FileInputStream(uploadPath);
         Workbook wb = new XSSFWorkbook(file);
 
         return wb;
