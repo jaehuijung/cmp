@@ -511,7 +511,7 @@ function eqp_create_popup(){
         if (result.isConfirmed) {
             let data = result.value;
             $.ajax({
-                url : '/eqpManage/insert_eqp',
+                url : '/eqpManage/insertEqp',
                 type: 'post',
                 data : data,
                 dataType : 'JSON',
@@ -769,11 +769,10 @@ function eqp_update_popup(id) {
                              };
                         }
                     }).then((result) => {
-                        // 수정 버튼 클릭 후 발생할 이벤트
                          if (result.isConfirmed) {
                              let data = result.value;
                              $.ajax({
-                                 url : '/eqpManage/update_eqp',
+                                 url : '/eqpManage/updateEqp',
                                  type: 'post',
                                  data : data,
                                  dataType : 'JSON',
@@ -842,7 +841,7 @@ function eqp_delete() {
     });
 }
 
-// 장비관리 > 장비목록 > 장비 업로드
+// 장비관리 > 장비목록 > 장비 업로드 버튼
 function excel_upload(){
     Swal.fire({
         title: '엑셀 파일 업로드',
@@ -858,9 +857,8 @@ function excel_upload(){
             // 자산정보 (왼)
             // const eqp_name = Swal.getPopup().querySelector('#eqp_name').value; // 장비명
 
-            // 엑셀 파일 검증
             // if (!eqp_name) {
-            //     Swal.showValidationMessage(`장비명은 필수 항목입니다.`);
+            //     Swal.showValidationMessage(`파일 검증 후 저장해주세요.`);
             // }
 
             return {
@@ -868,57 +866,82 @@ function excel_upload(){
              };
         }
     }).then((result) => {
-        // 저장 버튼 클릭 후 발생할 이벤트
         if (result.isConfirmed) {
-            let data = result.value;
-            $.ajax({
-                url : '/eqpManage/update_eqp',
-                type: 'post',
-                data : data,
-                dataType : 'JSON',
-                success : function(res){
-                    if (!res.errorCode){
-                        Swal.fire({
-                            title: '알림',
-                            html: '데이터를 수정하는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.',
-                            icon: 'error',
-                            confirmButtonText: '확인'
-                        });
-                    }
-                    else{
-                        Swal.fire({
-                            title: '알림',
-                            html: '수정되었습니다.',
-                            icon: 'info',
-                            confirmButtonText: '확인'
-                        }).then((result) => {
-                            $("#eqpTable").bootstrapTable('refresh');
-                        });
-                    }
+            Swal.fire({
+                title: '알림',
+                html: '반드시 선택된 파일이 검증파일인지 확인하세요. 장비 목록을 저장하시겠습니까?',
+                icon: 'info',
+                confirmButtonText: '저장',
+                cancelButtonText: '취소',
+                showCancelButton: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let data = result.value;
+                    $.ajax({
+                        url : '/eqpManage/updateEqp',
+                        type: 'post',
+                        data : data,
+                        dataType : 'JSON',
+                        success : function(res){
+                            if (!res.errorCode){
+                                Swal.fire({
+                                    title: '알림',
+                                    html: '데이터를 수정하는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.',
+                                    icon: 'error',
+                                    confirmButtonText: '확인'
+                                });
+                            }
+                            else{
+                                Swal.fire({
+                                    title: '알림',
+                                    html: '수정되었습니다.',
+                                    icon: 'info',
+                                    confirmButtonText: '확인'
+                                }).then((result) => {
+                                    $("#eqpTable").bootstrapTable('refresh');
+                                });
+                            }
+                        }
+                    })
+                }
+
+                if(result.isDismissed){
+                    excel_upload();
                 }
             })
         }
     })
 }
 
+// 장비관리 > 장비목록 > 엑셀 업로드 html
 function generateAssetUploadHTML(){
     return `
         <div style="text-align: left;">
-            <p>※ 업로드 한 파일을 저장하기 전 반드시 검증이 필요합니다. 검증 후 저장 버튼을 눌러 데이터를 저장하세요.</p>
-            <button type="button" class="btn btn-outline-secondary" onclick="uploadExcelEquipmentList()">엑셀 양식 다운로드</button>
-            <br><br>
+            <p>※ 업로드 한 파일을 저장하기 전 반드시 검증이 필요합니다.</p>
+            <p>　검증결과 엑셀 파일 확인 후 저장 버튼을 눌러 데이터를 저장하세요.</p>
+            <br>
 
-            <div style="display: flex">
-                <form id="uploadForm" enctype="multipart/form-data" style="width: fit-content;">
-                    <input type="file" id="excelFile" name="file" accept=".xls,.xlsx" />
-                </form>
-
-                <button type="button" class="btn btn-outline-secondary" onclick="validExcelEquipmentList()">검증</button>
+            <div style="display: flex; flex-direction: column; ">
+                <div style="margin-bottom: 10px;">
+                    <button type="button" class="btn btn-outline-secondary" onclick="downloadExcelTemplate()">엑셀 양식 다운로드</button>
+                    <button type="button" class="btn btn-outline-secondary" onclick="validExcelEquipmentList()">검증</button>
+                </div>
+                <div>
+                    <form id="uploadForm" enctype="multipart/form-data" style="width: fit-content;">
+                        <input type="file" id="excelFile" name="file" accept=".xls,.xlsx" />
+                    </form>
+                </div>
             </div>
         </div>
     `;
 }
 
+// 장비목록 추가용 엑셀 템플릿 다운로드
+function downloadExcelTemplate(){
+    window.location = "/eqpManage/excelTemplate";
+}
+
+// 업로드된 장비목록 검증
 function validExcelEquipmentList() {
 
     let data = $("#excelFile")[0].files[0];
@@ -927,45 +950,54 @@ function validExcelEquipmentList() {
         formData.append("file", data);
 
         $.ajax({
-            url : '/eqpManage/excelTest',
+            url : '/eqpManage/excelValid',
             type: 'post',
             data: formData,
             processData: false,
             contentType: false,
-            dataType : 'JSON',
+            xhrFields: {
+                responseType: 'blob' // 바이너리 데이터로 응답 받기
+            },
             success : function(res){
-                debugger;
+                const url = window.URL.createObjectURL(res);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'validEquipmentUploadTemplate.xlsx'; // 다운로드할 파일 이름
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
 
-                if (!res.errorCode){
-                    Swal.fire({
-                        title: '알림',
-                        html: '업로드 된 엑셀 파일에서 수정해야 할 항목이 존재합니다.',
-                        icon: 'error',
-                        confirmButtonText: '확인'
-                    });
-                }
-                else{
-                    Swal.fire({
-                        title: '알림',
-                        html: '업로드 된 엑셀 파일의 모든 항목이 정상입니다. 저장 버튼을 눌러 데이터를 저장하세요.',
-                        icon: 'info',
-                        confirmButtonText: '확인'
-                    }).then((result) => {
-                        $("#eqpTable").bootstrapTable('refresh');
-                    });
-                }
+                Swal.fire({
+                    title: '검증완료',
+                    html: '반드시 검증파일 확인 후 검증파일을 저장하세요.',
+                    icon: 'info',
+                    confirmButtonText: '확인'
+                }).then((result) => {
+                    excel_upload();
+                });
+            },
+            error: function (err) {
+                Swal.fire({
+                    title: '알림',
+                    html: '업로드 중 오류가 발생했습니다.',
+                    icon: 'error',
+                    confirmButtonText: '확인'
+                }).then((result) => {
+                    excel_upload();
+                });
             }
-        })
-    }
-    else{
+        });
+    } else {
         Swal.fire({
             title: '알림',
             html: '엑셀 파일을 먼저 업로드하세요.',
             icon: 'error',
             confirmButtonText: '확인'
+        }).then((result) => {
+            excel_upload();
         });
     }
-
 }
 
 

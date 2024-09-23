@@ -5,6 +5,7 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import sl.qr.mh.service.cableMapper;
 
 import java.io.FileInputStream;
@@ -154,50 +155,91 @@ public class eqpManageService {
     }
 
 
-    private final String sep = "/";
-    private final String staticPath = System.getProperty("user.dir") + sep + "src" + sep + "main" + sep + "resources" + sep + "static" + sep;
+    @Transactional
+    public Map<String, Object> insertExcelList(MultipartFile file) throws IOException {
+        Map<String, Object> returnMap = new HashMap<>();
 
-    public Workbook excelTemplate() throws IOException {
-        String templatesPath = staticPath + "excelTemplate" + sep + "equipmentUploadTemplate.xlsx";
-        FileInputStream file = new FileInputStream(templatesPath);
-
-        Workbook wb = new XSSFWorkbook(file);
+        Workbook wb = new XSSFWorkbook(file.getInputStream());
         Sheet sheet = wb.getSheetAt(1);
         int sheetRowNumber = sheet.getPhysicalNumberOfRows();
 
-        // 헤더
         Row rowHeader = sheet.getRow(0);
 
-        // 데이터 컬럼 : 세 번째 행부터
+        for(int rowIndex=3; rowIndex < sheetRowNumber; rowIndex++) {
+            returnMap.put("errorCode", false);
+            try {
+                Row row = sheet.getRow(rowIndex);
+
+                Map<String, Object> excelCellProcessMap = new HashMap<>();
+                excelCellProcessMap.put("errorCode", true);
+
+                if (row != null) {
+                    Map<String, Object> insertExcelMap = new HashMap<>();
+
+                    for (int cnt = 1; cnt < 41; cnt++) {
+                        Cell cellHeader = rowHeader.getCell(cnt);
+                        Cell cellValue = row.getCell(cnt);
+
+                        insertExcelMap.put(cellHeader.getStringCellValue(), cellValue);
+                    }
+
+                }
+
+                // cableMapper.insertEqpList(paramMap);
+                returnMap.put("errorCode",true);
+
+            } catch (Exception e) {
+                log.error(e.getMessage());
+            }
+        }
+
+        return returnMap;
+    }
+
+    private final String sep = "/";
+    private final String staticPath = System.getProperty("user.dir") + sep + "src" + sep + "main" + sep + "resources" + sep + "static" + sep + "excelTemplate" + sep + "equipmentUploadTemplate.xlsx";
+
+    public Workbook excelTemplate() throws IOException {
+        FileInputStream file = new FileInputStream(staticPath);
+        Workbook wb = new XSSFWorkbook(file);
+
+        return wb;
+    }
+
+    public Workbook excelValidation(MultipartFile file) throws IOException {
+        Workbook wb = new XSSFWorkbook(file.getInputStream());
+        Sheet sheet = wb.getSheetAt(1);
+        int sheetRowNumber = sheet.getPhysicalNumberOfRows();
+
+        Row rowHeader = sheet.getRow(0);
+
         for(int rowIndex=3; rowIndex < sheetRowNumber; rowIndex++){
             Row row = sheet.getRow(rowIndex);
 
-            // 엑셀 데이터 저장할 컬럼
-            Map<String,Object> excelCellProcessMap = new HashMap<>();
+            Map<String, Object> excelCellProcessMap = new HashMap<>();
             excelCellProcessMap.put("errorCode", true);
 
-            if(row != null) {
-                // 데이터 컬럼 : 두 번째 열부터
+            if (row != null) {
                 for (int cnt = 1; cnt < 41; cnt++) {
                     Cell cellHeader = rowHeader.getCell(cnt);
                     Cell cellValue = row.getCell(cnt);
 
                     excelCellProcessMap.putAll(excelCellProcess(cellHeader, cellValue));
                 }
+            }
 
-                // 검증에서 성공/실패 데이터 저장
-                if((boolean) excelCellProcessMap.get("errorCode")) {
-                    validDataToSheet(wb, 2, excelCellProcessMap); // 세 번째 시트는 인덱스 2
-                    validDataToSheet(wb, 3, excelCellProcessMap); // 네 번째 시트는 인덱스 3
-                }
-
+            if((boolean) excelCellProcessMap.get("errorCode")) {
+                validDataToSheet(wb, 2, excelCellProcessMap);
+            }
+            else {
+                validDataToSheet(wb, 3, excelCellProcessMap);
             }
         }
 
         return wb;
     }
 
-    public Map<String, Object> excelCellProcess(Cell cellHeader, Cell cellValue) {
+    private Map<String, Object> excelCellProcess(Cell cellHeader, Cell cellValue) {
         Map<String, Object> processMap = new HashMap<>();
 
         String cellHeaderStr = cellHeader.getStringCellValue();
@@ -271,17 +313,75 @@ public class eqpManageService {
 
     public void validDataToSheet(Workbook workbook, int sheetIndex, Map<String, Object> data) {
         Sheet sheet = workbook.getSheetAt(sheetIndex);
-
-        // 데이터 추가
         int lastRowNum = sheet.getLastRowNum();
+
         Row dataRow = sheet.createRow(lastRowNum + 1);
-        dataRow.createCell(0).setCellValue((String) data.get("eqp_name"));
-        dataRow.createCell(1).setCellValue((String) data.get("hostname"));
-        dataRow.createCell(2).setCellValue((String) data.get("m_company"));
+
+        // 각 셀에 값을 설정
+        setCellValue(sheetIndex, 1,  workbook, dataRow, data.get("eqp_name"));
+        setCellValue(sheetIndex, 2,  workbook, dataRow, data.get("hostname"));
+        setCellValue(sheetIndex, 3,  workbook, dataRow, data.get("m_company"));
+        setCellValue(sheetIndex, 4,  workbook, dataRow, data.get("model"));
+        setCellValue(sheetIndex, 5,  workbook, dataRow, data.get("yearofintroduct"));
+        setCellValue(sheetIndex, 6,  workbook, dataRow, data.get("config_category"));
+        setCellValue(sheetIndex, 7,  workbook, dataRow, data.get("config_id"));
+        setCellValue(sheetIndex, 8,  workbook, dataRow, data.get("asset_category"));
+        setCellValue(sheetIndex, 9,  workbook, dataRow, data.get("asset_id"));
+        setCellValue(sheetIndex, 10, workbook, dataRow, data.get("manage_number"));
+        setCellValue(sheetIndex, 11, workbook, dataRow, data.get("manage_id"));
+        setCellValue(sheetIndex, 12, workbook, dataRow, data.get("ip_address"));
+        setCellValue(sheetIndex, 13, workbook, dataRow, data.get("os_version"));
+        setCellValue(sheetIndex, 14, workbook, dataRow, data.get("operating_department"));
+        setCellValue(sheetIndex, 15, workbook, dataRow, data.get("primary_operator"));
+        setCellValue(sheetIndex, 16, workbook, dataRow, data.get("secondary_operator"));
+        setCellValue(sheetIndex, 17, workbook, dataRow, data.get("primary_outsourced_operator"));
+        setCellValue(sheetIndex, 18, workbook, dataRow, data.get("secondary_outsourced_operator"));
+        setCellValue(sheetIndex, 19, workbook, dataRow, data.get("operating_status"));
+        setCellValue(sheetIndex, 20, workbook, dataRow, data.get("eol_status"));
+        setCellValue(sheetIndex, 21, workbook, dataRow, data.get("eos_status"));
+        setCellValue(sheetIndex, 22, workbook, dataRow, data.get("redundancy_config"));
+        setCellValue(sheetIndex, 23, workbook, dataRow, data.get("network_operation_type"));
+        setCellValue(sheetIndex, 24, workbook, dataRow, data.get("asset_acquisition_date"));
+        setCellValue(sheetIndex, 25, workbook, dataRow, data.get("asset_disposal_date"));
+        setCellValue(sheetIndex, 26, workbook, dataRow, data.get("acquisition_cost"));
+        setCellValue(sheetIndex, 27, workbook, dataRow, data.get("dbrain_number"));
+        setCellValue(sheetIndex, 28, workbook, dataRow, data.get("domestic"));
+        setCellValue(sheetIndex, 29, workbook, dataRow, data.get("unit_position"));
+        setCellValue(sheetIndex, 30, workbook, dataRow, data.get("installation_coordinates"));
+        setCellValue(sheetIndex, 31, workbook, dataRow, data.get("installation_units"));
+        setCellValue(sheetIndex, 32, workbook, dataRow, data.get("equipment_size_units"));
+        setCellValue(sheetIndex, 33, workbook, dataRow, data.get("resource_name"));
+        setCellValue(sheetIndex, 34, workbook, dataRow, data.get("maintenance_contract_target"));
+        setCellValue(sheetIndex, 35, workbook, dataRow, data.get("cpu"));
+        setCellValue(sheetIndex, 36, workbook, dataRow, data.get("mem"));
+        setCellValue(sheetIndex, 37, workbook, dataRow, data.get("disk"));
+        setCellValue(sheetIndex, 38, workbook, dataRow, data.get("serial_number"));
+        setCellValue(sheetIndex, 39, workbook, dataRow, data.get("created_at"));
+        setCellValue(sheetIndex, 40, workbook, dataRow, data.get("remarks"));
     }
 
+    private void setCellValue(int sheetIndex, int cellIndex, Workbook workbook, Row dataRow, Object value) {
+        if (value == null) {
+            dataRow.createCell(cellIndex).setCellValue("");
+        } else if (value instanceof String) {
+            dataRow.createCell(cellIndex).setCellValue((String) value);
+        } else if (value instanceof Number) {
+            dataRow.createCell(cellIndex).setCellValue(((Number) value).doubleValue());
+        } else {
+            dataRow.createCell(cellIndex).setCellValue(value.toString());
+        }
 
-
+        // 실패한 셀에 빨간색
+        // 음 이건 errorCode 받아올 때 무슨 셀에 칠할지 추가로 체크해야하는데
+        // 다른거 먼저 하고나서 합시다
+        // if(sheetIndex == 3){
+        //     Cell firstCell = dataRow.createCell(sheetIndex);
+        //     CellStyle style = workbook.createCellStyle();
+        //     style.setFillForegroundColor(IndexedColors.RED.getIndex());
+        //     style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        //     firstCell.setCellStyle(style);
+        // }
+    }
 
 
 
