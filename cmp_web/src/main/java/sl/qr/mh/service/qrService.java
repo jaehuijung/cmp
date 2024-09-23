@@ -41,7 +41,7 @@ public class qrService implements qrServiceI {
      * @return Workbook
      */
    public Workbook EqpExcel(List<Equipment> list) throws IOException {
-	   String templatesPath = staticPath + "qrTemplate" + sep + "Eqplistemplate.xlsx";
+	   String templatesPath = staticPath + "excelTemplate" + sep + "Eqplistemplate.xlsx";
        FileInputStream file = new FileInputStream(templatesPath);
        Workbook wb = new XSSFWorkbook(file);
 		
@@ -87,7 +87,7 @@ public class qrService implements qrServiceI {
     public Workbook QRPrint(Map<String, String> qrList) throws IOException {
         //log.info("qr print ...");
 
-        String templatesPath = staticPath + "qrTemplate" + sep + "autoCarTemplate.xlsx";
+        String templatesPath = staticPath + "excelTemplate" + sep + "autoCarTemplate.xlsx";
         FileInputStream file = new FileInputStream(templatesPath);
         Workbook wb = new XSSFWorkbook(file);
         Sheet sheet = wb.getSheetAt(1);

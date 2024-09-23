@@ -1,7 +1,7 @@
 
 // base url
-// let urlPre = "https://127.0.0.1";
-let urlPre = "https://3.38.246.94";
+let urlPre = "https://127.0.0.1";
+// let urlPre = "https://3.38.246.94";
 
 // cable table column
 var columns = [
@@ -179,8 +179,9 @@ $(function(){
                     confirmButtonText: '확인'
                 });
             }
-
-            $("#cableTotalCnt").text("총 " + res.total + "건")
+            else{
+                $("#cableTotalCnt").text("총 " + res.total + "건")
+            }
         },
         onClickCell: function (field, value, row, $element){
             if(!$element.hasClass("bs-checkbox")){

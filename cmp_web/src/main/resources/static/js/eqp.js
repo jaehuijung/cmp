@@ -13,36 +13,266 @@ var columns = [
         field: 'eqp_name',
         align: 'center',
         valign: 'middle',
-    },
-    {
-        title: '유닛번호',
-        field: 'unit_position',
-        align: 'center',
-        valign: 'middle',
+        class: 'nowrap'
     },
     {
         title: '호스트명',
         field: 'hostname',
         align: 'center',
         valign: 'middle',
+        class: 'nowrap'
     },
     {
         title: '제조사',
         field: 'm_company',
         align: 'center',
         valign: 'middle',
+        class: 'nowrap'
     },
     {
         title: '모델',
         field: 'model',
         align: 'center',
         valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: '유닛번호',
+        field: 'unit_position',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
     },
     {
         title: '도입년도',
         field: 'yearofintroduct',
         align: 'center',
         valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: '생성일',
+        field: 'created_at',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: '구성분류',
+        field: 'config_category',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: '자산분류',
+        field: 'asset_category',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: '자산ID',
+        field: 'asset_id',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: '구성ID',
+        field: 'config_id',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: 'IP',
+        field: 'ip_address',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: 'OS',
+        field: 'os_version',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: '운영부서',
+        field: 'operating_department',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: '운영담당자(정)',
+        field: 'primary_operator',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: '운영담당자(부)',
+        field: 'unit_position',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: '위탁운영사용자(정)',
+        field: 'primary_outsourced_operator',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: '위탁운영사용자(부)',
+        field: 'secondary_outsourced_operator',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: '운영상태',
+        field: 'operating_status',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: '단종상태(EOL)',
+        field: 'eol_status',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: '단종상태(EOS)',
+        field: 'eos_status',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: '이중화구성여부',
+        field: 'redundancy_config',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: '네트워크운영구분',
+        field: 'network_operation_type',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: '자산취득일자',
+        field: 'asset_acquisition_date',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: '자산폐기일자',
+        field: 'asset_disposal_date',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: '도입금액',
+        field: 'acquisition_cost',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: '디브레인번호',
+        field: 'dbrain_number',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: '국산여부',
+        field: 'domestic',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: '설치 좌표(좌표)',
+        field: 'installation_coordinates',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: '설치 좌표(유닛수)',
+        field: 'installation_units',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: '장비 크기(유닛수)',
+        field: 'equipment_size_units',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: '비고',
+        field: 'remarks',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: '구성자원명',
+        field: 'resource_name',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: '유지관리 계약대상여부',
+        field: 'maintenance_contract_target',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: 'CPU',
+        field: 'cpu',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: 'MEM',
+        field: 'mem',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: 'DISK',
+        field: 'disk',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
+    },
+    {
+        title: '시리얼번호',
+        field: 'serial_number',
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap'
     }
 ];
 
@@ -62,9 +292,7 @@ $(function(){
         },
         pageSize: 10, columns: columns, cache: false, undefinedText: "",
         pagination: true, sidePagination: 'server', checkboxHeader: true,
-        classes: "txt-\
-        \pd", clickToSelect: false,
-        sortOrder: 'desc', sortName: 'ORDER',
+        classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
         responseHandler: function(res) {
             return {
                 rows: res.rows,
@@ -312,6 +540,7 @@ function eqp_create_popup(){
     });
 }
 
+// 장비관리 > 장비목록 > 장비상세 모달
 function eqp_detail_popup(id){
     $.ajax({
         url : '/eqpManage/update?eqp_id='+id,
@@ -612,6 +841,133 @@ function eqp_delete() {
        }
     });
 }
+
+// 장비관리 > 장비목록 > 장비 업로드
+function excel_upload(){
+    Swal.fire({
+        title: '엑셀 파일 업로드',
+        html: generateAssetUploadHTML(),
+        focusConfirm: false,
+        confirmButtonText: '저장',
+        cancelButtonText: '취소',
+        showCancelButton: true,
+        customClass: {
+            popup: 'custom-width'
+        },
+        preConfirm: () => {
+            // 자산정보 (왼)
+            // const eqp_name = Swal.getPopup().querySelector('#eqp_name').value; // 장비명
+
+            // 엑셀 파일 검증
+            // if (!eqp_name) {
+            //     Swal.showValidationMessage(`장비명은 필수 항목입니다.`);
+            // }
+
+            return {
+                test : 'test'
+             };
+        }
+    }).then((result) => {
+        // 저장 버튼 클릭 후 발생할 이벤트
+        if (result.isConfirmed) {
+            let data = result.value;
+            $.ajax({
+                url : '/eqpManage/update_eqp',
+                type: 'post',
+                data : data,
+                dataType : 'JSON',
+                success : function(res){
+                    if (!res.errorCode){
+                        Swal.fire({
+                            title: '알림',
+                            html: '데이터를 수정하는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.',
+                            icon: 'error',
+                            confirmButtonText: '확인'
+                        });
+                    }
+                    else{
+                        Swal.fire({
+                            title: '알림',
+                            html: '수정되었습니다.',
+                            icon: 'info',
+                            confirmButtonText: '확인'
+                        }).then((result) => {
+                            $("#eqpTable").bootstrapTable('refresh');
+                        });
+                    }
+                }
+            })
+        }
+    })
+}
+
+function generateAssetUploadHTML(){
+    return `
+        <div style="text-align: left;">
+            <p>※ 업로드 한 파일을 저장하기 전 반드시 검증이 필요합니다. 검증 후 저장 버튼을 눌러 데이터를 저장하세요.</p>
+            <button type="button" class="btn btn-outline-secondary" onclick="uploadExcelEquipmentList()">엑셀 양식 다운로드</button>
+            <br><br>
+
+            <div style="display: flex">
+                <form id="uploadForm" enctype="multipart/form-data" style="width: fit-content;">
+                    <input type="file" id="excelFile" name="file" accept=".xls,.xlsx" />
+                </form>
+
+                <button type="button" class="btn btn-outline-secondary" onclick="validExcelEquipmentList()">검증</button>
+            </div>
+        </div>
+    `;
+}
+
+function validExcelEquipmentList() {
+
+    let data = $("#excelFile")[0].files[0];
+    if(data != undefined){
+        let formData = new FormData();
+        formData.append("file", data);
+
+        $.ajax({
+            url : '/eqpManage/excelTest',
+            type: 'post',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType : 'JSON',
+            success : function(res){
+                debugger;
+
+                if (!res.errorCode){
+                    Swal.fire({
+                        title: '알림',
+                        html: '업로드 된 엑셀 파일에서 수정해야 할 항목이 존재합니다.',
+                        icon: 'error',
+                        confirmButtonText: '확인'
+                    });
+                }
+                else{
+                    Swal.fire({
+                        title: '알림',
+                        html: '업로드 된 엑셀 파일의 모든 항목이 정상입니다. 저장 버튼을 눌러 데이터를 저장하세요.',
+                        icon: 'info',
+                        confirmButtonText: '확인'
+                    }).then((result) => {
+                        $("#eqpTable").bootstrapTable('refresh');
+                    });
+                }
+            }
+        })
+    }
+    else{
+        Swal.fire({
+            title: '알림',
+            html: '엑셀 파일을 먼저 업로드하세요.',
+            icon: 'error',
+            confirmButtonText: '확인'
+        });
+    }
+
+}
+
 
 // 추가, 수정 모달 생성
 function generateAssetInfoHTML(detailRow) {

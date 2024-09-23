@@ -31,6 +31,7 @@ public class cableManageService {
 		public Map<String, Object> getCableList(Map<String, Object> paramMap){
 
 			Map<String, Object> returnMap = new HashMap<>();
+			returnMap.put("errorCode", false);
 
 			try {
 
@@ -39,7 +40,7 @@ public class cableManageService {
 
 				returnMap.put("rows", rows);
 				returnMap.put("total", total);
-
+				returnMap.put("errorCode", true);
 
 			} catch (Exception e) {
 				log.error(e.getMessage());

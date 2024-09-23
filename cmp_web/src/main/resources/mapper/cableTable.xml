@@ -395,15 +395,48 @@
         /* getEqpTotalList ...
             장비관리 > 장비목록 > 리스트 목록  */
         SELECT
-            A.id eqp_id,
-            A.eqp_name,
-            A.eqp_direct,
-            A.hostname,
-            A.unit_position,
-            rack_id,
-            m_company,
-            yearofintroduct,
-            model
+            A.id AS eqp_id                    /* 장비 id */
+            /* , C.group_name                    장비 그룹명 (제외하라했는데 일단 나중에) */
+            , A.eqp_name                      /* 장비이름 */
+            , A.hostname                      /* 호스트명 */
+            , A.m_company                     /* 제조사 */
+            , A.model                         /* 모델 */
+            /* , A.rack_id                       랙번호  (제외하라했는데 일단 나중에)  */
+            /* , A.eqp_direct                    장비방향 (제외하라했는데 일단 나중에) */
+            , A.unit_position                 /* 유닛위치 */
+            , A.yearofintroduct               /* 도입년도 */
+            , A.created_at                    /* 생성일 */
+            , A.config_category               /* 구성분류 */
+            , A.asset_category                /* 자산분류 */
+            , A.asset_id                      /* 자산ID */
+            , A.config_id                     /* 구성ID */
+            , A.ip_address                    /* ip address */
+            , A.os_version                    /* OS 버전 */
+            , A.operating_department          /* 운영부서 */
+            , A.primary_operator              /* 운영담당자(정) */
+            , A.secondary_operator            /* 운영담당자(부) */
+            , A.primary_outsourced_operator   /* 위탁운영사용자(정) */
+            , A.secondary_outsourced_operator /* 위탁운영사용자(부) */
+            , A.operating_status              /* 운영상태 */
+            , A.eol_status                    /* 단종상태(EOL) */
+            , A.eos_status                    /* 단종상태(EOS) */
+            , A.redundancy_config             /* 이중화구성여부 */
+            , A.network_operation_type        /* 네트워크 운영 구분 */
+            , A.asset_acquisition_date        /* 자산취득일자 */
+            , A.asset_disposal_date           /* 자산폐기일자 */
+            , A.acquisition_cost              /* 도입금액 */
+            , A.dbrain_number                 /* 디브레인번호 */
+            , A.domestic                      /* 국산여부 */
+            , A.installation_coordinates      /* 설치 좌표(좌표) */
+            , A.installation_units            /* 설치 좌표(유닛수) */
+            , A.equipment_size_units          /* 장비 크기(유닛수) */
+            , A.remarks                       /* 비고 */
+            , A.resource_name                 /* 구성자원명 */
+            , A.maintenance_contract_target   /* 유지관리 계약대상여부 */
+            , A.cpu                           /* CPU */
+            , A.mem                           /* MEM */
+            , A.disk                          /* DISK */
+            , A.serial_number                 /* serial number */
         FROM equipment A
         WHERE 1=1
         <if test="searchEqpSearchInput != null and searchEqpSearchInput != ''">
