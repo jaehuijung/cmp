@@ -97,7 +97,7 @@ public class eqpManageController {
         response.setContentType("ms-vnd/excel");
         response.setHeader("Content-Disposition", "attachment;filename=equipmentUploadTemplate.xlsx");
 
-        wb.write(response.getOutputStream()); wb.close();
+        wb.write(response.getOutputStream());
         wb.close();
     }
 
@@ -168,6 +168,21 @@ public class eqpManageController {
     /*****************/
     // 과거 리스트... 나중에 지우기
     /*
+    // alert2
+    function alert2(title, html, icon, confirmButtonText, callback) {
+        Swal.fire({
+            title: title,
+            html: html,
+            icon: icon,
+            confirmButtonText: confirmButtonText
+        }).then((result) => {
+            if (callback) {
+                callback();
+            }
+        });
+    }
+
+
     // 장비관리 > 장비목록 > 리스트
     @ResponseBody
     @GetMapping("/list")

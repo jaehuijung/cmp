@@ -36,6 +36,7 @@ var columns = [
         valign: 'middle',
         class: 'nowrap'
     },
+    /*
     {
         title: '유닛번호',
         field: 'unit_position',
@@ -57,6 +58,7 @@ var columns = [
         valign: 'middle',
         class: 'nowrap'
     },
+    */
     {
         title: '구성분류',
         field: 'config_category',
@@ -141,6 +143,7 @@ var columns = [
         valign: 'middle',
         class: 'nowrap'
     },
+    /*
     {
         title: '단종상태(EOL)',
         field: 'eol_status',
@@ -274,6 +277,7 @@ var columns = [
         valign: 'middle',
         class: 'nowrap'
     }
+    */
 ];
 
 
@@ -303,12 +307,7 @@ $(function(){
         onLoadSuccess: function(res) {
             let errorCode = res.errorCode;
             if (!errorCode){
-                Swal.fire({
-                    title: '알림',
-                    html: '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.',
-                    icon: 'error',
-                    confirmButtonText: '확인'
-                });
+                alert2('알림', '데이터를 저장하는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
             }
 
             $("#eqpTotalCnt").text("총 " + res.total + "건")
@@ -322,16 +321,11 @@ $(function(){
 
     $('#searchEqpSearchInput').keyup(function(e){
         if(e.which == 13){
-            searchEqpList();
+            tableRefresh();
         }
     })
 
 });
-
-// 검색
-function searchEqpList(){
-    $('#eqpTable').bootstrapTable("refresh");
-}
 
 // 컬럼 활성화/비활성화
 function searchState(type, isChecked){
@@ -441,8 +435,20 @@ function eqp_create_popup(){
         preConfirm: () => {
             // 자산정보 (왼)
             const eqp_name = Swal.getPopup().querySelector('#eqp_name').value; // 장비명
+            if (!eqp_name) {
+                Swal.showValidationMessage(`장비명은 필수 항목입니다.`);
+            }
+
             const config_category = Swal.getPopup().querySelector('#config_category').value; // 구성분류
+            if (!eqp_name) {
+                Swal.showValidationMessage(`장비명은 필수 항목입니다.`);
+            }
+
             const asset_id = Swal.getPopup().querySelector('#asset_id').value; // 자산ID
+            if (!eqp_name) {
+                Swal.showValidationMessage(`장비명은 필수 항목입니다.`);
+            }
+
             const m_company = Swal.getPopup().querySelector('#m_company').value; // 제조사
             const operating_department = Swal.getPopup().querySelector('#operating_department').value; // 운영부서
             const primary_operator = Swal.getPopup().querySelector('#primary_operator').value; // 운영담당자(정)
@@ -483,10 +489,6 @@ function eqp_create_popup(){
             const disk = Swal.getPopup().querySelector('#disk').value; // DISK
             const equipment_size_units = Swal.getPopup().querySelector('#equipment_size_units').value; // 장비크기(유닛수)
 
-            if (!eqp_name) {
-                Swal.showValidationMessage(`장비명은 필수 항목입니다.`);
-            }
-
             return {
                 // 자산정보(왼)
                 eqp_name : eqp_name, config_category : config_category, asset_id : asset_id, m_company : m_company, operating_department : operating_department,
@@ -517,22 +519,10 @@ function eqp_create_popup(){
                 dataType : 'JSON',
                 success : function(res){
                     if (!res.errorCode){
-                        Swal.fire({
-                            title: '알림',
-                            html: '데이터를 저장하는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.',
-                            icon: 'error',
-                            confirmButtonText: '확인'
-                        });
+                        alert2('알림', '데이터를 저장하는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
                     }
                     else{
-                        Swal.fire({
-                            title: '알림',
-                            html: '저장되었습니다.',
-                            icon: 'info',
-                            confirmButtonText: '확인'
-                        }).then((result) => {
-                            $("#eqpTable").bootstrapTable('refresh');
-                        });
+                        alert2('알림', '저장되었습니다.', 'info', '확인', tableRefresh());
                     }
                 }
             })
@@ -550,12 +540,7 @@ function eqp_detail_popup(id){
             let errorCode = res.errorCode;
 
             if(!errorCode){
-                Swal.fire({
-                    title: '알림',
-                    html: '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.',
-                    icon: 'error',
-                    confirmButtonText: '확인'
-                });
+                alert2('알림', '데이터를 저장하는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
             }
             else{
                 let detailRow = res.rows;
@@ -645,11 +630,10 @@ function eqp_detail_popup(id){
                          };
                     }
                 }).then((result) => {
-                    // 수정 버튼 클릭 후 발생할 이벤트
-                     if (result.isConfirmed) {
-                         // let data = result.value;
-                         eqp_update_popup(id);
-                     }
+                    // 수정 버튼 클릭 시 띄워줄 수정 팝업
+                    if (result.isConfirmed) {
+                        eqp_update_popup(id);
+                    }
                 });
             }
         }
@@ -660,18 +644,17 @@ function eqp_detail_popup(id){
 function eqp_update_popup(id) {
     let target = $("#eqpTable").bootstrapTable('getSelections');
     if(target.length > 1){
-        Swal.fire({
-            title: '알림',
-            html: '수정은 단건만 가능합니다.',
-            icon: 'info',
-            confirmButtonText: '확인'
-        });
+        alert2('알림', '수정은 단건만 가능합니다.', 'info', '확인');
+    }
+    else if(id== "" && target.length == 0 ){
+        alert2('알림', '수정할 항목을 선택해주세요.', 'info', '확인');
     }
     else{
         if(id == ""){
+            // 상세정보에서 수정할 때는 함수 파라미터 id 사용
+            // 테이블에서 선택해서 수정할 때는 테이블 데이터 사용
             id = target[0].eqp_id;
         }
-
         $.ajax({
             url : '/eqpManage/update?eqp_id='+id,
             type: 'get',
@@ -680,12 +663,7 @@ function eqp_update_popup(id) {
                 let errorCode = res.errorCode;
 
                 if(!errorCode){
-                    Swal.fire({
-                        title: '알림',
-                        html: '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.',
-                        icon: 'error',
-                        confirmButtonText: '확인'
-                    });
+                    alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
                 }
                 else{
                     let detailRow = res.rows;
@@ -778,22 +756,10 @@ function eqp_update_popup(id) {
                                  dataType : 'JSON',
                                  success : function(res){
                                     if (!res.errorCode){
-                                        Swal.fire({
-                                            title: '알림',
-                                            html: '데이터를 수정하는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.',
-                                            icon: 'error',
-                                            confirmButtonText: '확인'
-                                        });
+                                        alert2('알림', '데이터를 수정하는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
                                     }
                                     else{
-                                        Swal.fire({
-                                            title: '알림',
-                                            html: '수정되었습니다.',
-                                            icon: 'info',
-                                            confirmButtonText: '확인'
-                                        }).then((result) => {
-                                            $("#eqpTable").bootstrapTable('refresh');
-                                        });
+                                        alert2('알림', '수정되었습니다.', 'info', '확인', tableRefresh());
                                     }
                                  }
                              })
@@ -819,24 +785,11 @@ function eqp_delete() {
             let errorCode = res.errorCode;
 
             if(!errorCode){
-                Swal.fire({
-                    title: '알림',
-                    html: '데이터를 삭제하는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.',
-                    icon: 'error',
-                    confirmButtonText: '확인'
-                });
+                alert2('알림', '데이터를 삭제하는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
             }
             else{
-                Swal.fire({
-                    title: '알림',
-                    html: '데이터를 삭제했습니다.',
-                    icon: 'info',
-                    confirmButtonText: '확인'
-                }).then((result) => {
-                    $("#eqpTable").bootstrapTable('refresh');
-                });
+                alert2('알림', '삭제되었습니다.', 'info', '확인', tableRefresh());
             }
-
        }
     });
 }
@@ -854,7 +807,6 @@ function excel_upload(){
             popup: 'custom-width'
         },
     }).then((result) => {
-
         if (result.isConfirmed) {
             let data = $("#excelFile")[0].files[0];
             if(data != undefined){
@@ -885,13 +837,17 @@ function excel_upload(){
                                 })
                                 .then((result) => {
                                     $.ajax({
-                                        url : '/eqpManage/saveResultEquipment',
+                                        url : '/eqpManage/excelResponse',
                                         type: 'post',
                                         data: JSON.stringify(res),
                                         contentType: 'application/json',
                                         processData: false,
+                                        xhrFields: {
+                                            responseType: 'blob'
+                                        },
                                         success : function(res){
-                                            $("#eqpTable").bootstrapTable('refresh');
+                                            downloadFile(res, 'equipmentResultTemplate.xlsx');
+                                            alert2('알림', '저장되었습니다. 결과 파일을 확인하세요.', 'info', '확인', tableRefresh());
                                         }
                                     });
                                 });
@@ -905,18 +861,71 @@ function excel_upload(){
                 })
             }
             else{
-                Swal.fire({
-                    title: '알림',
-                    html: '엑셀 파일을 먼저 업로드하세요.',
-                    icon: 'error',
-                    confirmButtonText: '확인'
-                }).then((result) => {
-                    excel_upload();
-                });
+                alert2('알림', '엑셀 파일을 먼저 업로드하세요!.', 'error', '확인', excel_upload());
             }
         }
     })
 }
+
+// 장비목록 추가용 엑셀 템플릿 다운로드
+function downloadExcelTemplate(){
+    $.ajax({
+        url: "/eqpManage/excelTemplate",
+        method: "GET",
+        xhrFields: {
+            responseType: 'blob'
+        },
+        success: function(res) {
+            downloadFile(res, 'equipmentUploadTemplate.xlsx');
+        },
+        error: function() {
+            alert2('알림', '엑셀 파일을 다운로드하는 중 오류가 발생했습니다.', 'error', '확인', excel_upload());
+        }
+    });
+}
+
+// 파일 다운로드
+function downloadFile(res, fileName){
+    const url = window.URL.createObjectURL(res);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
+}
+
+// 업로드된 장비목록 검증
+function validExcelEquipmentList() {
+
+    let data = $("#excelFile")[0].files[0];
+    if(data != undefined){
+        let formData = new FormData();
+        formData.append("file", data);
+
+        $.ajax({
+            url : '/eqpManage/excelValid',
+            type: 'post',
+            data: formData,
+            processData: false,
+            contentType: false,
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success : function(res){
+                downloadFile(res, 'validEquipmentUploadTemplate.xlsx');
+                alert2('알림', '반드시 검증파일 확인 후 검증파일을 저장하세요.', 'info', '확인', excel_upload);
+            },
+            error: function (err) {
+                alert2('알림', '업로드 중 오류가 발생했습니다.', 'error', '확인', excel_upload);
+            }
+        });
+    } else {
+        alert2('알림', '엑셀 파일을 먼저 업로드하세요.', 'error', '확인', excel_upload);
+    }
+}
+
 
 // 장비관리 > 장비목록 > 엑셀 업로드 html
 function generateAssetUploadHTML(){
@@ -941,72 +950,7 @@ function generateAssetUploadHTML(){
     `;
 }
 
-// 장비목록 추가용 엑셀 템플릿 다운로드
-function downloadExcelTemplate(){
-    window.location = "/eqpManage/excelTemplate";
-}
-
-// 업로드된 장비목록 검증
-function validExcelEquipmentList() {
-
-    let data = $("#excelFile")[0].files[0];
-    if(data != undefined){
-        let formData = new FormData();
-        formData.append("file", data);
-
-        $.ajax({
-            url : '/eqpManage/excelValid',
-            type: 'post',
-            data: formData,
-            processData: false,
-            contentType: false,
-            xhrFields: {
-                responseType: 'blob' // 바이너리 데이터로 응답 받기
-            },
-            success : function(res){
-                const url = window.URL.createObjectURL(res);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'validEquipmentUploadTemplate.xlsx'; // 다운로드할 파일 이름
-                document.body.appendChild(a);
-                a.click();
-                a.remove();
-                window.URL.revokeObjectURL(url);
-
-                Swal.fire({
-                    title: '검증완료',
-                    html: '반드시 검증파일 확인 후 검증파일을 저장하세요.',
-                    icon: 'info',
-                    confirmButtonText: '확인'
-                }).then((result) => {
-                    excel_upload();
-                });
-            },
-            error: function (err) {
-                Swal.fire({
-                    title: '알림',
-                    html: '업로드 중 오류가 발생했습니다.',
-                    icon: 'error',
-                    confirmButtonText: '확인'
-                }).then((result) => {
-                    excel_upload();
-                });
-            }
-        });
-    } else {
-        Swal.fire({
-            title: '알림',
-            html: '엑셀 파일을 먼저 업로드하세요.',
-            icon: 'error',
-            confirmButtonText: '확인'
-        }).then((result) => {
-            excel_upload();
-        });
-    }
-}
-
-
-// 추가, 수정 모달 생성
+// 장비추가, 장비수정, 장비상세 모달 생성 html
 function generateAssetInfoHTML(detailRow) {
     return `
         <p style="font-size: 25px; font-weight: bold; margin-top: 20px; text-align: left;">자산정보</p>
@@ -1283,4 +1227,21 @@ function generateAssetInfoHTML(detailRow) {
             </div>
         </div>
     `;
+}
+
+function tableRefresh(){
+    $("#eqpTable").bootstrapTable('refresh');
+}
+
+function alert2(title, html, icon, confirmButtonText, callback) {
+    Swal.fire({
+        title: title,
+        html: html,
+        icon: icon,
+        confirmButtonText: confirmButtonText
+    }).then((result) => {
+        if (typeof callback === 'function' && result.isConfirmed) {
+            callback();
+        }
+    });
 }

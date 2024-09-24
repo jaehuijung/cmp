@@ -198,7 +198,7 @@ public class eqpManageService {
     }
 
     public Workbook saveResultEquipment(Map<String, Object> paramMap) throws IOException {
-        String resultPath = "equipmentResultTemplate.xlsx";
+        String resultPath = staticPath + "equipmentResultTemplate.xlsx";
         FileInputStream file = new FileInputStream(resultPath);
         Workbook wb = new XSSFWorkbook(file);
 
@@ -209,13 +209,14 @@ public class eqpManageService {
     private final String staticPath = System.getProperty("user.dir") + sep + "src" + sep + "main" + sep + "resources" + sep + "static" + sep + "excelTemplate" + sep;
 
     public Workbook excelTemplate() throws IOException {
-        String uploadPath = "equipmentUploadTemplate.xlsx";
+        String uploadPath = staticPath + "equipmentUploadTemplate.xlsx";
         FileInputStream file = new FileInputStream(uploadPath);
         Workbook wb = new XSSFWorkbook(file);
 
         return wb;
     }
 
+    // 업로드 된 장비파일 검증
     public Workbook excelValidation(MultipartFile file) throws IOException {
         Workbook wb = new XSSFWorkbook(file.getInputStream());
         Sheet sheet = wb.getSheetAt(1);
@@ -249,6 +250,7 @@ public class eqpManageService {
         return wb;
     }
 
+    // 장비파일 검증용 메서드1 : 문자/숫자 셀 형식 찾기
     private Map<String, Object> excelCellProcess(Cell cellHeader, Cell cellValue) {
         Map<String, Object> processMap = new HashMap<>();
 
@@ -266,6 +268,7 @@ public class eqpManageService {
         return processMap;
     }
 
+    // 장비파일 검증용 메서드2 : 숫자만 들어가야 하는 컬럼들
     private boolean isNumericColumn(String cellHeaderStr) {
         return cellHeaderStr.equals("acquisition_cost")
                 || cellHeaderStr.equals("dbrain_number")
@@ -273,6 +276,7 @@ public class eqpManageService {
                 || cellHeaderStr.equals("equipment_size_units");
     }
 
+    // 장비파일 검증용 메서드3 : 셀이 숫자여야 할 때
     private void processNumericColumn(String cellHeaderStr, Cell cellValue, Map<String, Object> processMap) {
         switch (cellValue.getCellType()) {
             case NUMERIC:
@@ -293,6 +297,7 @@ public class eqpManageService {
         }
     }
 
+    // 장비파일 검증용 메서드4 : 셀이 문자여야 할 때
     private void processStringColumn(String cellHeaderStr, Cell cellValue, Map<String, Object> processMap) {
         switch (cellValue.getCellType()) {
             case STRING:
@@ -313,6 +318,7 @@ public class eqpManageService {
         }
     }
 
+    // 장비파일 검증용 메서드5 : 셀이 비었을 때 처리
     private void processEmptyCell(String cellHeaderStr, Map<String, Object> processMap) {
         if (isNumericColumn(cellHeaderStr)) {
             processMap.put(cellHeaderStr, 0);
@@ -321,13 +327,13 @@ public class eqpManageService {
         }
     }
 
+    // 장비파일 검증용 메서드6 : workbook 시트에 셀 값 지정
     public void validDataToSheet(Workbook workbook, int sheetIndex, Map<String, Object> data) {
         Sheet sheet = workbook.getSheetAt(sheetIndex);
         int lastRowNum = sheet.getLastRowNum();
 
         Row dataRow = sheet.createRow(lastRowNum + 1);
 
-        // 각 셀에 값을 설정
         setCellValue(sheetIndex, 1,  workbook, dataRow, data.get("eqp_name"));
         setCellValue(sheetIndex, 2,  workbook, dataRow, data.get("hostname"));
         setCellValue(sheetIndex, 3,  workbook, dataRow, data.get("m_company"));
@@ -370,6 +376,7 @@ public class eqpManageService {
         setCellValue(sheetIndex, 40, workbook, dataRow, data.get("remarks"));
     }
 
+    // 장비파일 검증용 메서드7 : 문자인지 숫자인지 구분해서 셀 값 지정
     private void setCellValue(int sheetIndex, int cellIndex, Workbook workbook, Row dataRow, Object value) {
         if (value == null) {
             dataRow.createCell(cellIndex).setCellValue("");
