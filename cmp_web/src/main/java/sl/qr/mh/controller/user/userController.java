@@ -1,4 +1,4 @@
-package sl.qr.mh.controller;
+package sl.qr.mh.controller.user;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import sl.qr.mh.service.databaseService;
-import sl.qr.mh.service.qrService;
 import sl.qr.mh.vo.User;
 
 @Slf4j
