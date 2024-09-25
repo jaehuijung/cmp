@@ -87,7 +87,6 @@
 </head>
 
 
-
 <div layout:fragment="content">
 
     <main id="main" class="main">
@@ -101,455 +100,200 @@
             </nav>
 
             <h1 style="padding:0px 0px 10px;">선번장목록조회</h1>
-
         </div>
 
+        <section class="section">
+            <div class="card">
+                <div class="card-body" style="padding-top: 10px;">
+
+                    <div class="searchEqpChkWrap">
+                        <div class="searchEqpChkColumn">
+                            <div id="searchEqpTitle1">출발지 컬럼선택</div>
+
+                            <label class="searchEqpChk">
+                                <input type="checkbox" class="selectStateChkAll"
+                                       onchange="searchState('all', this.checked)" checked>
+                                <span></span>
+                                <div class="searchEqpTitle2">전체</div>
+                            </label>
+                            <label class="searchEqpChk">
+                                <input type="checkbox" class="selectStateChk"
+                                       onchange="searchState('unitNumber', this.checked)" checked>
+                                <span></span>
+                                <div class="searchEqpTitle2">장비명</div>
+                            </label>
+                            <label class="searchEqpChk">
+                                <input type="checkbox" class="selectStateChk"
+                                       onchange="searchState('model', this.checked)" checked>
+                                <span></span>
+                                <div class="searchEqpTitle2">유닛번호</div>
+                            </label>
+                            <label class="searchEqpChk">
+                                <input type="checkbox" class="selectStateChk"
+                                       onchange="searchState('year', this.checked)" checked>
+                                <span></span>
+                                <div class="searchEqpTitle2">도입년도</div>
+                            </label>
+
+                            <label class="searchEqpChk">
+                                <input type="checkbox" class="selectStateChk"
+                                       onchange="searchState('year', this.checked)" checked>
+                                <span></span>
+                                <div class="searchEqpTitle2">호스트명</div>
+                            </label>
+                            <label class="searchEqpChk">
+                                <input type="checkbox" class="selectStateChk"
+                                       onchange="searchState('year', this.checked)" checked>
+                                <span></span>
+                                <div class="searchEqpTitle2">슬롯번호</div>
+                            </label>
+                            <label class="searchEqpChk">
+                                <input type="checkbox" class="selectStateChk"
+                                       onchange="searchState('year', this.checked)" checked>
+                                <span></span>
+                                <div class="searchEqpTitle2">포트번호</div>
+                            </label>
+                            <label class="searchEqpChk">
+                                <input type="checkbox" class="selectStateChk"
+                                       onchange="searchState('year', this.checked)" checked>
+                                <span></span>
+                                <div class="searchEqpTitle2"> ... 추가</div>
+                            </label>
+                        </div>
+                        <div class="searchEqpChkColumn">
+                            <div id="searchEqpTitle1">목적지 컬럼선택</div>
+                            <label class="searchEqpChk">
+                                <input type="checkbox" class="selectStateChkAll"
+                                       onchange="searchState('all', this.checked)" checked>
+                                <span></span>
+                                <div class="searchEqpTitle2">전체</div>
+                            </label>
+                            <label class="searchEqpChk">
+                                <input type="checkbox" class="selectStateChk"
+                                       onchange="searchState('unitNumber', this.checked)" checked>
+                                <span></span>
+                                <div class="searchEqpTitle2">장비명</div>
+                            </label>
+                            <label class="searchEqpChk">
+                                <input type="checkbox" class="selectStateChk"
+                                       onchange="searchState('model', this.checked)" checked>
+                                <span></span>
+                                <div class="searchEqpTitle2">유닛번호</div>
+                            </label>
+                            <label class="searchEqpChk">
+                                <input type="checkbox" class="selectStateChk"
+                                       onchange="searchState('year', this.checked)" checked>
+                                <span></span>
+                                <div class="searchEqpTitle2">도입년도</div>
+                            </label>
+
+                            <label class="searchEqpChk">
+                                <input type="checkbox" class="selectStateChk"
+                                       onchange="searchState('year', this.checked)" checked>
+                                <span></span>
+                                <div class="searchEqpTitle2">호스트명</div>
+                            </label>
+                            <label class="searchEqpChk">
+                                <input type="checkbox" class="selectStateChk"
+                                       onchange="searchState('year', this.checked)" checked>
+                                <span></span>
+                                <div class="searchEqpTitle2">슬롯번호</div>
+                            </label>
+                            <label class="searchEqpChk">
+                                <input type="checkbox" class="selectStateChk"
+                                       onchange="searchState('year', this.checked)" checked>
+                                <span></span>
+                                <div class="searchEqpTitle2">포트번호</div>
+                            </label>
+                            <label class="searchEqpChk">
+                                <input type="checkbox" class="selectStateChk"
+                                       onchange="searchState('year', this.checked)" checked>
+                                <span></span>
+                                <div class="searchEqpTitle2"> ... 추가</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="searchEqpSelectWrap">
+                        <!--
+                        연도 선택박스(도입년도 등), 그룹(유닛번호 등) 선택박스 영역
+                        필요없다고 하면 지우기
+                        -->
+                        <div class="searchEqpSelect">
+                            <div id="searchEqpTitle3">도입년도</div>
+                            <input type="text" class="searchEqpSelectInput" id="searchEqpYear">
+                        </div>
+                        <div class="searchEqpSelect">
+                            <div id="searchEqpTitle3">유닛번호</div>
+                            <input type="text" class="searchEqpSelectInput" id="searchEqpUnitNumber">
+                        </div>
+                        <div class="searchEqpSelect">
+                            <div id="searchEqpTitle3">슬롯번호</div>
+                            <input type="text" class="searchEqpSelectInput" id="searchEqpUnitNumber">
+                        </div>
+                        <div class="searchEqpSelect">
+                            <div id="searchEqpTitle3">회선구분</div>
+                            <input type="text" class="searchEqpSelectInput" id="searchEqpUnitNumber">
+                        </div>
+                        <div class="searchEqpSelect">
+                            <div id="searchEqpTitle3">... 추가</div>
+                            <input type="text" class="searchEqpSelectInput" id="searchEqpUnitNumber">
+                        </div>
+                    </div>
+
+                    <div class="searchEqpSearchWrap">
+                        <div class="searchEqpSearch">
+                            <input type="text" id="searchEqpSearchInput"
+                                   style="width:90%; height:40px; padding-left: 10px;" placeholder="검색어를 입력해주세요"/>
+                            <button type="button" class="btn btn-secondary btn-lg"
+                                    style="margin-left: 10px; font-size: 15px;" onclick="searchEqpList();">검색
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
 
         <section class="section">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body" style="padding-top: 10px;">
-                            <div class="row">
-                                <div class="col-1"
-                                     style="text-align:right;margin-top: 5px;padding-left:auto;padding-right: 23px;font-size: 13px;">
-                                    컬럼항목선택
-                                </div>
-                                <div class="col-11"
-                                     style="margin-top: 5px;margin-top: 5px;padding-left:30px;padding-right: auto;">
-                                    <div class="select-col"><input class="form-check-input" type="checkbox"
-                                                                   id="c_s_group_name"> ⓢ장비그룹
-                                    </div>
-                                    <div class="select-col"><input class="form-check-input" type="checkbox"
-                                                                   id="c_s_eqp_name" checked> ⓢ장비
-                                    </div>
-                                    <div class="select-col"><input class="form-check-input" type="checkbox"
-                                                                   id="c_s_eqp_direct"> ⓢ장비방향
-                                    </div>
-                                    <div class="select-col"><input class="form-check-input" type="checkbox"
-                                                                   id="c_s_rack_name" checked> ⓢ랙번호
-                                    </div>
-                                    <div class="select-col"><input class="form-check-input" type="checkbox"
-                                                                   id="c_s_unit_position" checked> ⓢ유닛번호
-                                    </div>
-                                    <div class="select-col"><input class="form-check-input" type="checkbox"
-                                                                   id="c_s_hostname" checked> ⓢ호스트명
-                                    </div>
-                                    <div class="select-col"><input class="form-check-input" type="checkbox"
-                                                                   id="c_s_slotnum" checked> ⓢ슬롯번호
-                                    </div>
-                                    <div class="select-col"><input class="form-check-input" type="checkbox"
-                                                                   id="c_s_portnum" checked> ⓢ포트번호
-                                    </div>
-                                    <div class="select-col"><input class="form-check-input" type="checkbox"
-                                                                   id="c_e_s_group_name" checked> ⓔ장비그룹
-                                    </div>
-                                    <div class="select-col"><input class="form-check-input" type="checkbox"
-                                                                   id="c_e_eqp_name" checked> ⓔ장비
-                                    </div>
-                                    <div class="select-col"><input class="form-check-input" type="checkbox"
-                                                                   id="c_e_eqp_direct"> ⓔ장비방향
-                                    </div>
-                                    <div class="select-col"><input class="form-check-input" type="checkbox"
-                                                                   id="c_e_rack_name" checked> ⓔ랙번호
-                                    </div>
-                                    <div class="select-col"><input class="form-check-input" type="checkbox"
-                                                                   id="c_e_unit_position" checked> ⓔ유닛번호
-                                    </div>
-                                    <div class="select-col"><input class="form-check-input" type="checkbox"
-                                                                   id="c_e_hostname" checked> ⓔ호스트명
-                                    </div>
-                                    <div class="select-col"><input class="form-check-input" type="checkbox"
-                                                                   id="c_e_slotnum" checked> ⓔ슬롯번호
-                                    </div>
-                                    <div class="select-col"><input class="form-check-input" type="checkbox"
-                                                                   id="c_e_portnum" checked> ⓔ포트번호
-                                    </div>
-                                    <div class="select-col"><input class="form-check-input" type="checkbox"
-                                                                   id="c_c_velocity" checked> 선속도
-                                    </div>
-                                    <div class="select-col"><input class="form-check-input" type="checkbox"
-                                                                   id="c_c_type" checked> 선구분
-                                    </div>
-                                    <div class="select-col"><input class="form-check-input" type="checkbox"
-                                                                   id="c_c_color" checked> 선색상
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-11">
-                                    <!-- 검색 input 시작 -->
-                                    <div class="row" style="margin-top: 10px;">
-                                        <div class="col-1" style="text-align:right;margin-top: 5px;font-size: 13px;">출발지
-                                        </div>
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-sm-4 input-label" style="font-size:13px;">장비그룹</div>
-                                                <div class="col-sm-8 input-text">
-                                                    <select class="form-select" id="s_group_name"
-                                                            style="font-size: 13px;height:30px;">
-
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-sm-4 input-label" style="font-size:13px;">장비명</div>
-                                                <div class="col-sm-8 input-text"><input type="text" class="form-control"
-                                                                                        id="s_eqp_name"
-                                                                                        style="font-size: 13px;height:30px;">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-sm-5 input-label" style="font-size:13px;">호스트네임</div>
-                                                <div class="col-sm-7 input-text"><input type="text" class="form-control"
-                                                                                        id="s_hostname"
-                                                                                        style="font-size: 13px;height:30px;">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-sm-4 input-label" style="font-size:13px;">랙번호</div>
-                                                <div class="col-sm-8 input-text">
-                                                    <select class="form-select" id="s_rack_name"
-                                                            style="font-size: 13px;height:30px;">
-
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-sm-4 input-label" style="font-size:13px;">유닛번호</div>
-                                                <div class="col-sm-8 input-text"><input type="text" class="form-control"
-                                                                                        id="s_unit_position"
-                                                                                        style="font-size: 13px;height:30px;">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row" style="margin-top: 10px;">
-                                        <div class="col-1" style="text-align:right;margin-top: 5px;font-size: 13px;">
-                                            목적지
-                                        </div>
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-sm-4 input-label" style="font-size:13px;">장비그룹</div>
-                                                <div class="col-sm-8 input-text">
-                                                    <select class="form-select" id="e_group_name"
-                                                            style="font-size: 13px;height:30px;">
-
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-sm-4 input-label" style="font-size:13px;">장비명</div>
-                                                <div class="col-sm-8 input-text"><input type="text" class="form-control"
-                                                                                        id="e_eqp_name"
-                                                                                        style="font-size: 13px;height:30px;">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-sm-5 input-label" style="font-size:13px;">호스트네임</div>
-                                                <div class="col-sm-7 input-text"><input type="text" class="form-control"
-                                                                                        id="e_hostname"
-                                                                                        style="font-size: 13px;height:30px;">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-sm-4 input-label" style="font-size:13px;">랙번호</div>
-                                                <div class="col-sm-8 input-text">
-                                                    <select class="form-select" id="e_rack_name"
-                                                            style="font-size: 13px;height:30px;">
-
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-sm-4 input-label" style="font-size:13px;">유닛번호</div>
-                                                <div class="col-sm-8 input-text"><input type="text" class="form-control"
-                                                                                        id="e_unit_position"
-                                                                                        style="font-size: 13px;height:30px;">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row" style="margin-top: 10px;">
-                                        <div class="col-1" style="text-align:right;margin-top: 5px;font-size: 15px;">
-                                            회선
-                                        </div>
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-sm-4 input-label" style="font-size:13px;">회선구분</div>
-                                                <div class="col-sm-8 input-text">
-                                                    <select class="form-select" id="c_type"
-                                                            style="font-size: 13px;height:30px;">
-                                                        <option selected>선택</option>
-                                                        <option value="1">-</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-sm-4 input-label" style="font-size:13px;">회선속도</div>
-                                                <div class="col-sm-8 input-text"><input type="text" class="form-control"
-                                                                                        id="c_velocity"
-                                                                                        style="font-size: 13px;height:30px;">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-sm-5 input-label" style="font-size:13px;">회선색상</div>
-                                                <div class="col-sm-7 input-text"><input type="text" class="form-control"
-                                                                                        id="c_color"
-                                                                                        style="font-size: 13px;height:30px;">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col"></div>
-                                        <div class="col"></div>
-                                    </div>
-
-                                </div>
-
-
-                                <!-- 검색 input 종료 -->
-                                <div class="col-1" style="text-align: center;">
-                                    <button type="button" class="btn btn-secondary btn-lg"
-                                            style="font-size:15px;margin-top: 15px;" onclick="SearchCableList(1);">검색
-                                    </button>
-                                </div>
-                            </div>
-
+            <div class="card">
+                <div class="card-body">
+                    <div style='display: flex; justify-content: space-between;'>
+                        <div>
+                            <p id="eqpTotalCnt" style="margin:10px 0px 10px 0px;font-size:14px;padding:3px 8px;"></p>
+                        </div>
+                        <div>
+                            <button type='button' class='btn btn-outline-secondary'
+                                    style='margin:10px 0px 10px 10px;font-size:13px;padding:3px 8px;'
+                                    onclick="cable_create_popup()">추가
+                            </button>
+                            <button type='button' class='btn btn-outline-secondary'
+                                    style='margin:10px 0px 10px 10px;font-size:13px;padding:3px 8px;'
+                                    onclick="cable_update_popup('')">수정
+                            </button>
+                            <button type='button' class='btn btn-outline-secondary'
+                                    style='margin:10px 0px 10px 10px;font-size:13px;padding:3px 8px;'
+                                    onclick="cable_delete()">삭제
+                            </button>
+                            <button type='button' class='btn btn-outline-secondary'
+                                    style='margin:10px 0px 10px 10px;font-size:13px;padding:3px 8px;'
+                                    onclick="location.href='/eqp/exceldown'">엑셀 다운로드
+                            </button>
                         </div>
                     </div>
 
-
-                    <div class="card">
-                        <div class="card-body">
-                            <!-- Bordered Table -->
-                            <form name='qrFormData' id='targetForm' method='GET' action='/api/qr/printqr'
-                                  onsubmit='qrSubmit();'>
-                                <input type='hidden' id='qrChk' name='qrChk' value=''/>
-                                <input type='hidden' id='qrStart' name='qrStart' value=''/>
-                                <input type='hidden' id='qrEnd' name='qrEnd' value=''/>
-                                <input type='hidden' id='qrStartImage' name='qrStartImage' value=''/>
-                                <input type='hidden' id='qrEndImage' name='qrEndImage' value=''/>
-                                <input type='hidden' id='h' name='qrEndImage' value=''/>
-                                <!--<input type='submit' id='targetBtn' class="etc" value='EXCEL'/>-->
-                            </form>
-
-                            <div class="CableListDiv"></div>
-
-
-                        </div>
+                    <div class="tbl-bootstrap-wrap">
+                        <table id="cableTable"></table>
                     </div>
-
-
-
-                    <!-- ---------------------------------         ㄷㄷ7------------------ -->
-                    <div> 재작성 </div>
-
-                    <section class="section">
-                        <div class="card">
-                            <div class="card-body" style="padding-top: 10px;">
-
-                                <div class="searchEqpChkWrap">
-                                    <div class="searchEqpChkColumn">
-                                        <div id="searchEqpTitle1">출발지 컬럼선택</div>
-
-                                        <label class="searchEqpChk">
-                                            <input type="checkbox" class="selectStateChkAll" onchange="searchState('all', this.checked)" checked>
-                                            <span></span>
-                                            <div class="searchEqpTitle2" >전체</div>
-                                        </label>
-                                        <label class="searchEqpChk">
-                                            <input type="checkbox" class="selectStateChk" onchange="searchState('unitNumber', this.checked)" checked>
-                                            <span></span>
-                                            <div class="searchEqpTitle2" >장비명</div>
-                                        </label>
-                                        <label class="searchEqpChk">
-                                            <input type="checkbox" class="selectStateChk" onchange="searchState('model', this.checked)" checked>
-                                            <span></span>
-                                            <div class="searchEqpTitle2" >유닛번호</div>
-                                        </label>
-                                        <label class="searchEqpChk">
-                                            <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
-                                            <span></span>
-                                            <div class="searchEqpTitle2" >도입년도</div>
-                                        </label>
-
-                                        <label class="searchEqpChk">
-                                            <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
-                                            <span></span>
-                                            <div class="searchEqpTitle2" >호스트명</div>
-                                        </label>
-                                        <label class="searchEqpChk">
-                                            <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
-                                            <span></span>
-                                            <div class="searchEqpTitle2" >슬롯번호</div>
-                                        </label>
-                                        <label class="searchEqpChk">
-                                            <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
-                                            <span></span>
-                                            <div class="searchEqpTitle2" >포트번호</div>
-                                        </label>
-                                        <label class="searchEqpChk">
-                                            <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
-                                            <span></span>
-                                            <div class="searchEqpTitle2" > ... 추가</div>
-                                        </label>
-                                    </div>
-                                    <div class="searchEqpChkColumn">
-                                        <div id="searchEqpTitle1">목적지 컬럼선택</div>
-                                        <label class="searchEqpChk">
-                                            <input type="checkbox" class="selectStateChkAll" onchange="searchState('all', this.checked)" checked>
-                                            <span></span>
-                                            <div class="searchEqpTitle2" >전체</div>
-                                        </label>
-                                        <label class="searchEqpChk">
-                                            <input type="checkbox" class="selectStateChk" onchange="searchState('unitNumber', this.checked)" checked>
-                                            <span></span>
-                                            <div class="searchEqpTitle2" >장비명</div>
-                                        </label>
-                                        <label class="searchEqpChk">
-                                            <input type="checkbox" class="selectStateChk" onchange="searchState('model', this.checked)" checked>
-                                            <span></span>
-                                            <div class="searchEqpTitle2" >유닛번호</div>
-                                        </label>
-                                        <label class="searchEqpChk">
-                                            <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
-                                            <span></span>
-                                            <div class="searchEqpTitle2" >도입년도</div>
-                                        </label>
-
-                                        <label class="searchEqpChk">
-                                            <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
-                                            <span></span>
-                                            <div class="searchEqpTitle2" >호스트명</div>
-                                        </label>
-                                        <label class="searchEqpChk">
-                                            <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
-                                            <span></span>
-                                            <div class="searchEqpTitle2" >슬롯번호</div>
-                                        </label>
-                                        <label class="searchEqpChk">
-                                            <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
-                                            <span></span>
-                                            <div class="searchEqpTitle2" >포트번호</div>
-                                        </label>
-                                        <label class="searchEqpChk">
-                                            <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
-                                            <span></span>
-                                            <div class="searchEqpTitle2" > ... 추가</div>
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div class="searchEqpSelectWrap">
-                                    <!--
-                                    연도 선택박스(도입년도 등), 그룹(유닛번호 등) 선택박스 영역
-                                    필요없다고 하면 지우기
-                                    -->
-                                    <div class="searchEqpSelect">
-                                        <div id="searchEqpTitle3">도입년도</div>
-                                        <input type="text" class="searchEqpSelectInput" id="searchEqpYear">
-                                    </div>
-                                    <div class="searchEqpSelect">
-                                        <div id="searchEqpTitle3">유닛번호</div>
-                                        <input type="text" class="searchEqpSelectInput" id="searchEqpUnitNumber">
-                                    </div>
-                                    <div class="searchEqpSelect">
-                                        <div id="searchEqpTitle3">슬롯번호</div>
-                                        <input type="text" class="searchEqpSelectInput" id="searchEqpUnitNumber">
-                                    </div>
-                                    <div class="searchEqpSelect">
-                                        <div id="searchEqpTitle3">회선구분</div>
-                                        <input type="text" class="searchEqpSelectInput" id="searchEqpUnitNumber">
-                                    </div>
-                                    <div class="searchEqpSelect">
-                                        <div id="searchEqpTitle3">... 추가</div>
-                                        <input type="text" class="searchEqpSelectInput" id="searchEqpUnitNumber">
-                                    </div>
-                                </div>
-
-                                <div class="searchEqpSearchWrap">
-                                    <div class="searchEqpSearch">
-                                        <input type="text" id="searchEqpSearchInput" style="width:90%; height:40px; padding-left: 10px;" placeholder="검색어를 입력해주세요"/>
-                                        <button type="button" class="btn btn-secondary btn-lg" style="margin-left: 10px; font-size: 15px;" onclick="searchEqpList();">검색</button>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </section>
-
-                    <section class="section">
-                        <div class="card">
-                            <div class="card-body">
-                                <div style='display: flex; justify-content: space-between;'>
-                                    <div>
-                                        <p id="eqpTotalCnt" style="margin:10px 0px 10px 0px;font-size:14px;padding:3px 8px;"></p>
-                                    </div>
-                                    <div>
-                                        <button type='button' class='btn btn-outline-secondary'
-                                                style='margin:10px 0px 10px 10px;font-size:13px;padding:3px 8px;'
-                                                onclick="cable_create_popup()">추가
-                                        </button>
-                                        <button type='button' class='btn btn-outline-secondary'
-                                                style='margin:10px 0px 10px 10px;font-size:13px;padding:3px 8px;'
-                                                onclick="cable_update_popup('')">수정
-                                        </button>
-                                        <button type='button' class='btn btn-outline-secondary'
-                                                style='margin:10px 0px 10px 10px;font-size:13px;padding:3px 8px;'
-                                                onclick="cable_delete()">삭제
-                                        </button>
-                                        <button type='button' class='btn btn-outline-secondary'
-                                                style='margin:10px 0px 10px 10px;font-size:13px;padding:3px 8px;'
-                                                onclick="location.href='/eqp/exceldown'">엑셀 다운로드
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="tbl-bootstrap-wrap">
-                                    <table id="cableTable"></table>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-
                 </div>
             </div>
         </section>
 
     </main><!-- End #main -->
 
-    </main>
     <th:block layout:fragment="script">
-        <script th:src="@{/js/common/axios.min.js}"></script>
-        <script th:src="@{/js/common/bootstrap.min.js}"></script>
-        <script th:src="@{/js/common/jquery.min.js}"></script>
-        <script th:src="@{/js/cable.js}"></script>
+        <script th:src="@{/js/cable/view.js}"></script>
 
-        <script>RackListTable();</script>
-        <script>GroupListTable();</script>
-        <script>SearchCableList(1);</script>
         <script>
             let fchk = document.getElementById("targetForm");
             function excelsubmit() {
