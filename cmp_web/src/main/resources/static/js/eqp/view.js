@@ -223,23 +223,44 @@ function searchState(type, isChecked){
 function eqpDelete() {
     let data = $("#eqpTable").bootstrapTable('getSelections');
 
-    $.ajax({
-        url : '/eqpManage/delete',
-        type: 'post',
-        contentType: 'application/json',
-        data: JSON.stringify(data),
-        dataType : 'JSON',
-        success : function(res){
-            let errorCode = res.errorCode;
+    if (data.length == 0){
+        alert2('알림', '삭제할 장비를 선택하세요.', 'info', '확인');
+    }
 
-            if(!errorCode){
-                alert2('알림', '데이터를 삭제하는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+    else{
+        Swal.fire({
+            title: '장비 목록 삭제',
+            html : '선택한 장비를 삭제하시겠습니까? 삭제하면 복구할 수 없습니다.',
+            icon : 'error',
+            focusConfirm: false,
+            confirmButtonText: '삭제',
+            cancelButtonText: '취소',
+            showCancelButton: true,
+            customClass: {
+                popup: 'custom-width'
+            },
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url : '/eqpManage/delete',
+                    type: 'post',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    dataType : 'JSON',
+                    success : function(res){
+                        let errorCode = res.errorCode;
+
+                        if(!errorCode){
+                            alert2('알림', '데이터를 삭제하는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+                        }
+                        else{
+                            alert2('알림', '삭제되었습니다.', 'info', '확인', tableRefresh());
+                        }
+                   }
+                });
             }
-            else{
-                alert2('알림', '삭제되었습니다.', 'info', '확인', tableRefresh());
-            }
-       }
-    });
+        });
+    }
 }
 
 
