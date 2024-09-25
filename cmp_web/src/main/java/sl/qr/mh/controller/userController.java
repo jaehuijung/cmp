@@ -31,8 +31,7 @@ public class userController {
 	@GetMapping("/usr/list")
 	public String getusrList(HttpSession session,
 			HttpServletRequest request) {
- 		// return "new/usrlist";
-		return "views/old/usrlist";
+		return "views/user/view";
 		        
 	}
 	

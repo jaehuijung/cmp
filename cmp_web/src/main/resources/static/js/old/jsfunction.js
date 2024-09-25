@@ -1,8 +1,8 @@
 
 /**************** 전역변수 ****************/
 // base url
- //let urlPre = "https://127.0.0.1";
-  let urlPre = "https://3.38.246.94";
+let urlPre = "https://127.0.0.1";
+// let urlPre = "https://3.38.246.94";
 
 /* 시작 */
 
