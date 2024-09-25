@@ -40,18 +40,25 @@ public class eqpManageController {
         this.cableservice = cableservice;
     }
 
-
-    /*************/
-    // 새로 작성한놈들
-
-    // 장비관리 > 장비목록 페이지
+    /**
+     * 장비관리 > 장비목록 페이지
+     *
+     * @param session 현재 HTTP 세션
+     * @param request HTTP 요청 객체
+     * @return 장비 목록 뷰 페이지
+     */
     @GetMapping("/view")
     public String view(HttpSession session, HttpServletRequest request) {
         return "views/eqp/view";
 
     }
 
-    // 장비관리 > 장비목록 > 리스트
+
+    /**
+     * 장비관리 > 장비목록 > 장비 목록 데이터
+     * @param paramMap 요청 파라미터 맵
+     * @return 장비 목록 데이터 및 기타 메타 정보
+     */
     @ResponseBody
     @PostMapping("/list")
     public Map<String, Object> list(@RequestBody Map<String, Object> paramMap) {
@@ -59,29 +66,11 @@ public class eqpManageController {
     }
 
 
-    // 장비관리 > 장비목록 > 장비추가 모달 > 장비 데이터 추가
-    @ResponseBody
-    @PostMapping("/insertEqp")
-    public Map<String, Object> insert(@RequestParam Map<String, Object> insertMap) {
-        return eqpManageService.insertEqpList(insertMap);
-    }
-
-    // 장비관리 > 장비목록 > 장비수정 모달 > 장비 데이터
-    @ResponseBody
-    @GetMapping("/update")
-    public Map<String, Object> update(@RequestParam("eqp_id") String eqp_id) {
-        return eqpManageService.getEqpUpdateList(eqp_id); // 수정 팝업에서 보여질 데이터
-    }
-
-
-    // 장비관리 > 장비목록 > 장비수정 모달 > 장비 데이터 수정
-    @ResponseBody
-    @PostMapping("/updateEqp")
-    public Map<String, Object> update(@RequestParam Map<String, Object> updateMap) {
-        return eqpManageService.updateEqpList(updateMap);
-    }
-
-    // 장비관리 > 장비목록 > 삭제
+    /**
+     * 장비관리 > 장비목록 > 선택된 장비 목록 삭제
+     * @param deleteList 삭제할 장비 목록
+     * @return 삭제 결과
+     */
     @ResponseBody
     @PostMapping("/delete")
     public Map<String, Object> delete(@RequestBody List<Map<String, Object>> deleteList) {
@@ -89,7 +78,13 @@ public class eqpManageController {
     }
 
 
-    // 장비관리 > 장비목록 > 장비 업로드 > 양식 다운로드
+    /**
+     * 장비관리 > 장비목록 > 장비 업로드 > 업로드 양식 엑셀 파일 다운로드
+     *
+     * @param response HTTP 응답 객체
+     * @throws NumberFormatException 숫자 형식 오류
+     * @throws IOException 입력/출력 예외
+     */
     @ResponseBody
     @GetMapping("/excelTemplate")
     public void excelTemplate(HttpServletResponse response) throws NumberFormatException, IOException {
@@ -102,6 +97,13 @@ public class eqpManageController {
     }
 
 
+    /**
+     * 업로드된 엑셀 파일의 유효성을 검사하고 결과 반환
+     *
+     * @param file 업로드된 엑셀 파일
+     * @param response HTTP 응답 객체
+     * @throws IOException 입력/출력 예외
+     */
     @ResponseBody
     @PostMapping("/excelValid")
     public void excelValid(@RequestParam("file") MultipartFile file, HttpServletResponse response) throws IOException {
@@ -113,12 +115,28 @@ public class eqpManageController {
         wb.close();
     }
 
+
+    /**
+     * 업로드된 엑셀 파일 데이터 DB 저장
+     *
+     * @param file 업로드된 엑셀 파일
+     * @return 삽입 결과
+     * @throws IOException 입력/출력 예외
+     */
     @ResponseBody
-    @PostMapping("/excelSave")
-    public Map<String, Object> excelSave(@RequestParam("file") MultipartFile file) throws IOException {
+    @PostMapping("/excelInsert")
+    public Map<String, Object> excelInsert(@RequestParam("file") MultipartFile file) throws IOException {
         return eqpManageService.insertExcelList(file);
     }
 
+
+    /**
+     * 저장 결과를 엑셀 파일로 생성하여 반환.
+     *
+     * @param paramMap 저장결과 파라미터 맵
+     * @param response HTTP 응답 객체
+     * @throws IOException 입력/출력 예외
+     */
     @ResponseBody
     @PostMapping("/excelResponse")
     public void excelResponse(@RequestBody Map<String, Object> paramMap, HttpServletResponse response) throws IOException {
@@ -129,6 +147,45 @@ public class eqpManageController {
         wb.write(response.getOutputStream());
         wb.close();
     }
+
+
+    @GetMapping("/create")
+    public String createEquipmentPage() {
+        return "views/eqp/register";
+    }
+
+    @ResponseBody
+    @PostMapping("/saveEquipmentInfo")
+    public void saveEquipmentInfo(@RequestBody Map<String, Object> dataMap) {
+        System.out.println("Received Data: " + dataMap);
+
+        if (dataMap.containsKey("eqp_name")) {
+            System.out.println("장비명: " + dataMap.get("eqp_name"));
+        }
+    }
+
+    @GetMapping("/detail/{id}")
+    public String detailEquipmentPage(@PathVariable("id") Long id, Model model) {
+        //장비 ID로 실제 데이터를 조회하는 로직
+        // Equipment equipment = equipmentService.getById(id);
+        // model.addAttribute("equipment", equipment);
+        return "views/eqp/detail";
+    }
+
+    @GetMapping("/update/{id}")
+    public String updateEquipmentPage(@PathVariable("id") Long id, Model model) {
+        //장비 ID로 실제 데이터를 조회하는 로직
+        // Equipment equipment = equipmentService.getById(id);
+        // model.addAttribute("equipment", equipment);
+        return "views/eqp/update";
+    }
+
+    // @PostMapping("/eqpManage/update")
+    // public String updateEquipment(Equipment equipment) {
+    //     equipmentService.update(equipment); //장비 수정 로직
+    //     return "redirect:/eqpManage/list";
+    // }
+
 
     /************************************/
     // 아직 변경 안한놈들
@@ -167,6 +224,28 @@ public class eqpManageController {
 
     /*****************/
     // 과거 리스트... 나중에 지우기
+    // 장비관리 > 장비목록 > 장비추가 모달 > 장비 데이터 추가
+    @ResponseBody
+    @PostMapping("/insertEqp")
+    public Map<String, Object> insert(@RequestParam Map<String, Object> insertMap) {
+        return eqpManageService.insertEqpList(insertMap);
+    }
+
+    // 장비관리 > 장비목록 > 장비수정 모달 > 장비 데이터
+    @ResponseBody
+    @GetMapping("/update")
+    public Map<String, Object> update(@RequestParam("eqp_id") String eqp_id) {
+        return eqpManageService.getEqpUpdateList(eqp_id); // 수정 팝업에서 보여질 데이터
+    }
+
+
+    // 장비관리 > 장비목록 > 장비수정 모달 > 장비 데이터 수정
+    @ResponseBody
+    @PostMapping("/updateEqp")
+    public Map<String, Object> update(@RequestParam Map<String, Object> updateMap) {
+        return eqpManageService.updateEqpList(updateMap);
+    }
+
     /*
     // alert2
     function alert2(title, html, icon, confirmButtonText, callback) {

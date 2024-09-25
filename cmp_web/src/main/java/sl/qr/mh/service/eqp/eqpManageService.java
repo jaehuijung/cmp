@@ -182,7 +182,6 @@ public class eqpManageService {
                     }
                 }
 
-                // insert mapper
                 cableMapper.insertEqpList(insertExcelMap);
                 successList.add(insertExcelMap);
 
