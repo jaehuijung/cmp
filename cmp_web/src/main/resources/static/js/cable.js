@@ -550,7 +550,6 @@ function SearchCableList(page){
         html += res.data[0].pagination;
         html += "</div>";
         thh = "<tr class='table-secondary' style='text-align: center;'><th colspan=2>구분</th><th colspan=" + s_colspn + ">출발지</th><th colspan=" + e_colspn +">목적지</th><th colspan=" + c_colspn + ">회선</th></tr>";
-        console.log("thh************", thh);
         $(".CableListDiv").append(html);
         $("#kk").append(thh);
 
