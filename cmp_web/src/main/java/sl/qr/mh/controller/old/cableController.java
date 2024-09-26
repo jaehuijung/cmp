@@ -141,7 +141,7 @@ public class cableController {
 		// return "new/eqplist";
 		return "views/eqplist";
 	}
-
+*/
 
 	@GetMapping(value = "/eqp/exceldown")
 	public void exceldown(HttpSession session, HttpServletRequest request, HttpServletResponse response, Equipment vo)
@@ -156,7 +156,7 @@ public class cableController {
 		wb.close();
 	}
 
-	*/
+
 
 
 }
