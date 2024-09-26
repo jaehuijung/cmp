@@ -79,10 +79,10 @@ public class joinPageController {
 				session.setAttribute("joinChk", "ok");
 				session.setAttribute("message", "joinok");
 
-				url = "redirect:/sl/qr/systempage";
 			}
 
-			return "new/usrlist";
+			// return "new/usrlist";
+			return "views/user/view";
 		}
 
 }
