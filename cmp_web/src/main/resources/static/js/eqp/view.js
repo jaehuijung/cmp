@@ -289,21 +289,27 @@ function eqpDelete() {
  * 장비관리 > 장비목록 > 장비 다운로드 버튼
 */
 function selectEquipmentDownload(){
-    Swal.fire({
-        title: '엑셀 파일 업로드',
-        html: generateAssetUploadHTML(),
-        focusConfirm: false,
-        confirmButtonText: '저장',
-        cancelButtonText: '취소',
-        showCancelButton: true,
-        customClass: {
-            popup: 'custom-width'
-        },
-    }).then((result) => {
-        if (result.isConfirmed) {
-            handleFileUpload();
-        }
-    });
+
+    let data = $("#eqpTable").bootstrapTable('getSelections');
+    if (data.length == 0){
+        alert2('알림', '다운로드 할 장비를 선택하세요.', 'info', '확인');
+    }
+    else{
+
+        /*
+        장비목록 컬럼변경때문에 테이블 일단 조회추가수정상세 구현한 다음에
+        $.ajax({
+            url : '/eqpManage/excelInsert',
+            type: 'post',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success : (res) => {
+                notifySaveResult(res);
+            }
+        });
+        */
+    }
 }
 
 
