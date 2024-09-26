@@ -1,12 +1,14 @@
 package sl.qr.mh.service.eqp;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import sl.qr.mh.service.cableMapper;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -20,14 +22,11 @@ import java.util.Map;
 public class eqpManageService {
 
 
-    private final cableMapper cableMapper;
+    private final eqpMapper eqpMapper;
 
-    public eqpManageService(cableMapper cableMapper) {
-        this.cableMapper = cableMapper;
+    public eqpManageService(eqpMapper eqpMapper) {
+        this.eqpMapper = eqpMapper;
     }
-
-    /*************/
-    // 새로 작성한놈들
 
     // 장비관리 > 장비목록 > 리스트
     @SuppressWarnings("unchecked")
@@ -44,9 +43,8 @@ public class eqpManageService {
                 paramMap.putAll(searchData);
             }
 
-
-            List<Map<String, Object>> rows = cableMapper.getEqpTotalList(paramMap);
-            int total = cableMapper.getEqpTotalListCnt(paramMap);
+            List<Map<String, Object>> rows = eqpMapper.getEqpTotalList(paramMap);
+            int total = eqpMapper.getEqpTotalListCnt(paramMap);
 
             returnMap.put("rows", rows);
             returnMap.put("total", total);
@@ -65,7 +63,7 @@ public class eqpManageService {
         returnMap.put("errorCode",false);
 
         try {
-            Map<String, Object> rows = cableMapper.getEqpDetailList(param);
+            Map<String, Object> rows = eqpMapper.getEqpDetailList(param);
             returnMap.put("rows", rows);
             returnMap.put("errorCode",true);
 
@@ -85,7 +83,7 @@ public class eqpManageService {
         returnMap.put("errorCode",false);
 
         try {
-            Map<String, Object> rows = cableMapper.getEqpDetailList(param);
+            Map<String, Object> rows = eqpMapper.getEqpDetailList(param);
             returnMap.put("rows", rows);
             returnMap.put("errorCode",true);
 
@@ -105,7 +103,7 @@ public class eqpManageService {
         returnMap.put("errorCode",false);
 
         try {
-            cableMapper.insertEqpList(paramMap);
+            eqpMapper.insertEqpList(paramMap);
             returnMap.put("errorCode",true);
 
         } catch (Exception e) {
@@ -123,7 +121,7 @@ public class eqpManageService {
         returnMap.put("errorCode",false);
 
         try {
-            cableMapper.updateEqpList(paramMap);
+            eqpMapper.updateEqpList(paramMap);
             returnMap.put("errorCode",true);
 
         } catch (Exception e) {
@@ -143,7 +141,7 @@ public class eqpManageService {
         try {
             for(Map<String, Object> ele : deleteList){
                 String deleteEqpTarget = ele.get("eqp_id").toString();
-                cableMapper.deleteEqpList(deleteEqpTarget);
+                eqpMapper.deleteEqpList(deleteEqpTarget);
             }
 
             returnMap.put("errorCode",true);
@@ -155,7 +153,7 @@ public class eqpManageService {
         return returnMap;
     }
 
-
+    // 장비관리 > 장비 목록 > 장비 목록 업로드 > 저장
     @Transactional
     public Map<String, Object> insertExcelList(MultipartFile file) throws IOException {
         Map<String, Object> returnMap = new HashMap<>();
@@ -182,7 +180,7 @@ public class eqpManageService {
                     }
                 }
 
-                cableMapper.insertEqpList(insertExcelMap);
+                eqpMapper.insertEqpList(insertExcelMap);
                 successList.add(insertExcelMap);
 
             } catch (Exception e) {
@@ -196,6 +194,11 @@ public class eqpManageService {
         return returnMap;
     }
 
+
+    private final String sep = "/";
+    private final String staticPath = System.getProperty("user.dir") + sep + "src" + sep + "main" + sep + "resources" + sep + "static" + sep + "excelTemplate" + sep;
+
+    // 장비관리 > 장비 목록 > 장비 목록 업로드 > 저장 > 결과파일 생성
     public Workbook saveResultEquipment(Map<String, Object> paramMap) throws IOException {
         String resultPath = staticPath + "equipmentResultTemplate.xlsx";
         FileInputStream file = new FileInputStream(resultPath);
@@ -204,9 +207,7 @@ public class eqpManageService {
         return wb;
     }
 
-    private final String sep = "/";
-    private final String staticPath = System.getProperty("user.dir") + sep + "src" + sep + "main" + sep + "resources" + sep + "static" + sep + "excelTemplate" + sep;
-
+    // 장비관리 > 장비 목록 > 장비 목록 업로드 > 엑셀 양식 다운로드
     public Workbook excelTemplate() throws IOException {
         String uploadPath = staticPath + "equipmentUploadTemplate.xlsx";
         FileInputStream file = new FileInputStream(uploadPath);
@@ -215,7 +216,7 @@ public class eqpManageService {
         return wb;
     }
 
-    // 업로드 된 장비파일 검증
+    // 장비관리 > 장비 목록 > 장비 목록 업로드 > 검증
     public Workbook excelValidation(MultipartFile file) throws IOException {
         Workbook wb = new XSSFWorkbook(file.getInputStream());
         Sheet sheet = wb.getSheetAt(1);
@@ -399,12 +400,71 @@ public class eqpManageService {
         // }
     }
 
+    // 구성분류 리스트
+    public Map<String, Object> getSelectConfigData(){
+        Map<String, Object> returnMap = new HashMap<>();
+        returnMap.put("errorCode",false);
+
+        try{
+            returnMap.put("selectData", eqpMapper.getSelectConfigData());
+            returnMap.put("errorCode",true);
+        }
+        catch (Exception e){
+
+        }
 
 
-    /************************************/
-    // 아직 변경 안한놈들
+        return returnMap;
+    }
 
-    /*****************/
-    // 과거 리스트... 나중에 지우기
+    // 자산분류 리스트
+    public Map<String, Object> getSelectAssetData(Map<String, Object> paramMap){
+        Map<String, Object> returnMap = new HashMap<>();
+        returnMap.put("errorCode",false);
+
+        try{
+            returnMap.put("selectData", eqpMapper.getSelectAssetData(paramMap));
+            returnMap.put("errorCode",true);
+        }
+        catch (Exception e){
+
+        }
+
+
+        return returnMap;
+    }
+
+    public Map<String, Object> getSelectSubData(Map<String, Object> paramMap){
+        Map<String, Object> returnMap = new HashMap<>();
+        returnMap.put("errorCode",false);
+
+        try{
+            returnMap.put("selectData", eqpMapper.getSelectSubData(paramMap));
+            returnMap.put("errorCode",true);
+
+        }
+        catch (Exception e){
+
+        }
+
+
+        return returnMap;
+    }
+
+    public Map<String, Object> getSelectDetailData(Map<String, Object> paramMap){
+        Map<String, Object> returnMap = new HashMap<>();
+        returnMap.put("errorCode",false);
+
+        try{
+            returnMap.put("selectData", eqpMapper.getSelectDetailData(paramMap));
+            returnMap.put("errorCode",true);
+        }
+        catch (Exception e){
+
+        }
+
+
+        return returnMap;
+    }
 
 }

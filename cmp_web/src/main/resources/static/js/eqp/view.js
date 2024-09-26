@@ -6,7 +6,6 @@ function tableRefresh(){
     $("#eqpTable").bootstrapTable('refresh');
 }
 
-
 /**
  * BootstrapTable에서 사용할 컬럼 리스트를 생성하는 함수
  *
@@ -39,6 +38,10 @@ var columns = [
     createColumn('config_id',                     false, '구성ID'),
     createColumn('asset_category',                false, '자산분류'),
     createColumn('asset_id',                      false, '자산ID'),
+    createColumn('sub_category',                  false, '자산세부분류'),
+    createColumn('sub_id',                        false, '자산세부ID'),
+    createColumn('detail_category',               false, '자산상세분류'),
+    createColumn('detail_id',                     false, '자산상세ID'),
     createColumn('ip_address',                    false, 'IP'),
     createColumn('os_version',                    false, 'OS'),
     createColumn('operating_status',              false, '운영상태'),
@@ -124,14 +127,18 @@ function searchState(type, isChecked){
             columns.splice(7,  0, {field: 'config_id', align: 'center', valign: 'middle', class: 'nowrap', title: '구성ID'});
             columns.splice(8,  0, {field: 'asset_category', align: 'center', valign: 'middle', class: 'nowrap', title: '자산분류'});
             columns.splice(9,  0, {field: 'asset_id', align: 'center', valign: 'middle', class: 'nowrap', title: '자산ID'});
-            columns.splice(10, 0, {field: 'ip_address', align: 'center', valign: 'middle', class: 'nowrap', title: 'IP'});
-            columns.splice(11, 0, {field: 'os_version', align: 'center', valign: 'middle', class: 'nowrap', title: 'OS'});
-            columns.splice(12, 0, {field: 'operating_status', align: 'center', valign: 'middle', class: 'nowrap', title: '운영상태'});
-            columns.splice(13, 0, {field: 'operating_department', align: 'center', valign: 'middle', class: 'nowrap', title: '운영부서'});
-            columns.splice(14, 0, {field: 'primary_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '운영담당자(정)'});
-            columns.splice(15, 0, {field: 'secondary_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '운영담당자(부)'});
-            columns.splice(16, 0, {field: 'primary_outsourced_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '위탁운영담당자(정)'});
-            columns.splice(17, 0, {field: 'secondary_outsourced_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '위탁운영담당자(부)'});
+            columns.splice(10, 0, {field: 'sub_category', align: 'center', valign: 'middle', class: 'nowrap', title: '자산세부분류'});
+            columns.splice(11, 0, {field: 'sub_id', align: 'center', valign: 'middle', class: 'nowrap', title: '자산세부ID'});
+            columns.splice(12, 0, {field: 'detail_category', align: 'center', valign: 'middle', class: 'nowrap', title: '자산상세분류'});
+            columns.splice(13, 0, {field: 'detail_id', align: 'center', valign: 'middle', class: 'nowrap', title: '자산상세ID'});
+            columns.splice(14, 0, {field: 'ip_address', align: 'center', valign: 'middle', class: 'nowrap', title: 'IP'});
+            columns.splice(15, 0, {field: 'os_version', align: 'center', valign: 'middle', class: 'nowrap', title: 'OS'});
+            columns.splice(16, 0, {field: 'operating_status', align: 'center', valign: 'middle', class: 'nowrap', title: '운영상태'});
+            columns.splice(17, 0, {field: 'operating_department', align: 'center', valign: 'middle', class: 'nowrap', title: '운영부서'});
+            columns.splice(18, 0, {field: 'primary_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '운영담당자(정)'});
+            columns.splice(19, 0, {field: 'secondary_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '운영담당자(부)'});
+            columns.splice(20, 0, {field: 'primary_outsourced_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '위탁운영담당자(정)'});
+            columns.splice(21, 0, {field: 'secondary_outsourced_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '위탁운영담당자(부)'});
 
             // 모든 단일 선택박스 체크
             document.querySelectorAll(".selectStateChk").forEach(ele => {
@@ -161,29 +168,42 @@ function searchState(type, isChecked){
                 case "asset_id":
                     columns.splice(9, 0, {field: 'asset_id', align: 'center', valign: 'middle', class: 'nowrap', title: '자산ID'});
                     break;
+                case "sub_category":
+                    columns.splice(10, 0, {field: 'sub_category', align: 'center', valign: 'middle', class: 'nowrap', title: '자산세부분류'});
+                    break;
+                case "sub_id":
+                    columns.splice(11, 0, {field: 'sub_id', align: 'center', valign: 'middle', class: 'nowrap', title: '자산세부ID'});
+                    break;
+
+                case "detail_category":
+                    columns.splice(12, 0, {field: 'detail_category', align: 'center', valign: 'middle', class: 'nowrap', title: '자산상세분류'});
+                    break;
+                case "detail_id":
+                    columns.splice(13, 0, {field: 'detail_id', align: 'center', valign: 'middle', class: 'nowrap', title: '자산상세ID'});
+                    break;
                 case "ip_address":
-                    columns.splice(10, 0, {field: 'ip_address', align: 'center', valign: 'middle', class: 'nowrap', title: 'IP'});
+                    columns.splice(14, 0, {field: 'ip_address', align: 'center', valign: 'middle', class: 'nowrap', title: 'IP'});
                     break;
                 case "os_version":
-                    columns.splice(11, 0, {field: 'os_version', align: 'center', valign: 'middle', class: 'nowrap', title: 'OS'});
+                    columns.splice(15, 0, {field: 'os_version', align: 'center', valign: 'middle', class: 'nowrap', title: 'OS'});
                     break;
                 case "operating_status":
-                    columns.splice(12, 0, {field: 'operating_status', align: 'center', valign: 'middle', class: 'nowrap', title: '운영상태'});
+                    columns.splice(16, 0, {field: 'operating_status', align: 'center', valign: 'middle', class: 'nowrap', title: '운영상태'});
                     break;
                 case "operating_department":
-                    columns.splice(13, 0, {field: 'operating_department', align: 'center', valign: 'middle', class: 'nowrap', title: '운영부서'});
+                    columns.splice(17, 0, {field: 'operating_department', align: 'center', valign: 'middle', class: 'nowrap', title: '운영부서'});
                     break;
                 case "primary_operator":
-                    columns.splice(14, 0, {field: 'primary_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '운영담당자(정)'});
+                    columns.splice(18, 0, {field: 'primary_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '운영담당자(정)'});
                     break;
                 case "secondary_operator":
-                    columns.splice(15, 0, {field: 'secondary_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '운영담당자(부)'});
+                    columns.splice(19, 0, {field: 'secondary_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '운영담당자(부)'});
                     break;
                 case "primary_outsourced_operator":
-                    columns.splice(16, 0, {field: 'primary_outsourced_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '위탁운영담당자(정)'});
+                    columns.splice(20, 0, {field: 'primary_outsourced_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '위탁운영담당자(정)'});
                     break;
                 case "secondary_outsourced_operator":
-                    columns.splice(17, 0, {field: 'secondary_outsourced_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '위탁운영담당자(부)'});
+                    columns.splice(21, 0, {field: 'secondary_outsourced_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '위탁운영담당자(부)'});
                     break;
             }
         }

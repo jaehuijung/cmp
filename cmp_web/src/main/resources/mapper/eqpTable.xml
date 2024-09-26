@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sl.qr.mh.service.eqp.eqpMapper">
+
+    <select id="getEqpTotalList" parameterType="Map" resultType="Map">
+        /* getEqpTotalList ...
+            장비관리 > 장비목록 > 리스트 목록  */
+        SELECT
+            A.id AS eqp_id                    /* 장비 id */
+            /* , C.group_name                    장비 그룹명 (제외하라했는데 일단 나중에) */
+            , A.eqp_name                      /* 장비이름 */
+            , A.hostname                      /* 호스트명 */
+            , A.m_company                     /* 제조사 */
+            , A.model                         /* 모델 */
+            /* , A.rack_id                       랙번호  (제외하라했는데 일단 나중에)  */
+            /* , A.eqp_direct                    장비방향 (제외하라했는데 일단 나중에) */
+            , A.unit_position                 /* 유닛위치 */
+            , A.yearofintroduct               /* 도입년도 */
+            , A.created_at                    /* 생성일 */
+            , A.config_category               /* 구성분류 */
+            , A.asset_category                /* 자산분류 */
+            , A.asset_id                      /* 자산ID */
+            , A.config_id                     /* 구성ID */
+            , A.ip_address                    /* ip address */
+            , A.os_version                    /* OS 버전 */
+            , A.operating_department          /* 운영부서 */
+            , A.primary_operator              /* 운영담당자(정) */
+            , A.secondary_operator            /* 운영담당자(부) */
+            , A.primary_outsourced_operator   /* 위탁운영사용자(정) */
+            , A.secondary_outsourced_operator /* 위탁운영사용자(부) */
+            , A.operating_status              /* 운영상태 */
+            , A.eol_status                    /* 단종상태(EOL) */
+            , A.eos_status                    /* 단종상태(EOS) */
+            , A.redundancy_config             /* 이중화구성여부 */
+            , A.network_operation_type        /* 네트워크 운영 구분 */
+            , A.asset_acquisition_date        /* 자산취득일자 */
+            , A.asset_disposal_date           /* 자산폐기일자 */
+            , A.acquisition_cost              /* 도입금액 */
+            , A.dbrain_number                 /* 디브레인번호 */
+            , A.domestic                      /* 국산여부 */
+            , A.installation_coordinates      /* 설치 좌표(좌표) */
+            , A.installation_units            /* 설치 좌표(유닛수) */
+            , A.equipment_size_units          /* 장비 크기(유닛수) */
+            , A.remarks                       /* 비고 */
+            , A.resource_name                 /* 구성자원명 */
+            , A.maintenance_contract_target   /* 유지관리 계약대상여부 */
+            , A.cpu                           /* CPU */
+            , A.mem                           /* MEM */
+            , A.disk                          /* DISK */
+            , A.serial_number                 /* serial number */
+        FROM equipment A
+        WHERE 1=1
+        <if test="searchEqpSearchInput != null and searchEqpSearchInput != ''">
+            AND (
+              BINARY A.eqp_name Like CONCAT('%', #{searchEqpSearchInput}, '%')  OR
+              BINARY A.hostname Like CONCAT('%', #{searchEqpSearchInput}, '%')  OR
+              BINARY A.m_company Like CONCAT('%', #{searchEqpSearchInput}, '%')  OR
+              BINARY A.model Like CONCAT('%', #{searchEqpSearchInput}, '%')
+            )
+        </if>
+        LIMIT #{offset},#{limit};
+    </select>
+
+
+    <select id="getEqpTotalListCnt" parameterType="Map" resultType="int">
+        /* getEqpTotalListCnt ...
+            장비관리 > 장비목록 > 리스트 개수  */
+        SELECT COUNT(*)
+        FROM equipment A
+        WHERE 1=1
+        <if test="searchEqpSearchInput != null and searchEqpSearchInput != ''">
+            AND (
+            BINARY A.eqp_name Like CONCAT('%', #{searchEqpSearchInput}, '%')  OR
+            BINARY A.hostname Like CONCAT('%', #{searchEqpSearchInput}, '%')  OR
+            BINARY A.m_company Like CONCAT('%', #{searchEqpSearchInput}, '%')  OR
+            BINARY A.model Like CONCAT('%', #{searchEqpSearchInput}, '%')
+            )
+        </if>
+    </select>
+
+    <select id="getEqpDetailList" parameterType="String" resultType="Map">
+        /* getEqpDetailList ...
+           장비관리 > 장비목록 > 장비상세 리스트 */
+        SELECT
+            A.id AS eqp_id                    /* 장비 id */
+            /* , C.group_name                    장비 그룹명 (제외하라했는데 일단 나중에) */
+            , A.eqp_name                      /* 장비이름 */
+            , A.hostname                      /* 호스트명 */
+            , A.m_company                     /* 제조사 */
+            , A.model                         /* 모델 */
+            /* , A.rack_id                       랙번호  (제외하라했는데 일단 나중에)  */
+            /* , A.eqp_direct                    장비방향 (제외하라했는데 일단 나중에) */
+            , A.unit_position                 /* 유닛위치 */
+            , A.yearofintroduct               /* 도입년도 */
+            , A.created_at                    /* 생성일 */
+            , A.config_category               /* 구성분류 */
+            , A.asset_category                /* 자산분류 */
+            , A.asset_id                      /* 자산ID */
+            , A.config_id                     /* 구성ID */
+            , A.ip_address                    /* ip address */
+            , A.os_version                    /* OS 버전 */
+            , A.operating_department          /* 운영부서 */
+            , A.primary_operator              /* 운영담당자(정) */
+            , A.secondary_operator            /* 운영담당자(부) */
+            , A.primary_outsourced_operator   /* 위탁운영사용자(정) */
+            , A.secondary_outsourced_operator /* 위탁운영사용자(부) */
+            , A.operating_status              /* 운영상태 */
+            , A.eol_status                    /* 단종상태(EOL) */
+            , A.eos_status                    /* 단종상태(EOS) */
+            , A.redundancy_config             /* 이중화구성여부 */
+            , A.network_operation_type        /* 네트워크 운영 구분 */
+            , A.asset_acquisition_date        /* 자산취득일자 */
+            , A.asset_disposal_date           /* 자산폐기일자 */
+            , A.acquisition_cost              /* 도입금액 */
+            , A.dbrain_number                 /* 디브레인번호 */
+            , A.domestic                      /* 국산여부 */
+            , A.installation_coordinates      /* 설치 좌표(좌표) */
+            , A.installation_units            /* 설치 좌표(유닛수) */
+            , A.equipment_size_units          /* 장비 크기(유닛수) */
+            , A.remarks                       /* 비고 */
+            , A.resource_name                 /* 구성자원명 */
+            , A.maintenance_contract_target   /* 유지관리 계약대상여부 */
+            , A.cpu                           /* CPU */
+            , A.mem                           /* MEM */
+            , A.disk                          /* DISK */
+            , A.serial_number                 /* serial number */
+        FROM equipment A
+        WHERE 1=1
+        AND A.id = #{eqp_id};
+    </select>
+
+    <insert id="insertEqpList" parameterType="Map">
+        /* insertEqpList ...
+            장비관리 > 장비목록 > 장비추가 > 추가 */
+        insert into equipment(
+              eqp_name                        /* 장비이름 */
+            , hostname                        /* 호스트명 */
+            , m_company                       /* 제조사 */
+            , model                           /* 모델 */
+            , unit_position                   /* 유닛위치 */
+            , yearofintroduct                 /* 도입년도 */
+            , created_at                      /* 생성일 */
+            , config_category                 /* 구성분류 */
+            , asset_category                  /* 자산분류 */
+            , asset_id                        /* 자산ID */
+            , config_id                       /* 구성ID */
+            , ip_address                      /* ip address */
+            , os_version                      /* OS 버전 */
+            , operating_department            /* 운영부서 */
+            , primary_operator                /* 운영담당자(정) */
+            , secondary_operator              /* 운영담당자(부) */
+            , primary_outsourced_operator     /* 위탁운영사용자(정) */
+            , secondary_outsourced_operator   /* 위탁운영사용자(부) */
+            , operating_status                /* 운영상태 */
+            , eol_status                      /* 단종상태(EOL) */
+            , eos_status                      /* 단종상태(EOS) */
+            , redundancy_config               /* 이중화구성여부 */
+            , network_operation_type          /* 네트워크 운영 구분 */
+            , asset_acquisition_date          /* 자산취득일자 */
+            , asset_disposal_date             /* 자산폐기일자 */
+            , acquisition_cost                /* 도입금액 */
+            , dbrain_number                   /* 디브레인번호 */
+            , domestic                        /* 국산여부 */
+            , installation_coordinates        /* 설치 좌표(좌표) */
+            , installation_units              /* 설치 좌표(유닛수) */
+            , equipment_size_units            /* 장비 크기(유닛수) */
+            , remarks                         /* 비고 */
+            , resource_name                   /* 구성자원명 */
+            , maintenance_contract_target     /* 유지관리 계약대상여부 */
+            , cpu                             /* CPU */
+            , mem                             /* MEM */
+            , disk                            /* DISK */
+            , serial_number)                  /* serial number */
+        values(
+            #{eqp_name},
+            #{hostname},
+            #{m_company},
+            #{model},
+            #{unit_position},
+            #{yearofintroduct},
+            sysdate(),
+            #{config_category},
+            #{asset_category},
+            #{asset_id},
+            #{config_id},
+            #{ip_address},
+            #{os_version},
+            #{operating_department},
+            #{primary_operator},
+            #{secondary_operator},
+            #{primary_outsourced_operator},
+            #{secondary_outsourced_operator},
+            #{operating_status},
+            #{eol_status},
+            #{eos_status},
+            #{redundancy_config},
+            #{network_operation_type},
+            #{asset_acquisition_date},
+            #{asset_disposal_date},
+            #{acquisition_cost},
+            #{dbrain_number},
+            #{domestic},
+            #{installation_coordinates},
+            #{installation_units},
+            #{equipment_size_units},
+            #{remarks},
+            #{resource_name},
+            #{maintenance_contract_target},
+            #{cpu},
+            #{mem},
+            #{disk},
+            #{serial_number}
+        );
+    </insert>
+
+
+    <update id="updateEqpList" parameterType="Map">
+        /* updateEqpList ...
+            장비관리 > 장비목록 > 수정 */
+        UPDATE equipment
+        SET
+            eqp_name = #{eqp_name}
+        <if test="config_category != null and config_category != ''">
+            , config_category = #{config_category}
+        </if>
+        <if test="asset_id != null and asset_id != ''">
+            , asset_id = #{asset_id}
+        </if>
+        <if test="m_company != null and m_company != ''">
+            , m_company = #{m_company}
+        </if>
+        <if test="operating_department != null and operating_department != ''">
+            , operating_department = #{operating_department}
+        </if>
+        <if test="primary_operator != null and primary_operator != ''">
+            , primary_operator = #{primary_operator}
+        </if>
+        <if test="secondary_operator != null and secondary_operator != ''">
+            , secondary_operator = #{secondary_operator}
+        </if>
+        <if test="primary_outsourced_operator != null and primary_outsourced_operator != ''">
+            , primary_outsourced_operator = #{primary_outsourced_operator}
+        </if>
+        <if test="secondary_outsourced_operator != null and secondary_outsourced_operator != ''">
+            , secondary_outsourced_operator = #{secondary_outsourced_operator}
+        </if>
+        <if test="maintenance_contract_target != null and maintenance_contract_target != ''">
+            , maintenance_contract_target = #{maintenance_contract_target}
+        </if>
+        <if test="redundancy_config != null and redundancy_config != ''">
+            , redundancy_config = #{redundancy_config}
+        </if>
+        <if test="domestic != null and domestic != ''">
+            , domestic = #{domestic}
+        </if>
+        <if test="asset_category != null and asset_category != ''">
+            , asset_category = #{asset_category}
+        </if>
+        <if test="config_id != null and config_id != ''">
+            , config_id = #{config_id}
+        </if>
+        <if test="model != null and model != ''">
+            , model = #{model}
+        </if>
+        <if test="operating_status != null and operating_status != ''">
+            , operating_status = #{operating_status}
+        </if>
+        <if test="asset_acquisition_date != null and asset_acquisition_date != ''">
+            , asset_acquisition_date = #{asset_acquisition_date}
+        </if>
+        <if test="asset_disposal_date != null and asset_disposal_date != ''">
+            , asset_disposal_date = #{asset_disposal_date}
+        </if>
+        <if test="yearofintroduct != null and yearofintroduct != ''">
+            , yearofintroduct = #{yearofintroduct}
+        </if>
+        <if test="acquisition_cost != null and acquisition_cost != ''">
+            , acquisition_cost = #{acquisition_cost}
+        </if>
+        <if test="unit_position != null and unit_position != ''">
+            , unit_position = #{unit_position}
+        </if>
+        <if test="dbrain_number != null and dbrain_number != ''">
+            , dbrain_number = #{dbrain_number}
+        </if>
+        <if test="eol_status != null and eol_status != ''">
+            , eol_status = #{eol_status}
+        </if>
+        <if test="eos_status != null and eos_status != ''">
+            , eos_status = #{eos_status}
+        </if>
+        <if test="network_operation_type != null and network_operation_type != ''">
+            , network_operation_type = #{network_operation_type}
+        </if>
+        <if test="hostname != null and hostname != ''">
+            , hostname = #{hostname}
+        </if>
+        <if test="ip_address != null and ip_address != ''">
+            , ip_address = #{ip_address}
+        </if>
+        <if test="serial_number != null and serial_number != ''">
+            , serial_number = #{serial_number}
+        </if>
+        <if test="installation_coordinates != null and installation_coordinates != ''">
+            , installation_coordinates = #{installation_coordinates}
+        </if>
+        <if test="installation_units != null and installation_units != ''">
+            , installation_units = #{installation_units}
+        </if>
+        <if test="resource_name != null and resource_name != ''">
+            , resource_name = #{resource_name}
+        </if>
+        <if test="os_version != null and os_version != ''">
+            , os_version = #{os_version}
+        </if>
+        <if test="cpu != null and cpu != ''">
+            , cpu = #{cpu}
+        </if>
+        <if test="mem != null and mem != ''">
+            , mem = #{mem}
+        </if>
+        <if test="disk != null and disk != ''">
+            , disk = #{disk}
+        </if>
+        <if test="equipment_size_units != null and equipment_size_units != ''">
+            , equipment_size_units = #{equipment_size_units}
+        </if>
+        WHERE id = #{eqp_id};
+    </update>
+
+
+
+    <delete id="deleteEqpList" parameterType="String">
+        /* deleteEqpList ...
+            장비관리 > 장비목록 > 삭제*/
+        delete from equipment
+        where id = #{deleteEqpTarget}
+    </delete>
+
+
+    <select id="getSelectConfigData" parameterType="map" resultType="map">
+        /* getSelectConfigData
+           장비관리 > 장비목록 > 추가/수정/상세 페이지 > 장비분류 > 구성분류 */
+        select
+            config_id as `id`, config_category as `name`
+        from
+            equipment_categories
+        GROUP BY config_id;
+    </select>
+
+    <select id="getSelectAssetData" parameterType="map" resultType="map">
+        /* getSelectAssetData
+        장비관리 > 장비목록 > 추가/수정/상세 페이지 > 장비분류 > 자산분류 */
+        select
+            asset_id as `id`, asset_category as `name`
+        from
+            equipment_categories
+        where
+            config_id = #{id}
+        group by asset_id;
+    </select>
+
+    <select id="getSelectSubData" parameterType="map" resultType="map">
+        /* getSelectSubData
+        장비관리 > 장비목록 > 추가/수정/상세 페이지 > 장비분류 > 자산세부분류 */
+        select
+            sub_id as `id`, sub_category as `name`
+        from
+            equipment_categories
+        where
+            asset_id = #{id}
+        GROUP BY sub_id;
+    </select>
+
+    <select id="getSelectDetailData" parameterType="map" resultType="map">
+        /* getSelectDetailData
+        장비관리 > 장비목록 > 추가/수정/상세 페이지 > 장비분류 > 자산상세분류 */
+        select
+            detail_id as `id`, detail_category as `name`
+        from
+            equipment_categories
+        where
+            sub_id = #{id}
+        GROUP BY detail_id;
+    </select>
+
+</mapper>

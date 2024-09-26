@@ -1,15 +1,10 @@
 package sl.qr.mh.controller.eqp;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +15,6 @@ import sl.qr.mh.service.qrService;
 import sl.qr.mh.vo.Equipment;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,15 +36,11 @@ public class eqpManageController {
 
     /**
      * 장비관리 > 장비목록 페이지
-     *
-     * @param session 현재 HTTP 세션
-     * @param request HTTP 요청 객체
      * @return 장비 목록 뷰 페이지
      */
     @GetMapping("/view")
-    public String view(HttpSession session, HttpServletRequest request) {
+    public String view() {
         return "views/eqp/view";
-
     }
 
 
@@ -153,6 +143,33 @@ public class eqpManageController {
     public String createEquipmentPage() {
         return "views/eqp/register";
     }
+
+    @ResponseBody
+    @GetMapping("/selectConfig")
+    public Map<String, Object> getSelectConfigData() {
+        return eqpManageService.getSelectConfigData();
+    }
+
+    @ResponseBody
+    @GetMapping("/selectAsset")
+    public Map<String, Object> getSelectAssetData(@RequestParam Map<String, Object> paramMap) {
+        return eqpManageService.getSelectAssetData(paramMap);
+    }
+
+
+    @ResponseBody
+    @GetMapping("/selectSub")
+    public Map<String, Object> getSelectSubData(@RequestParam Map<String, Object> paramMap) {
+        return eqpManageService.getSelectSubData(paramMap);
+    }
+
+
+    @ResponseBody
+    @GetMapping("/selectDetail")
+    public Map<String, Object> getSelectDetailData(@RequestParam Map<String, Object> paramMap) {
+        return eqpManageService.getSelectDetailData(paramMap);
+    }
+
 
     @ResponseBody
     @PostMapping("/saveEquipmentInfo")
