@@ -103,7 +103,7 @@ public class eqpManageService {
         returnMap.put("errorCode",false);
 
         try {
-            eqpMapper.insertEqpList(paramMap);
+            // eqpMapper.insertEqpList(paramMap);
             returnMap.put("errorCode",true);
 
         } catch (Exception e) {

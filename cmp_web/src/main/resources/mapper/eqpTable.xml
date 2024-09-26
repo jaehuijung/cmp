@@ -6,6 +6,128 @@
 
 <mapper namespace="sl.qr.mh.service.eqp.eqpMapper">
 
+    <!--
+     장비목록 불러오는 select도 테이블 쪼갰으니까 다시 짜야함
+     -->
+
+    <select id="getSelectConfigData" parameterType="map" resultType="map">
+        /* getSelectConfigData
+        장비관리 > 장비목록 > 추가/수정/상세 페이지 > 장비분류 > 구성분류 */
+        select
+        config_id as `id`, config_category as `name`
+        from
+        equipment_categories
+        GROUP BY config_id;
+    </select>
+
+    <select id="getSelectAssetData" parameterType="map" resultType="map">
+        /* getSelectAssetData
+        장비관리 > 장비목록 > 추가/수정/상세 페이지 > 장비분류 > 자산분류 */
+        select
+        asset_id as `id`, asset_category as `name`
+        from
+        equipment_categories
+        where
+        config_id = #{id}
+        group by asset_id;
+    </select>
+
+    <select id="getSelectSubData" parameterType="map" resultType="map">
+        /* getSelectSubData
+        장비관리 > 장비목록 > 추가/수정/상세 페이지 > 장비분류 > 자산세부분류 */
+        select
+        sub_id as `id`, sub_category as `name`
+        from
+        equipment_categories
+        where
+        asset_id = #{id}
+        GROUP BY sub_id;
+    </select>
+
+    <select id="getSelectDetailData" parameterType="map" resultType="map">
+        /* getSelectDetailData
+        장비관리 > 장비목록 > 추가/수정/상세 페이지 > 장비분류 > 자산상세분류 */
+        select
+        detail_id as `id`, detail_category as `name`
+        from
+        equipment_categories
+        where
+        sub_id = #{id}
+        GROUP BY detail_id;
+    </select>
+
+
+    <select id="selectEquipmentMaxIdx" parameterType="map" resultType="map">
+        select
+    </select>
+
+    <insert id="insertEquipmentBasic" parameterType="map">
+        /* insertEquipmentBasic...
+           장비관리 > 장비목록 > 추가 페이지 > 저장
+        */
+        insert into equipment_basic(
+            eqp_manage_id,
+            eqp_name,
+            host_name,
+            model_name,
+            m_company,
+            domestic,
+            redundancy_config,
+            maintenance_contract_target,
+            config_category,
+            asset_category,
+            sub_category,
+            detail_category,
+            operating_category,
+            operating_status,
+            operating_department,
+            primary_operator,
+            secondary_operator,
+            primary_outsourced_operator,
+            secondary_outsourced_operator,
+            created_at,
+            updated_at,
+            creator
+        )
+        values(
+            #{eqp_manage_id},
+            #{eqp_name},
+            #{host_name},
+            #{model_name},
+            #{m_company},
+            #{domestic},
+            #{redundancy_config},
+            #{maintenance_contract_target},
+            #{config_category},
+            #{asset_category},
+            #{sub_category},
+            #{detail_category},
+            #{operating_category},
+            #{operating_status},
+            #{operating_department},
+            #{primary_operator},
+            #{secondary_operator},
+            #{primary_outsourced_operator},
+            #{secondary_outsourced_operator},
+            SYSDATE(),
+            "",
+            ""
+        )
+
+    </insert>
+
+    <insert id="insertEquipmentDetail" parameterType="map">
+
+    </insert>
+
+    <insert id="insertEquipmentPort" parameterType="map">
+
+    </insert>
+
+    <!--
+     장비목록 불러오는 select도 테이블 쪼갰으니까 다시 짜야함 아래는 다 지우기
+     -->
+
     <select id="getEqpTotalList" parameterType="Map" resultType="Map">
         /* getEqpTotalList ...
             장비관리 > 장비목록 > 리스트 목록  */
@@ -342,50 +464,6 @@
     </delete>
 
 
-    <select id="getSelectConfigData" parameterType="map" resultType="map">
-        /* getSelectConfigData
-           장비관리 > 장비목록 > 추가/수정/상세 페이지 > 장비분류 > 구성분류 */
-        select
-            config_id as `id`, config_category as `name`
-        from
-            equipment_categories
-        GROUP BY config_id;
-    </select>
 
-    <select id="getSelectAssetData" parameterType="map" resultType="map">
-        /* getSelectAssetData
-        장비관리 > 장비목록 > 추가/수정/상세 페이지 > 장비분류 > 자산분류 */
-        select
-            asset_id as `id`, asset_category as `name`
-        from
-            equipment_categories
-        where
-            config_id = #{id}
-        group by asset_id;
-    </select>
-
-    <select id="getSelectSubData" parameterType="map" resultType="map">
-        /* getSelectSubData
-        장비관리 > 장비목록 > 추가/수정/상세 페이지 > 장비분류 > 자산세부분류 */
-        select
-            sub_id as `id`, sub_category as `name`
-        from
-            equipment_categories
-        where
-            asset_id = #{id}
-        GROUP BY sub_id;
-    </select>
-
-    <select id="getSelectDetailData" parameterType="map" resultType="map">
-        /* getSelectDetailData
-        장비관리 > 장비목록 > 추가/수정/상세 페이지 > 장비분류 > 자산상세분류 */
-        select
-            detail_id as `id`, detail_category as `name`
-        from
-            equipment_categories
-        where
-            sub_id = #{id}
-        GROUP BY detail_id;
-    </select>
 
 </mapper>

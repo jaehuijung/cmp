@@ -138,17 +138,29 @@ public class eqpManageController {
         wb.close();
     }
 
-
+    /**
+     * 장비관리 > 장비목록 > 추가 페이지
+     * @return 장비 등록 뷰 페이지
+     */
     @GetMapping("/create")
     public String createEquipmentPage() {
         return "views/eqp/register";
     }
 
+    /**
+     * 장비관리 > 장비목록 > 추가 페이지
+     * @return 장비분류 구성분류 리스트
+     */
     @ResponseBody
     @GetMapping("/selectConfig")
     public Map<String, Object> getSelectConfigData() {
         return eqpManageService.getSelectConfigData();
     }
+
+    /**
+     * 장비관리 > 장비목록 > 추가 페이지
+     * @return 장비분류 자산분류 리스트
+     */
 
     @ResponseBody
     @GetMapping("/selectAsset")
@@ -156,29 +168,34 @@ public class eqpManageController {
         return eqpManageService.getSelectAssetData(paramMap);
     }
 
-
+    /**
+     * 장비관리 > 장비목록 > 추가 페이지
+     * @return 장비분류 자산세부분류 리스트
+     */
     @ResponseBody
     @GetMapping("/selectSub")
     public Map<String, Object> getSelectSubData(@RequestParam Map<String, Object> paramMap) {
         return eqpManageService.getSelectSubData(paramMap);
     }
 
-
+    /**
+     * 장비관리 > 장비목록 > 추가 페이지
+     * @return 장비분류 자산상세분류 리스트
+     */
     @ResponseBody
     @GetMapping("/selectDetail")
     public Map<String, Object> getSelectDetailData(@RequestParam Map<String, Object> paramMap) {
         return eqpManageService.getSelectDetailData(paramMap);
     }
 
-
+    /**
+     * 장비관리 > 장비목록 > 추가 페이지 > 저장
+     * @return
+     */
     @ResponseBody
     @PostMapping("/saveEquipmentInfo")
-    public void saveEquipmentInfo(@RequestBody Map<String, Object> dataMap) {
-        System.out.println("Received Data: " + dataMap);
-
-        if (dataMap.containsKey("eqp_name")) {
-            System.out.println("장비명: " + dataMap.get("eqp_name"));
-        }
+    public Map<String, Object> saveEquipmentInfo(@RequestBody Map<String, Object> paramMap) {
+        return eqpManageService.insertEqpList(paramMap);
     }
 
     @GetMapping("/detail/{id}")
