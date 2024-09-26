@@ -214,7 +214,8 @@ function searchState(type, isChecked){
             // 전체 컬럼 필터링
             columns = columns.filter(column =>
                 [
-                    'hostname', 'm_company', 'model', 'config_category', 'config_id', 'asset_category', 'asset_id',
+                    'hostname', 'm_company', 'model',
+                    'config_category', 'config_id', 'asset_category', 'asset_id', 'sub_category', 'sub_id', 'detail_category', 'detail_id',
                     'ip_address', 'os_version', 'operating_status', 'operating_department',
                     'primary_operator', 'secondary_operator', 'primary_outsourced_operator', 'secondary_outsourced_operator'
                 ].indexOf(column.field) === -1
