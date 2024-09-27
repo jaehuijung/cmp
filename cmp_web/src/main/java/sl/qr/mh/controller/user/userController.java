@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
-import sl.qr.mh.service.databaseService;
+import sl.qr.mh.service.old.databaseService;
 import sl.qr.mh.vo.User;
 
 @Slf4j

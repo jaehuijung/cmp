@@ -4,7 +4,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="sl.qr.mh.service.databaseMapper">
+<mapper namespace="sl.qr.mh.service.old.databaseMapper">
 
     <!-- [조회] 등록된 QR정보 조회 > IDX/권한/좌표/호스트/포트/QR이미지/요청 -->
     <select id="searchQRAllParam2" parameterType="hashMap" resultType="hashMap">

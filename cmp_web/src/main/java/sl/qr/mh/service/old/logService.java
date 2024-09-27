@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+import sl.qr.mh.service.old.databaseService;
 
 /**
  * @brief 로그 서비스 클래스
@@ -23,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 public class logService implements logServiceI {
 
     // DB mapper
-    private final databaseService databaseService;
+    private final sl.qr.mh.service.old.databaseService databaseService;
 
     public logService(databaseService databaseService) {
         this.databaseService = databaseService;

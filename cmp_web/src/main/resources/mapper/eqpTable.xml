@@ -36,7 +36,7 @@
         /* getSelectSubData
         장비관리 > 장비목록 > 추가/수정/상세 페이지 > 장비분류 > 자산세부분류 */
         select
-        sub_id as `id`, sub_category as `name`
+        sub_id as `id`, sub_category as `name`, categories
         from
         equipment_categories
         where
@@ -114,10 +114,22 @@
     </select>
 
 
+    <select id="generateEqpManageId" parameterType="map" resultType="String">
+        /* generateEqpManageId...
+            장비관리 > 장비목록 > 추가 페이지 > 저장
+            장비 관리번호 생성
+        */
+        SELECT
+        CONCAT(#{categories}, YEAR(CURDATE()), LPAD(IFNULL(MAX(CAST(SUBSTRING(eqp_manage_id, -4) AS UNSIGNED)) + 1, 1), 4, '0'))
+        FROM equipment_basic
+        WHERE eqp_manage_id LIKE CONCAT(#{categories}, YEAR(CURDATE()), '%');
+    </select>
+
 
     <insert id="insertEquipmentBasic" parameterType="map">
         /* insertEquipmentBasic...
-           장비관리 > 장비목록 > 추가 페이지 > 저장
+            장비관리 > 장비목록 > 추가 페이지 > 저장
+            장비 기본정보 저장
         */
         INSERT INTO equipment_basic (
             eqp_manage_id,
@@ -132,7 +144,7 @@
             asset_category,
             sub_category,
             detail_category,
-            operating_category,
+            network_operation_type,
             operating_status,
             operating_department,
             primary_operator,
@@ -143,8 +155,8 @@
             updated_at,
             creator
         )
-        SELECT
-            CONCAT(#{categories}, YEAR(CURDATE()), LPAD(IFNULL(MAX(CAST(SUBSTRING(eqp_manage_id, -4) AS UNSIGNED)) + 1, 1), 4, '0')),
+        VALUES (
+            #{eqp_manage_id},
             #{eqp_name},
             #{host_name},
             #{model_name},
@@ -156,7 +168,7 @@
             #{asset_category},
             #{sub_category},
             #{detail_category},
-            #{operating_category},
+            #{network_operation_type},
             #{operating_status},
             #{operating_department},
             #{primary_operator},
@@ -166,16 +178,54 @@
             NOW(),
             NULL,
             NULL
-        FROM equipment_basic
-        WHERE eqp_manage_id LIKE CONCAT(#{categories}, YEAR(CURDATE()), '%');
-
+        )
     </insert>
 
     <insert id="insertEquipmentDetail" parameterType="map">
-
+        /* insertEquipmentDetail...
+            장비관리 > 장비목록 > 추가 페이지 > 저장
+            장비 세부정보 저장
+        */
+        insert into equipment_detail(
+            eqp_manage_id,
+            CPU,
+            MEMORY,
+            DISK,
+            ip_address,
+            OS,
+            acquisition_cost,
+            installation_coordinates,
+            installation_units,
+            equipment_size_units,
+            dbrain_number,
+            serial_number,
+            asset_acquisition_date,
+            asset_disposal_date,
+            eol_status,
+            eos_status
+        )
+        values(
+            #{eqp_manage_id},
+            #{cpu},
+            #{mem},
+            #{disk},
+            #{ip_address},
+            #{os_version},
+            #{acquisition_cost},
+            #{installation_coordinates},
+            #{installation_units},
+            #{equipment_size_units},
+            #{dbrain_number},
+            #{serial_number},
+            #{asset_acquisition_date},
+            #{asset_disposal_date},
+            #{eol_status},
+            #{eos_status}
+        )
     </insert>
 
     <insert id="insertEquipmentPort" parameterType="map">
+
 
     </insert>
 

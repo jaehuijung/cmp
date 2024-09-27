@@ -53,6 +53,7 @@ function getSelectConfig(){
             detailSelect.empty();
             detailSelect.append(new Option("선택", ""));
 
+            $("#categories").val("");
 
             let data = res.selectData;
             data.forEach(function(item) {
@@ -87,6 +88,8 @@ function getSelectAsset(configValue){
             data.forEach(function(item) {
                 assetSelect.append(new Option(item.name, item.id));
             });
+
+            $("#categories").val("");
         },
     });
 }
@@ -112,6 +115,8 @@ function getSelectSub(assetValue){
             data.forEach(function(item) {
                 subSelect.append(new Option(item.name, item.id));
             });
+
+            $("#categories").val(data[0].categories);
         },
     });
 }
@@ -167,7 +172,8 @@ function setDefaultDates() {
  * 각 폼 데이터를 수집하여 서버로 전송합니다.
  */
 function saveData() {
-    const data = {};
+
+    let data = {};
     let isValid = true;
     let errorMessage = "";
 
@@ -176,8 +182,8 @@ function saveData() {
         const name = input.name;
 
         if (["eqp_name", "hostname", "model", "m_company", "primary_operator", "primary_outsourced_operator",
-             "secondary_operator", "secondary_outsourced_operator", "operating_department", "cpu", "mem",
-             "disk", "ip_address", "os_version", "dbrain_number", "serial_number", "installation_coordinates"].includes(name)) {
+            "secondary_operator", "secondary_outsourced_operator", "operating_department", "cpu", "mem",
+            "disk", "ip_address", "os_version", "dbrain_number", "serial_number", "installation_coordinates"].includes(name)) {
             if (value.length > 30) {
                 errorMessage += `${name}는 30글자 초과할 수 없습니다.\n`;
                 isValid = false;
@@ -194,8 +200,8 @@ function saveData() {
             isValid = false;
         }
 
-        if ((value === "" && name.includes("date"))) {
-            errorMessage += `${name}는 올바른 날짜를 입력해야 합니다.\n`;
+        if (name.includes("date") && !isValidDate(value)) {
+            errorMessage += `${name}는 유효한 날짜여야 합니다.\n`;
             isValid = false;
         }
 
@@ -207,30 +213,79 @@ function saveData() {
         const selectedId = $(this).attr('id');
         const selectedValue = $(this).val();
         const selectedText = $(this).find("option:selected").text();
-
-        console.log("선택된 요소 ID:", selectedId);
-        console.log("선택된 값:", selectedValue);
-        console.log("선택된 텍스트:", selectedText);
     });
 
     if (!isValid) {
         alert2("알림", errorMessage, "error", "확인");
         return false;
     }
+    if($("#config_category").val() === ""){
+        alert2("알림", "구성분류를 선택해주세요", "info", "확인");
+        return false;
+    }
+    if($("#asset_category").val() === ""){
+        alert2("알림", "자산분류를 선택해주세요", "info", "확인");
+        return false;
+    }
+    if($("#sub_category").val() === ""){
+        alert2("알림", "자산세부분류를 선택해주세요", "info", "확인");
+        return false;
+    }
 
-    $.ajax({
-        type: "POST",
-        url: "/eqpManage/saveEquipmentInfo",
-        data: JSON.stringify(data), // 데이터를 JSON 문자열로 변환
-        contentType: "application/json",
-        success: function(response) {
-            alert2("알림", "저장되었습니다.", "info", "확인");
+    data["categories"] = $("#categories").val();
+
+
+    Swal.fire({
+        title: '알림',
+        html : '저장하시겠습니까?',
+        icon : 'info',
+        focusConfirm: false,
+        confirmButtonText: '저장',
+        cancelButtonText: '취소',
+        showCancelButton: true,
+        customClass: {
+            popup: 'custom-width'
         },
-        error: function(error) {
-            alert2("알림", "저장 중 오류가 발생했습니다. <br>관리자에게 문의하세요", "error", "확인");
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "POST",
+                url: "/eqpManage/saveEquipmentInfo",
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                success: function(res) {
+                    if(!res.errorCode){
+                        alert2("알림", "저장 중 오류가 발생했습니다. <br>관리자에게 문의하세요", "error", "확인");
+                    }
+                    else{
+                        alert2("알림", "저장되었습니다.", "info", "확인");
+                    }
+
+                },
+                error: function(error) {
+                    alert2("알림", "저장 중 오류가 발생했습니다. <br>관리자에게 문의하세요", "error", "확인");
+                }
+            });
         }
-    });
+    })
 }
+
+// 날짜 형식 검증 함수
+function isValidDate(dateString) {
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+
+    if (!dateString.match(regex)) return false;
+
+    const date = new Date(dateString);
+
+    // 유효한 날짜인지 확인
+    if (isNaN(date.getTime())) return false;
+
+    // 주어진 날짜 문자열이 실제로 유효한지 확인
+    const [year, month, day] = dateString.split('-').map(Number);
+    return date.getFullYear() === year && (date.getMonth() + 1) === month && date.getDate() === day;
+}
+
 
 /**
  * 장비관리 > 장비목록 > 장비추가 > 취소버튼

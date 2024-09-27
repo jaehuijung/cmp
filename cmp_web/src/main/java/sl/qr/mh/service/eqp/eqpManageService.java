@@ -81,6 +81,7 @@ public class eqpManageService {
     public Map<String, Object> getEqpUpdateList(String param) {
         Map<String, Object> returnMap = new HashMap<>();
         returnMap.put("errorCode",false);
+        Map<String, Object> paramMap = new HashMap<>();
 
         try {
             Map<String, Object> rows = eqpMapper.getEqpDetailList(param);
@@ -102,12 +103,18 @@ public class eqpManageService {
         Map<String, Object> returnMap = new HashMap<>();
         returnMap.put("errorCode",false);
 
-        try {
-            // eqpMapper.insertEqpList(paramMap);
+        try {            
+            paramMap.put("eqp_manage_id", eqpMapper.generateEqpManageId(paramMap)); // 장비 관리번호 생성
+
+            eqpMapper.insertEquipmentBasic(paramMap); // 장비 기본정보 저장
+            eqpMapper.insertEquipmentDetail(paramMap); // 장비 세부정보 저장
+            // eqpMapper.insertEquipmentPort(paramMap); // 장비 포트정보 저장
+            
             returnMap.put("errorCode",true);
 
         } catch (Exception e) {
             log.error(e.getMessage());
+            throw e;
         }
 
         return returnMap;
