@@ -205,8 +205,8 @@ public class eqpManageController {
     /**
      * 장비관리 > 장비목록 > 추가
      *
-     * 저장
-     * @return
+     * 장비 저장
+     * @return 장비 저장 결과
      */
     @ResponseBody
     @PostMapping("/saveEquipmentInfo")
@@ -217,24 +217,16 @@ public class eqpManageController {
     /**
      * 장비관리 > 장비목록 > 상세
      *
-     *
-     * @param id
-     * @param model
-     * @return 장비 추가 뷰 페이지
+     * @return 장비 상세 뷰 페이지
      */
     @GetMapping("/detail/{id}")
-    public String detailEquipmentPage(@PathVariable("id") Long id, Model model) {
-        //장비 ID로 실제 데이터를 조회하는 로직
-        // Equipment equipment = equipmentService.getById(id);
-        // model.addAttribute("equipment", equipment);
+    public String detailEquipmentPage(@PathVariable("id") String id, Model model) {
         return "views/eqp/detail";
     }
 
     /**
      * 장비관리 > 장비목록 > 수정
      *
-     * @param id
-     * @param model
      * @return 장비 수정 뷰 페이지
      */
     @GetMapping("/update/{id}")

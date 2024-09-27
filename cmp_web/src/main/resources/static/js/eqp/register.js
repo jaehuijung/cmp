@@ -10,17 +10,17 @@ $(function(){
 
     // 장비분류 선택 시 선택박스 세팅
     $(document).ready(function() {
-        $('#config_category').change(function(){
+        $('#config_id').change(function(){
             const configValue = $(this).val();
             getSelectAsset(configValue);
         })
 
-        $('#asset_category').change(function(){
+        $('#asset_id').change(function(){
             const assetValue = $(this).val();
             getSelectSub(assetValue);
         })
 
-        $('#sub_category').change(function(){
+        $('#sub_id').change(function(){
             const subValue = $(this).val();
             getSelectDetail(subValue);
         })
@@ -37,19 +37,19 @@ function getSelectConfig(){
         url: "/eqpManage/selectConfig",
         type: "GET",
         success: function (res) {
-            const categorySelect = $("#config_category");
+            const categorySelect = $("#config_id");
             categorySelect.empty();
             categorySelect.append(new Option("선택", ""));
 
-            const assetSelect = $("#asset_category");
+            const assetSelect = $("#asset_id");
             assetSelect.empty();
             assetSelect.append(new Option("선택", ""));
 
-            const subSelect = $("#sub_category");
+            const subSelect = $("#sub_id");
             subSelect.empty();
             subSelect.append(new Option("선택", ""));
 
-            const detailSelect = $("#detail_category");
+            const detailSelect = $("#detail_id");
             detailSelect.empty();
             detailSelect.append(new Option("선택", ""));
 
@@ -72,15 +72,15 @@ function getSelectAsset(configValue){
         type: "GET",
         data: {id: configValue},
         success: function (res) {
-            const assetSelect = $("#asset_category");
+            const assetSelect = $("#asset_id");
             assetSelect.empty();
             assetSelect.append(new Option("선택", ""));
 
-            const subSelect = $("#sub_category");
+            const subSelect = $("#sub_id");
             subSelect.empty();
             subSelect.append(new Option("선택", ""));
 
-            const detailSelect = $("#detail_category");
+            const detailSelect = $("#detail_id");
             detailSelect.empty();
             detailSelect.append(new Option("선택", ""));
 
@@ -103,11 +103,11 @@ function getSelectSub(assetValue){
         type: "GET",
         data: {id: assetValue},
         success: function (res) {
-            const subSelect = $("#sub_category");
+            const subSelect = $("#sub_id");
             subSelect.empty();
             subSelect.append(new Option("선택", ""));
 
-            const detailSelect = $("#detail_category");
+            const detailSelect = $("#detail_id");
             detailSelect.empty();
             detailSelect.append(new Option("선택", ""));
 
@@ -130,7 +130,7 @@ $.ajax({
         type: "GET",
         data: {id: subValue},
         success: function (res) {
-            const detailSelect = $("#detail_category");
+            const detailSelect = $("#detail_id");
             let data = res.selectData;
 
             if (res.selectData[0] === null){
@@ -219,15 +219,15 @@ function saveData() {
         alert2("알림", errorMessage, "error", "확인");
         return false;
     }
-    if($("#config_category").val() === ""){
+    if($("#config_id").val() === ""){
         alert2("알림", "구성분류를 선택해주세요", "info", "확인");
         return false;
     }
-    if($("#asset_category").val() === ""){
+    if($("#asset_id").val() === ""){
         alert2("알림", "자산분류를 선택해주세요", "info", "확인");
         return false;
     }
-    if($("#sub_category").val() === ""){
+    if($("#sub_id").val() === ""){
         alert2("알림", "자산세부분류를 선택해주세요", "info", "확인");
         return false;
     }

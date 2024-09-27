@@ -69,15 +69,14 @@ $(function(){
         onLoadSuccess: function(res) {
             let errorCode = res.errorCode;
             if (!errorCode){
-                alert2('알림', '데이터를 저장하는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+                alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
             }
 
             $("#eqpTotalCnt").text("총 " + res.total + "건")
         },
         onClickCell: function (field, value, row, $element){
             if(!$element.hasClass("bs-checkbox")){
-                // eqp_detail_popup(row.eqp_id);
-                eqpDetail(row.eqp_id)
+                eqpDetail(row.eqp_manage_id)
             }
         },
     });
@@ -474,20 +473,20 @@ function downloadFileFunction(res, fileName){
 
 // 장비관리 > 장비목록 > 장비추가 페이지 이동
 function eqpCreate(){
-    const newPageUrl = "/eqpManage/create";
-    window.location.href = newPageUrl;
+    const url = "/eqpManage/create";
+    window.location.href = url;
 }
 
 // 장비관리 > 장비목록 > 장비상세 페이지 이동
 function eqpDetail(id){
-    const detailPageUrl = `/eqpManage/detail/${id}`;
-    window.location.href = detailPageUrl;
+    const url = `/eqpManage/detail/${id}`;
+    window.location.href = url;
 }
 
 // 장비관리 > 장비목록 > 장비수정 페이지 이동
 function eqpUpdate(id) {
-    const updatePageUrl = `/eqpManage/update/${id}`;
-    window.location.href = updatePageUrl;
+    const url = `/eqpManage/update/${id}`;
+    window.location.href = url;
 };
 
 
