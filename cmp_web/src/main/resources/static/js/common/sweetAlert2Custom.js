@@ -15,11 +15,50 @@ function alert2(title, html, icon, confirmButtonText, callback) {
         icon: icon,
         confirmButtonText: confirmButtonText
     }).then((result) => {
-        if (typeof callback === 'function' && result.isConfirmed) {
-            callback();
+        if(result.isConfirmed){
+            if (typeof callback === 'function') {
+                callback();
+            }
         }
     });
 }
 
 
+/**
+ * sweetAlert2를 사용해서 알림 표시
+ */
+function alert3(type) {
+    let title = "";
+    let html = "";
 
+    if (type === "load"){
+        title = "loading ...";
+        html = `<img src="/images/loading.gif" alt="Loading" />`
+    }
+    else if(type === "delete"){
+        title = "deleting ...";
+        html = `<img src="/images/loading.gif" alt="Loading" />`
+    }
+    else if(type === "save"){
+        title = "saving ...";
+        html = `<img src="/images/upload.gif" alt="Loading" />`
+    }
+    else if(type === "download"){
+        title = "downloading ...";
+        html = `<img src="/images/download.gif" alt="Loading" />`
+    }
+
+    Swal.fire({
+        title: title,
+        html: html,
+        allowOutsideClick: false,
+        showConfirmButton: false
+    });
+}
+
+/**
+* alert3 알림 종료
+*/
+function alert3Close() {
+    Swal.close();
+}

@@ -189,8 +189,6 @@ function saveData() {
         const value = input.value.trim();
         const name = input.name;
 
-
-
         if (name === "acquisition_cost"){
             let acquisition_cost = removeComma(value);
             if((isNaN(acquisition_cost) || Number(acquisition_cost) > 100000000000)) {
@@ -257,10 +255,7 @@ function saveData() {
     }
 
 
-
-
     data["categories"] = $("#categories").val();
-
 
     Swal.fire({
         title: '알림',
@@ -275,17 +270,20 @@ function saveData() {
         },
     }).then((result) => {
         if (result.isConfirmed) {
+            alert3("save");
+
             $.ajax({
                 type: "POST",
                 url: "/eqpManage/saveEquipmentInfo",
                 data: JSON.stringify(data),
                 contentType: "application/json",
                 success: function(res) {
+                    alert3Close();
                     if(!res.errorCode){
                         alert2("알림", "저장 중 오류가 발생했습니다. <br>관리자에게 문의하세요", "error", "확인");
                     }
                     else{
-                        alert2("알림", "저장되었습니다.", "info", "확인", back());
+                        alert2("알림", "저장되었습니다.", "info", "확인", back);
                     }
 
                 },
@@ -296,20 +294,3 @@ function saveData() {
         }
     })
 }
-
-// 날짜 형식 검증 함수
-function isValidDate(dateString) {
-    const regex = /^\d{4}-\d{2}-\d{2}$/;
-
-    if (!dateString.match(regex)) return false;
-
-    const date = new Date(dateString);
-
-    // 유효한 날짜인지 확인
-    if (isNaN(date.getTime())) return false;
-
-    // 주어진 날짜 문자열이 실제로 유효한지 확인
-    const [year, month, day] = dateString.split('-').map(Number);
-    return date.getFullYear() === year && (date.getMonth() + 1) === month && date.getDate() === day;
-}
-

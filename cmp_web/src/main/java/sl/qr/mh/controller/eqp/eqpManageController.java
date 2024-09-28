@@ -215,11 +215,16 @@ public class eqpManageController {
      *
      * @return 장비 상세 뷰 페이지
      */
+    @SuppressWarnings("unchecked")
     @GetMapping("/detail/{id}")
     public String detailEquipmentPage(@PathVariable("id") String eqp_manage_id, Model model) {
         Map<String, Object> result = eqpManageService.getEquipmentDetailTotalList(eqp_manage_id);
         if((boolean) result.get("errorCode")){
-            model.addAttribute("equipment", result.get("selectData"));
+            Map<String, Object> equipment = (Map<String, Object>) result.get("selectData");
+
+
+            model.addAttribute("equipment", equipment);
+
             return "views/eqp/detail";
         }
 

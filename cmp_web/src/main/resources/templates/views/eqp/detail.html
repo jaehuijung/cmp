@@ -35,6 +35,8 @@
             <h1 style="padding: 0px 0px 10px;">장비 DETAIL</h1>
         </div>
 
+        <input type="hidden" id="eqp_manage_id" name="eqp_manage_id" th:value="${equipment.eqp_manage_id}"/>
+
         <section id="selection-equipment">
             <!-- 장비기본정보 -->
             <div id="section-equipment-basic-info">
@@ -199,7 +201,7 @@
         <div>
             <button type="button" onclick="updateData()">수정</button>
             <button type="button" onclick="deleteData()">삭제</button>
-            <button type="button" onclick="cancelAction()">취소</button>
+            <button type="button" onclick="back()">취소</button>
         </div>
 
     </main>

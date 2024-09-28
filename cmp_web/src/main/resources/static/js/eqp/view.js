@@ -208,6 +208,7 @@ function eqpDelete() {
             },
         }).then((result) => {
             if (result.isConfirmed) {
+                alert3("load");
                 $.ajax({
                     url : '/eqpManage/delete',
                     type: 'post',
@@ -215,6 +216,7 @@ function eqpDelete() {
                     data: JSON.stringify(data),
                     dataType : 'JSON',
                     success : function(res){
+                        alert3Close();
                         let errorCode = res.errorCode;
 
                         if(!errorCode){
@@ -488,26 +490,3 @@ function eqpUpdate(id) {
     const url = `/eqpManage/update/${id}`;
     window.location.href = url;
 };
-
-
-/* 모달에서 페이지로 변경 */
-
-// 장비관리 > 장비목록 > 장비추가 모달
-function eqp_create_popup(){
-
-}
-
-// 장비관리 > 장비목록 > 장비상세 모달
-function eqp_detail_popup(id){
-
-}
-
-// 장비관리 > 장비목록 > 장비수정 모달
-function eqp_update_popup(id) {
-
-};
-
-// 장비추가, 장비수정, 장비상세 모달 생성 html
-function generateAssetInfoHTML(detailRow) {
-
-}

@@ -1,4 +1,21 @@
 
+// 날짜 형식 검증 함수
+function isValidDate(dateString) {
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+
+    if (!dateString.match(regex)) return false;
+
+    const date = new Date(dateString);
+
+    // 유효한 날짜인지 확인
+    if (isNaN(date.getTime())) return false;
+
+    // 주어진 날짜 문자열이 실제로 유효한지 확인
+    const [year, month, day] = dateString.split('-').map(Number);
+    return date.getFullYear() === year && (date.getMonth() + 1) === month && date.getDate() === day;
+}
+
+
 // 사용자가 데이터 입력 시 콤마 추가
 function formatCurrency(input) {
     let value = input.value.replace(/,/g, '');
