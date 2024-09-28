@@ -75,7 +75,7 @@ $(function(){
             $("#eqpTotalCnt").text("총 " + res.total + "건")
         },
         onClickCell: function (field, value, row, $element){
-            if(!$element.hasClass("bs-checkbox")){
+            if(!$element.hasClass("bs-checkbox") && (field == 'eqp_manage_id' || field == 'eqp_name')){
                 eqpDetail(row.eqp_manage_id)
             }
         },
@@ -182,6 +182,34 @@ function searchState(type, isChecked){
     $('#eqpTable').bootstrapTable('refreshOptions', { columns: columns });
 }
 
+// 장비관리 > 장비목록 > 장비추가 페이지 이동
+function eqpCreate(){
+    const url = "/eqpManage/create";
+    window.location.href = url;
+}
+
+// 장비관리 > 장비목록 > 장비상세 페이지 이동
+function eqpDetail(id){
+    const url = `/eqpManage/detail/${id}`;
+    window.location.href = url;
+}
+
+// 장비관리 > 장비목록 > 장비수정 페이지 이동
+function eqpUpdate() {
+    let data = $("#eqpTable").bootstrapTable('getSelections');
+
+    if (data.length == 0){
+        alert2('알림', '수정할 장비를 선택하세요.', 'info', '확인');
+    }
+    else if (data.length > 1){
+        alert2('알림', '하나의 장비만 수정할 수 있습니다.', 'info', '확인');
+    }
+    else{
+        let id = data[0].eqp_manage_id;
+        const url = `/eqpManage/update/${id}`;
+        window.location.href = url;
+    }
+};
 
 /**
  * 장비관리 > 장비목록 > 삭제 버튼
@@ -471,22 +499,3 @@ function downloadFileFunction(res, fileName){
     a.remove();
     window.URL.revokeObjectURL(url);
 }
-
-
-// 장비관리 > 장비목록 > 장비추가 페이지 이동
-function eqpCreate(){
-    const url = "/eqpManage/create";
-    window.location.href = url;
-}
-
-// 장비관리 > 장비목록 > 장비상세 페이지 이동
-function eqpDetail(id){
-    const url = `/eqpManage/detail/${id}`;
-    window.location.href = url;
-}
-
-// 장비관리 > 장비목록 > 장비수정 페이지 이동
-function eqpUpdate(id) {
-    const url = `/eqpManage/update/${id}`;
-    window.location.href = url;
-};
