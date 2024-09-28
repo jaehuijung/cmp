@@ -28,23 +28,29 @@ public class eqpManageService {
         this.eqpMapper = eqpMapper;
     }
 
-    // 장비관리 > 장비목록 > 리스트
+    /**
+     * 장비관리 > 장비목록
+     * 장비 목록 데이터 가져오기
+     *
+     * @param paramMap 요청 파라미터 맵
+     * @return 장비 목록 데이터
+     */
     @SuppressWarnings("unchecked")
-    public Map<String, Object> getEqpList(Map<String, Object> paramMap) {
+    public Map<String, Object> getEquipmentTotalList(Map<String, Object> paramMap) {
 
         Map<String, Object> returnMap = new HashMap<>();
         returnMap.put("errorCode",false);
 
         try {
 
-            Map<String, Object> searchData = null;
             if (paramMap.containsKey("searchData")) {
+                Map<String, Object> searchData = null;
                 searchData = (Map<String, Object>) paramMap.get("searchData");
                 paramMap.putAll(searchData);
             }
 
-            List<Map<String, Object>> rows = eqpMapper.getEqpTotalList(paramMap);
-            int total = eqpMapper.getEqpTotalListCnt(paramMap);
+            List<Map<String, Object>> rows = eqpMapper.getEquipmentTotalList(paramMap);
+            int total = eqpMapper.getEquipmentTotalListCnt(paramMap);
 
             returnMap.put("rows", rows);
             returnMap.put("total", total);
@@ -57,110 +63,14 @@ public class eqpManageService {
         return returnMap;
     }
 
-    // 장비관리 > 장비목록 > 상세 데이터
-    public Map<String, Object> getEqpDetailList(String param) {
-        Map<String, Object> returnMap = new HashMap<>();
-        returnMap.put("errorCode",false);
-
-        try {
-            Map<String, Object> rows = eqpMapper.getEqpDetailList(param);
-            returnMap.put("rows", rows);
-            returnMap.put("errorCode",true);
-
-
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
-
-        return returnMap;
-
-
-    }
-
-    // 장비관리 > 장비목록 > 수정 데이터
-    public Map<String, Object> getEqpUpdateList(String param) {
-        Map<String, Object> returnMap = new HashMap<>();
-        returnMap.put("errorCode",false);
-        Map<String, Object> paramMap = new HashMap<>();
-
-        try {
-            Map<String, Object> rows = eqpMapper.getEqpDetailList(param);
-            returnMap.put("rows", rows);
-            returnMap.put("errorCode",true);
-
-
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
-
-        return returnMap;
-    }
-
-
-    // 장비관리 > 장비목록 > 장비 추가
-    @Transactional
-    public Map<String, Object> insertEqpList(Map<String, Object> paramMap) {
-        Map<String, Object> returnMap = new HashMap<>();
-        returnMap.put("errorCode",false);
-
-        try {            
-            paramMap.put("eqp_manage_id", eqpMapper.generateEqpManageId(paramMap)); // 장비 관리번호 생성
-
-            eqpMapper.insertEquipmentBasic(paramMap); // 장비 기본정보 저장
-            eqpMapper.insertEquipmentDetail(paramMap); // 장비 세부정보 저장
-            // eqpMapper.insertEquipmentPort(paramMap); // 장비 포트정보 저장
-            
-            returnMap.put("errorCode",true);
-
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            throw e;
-        }
-
-        return returnMap;
-    }
-
-
-    // 장비관리 > 장비목록 > 장비 수정
-    @Transactional
-    public Map<String, Object> updateEqpList(Map<String, Object> paramMap) {
-        Map<String, Object> returnMap = new HashMap<>();
-        returnMap.put("errorCode",false);
-
-        try {
-            eqpMapper.updateEqpList(paramMap);
-            returnMap.put("errorCode",true);
-
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
-
-        return returnMap;
-    }
-
-    // 장비관리 > 장비목록 > 삭제
-    @Transactional
-    public Map<String, Object> deleteEqpList(List<Map<String, Object>> deleteList) {
-
-        Map<String, Object> returnMap = new HashMap<>();
-        returnMap.put("errorCode",false);
-
-        try {
-            for(Map<String, Object> ele : deleteList){
-                String deleteEqpTarget = ele.get("eqp_id").toString();
-                eqpMapper.deleteEqpList(deleteEqpTarget);
-            }
-
-            returnMap.put("errorCode",true);
-
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
-
-        return returnMap;
-    }
-
-    // 장비관리 > 장비 목록 > 장비 목록 업로드 > 저장
+    /**
+     * 장비관리 > 장비목록 > 장비 업로드
+     * 데이터 저장
+     *
+     * @param file 업로드된 엑셀 파일
+     * @return 삽입 결과
+     * @throws IOException 입력/출력 예외
+     */
     @Transactional
     public Map<String, Object> insertExcelList(MultipartFile file) throws IOException {
         Map<String, Object> returnMap = new HashMap<>();
@@ -205,25 +115,45 @@ public class eqpManageService {
     private final String sep = "/";
     private final String staticPath = System.getProperty("user.dir") + sep + "src" + sep + "main" + sep + "resources" + sep + "static" + sep + "excelTemplate" + sep;
 
-    // 장비관리 > 장비 목록 > 장비 목록 업로드 > 저장 > 결과파일 생성
+    /**
+     * 장비관리 > 장비목록 > 장비 업로드
+     * 저장 완료 후 결과파일 생성
+     *
+     * @param paramMap 저장결과 파라미터 맵
+     * @return 엑셀 워크북 객체
+     * @throws IOException 입력/출력 예외
+     */
     public Workbook saveResultEquipment(Map<String, Object> paramMap) throws IOException {
         String resultPath = staticPath + "equipmentResultTemplate.xlsx";
         FileInputStream file = new FileInputStream(resultPath);
         Workbook wb = new XSSFWorkbook(file);
 
+        // 결과파일 생성 시 데이터 받아와서 엑셀 생성
+        // 장비추가/수정/상세/삭제 기능 개발 완료 후 개발
         return wb;
     }
 
-    // 장비관리 > 장비 목록 > 장비 목록 업로드 > 엑셀 양식 다운로드
+    /**
+     * 장비관리 > 장비목록 > 장비 업로드
+     * 업로드 양식 엑셀 파일 생성
+     *
+     * @return 엑셀 워크북 객체
+     * @throws IOException 입력/출력 예외
+     */
     public Workbook excelTemplate() throws IOException {
         String uploadPath = staticPath + "equipmentUploadTemplate.xlsx";
         FileInputStream file = new FileInputStream(uploadPath);
-        Workbook wb = new XSSFWorkbook(file);
-
-        return wb;
+        return new XSSFWorkbook(file);
     }
 
-    // 장비관리 > 장비 목록 > 장비 목록 업로드 > 검증
+    /**
+     * 장비관리 > 장비목록 > 장비 업로드
+     * 엑셀 업로드 파일 유효성 검증
+     *
+     * @param file 업로드된 엑셀 파일
+     * @return 엑셀 워크북 객체
+     * @throws IOException 입력/출력 예외
+     */
     public Workbook excelValidation(MultipartFile file) throws IOException {
         Workbook wb = new XSSFWorkbook(file.getInputStream());
         Sheet sheet = wb.getSheetAt(1);
@@ -257,7 +187,14 @@ public class eqpManageService {
         return wb;
     }
 
-    // 장비파일 검증용 메서드1 : 문자/숫자 셀 형식 찾기
+    /**
+     * 장비관리 > 장비목록 > 장비 업로드
+     * 검증용 메서드1 : 문자/숫자 셀 형식 찾기
+     *
+     * @param cellHeader 셀 헤더
+     * @param cellValue 셀 값
+     * @return 처리된 셀 데이터와 관련된 맵
+     */
     private Map<String, Object> excelCellProcess(Cell cellHeader, Cell cellValue) {
         Map<String, Object> processMap = new HashMap<>();
 
@@ -275,7 +212,13 @@ public class eqpManageService {
         return processMap;
     }
 
-    // 장비파일 검증용 메서드2 : 숫자만 들어가야 하는 컬럼들
+    /**
+     * 장비관리 > 장비목록 > 장비 업로드
+     * 검증용 메서드2 : 숫자만 들어가야 하는 컬럼들
+     *
+     * @param cellHeaderStr 셀 헤더 문자열
+     * @return 셀이 숫자여야 하는 경우 true, 그렇지 않으면 false
+     */
     private boolean isNumericColumn(String cellHeaderStr) {
         return cellHeaderStr.equals("acquisition_cost")
                 || cellHeaderStr.equals("dbrain_number")
@@ -283,7 +226,14 @@ public class eqpManageService {
                 || cellHeaderStr.equals("equipment_size_units");
     }
 
-    // 장비파일 검증용 메서드3 : 셀이 숫자여야 할 때
+    /**
+     * 장비관리 > 장비목록 > 장비 업로드
+     * 검증용 메서드3 : 셀이 숫자여야 할 때
+     *
+     * @param cellHeaderStr 셀 헤더 문자열
+     * @param cellValue 셀 값
+     * @param processMap 처리된 셀 데이터와 관련된 맵
+     */
     private void processNumericColumn(String cellHeaderStr, Cell cellValue, Map<String, Object> processMap) {
         switch (cellValue.getCellType()) {
             case NUMERIC:
@@ -304,7 +254,14 @@ public class eqpManageService {
         }
     }
 
-    // 장비파일 검증용 메서드4 : 셀이 문자여야 할 때
+    /**
+     * 장비관리 > 장비목록 > 장비 업로드
+     * 검증용 메서드4 : 셀이 문자여야 할 때
+     *
+     * @param cellHeaderStr 셀 헤더 문자열
+     * @param cellValue 셀 값
+     * @param processMap 처리된 셀 데이터와 관련된 맵
+     */
     private void processStringColumn(String cellHeaderStr, Cell cellValue, Map<String, Object> processMap) {
         switch (cellValue.getCellType()) {
             case STRING:
@@ -325,7 +282,13 @@ public class eqpManageService {
         }
     }
 
-    // 장비파일 검증용 메서드5 : 셀이 비었을 때 처리
+    /**
+     * 장비관리 > 장비목록 > 장비 업로드
+     * 검증용 메서드5 : 셀이 비었을 때 처리
+     *
+     * @param cellHeaderStr 셀 헤더 문자열
+     * @param processMap 처리된 셀 데이터와 관련된 맵
+     */
     private void processEmptyCell(String cellHeaderStr, Map<String, Object> processMap) {
         if (isNumericColumn(cellHeaderStr)) {
             processMap.put(cellHeaderStr, 0);
@@ -334,8 +297,15 @@ public class eqpManageService {
         }
     }
 
-    // 장비파일 검증용 메서드6 : workbook 시트에 셀 값 지정
-    public void validDataToSheet(Workbook workbook, int sheetIndex, Map<String, Object> data) {
+    /**
+     * 장비관리 > 장비목록 > 장비 업로드
+     * 검증용 메서드6 : workbook 시트에 셀 값 지정
+     *
+     * @param workbook 엑셀 워크북 객체
+     * @param sheetIndex 시트 인덱스
+     * @param data 셀에 입력할 데이터 맵
+     */
+    private void validDataToSheet(Workbook workbook, int sheetIndex, Map<String, Object> data) {
         Sheet sheet = workbook.getSheetAt(sheetIndex);
         int lastRowNum = sheet.getLastRowNum();
 
@@ -383,7 +353,16 @@ public class eqpManageService {
         setCellValue(sheetIndex, 40, workbook, dataRow, data.get("remarks"));
     }
 
-    // 장비파일 검증용 메서드7 : 문자인지 숫자인지 구분해서 셀 값 지정
+    /**
+     * 장비관리 > 장비목록 > 장비 업로드
+     * 검증용 메서드7 : 문자인지 숫자인지 구분해서 셀 값 지정
+     *
+     * @param sheetIndex 시트 인덱스
+     * @param cellIndex 셀 인덱스
+     * @param workbook 엑셀 워크북 객체
+     * @param dataRow 데이터 행
+     * @param value 셀에 입력할 값
+     */
     private void setCellValue(int sheetIndex, int cellIndex, Workbook workbook, Row dataRow, Object value) {
         if (value == null) {
             dataRow.createCell(cellIndex).setCellValue("");
@@ -407,7 +386,12 @@ public class eqpManageService {
         // }
     }
 
-    // 구성분류 리스트
+    /**
+     * 장비관리 > 장비목록 > 추가/수정/상세
+     * 장비분류 선택박스 : 구성분류 데이터 가져오기
+     *
+     * @return 구성분류 데이터
+     */
     public Map<String, Object> getSelectConfigData(){
         Map<String, Object> returnMap = new HashMap<>();
         returnMap.put("errorCode",false);
@@ -417,14 +401,18 @@ public class eqpManageService {
             returnMap.put("errorCode",true);
         }
         catch (Exception e){
-
+            log.error(e.getMessage());
         }
-
 
         return returnMap;
     }
 
-    // 자산분류 리스트
+    /**
+     * 장비관리 > 장비목록 > 추가/수정/상세
+     * 장비분류 선택박스 : 자산분류 데이터 가져오기
+     *
+     * @return 자산분류 데이터
+     */
     public Map<String, Object> getSelectAssetData(Map<String, Object> paramMap){
         Map<String, Object> returnMap = new HashMap<>();
         returnMap.put("errorCode",false);
@@ -434,13 +422,18 @@ public class eqpManageService {
             returnMap.put("errorCode",true);
         }
         catch (Exception e){
-
+            log.error(e.getMessage());
         }
-
 
         return returnMap;
     }
 
+    /**
+     * 장비관리 > 장비목록 > 추가/수정/상세
+     * 장비분류 선택박스 : 자산세부 데이터 가져오기
+     *
+     * @return 자산세부 데이터
+     */
     public Map<String, Object> getSelectSubData(Map<String, Object> paramMap){
         Map<String, Object> returnMap = new HashMap<>();
         returnMap.put("errorCode",false);
@@ -451,13 +444,18 @@ public class eqpManageService {
 
         }
         catch (Exception e){
-
+            log.error(e.getMessage());
         }
-
 
         return returnMap;
     }
 
+    /**
+     * 장비관리 > 장비목록 > 추가/수정/상세
+     * 장비분류 선택박스 : 자산상세 데이터 가져오기
+     *
+     * @return 자산상세 데이터
+     */
     public Map<String, Object> getSelectDetailData(Map<String, Object> paramMap){
         Map<String, Object> returnMap = new HashMap<>();
         returnMap.put("errorCode",false);
@@ -467,9 +465,112 @@ public class eqpManageService {
             returnMap.put("errorCode",true);
         }
         catch (Exception e){
-
+            log.error(e.getMessage());
         }
 
+        return returnMap;
+    }
+
+    /**
+     * 장비관리 > 장비목록 > 추가
+     * 장비 저장 (기본정보, 세부정보, 연결정보)
+     *
+     * @param paramMap 저장할 장비 데이터
+     * @return 저장 결과
+     */
+    // 장비관리 > 장비목록 > 장비 추가
+    @Transactional
+    public Map<String, Object> insertEqpList(Map<String, Object> paramMap) {
+        Map<String, Object> returnMap = new HashMap<>();
+        returnMap.put("errorCode",false);
+
+        try {
+            paramMap.put("eqp_manage_id", eqpMapper.generateEqpManageId(paramMap)); // 장비 관리번호 생성
+
+            eqpMapper.insertEquipmentBasic(paramMap); // 장비 기본정보 저장
+            eqpMapper.insertEquipmentDetail(paramMap); // 장비 세부정보 저장
+            // eqpMapper.insertEquipmentPort(paramMap); // 장비 포트정보 저장
+
+            returnMap.put("errorCode",true);
+
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw e;
+        }
+
+        return returnMap;
+    }
+
+
+    /**
+     * 장비관리 > 장비목록 > 수정
+     * 선택한 장비 정보 리스트 수정 (기본정보, 세부정보, 연결정보)
+     *
+     * @param paramMap 수정할 장비 데이터
+     * @return 수정 결과
+     */
+    @Transactional
+    public Map<String, Object> updateEqpList(Map<String, Object> paramMap) {
+        Map<String, Object> returnMap = new HashMap<>();
+        returnMap.put("errorCode",false);
+
+        try {
+            eqpMapper.updateEqpList(paramMap);
+            returnMap.put("errorCode",true);
+
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+
+        return returnMap;
+    }
+
+    /**
+     * 장비관리 > 장비목록 > 수정/상세
+     * 선택한 장비 정보 리스트 (기본정보, 세부정보, 연결정보)
+     *
+     * @param eqp_manage_id 장비 관리번호
+     * @return 장비 정보 리스트
+     */
+    public Map<String, Object> getEquipmentDetailTotalList(String eqp_manage_id){
+        Map<String, Object> returnMap = new HashMap<>();
+        returnMap.put("errorCode",false);
+
+        try{
+            returnMap.put("selectData", eqpMapper.getEquipmentDetailTotalList(eqp_manage_id));
+            returnMap.put("errorCode",true);
+        }
+        catch (Exception e){
+            log.error(e.getMessage());
+        }
+
+        return returnMap;
+    }
+    
+    /**
+     * 장비관리 > 장비목록 > 삭제
+     * 선택한 장비 정보 리스트 삭제 (기본정보, 세부정보, 연결정보)
+     *
+     * @param deleteList 삭제할 장비 데이터
+     * @return 삭제 결과
+     */
+    @Transactional
+    public Map<String, Object> deleteEqpList(List<Map<String, Object>> deleteList) {
+
+        Map<String, Object> returnMap = new HashMap<>();
+        returnMap.put("errorCode",false);
+
+        try {
+            for(Map<String, Object> ele : deleteList){
+                String deleteEqpTarget = ele.get("eqp_manage_id").toString();
+                eqpMapper.deleteEqpList(deleteEqpTarget);
+            }
+
+            returnMap.put("errorCode",true);
+
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
 
         return returnMap;
     }

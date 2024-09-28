@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/new_default_layout}">
+
+<head>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pagetitle {
+            width: 100%;
+            background-color: #f8f9fa;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .breadcrumb {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .breadcrumb-item + .breadcrumb-item::before {
+            content: ">";
+            margin: 0 5px;
+            color: #6c757d;
+        }
+
+        .breadcrumb-item a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .breadcrumb-item a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-grow: 1;
+            justify-content: center; /* 중앙 정렬을 위해 추가 */
+            width: 100%;
+        }
+
+        .error {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* 중앙에서 약간 위로 배치 */
+            width: 100%;
+            background-color: #f2f4f5;
+            padding: 20px 0; /* 화면에 맞추기 위해 패딩 추가 */
+            margin-top: 50px; /* 약간 더 아래로 내리기 위해 마진 추가 */
+        }
+
+        .error-card {
+            background-color: #ffffff;
+            border: 2px solid #dcdcdc;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .error-header {
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: #e74c3c;
+        }
+
+        .error-message {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            color: #555555;
+        }
+
+        .error-button-wrapper {
+            margin-top: 20px;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #e74c3c;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item">error</li>
+                </ol>
+            </nav>
+        </div>
+
+        <section class="error">
+            <div class="error-card">
+                <div class="error-header">ERROR</div>
+                <div class="error-message">
+                    <p>죄송합니다. 요청하신 작업을 수행하는 동안 오류가 발생했습니다.</p>
+                    <p>페이지를 새로고침하거나 다른 작업을 시도해주세요.</p>
+                    <p>문제가 계속되면 시스템 관리자에게 문의하세요.</p>
+                </div>
+                <div class="error-button-wrapper">
+                    <a href="javascript:history.back()" class="back-button">돌아가기</a>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+
+</html>

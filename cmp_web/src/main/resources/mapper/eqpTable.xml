@@ -10,56 +10,21 @@
      장비목록 불러오는 select도 테이블 쪼갰으니까 다시 짜야함
      -->
 
-    <select id="getSelectConfigData" parameterType="map" resultType="map">
-        /* getSelectConfigData
-        장비관리 > 장비목록 > 추가/수정/상세 페이지 > 장비분류 > 구성분류 */
-        select
-            config_id as `id`, config_category as `name`
-        from
-            equipment_categories
-        GROUP BY config_id;
-    </select>
+    <sql id="getEquipmentTotalCommon">
+        AND is_deleted = 'N'
+        <if test="searchEqpSearchInput != null and searchEqpSearchInput != ''">
+            AND (
+            BINARY A.eqp_name Like CONCAT('%', #{searchEqpSearchInput}, '%') OR
+            BINARY A.hostname Like CONCAT('%', #{searchEqpSearchInput}, '%') OR
+            BINARY A.m_company Like CONCAT('%', #{searchEqpSearchInput}, '%') OR
+            BINARY A.model Like CONCAT('%', #{searchEqpSearchInput}, '%')
+            )
+        </if>
+    </sql>
 
-    <select id="getSelectAssetData" parameterType="map" resultType="map">
-        /* getSelectAssetData
-        장비관리 > 장비목록 > 추가/수정/상세 페이지 > 장비분류 > 자산분류 */
-        select
-            asset_id as `id`, asset_category as `name`
-        from
-            equipment_categories
-        where
-            config_id = #{id}
-        group by asset_id;
-    </select>
-
-    <select id="getSelectSubData" parameterType="map" resultType="map">
-        /* getSelectSubData
-        장비관리 > 장비목록 > 추가/수정/상세 페이지 > 장비분류 > 자산세부분류 */
-        select
-            sub_id as `id`, sub_category as `name`, categories
-        from
-            equipment_categories
-        where
-            asset_id = #{id}
-        GROUP BY sub_id;
-    </select>
-
-    <select id="getSelectDetailData" parameterType="map" resultType="map">
-        /* getSelectDetailData
-        장비관리 > 장비목록 > 추가/수정/상세 페이지 > 장비분류 > 자산상세분류 */
-        select
-            detail_id as `id`, detail_category as `name`
-        from
-            equipment_categories
-        where
-            sub_id = #{id}
-        GROUP BY detail_id;
-    </select>
-
-
-    <select id="getEqpTotalList" parameterType="Map" resultType="Map">
+    <select id="getEquipmentTotalList" parameterType="Map" resultType="Map">
         /* getEqpTotalList ...
-        장비관리 > 장비목록 > 리스트 목록  */
+            장비관리 > 장비목록 > 리스트 목록  */
         SELECT
             A.eqp_manage_id                   /* 장비 관리번호 */
             , A.eqp_name                      /* 장비명 */
@@ -85,41 +50,71 @@
             , A.creator                       /* 등록자 */
         FROM equipment_basic A
         WHERE 1=1
-        <if test="searchEqpSearchInput != null and searchEqpSearchInput != ''">
-            AND (
-            BINARY A.eqp_name Like CONCAT('%', #{searchEqpSearchInput}, '%')  OR
-            BINARY A.hostname Like CONCAT('%', #{searchEqpSearchInput}, '%')  OR
-            BINARY A.m_company Like CONCAT('%', #{searchEqpSearchInput}, '%')  OR
-            BINARY A.model Like CONCAT('%', #{searchEqpSearchInput}, '%')
-            )
-        </if>
+        <include refid="getEquipmentTotalCommon"/>
         LIMIT #{offset},#{limit};
     </select>
 
 
-    <select id="getEqpTotalListCnt" parameterType="Map" resultType="int">
+    <select id="getEquipmentTotalListCnt" parameterType="Map" resultType="int">
         /* getEqpTotalListCnt ...
-        장비관리 > 장비목록 > 리스트 개수  */
+            장비관리 > 장비목록 > 리스트 개수  */
         SELECT
             COUNT(*)
         FROM
             equipment_basic A
         WHERE 1=1
-        <if test="searchEqpSearchInput != null and searchEqpSearchInput != ''">
-            AND (
-            BINARY A.eqp_name Like CONCAT('%', #{searchEqpSearchInput}, '%')  OR
-            BINARY A.hostname Like CONCAT('%', #{searchEqpSearchInput}, '%')  OR
-            BINARY A.m_company Like CONCAT('%', #{searchEqpSearchInput}, '%')  OR
-            BINARY A.model Like CONCAT('%', #{searchEqpSearchInput}, '%')
-            )
-        </if>
+        <include refid="getEquipmentTotalCommon"/>
     </select>
 
+    <select id="getSelectConfigData" parameterType="map" resultType="map">
+        /* getSelectConfigData
+            장비관리 > 장비목록 > 추가/수정/상세 페이지 > 장비분류 > 구성분류 */
+        select
+            config_id as `id`, config_category as `name`
+        from
+            equipment_categories
+        GROUP BY config_id;
+    </select>
+
+    <select id="getSelectAssetData" parameterType="map" resultType="map">
+        /* getSelectAssetData
+            장비관리 > 장비목록 > 추가/수정/상세 페이지 > 장비분류 > 자산분류 */
+        select
+            asset_id as `id`, asset_category as `name`
+        from
+            equipment_categories
+        where
+            config_id = #{id}
+        group by asset_id;
+    </select>
+
+    <select id="getSelectSubData" parameterType="map" resultType="map">
+        /* getSelectSubData
+            장비관리 > 장비목록 > 추가/수정/상세 페이지 > 장비분류 > 자산세부분류 */
+        select
+            sub_id as `id`, sub_category as `name`, categories
+        from
+            equipment_categories
+        where
+            asset_id = #{id}
+        GROUP BY sub_id;
+    </select>
+
+    <select id="getSelectDetailData" parameterType="map" resultType="map">
+        /* getSelectDetailData
+            장비관리 > 장비목록 > 추가/수정/상세 페이지 > 장비분류 > 자산상세분류 */
+        select
+            detail_id as `id`, detail_category as `name`
+        from
+            equipment_categories
+        where
+            sub_id = #{id}
+        GROUP BY detail_id;
+    </select>
 
     <select id="generateEqpManageId" parameterType="map" resultType="String">
         /* generateEqpManageId...
-            장비관리 > 장비목록 > 추가 페이지 > 저장
-            장비 관리번호 생성
+            장비관리 > 장비목록 > 추가 페이지 > 저장 > 장비 관리번호 생성
         */
         SELECT
             CONCAT(#{categories}, YEAR(CURDATE()), LPAD(IFNULL(MAX(CAST(SUBSTRING(eqp_manage_id, -4) AS UNSIGNED)) + 1, 1), 4, '0'))
@@ -128,11 +123,9 @@
         WHERE eqp_manage_id LIKE CONCAT(#{categories}, YEAR(CURDATE()), '%');
     </select>
 
-
     <insert id="insertEquipmentBasic" parameterType="map">
         /* insertEquipmentBasic...
-            장비관리 > 장비목록 > 추가 페이지 > 저장
-            장비 기본정보 저장
+            장비관리 > 장비목록 > 추가 페이지 > 저장 > 장비 기본정보 저장
         */
         INSERT INTO equipment_basic (
             eqp_manage_id,
@@ -156,7 +149,8 @@
             secondary_outsourced_operator,
             created_at,
             updated_at,
-            creator
+            creator,
+            is_deleted
         )
         VALUES (
             #{eqp_manage_id},
@@ -180,14 +174,14 @@
             #{secondary_outsourced_operator},
             NOW(),
             NULL,
-            NULL
+            NULL,
+            'N'
         )
     </insert>
 
     <insert id="insertEquipmentDetail" parameterType="map">
         /* insertEquipmentDetail...
-            장비관리 > 장비목록 > 추가 페이지 > 저장
-            장비 세부정보 저장
+            장비관리 > 장비목록 > 추가 페이지 > 저장 > 장비 세부정보 저장
         */
         insert into equipment_detail(
             eqp_manage_id,
@@ -228,11 +222,58 @@
     </insert>
 
     <insert id="insertEquipmentPort" parameterType="map">
-
+        /* insertEquipmentPort...
+            장비관리 > 장비목록 > 추가 페이지 > 저장 > 장비 연결정보 저장
+        */
 
     </insert>
 
 
+    <select id="getEquipmentDetailTotalList" parameterType="String" resultType="map">
+        /* getEquipmentDetailTotalList...
+            장비관리 > 장비목록 > 수정 / 상세 페이지 > 장비 정보 (기본정보, 상세정보, 연결정보)
+        */
+        select
+            eb.eqp_manage_id,
+            eb.eqp_name,
+            eb.host_name,
+            eb.model_name,
+            eb.m_company,
+            eb.domestic,
+            eb.redundancy_config,
+            eb.maintenance_contract_target,
+            eb.config_id,
+            eb.asset_id,
+            eb.sub_id,
+            eb.detail_id,
+            eb.network_operation_type,
+            eb.operating_status,
+            eb.operating_department,
+            eb.primary_operator,
+            eb.secondary_operator,
+            eb.primary_outsourced_operator,
+            eb.secondary_outsourced_operator,
+            ed.CPU,
+            ed.MEMORY,
+            ed.DISK,
+            ed.ip_address,
+            ed.OS,
+            ed.acquisition_cost,
+            ed.installation_coordinates,
+            ed.installation_units,
+            ed.equipment_size_units,
+            ed.dbrain_number,
+            ed.serial_number,
+            ed.asset_acquisition_date,
+            ed.asset_disposal_date,
+            ed.eol_status,
+            ed.eos_status
+        from equipment_basic eb
+        join equipment_detail ed
+            on eb.eqp_manage_id = ed.eqp_manage_id
+        where 1=1
+            and eb.eqp_manage_id = #{eqp_manage_id}
+    </select>
 
 
 
@@ -357,16 +398,12 @@
         WHERE id = #{eqp_id};
     </update>
 
-
-
-    <delete id="deleteEqpList" parameterType="String">
+    <update id="deleteEqpList" parameterType="String">
         /* deleteEqpList ...
             장비관리 > 장비목록 > 삭제*/
-        delete from equipment
-        where id = #{deleteEqpTarget}
-    </delete>
-
-
-
+        update equipment_basic
+        set is_deleted = 'Y'
+        where eqp_manage_id = #{deleteEqpTarget}
+    </update>
 
 </mapper>

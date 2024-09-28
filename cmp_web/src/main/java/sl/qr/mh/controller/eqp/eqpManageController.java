@@ -25,13 +25,9 @@ import java.util.Map;
 public class eqpManageController {
 
     private final eqpManageService eqpManageService;
-    private final qrService qrService;
-    private final cableService cableservice;
 
     public eqpManageController(qrService qrService, eqpManageService eqpManageService, cableService cableservice) {
         this.eqpManageService = eqpManageService;
-        this.qrService = qrService;
-        this.cableservice = cableservice;
     }
 
     /**
@@ -55,7 +51,7 @@ public class eqpManageController {
     @ResponseBody
     @PostMapping("/list")
     public Map<String, Object> list(@RequestBody Map<String, Object> paramMap) {
-        return eqpManageService.getEqpList(paramMap);
+        return eqpManageService.getEquipmentTotalList(paramMap);
     }
 
 
@@ -83,7 +79,7 @@ public class eqpManageController {
      */
     @ResponseBody
     @GetMapping("/excelTemplate")
-    public void excelTemplate(HttpServletResponse response) throws NumberFormatException, IOException {
+    public void excelTemplate(HttpServletResponse response) throws IOException {
         Workbook wb = eqpManageService.excelTemplate();
         response.setContentType("ms-vnd/excel");
         response.setHeader("Content-Disposition", "attachment;filename=equipmentUploadTemplate.xlsx");
@@ -204,8 +200,8 @@ public class eqpManageController {
 
     /**
      * 장비관리 > 장비목록 > 추가
-     *
      * 장비 저장
+     *
      * @return 장비 저장 결과
      */
     @ResponseBody
@@ -220,8 +216,18 @@ public class eqpManageController {
      * @return 장비 상세 뷰 페이지
      */
     @GetMapping("/detail/{id}")
-    public String detailEquipmentPage(@PathVariable("id") String id, Model model) {
-        return "views/eqp/detail";
+    public String detailEquipmentPage(@PathVariable("id") String eqp_manage_id, Model model) {
+        Map<String, Object> result = eqpManageService.getEquipmentDetailTotalList(eqp_manage_id);
+        if((boolean) result.get("errorCode")){
+            model.addAttribute("equipment", result.get("selectData"));
+            return "views/eqp/detail";
+        }
+
+        else{
+            return "views/error/error";
+        }
+
+
     }
 
     /**

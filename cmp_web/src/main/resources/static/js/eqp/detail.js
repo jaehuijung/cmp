@@ -1,8 +1,8 @@
 
 
 $(function(){
-
-
+    // 도입금액 콤마처리
+    addComma(document.getElementById("acquisition_cost"));
 
 });
 
@@ -25,14 +25,3 @@ function updateData(){
 function deleteData(){
 
 }
-
-
-/**
- * 장비관리 > 장비목록 > 장비상세 > 취소버튼
- * 취소 버튼을 클릭했을 때 호출되는 함수입니다.
- * 사용자가 이전 페이지로 돌아가도록 합니다.
- */
-function cancelAction() {
-    window.history.back();
-}
-

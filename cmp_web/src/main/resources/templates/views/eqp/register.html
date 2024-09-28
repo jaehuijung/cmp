@@ -43,16 +43,16 @@
 				<h2>장비기본정보</h2>
 				<div class="equipment-wrap">
 					<label for="eqp_name">장비명:</label>
-					<input type="text" id="eqp_name" name="eqp_name" value="장비명test"/>
+					<input type="text" id="eqp_name" name="eqp_name"/>
 
 					<label for="host_name">호스트명:</label>
-					<input type="text" id="host_name" name="host_name" value="호스트명test"/>
+					<input type="text" id="host_name" name="host_name"/>
 
 					<label for="model_name">모델명:</label>
-					<input type="text" id="model_name" name="model_name" value="모델명test"/>
+					<input type="text" id="model_name" name="model_name"/>
 
 					<label for="m_company">제조사:</label>
-					<input type="text" id="m_company" name="m_company" value="제조사test"/>
+					<input type="text" id="m_company" name="m_company"/>
 				</div>
 				<div class="equipment-wrap">
 					<label for="domestic">국산여부:</label>
@@ -105,18 +105,18 @@
 			<div id="section-equipment-operation-info">
 				<h2>장비운영정보</h2>
 				<div class="equipment-wrap">
-					<label for="operating_category">운영구분:</label>
-					<select id="operating_category" name="operating_category">
+					<label for="network_operation_type">운영구분:</label>
+					<select id="network_operation_type" name="network_operation_type">
 						<option value="1">인터넷망</option>
 						<option value="2">업무망</option>
 						<option value="3">운영망</option>
 					</select>
 
 					<label for="primary_operator">운영담당자(정):</label>
-					<input type="text" id="primary_operator" name="primary_operator" value="운영담당정50"/>
+					<input type="text" id="primary_operator" name="primary_operator"/>
 
 					<label for="primary_outsourced_operator">위탁운영사용자(정):</label>
-					<input type="text" id="primary_outsourced_operator" name="primary_outsourced_operator" value="위이탁운영사용정"/>
+					<input type="text" id="primary_outsourced_operator" name="primary_outsourced_operator"/>
 				</div>
 				<div class="equipment-wrap">
 					<label for="operating_status">운영상태:</label>
@@ -126,14 +126,14 @@
 					</select>
 
 					<label for="secondary_operator">운영담당자(부):</label>
-					<input type="text" id="secondary_operator" name="secondary_operator" value="운영담당부ㅛ2"/>
+					<input type="text" id="secondary_operator" name="secondary_operator"/>
 
 					<label for="secondary_outsourced_operator">위탁운영사용자(부):</label>
-					<input type="text" id="secondary_outsourced_operator" name="secondary_outsourced_operator" value="위탁운영사용부22"/>
+					<input type="text" id="secondary_outsourced_operator" name="secondary_outsourced_operator"/>
 				</div>
 				<div class="equipment-wrap">
 					<label for="operating_department">운영부서:</label>
-					<input type="text" id="operating_department" name="operating_department" value="운영부서test"/>
+					<input type="text" id="operating_department" name="operating_department"/>
 				</div>
 			</div>
 
@@ -142,54 +142,54 @@
 				<h2>장비상세정보</h2>
 				<div class="equipment-wrap">
 					<label for="cpu">CPU:</label>
-					<input type="text" id="cpu" name="cpu" value="cpu test"/>
+					<input type="text" id="cpu" name="cpu"/>
 
 					<label for="ip_address">IP 주소:</label>
-					<input type="text" id="ip_address" name="ip_address" value="123.455.122.51"/>
+					<input type="text" id="ip_address" name="ip_address"/>
 
 					<label for="installation_coordinates">설치좌표(좌표):</label>
-					<input type="text" id="installation_coordinates" name="installation_coordinates" value="좌표x4b3"/>
+					<input type="text" id="installation_coordinates" name="installation_coordinates"/>
 
 					<label for="dbrain_number">디브레인번호:</label>
-					<input type="text" id="dbrain_number" name="dbrain_number" value="디브레잉버노3222"/>
+					<input type="text" id="dbrain_number" name="dbrain_number"/>
 				</div>
 				<div class="equipment-wrap">
 					<label for="mem">Memory:</label>
-					<input type="text" id="mem" name="mem" value="128G"/>
+					<input type="text" id="mem" name="mem"/>
 
 					<label for="os_version">OS:</label>
-					<input type="text" id="os_version" name="os_version" value="window11 pro"/>
+					<input type="text" id="os_version" name="os_version"/>
 
 					<label for="installation_units">설치좌표(유닛수):</label>
-					<input type="number" id="installation_units" name="installation_units" value="100"/>
+					<input type="number" id="installation_units" name="installation_units"/>
 
 					<label for="serial_number">시리얼번호:</label>
-					<input type="text" id="serial_number" name="serial_number" value="시리얼10번째ao3mv"/>
+					<input type="text" id="serial_number" name="serial_number"/>
 				</div>
 				<div class="equipment-wrap">
 					<label for="disk">Disk:</label>
-					<input type="text" id="disk" name="disk" value="WD RED"/>
+					<input type="text" id="disk" name="disk"/>
 
 					<label for="acquisition_cost">도입금액:</label>
-					<input type="number" id="acquisition_cost" name="acquisition_cost" value="1000000"/>
+					<input type="text" id="acquisition_cost" name="acquisition_cost" oninput="formatCurrency(this)"/>
 
 					<label for="equipment_size_units">장비크기(유닛수):</label>
-					<input type="number" id="equipment_size_units" name="equipment_size_units" value="100"/>
+					<input type="number" id="equipment_size_units" name="equipment_size_units"/>
 				</div>
 
 				<div class="equipment-wrap">
 					<label for="asset_acquisition_date">자산취득일자:</label>
-					<input type="date" id="asset_acquisition_date" name="asset_acquisition_date" value="2023-10-10"/>
+					<input type="date" id="asset_acquisition_date" name="asset_acquisition_date"/>
 
 					<label for="eol_status">단종상태(EOL):</label>
-					<input type="date" id="eol_status" name="eol_status" value="2023-01-02"/>
+					<input type="date" id="eol_status" name="eol_status"/>
 				</div>
 				<div class="equipment-wrap">
 					<label for="asset_disposal_date">자산폐기일자:</label>
-					<input type="date" id="asset_disposal_date" name="asset_disposal_date" value="2021-01-01"/>
+					<input type="date" id="asset_disposal_date" name="asset_disposal_date"/>
 
 					<label for="eos_status">단종상태(EOS):</label>
-					<input type="date" id="eos_status" name="eos_status" value="2020-09-09"/>
+					<input type="date" id="eos_status" name="eos_status"/>
 				</div>
 			</div>
 
@@ -205,7 +205,7 @@
 
 		<div>
 			<button type="button" onclick="saveData()">저장</button>
-			<button type="button" onclick="cancelAction()">취소</button>
+			<button type="button" onclick="back()">취소</button>
 		</div>
 
 	</main>

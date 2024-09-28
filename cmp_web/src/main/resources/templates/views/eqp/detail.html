@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{layouts/new_default_layout}">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/new_default_layout}">
 
 <head>
-
-	<style>
-		#section-equipment-basic-info,
+    <style>
+        #section-equipment-basic-info,
         #section-equipment-category,
         #section-equipment-operation-info,
         #section-equipment-details,
@@ -15,218 +14,199 @@
             margin-bottom: 30px;
         }
 
-		.equipment-wrap{
-			display: flex;
-		}
-	</style>
+        .equipment-wrap {
+            display: flex;
+        }
+    </style>
 </head>
+
 <div layout:fragment="content">
-	<main id="main" class="main">
+    <main id="main" class="main">
 
-		<div class="pagetitle">
-			<nav>
-				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="index.html">Home</a></li>
-					<li class="breadcrumb-item">장비관리</li>
-					<li class="breadcrumb-item active">장비 DETAIL</li>
-				</ol>
-			</nav>
+        <div class="pagetitle">
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item">장비관리</li>
+                    <li class="breadcrumb-item active">장비 DETAIL</li>
+                </ol>
+            </nav>
 
-			<h1 style="padding: 0px 0px 10px;">장비 DETAIL</h1>
-		</div>
+            <h1 style="padding: 0px 0px 10px;">장비 DETAIL</h1>
+        </div>
 
-		<input type="hidden" id="categories" name="categories"/>
+        <section id="selection-equipment">
+            <!-- 장비기본정보 -->
+            <div id="section-equipment-basic-info">
+                <h2>장비기본정보</h2>
+                <div class="equipment-wrap">
+                    <label for="eqp_name">장비명:</label>
+                    <input type="text" id="eqp_name" name="eqp_name" th:value="${equipment.eqp_name}" readonly/>
 
-		<section id="selection-equipment">
-			<!-- 장비기본정보 -->
-			<div id="section-equipment-basic-info">
-				<h2>장비기본정보</h2>
-				<div class="equipment-wrap">
-					<label for="eqp_name">장비명:</label>
-					<input type="text" id="eqp_name" name="eqp_name" value="장비명test"/>
+                    <label for="host_name">호스트명:</label>
+                    <input type="text" id="host_name" name="host_name" th:value="${equipment.host_name}" readonly/>
 
-					<label for="host_name">호스트명:</label>
-					<input type="text" id="host_name" name="host_name" value="호스트명test"/>
+                    <label for="model_name">모델명:</label>
+                    <input type="text" id="model_name" name="model_name" th:value="${equipment.model_name}" readonly/>
 
-					<label for="model_name">모델명:</label>
-					<input type="text" id="model_name" name="model_name" value="모델명test"/>
+                    <label for="m_company">제조사:</label>
+                    <input type="text" id="m_company" name="m_company" th:value="${equipment.m_company}" readonly/>
+                </div>
+                <div class="equipment-wrap">
+                    <label for="domestic">국산여부:</label>
+                    <input type="text" id="domestic" name="domestic"
+                           th:value="${equipment.domestic == '1' ? '국산' : '외산'}" readonly/>
 
-					<label for="m_company">제조사:</label>
-					<input type="text" id="m_company" name="m_company" value="제조사test"/>
-				</div>
-				<div class="equipment-wrap">
-					<label for="domestic">국산여부:</label>
-					<select id="domestic" name="domestic">
-						<option value="1">국산</option>
-						<option value="2">외산</option>
-					</select>
+                    <label for="redundancy_config">이중화 구성여부:</label>
+                    <input type="text" id="redundancy_config" name="redundancy_config"
+                           th:value="${equipment.redundancy_config == '1' ? '단일' : '이중화'}" readonly/>
 
-					<label for="redundancy_config">이중화 구성여부:</label>
-					<select id="redundancy_config" name="redundancy_config">
-						<option value="1">단일</option>
-						<option value="2">이중화</option>
-					</select>
+                    <label for="maintenance_contract_target">유지관리 계약대상여부:</label>
+                    <input type="text" id="maintenance_contract_target" name="maintenance_contract_target"
+                           th:value="${equipment.maintenance_contract_target == '1' ? 'Y' : 'N'}" readonly/>
+                </div>
+            </div>
 
-					<label for="maintenance_contract_target">유지관리 계약대상여부:</label>
-					<select id="maintenance_contract_target" name="maintenance_contract_target">
-						<option value="1">Y</option>
-						<option value="2">N</option>
-					</select>
-				</div>
-			</div>
+            <!-- 장비분류 -->
+            <div id="section-equipment-category">
+                <h2>장비분류</h2>
+                <div class="equipment-wrap">
+                    <label for="config_category">구성분류:</label>
+                    <select id="config_category" name="config_category">
+                        <option value="">선택</option>
+                    </select>
 
-			<!-- 장비분류 -->
-			<div id="section-equipment-category">
-				<h2>장비분류</h2>
-				<div class="equipment-wrap">
-					<label for="config_category">구성분류:</label>
-					<select id="config_category" name="config_category">
-						<option value="">선택</option>
-					</select>
+                    <label for="asset_category">자산분류:</label>
+                    <select id="asset_category" name="asset_category">
+                        <option value="">선택</option>
+                    </select>
 
-					<label for="asset_category">자산분류:</label>
-					<select id="asset_category" name="asset_category">
-						<option value="">선택</option>
-					</select>
+                    <label for="sub_category">자산세부분류:</label>
+                    <select id="sub_category" name="sub_category">
+                        <option value="">선택</option>
+                    </select>
 
-					<label for="sub_category">자산세부분류:</label>
-					<select id="sub_category" name="sub_category">
-						<option value="">선택</option>
-					</select>
+                    <label for="detail_category">자산상세분류:</label>
+                    <select id="detail_category" name="detail_category">
+                        <option value="">선택</option>
+                    </select>
+                </div>
+            </div>
 
-					<label for="detail_category">자산상세분류:</label>
-					<select id="detail_category" name="detail_category">
-						<option value="">선택</option>
-					</select>
-				</div>
-				<div class="equipment-wrap">
-					<label for="config_id">구성ID:</label>
-					<input type="text" id="config_id" name="config_id" value="구성id154513"/>
+            <!-- 장비운영정보 -->
+            <div id="section-equipment-operation-info">
+                <h2>장비운영정보</h2>
+                <div class="equipment-wrap">
+                    <label for="network_operation_type">운영구분:</label>
+                    <input type="text" id="network_operation_type" name="network_operation_type"
+                           th:value="${equipment.network_operation_type == '1' ? '인터넷망' : (equipment.network_operation_type == '2' ? '업무망' : '운영망')}"
+                           readonly/>
 
-					<label for="asset_id">자산ID:</label>
-					<input type="text" id="asset_id" name="asset_id" value="자산id15364363"/>
+                    <label for="primary_operator">운영담당자(정):</label>
+                    <input type="text" id="primary_operator" name="primary_operator"
+                           th:value="${equipment.primary_operator}" readonly/>
 
-					<label for="sub_id">자산세부ID:</label>
-					<input type="text" id="sub_id" name="sub_id" value="자산세부id64375"/>
+                    <label for="primary_outsourced_operator">위탁운영사용자(정):</label>
+                    <input type="text" id="primary_outsourced_operator" name="primary_outsourced_operator"
+                           th:value="${equipment.primary_outsourced_operator}" readonly/>
+                </div>
+                <div class="equipment-wrap">
+                    <label for="operating_status">운영상태:</label>
+                    <input type="text" id="operating_status" name="operating_status"
+                           th:value="${equipment.operating_status == '1' ? '사용' : '정지'}" readonly/>
 
-					<label for="detail_id">자산상세ID:</label>
-					<input type="text" id="detail_id" name="detail_id" value="자산상세id06343"/>
-				</div>
-			</div>
+                    <label for="secondary_operator">운영담당자(부):</label>
+                    <input type="text" id="secondary_operator" name="secondary_operator"
+                           th:value="${equipment.secondary_operator}" readonly/>
 
-			<!-- 장비운영정보 -->
-			<div id="section-equipment-operation-info">
-				<h2>장비운영정보</h2>
-				<div class="equipment-wrap">
-					<label for="operating_category">운영구분:</label>
-					<select id="operating_category" name="operating_category">
-						<option value="1">인터넷망</option>
-						<option value="2">업무망</option>
-						<option value="3">운영망</option>
-					</select>
+                    <label for="secondary_outsourced_operator">위탁운영사용자(부):</label>
+                    <input type="text" id="secondary_outsourced_operator" name="secondary_outsourced_operator"
+                           th:value="${equipment.secondary_outsourced_operator}" readonly/>
+                </div>
+                <div class="equipment-wrap">
+                    <label for="operating_department">운영부서:</label>
+                    <input type="text" id="operating_department" name="operating_department"
+                           th:value="${equipment.operating_department}" readonly/>
+                </div>
+            </div>
 
-					<label for="primary_operator">운영담당자(정):</label>
-					<input type="text" id="primary_operator" name="primary_operator" value="운영담당정50"/>
+            <!-- 장비상세정보 -->
+            <div id="section-equipment-details">
+                <h2>장비상세정보</h2>
+                <div class="equipment-wrap">
+                    <label for="cpu">CPU:</label>
+                    <input type="text" id="cpu" name="cpu" th:value="${equipment.CPU}" readonly/>
 
-					<label for="primary_outsourced_operator">위탁운영사용자(정):</label>
-					<input type="text" id="primary_outsourced_operator" name="primary_outsourced_operator" value="위이탁운영사용정"/>
-				</div>
-				<div class="equipment-wrap">
-					<label for="operating_status">운영상태:</label>
-					<select id="operating_status" name="operating_status">
-						<option value="1">사용</option>
-						<option value="2">정지</option>
-					</select>
+                    <label for="ip_address">IP 주소:</label>
+                    <input type="text" id="ip_address" name="ip_address" th:value="${equipment.ip_address}" readonly/>
 
-					<label for="secondary_operator">운영담당자(부):</label>
-					<input type="text" id="secondary_operator" name="secondary_operator" value="운영담당부ㅛ2"/>
+                    <label for="installation_coordinates">설치좌표(좌표):</label>
+                    <input type="text" id="installation_coordinates" name="installation_coordinates"
+                           th:value="${equipment.installation_coordinates}" readonly/>
 
-					<label for="secondary_outsourced_operator">위탁운영사용자(부):</label>
-					<input type="text" id="secondary_outsourced_operator" name="secondary_outsourced_operator" value="위탁운영사용부22"/>
-				</div>
-				<div class="equipment-wrap">
-					<label for="operating_department">운영부서:</label>
-					<input type="text" id="operating_department" name="operating_department" value="운영부서test"/>
-				</div>
-			</div>
+                    <label for="dbrain_number">디브레인번호:</label>
+                    <input type="text" id="dbrain_number" name="dbrain_number" th:value="${equipment.dbrain_number}"
+                           readonly/>
+                </div>
+                <div class="equipment-wrap">
+                    <label for="mem">Memory:</label>
+                    <input type="text" id="mem" name="mem" th:value="${equipment.MEMORY}" readonly/>
 
-			<!-- 장비상세정보 -->
-			<div id="section-equipment-details">
-				<h2>장비상세정보</h2>
-				<div class="equipment-wrap">
-					<label for="cpu">CPU:</label>
-					<input type="text" id="cpu" name="cpu" value="cpu test"/>
+                    <label for="os_version">OS:</label>
+                    <input type="text" id="os_version" name="os_version" th:value="${equipment.OS}" readonly/>
 
-					<label for="ip_address">IP 주소:</label>
-					<input type="text" id="ip_address" name="ip_address" value="123.455.122.51"/>
+                    <label for="installation_units">설치좌표(유닛수):</label>
+                    <input type="number" id="installation_units" name="installation_units"
+                           th:value="${equipment.installation_units}" readonly/>
 
-					<label for="installation_coordinates">설치좌표(좌표):</label>
-					<input type="text" id="installation_coordinates" name="installation_coordinates" value="좌표x4b3"/>
+                    <label for="serial_number">시리얼번호:</label>
+                    <input type="text" id="serial_number" name="serial_number" th:value="${equipment.serial_number}"
+                           readonly/>
+                </div>
+                <div class="equipment-wrap">
+                    <label for="disk">Disk:</label>
+                    <input type="text" id="disk" name="disk" th:value="${equipment.DISK}" readonly/>
 
-					<label for="dbrain_number">디브레인번호:</label>
-					<input type="text" id="dbrain_number" name="dbrain_number" value="디브레잉버노3222"/>
-				</div>
-				<div class="equipment-wrap">
-					<label for="mem">Memory:</label>
-					<input type="text" id="mem" name="mem" value="128G"/>
+                    <label for="acquisition_cost">도입금액:</label>
+                    <input type="text" id="acquisition_cost" name="acquisition_cost"
+                           th:value="${equipment.acquisition_cost}" oninput="formatCurrency(this)" readonly/>
 
-					<label for="os_version">OS:</label>
-					<input type="text" id="os_version" name="os_version" value="window11 pro"/>
+                    <label for="equipment_size_units">장비크기(유닛수):</label>
+                    <input type="number" id="equipment_size_units" name="equipment_size_units"
+                           th:value="${equipment.equipment_size_units}" readonly/>
+                </div>
 
-					<label for="installation_units">설치좌표(유닛수):</label>
-					<input type="number" id="installation_units" name="installation_units" value="100"/>
+                <div class="equipment-wrap">
+                    <label for="asset_acquisition_date">자산취득일자:</label>
+                    <input type="date" id="asset_acquisition_date" name="asset_acquisition_date"
+                           th:value="${equipment.asset_acquisition_date}" readonly/>
 
-					<label for="serial_number">시리얼번호:</label>
-					<input type="text" id="serial_number" name="serial_number" value="시리얼10번째ao3mv"/>
-				</div>
-				<div class="equipment-wrap">
-					<label for="disk">Disk:</label>
-					<input type="text" id="disk" name="disk" value="WD RED"/>
+                    <label for="eol_status">단종상태(EOL):</label>
+                    <input type="date" id="eol_status" name="eol_status" th:value="${equipment.eol_status}" readonly/>
+                </div>
+                <div class="equipment-wrap">
+                    <label for="asset_disposal_date">자산폐기일자:</label>
+                    <input type="date" id="asset_disposal_date" name="asset_disposal_date"
+                           th:value="${equipment.asset_disposal_date}" readonly/>
 
-					<label for="acquisition_cost">도입금액:</label>
-					<input type="number" id="acquisition_cost" name="acquisition_cost" value="1000000"/>
+                    <label for="eos_status">단종상태(EOS):</label>
+                    <input type="date" id="eos_status" name="eos_status" th:value="${equipment.eos_status}" readonly/>
+                </div>
+            </div>
 
-					<label for="equipment_size_units">장비크기(유닛수):</label>
-					<input type="number" id="equipment_size_units" name="equipment_size_units" value="100"/>
-				</div>
+        </section>
 
-				<div class="equipment-wrap">
-					<label for="asset_acquisition_date">자산취득일자:</label>
-					<input type="date" id="asset_acquisition_date" name="asset_acquisition_date" value="2023-10-10"/>
+        <div>
+            <button type="button" onclick="updateData()">수정</button>
+            <button type="button" onclick="deleteData()">삭제</button>
+            <button type="button" onclick="cancelAction()">취소</button>
+        </div>
 
-					<label for="eol_status">단종상태(EOL):</label>
-					<input type="date" id="eol_status" name="eol_status" value="2023-01-02"/>
-				</div>
-				<div class="equipment-wrap">
-					<label for="asset_disposal_date">자산폐기일자:</label>
-					<input type="date" id="asset_disposal_date" name="asset_disposal_date" value="2021-01-01"/>
+    </main>
 
-					<label for="eos_status">단종상태(EOS):</label>
-					<input type="date" id="eos_status" name="eos_status" value="2020-09-09"/>
-				</div>
-			</div>
-
-			<!-- 장비연결정보 -->
-			<div id="section-equipment-connection-info">
-				<h2>장비연결정보</h2>
-				<div>
-					<button type="button">추가</button>
-					<button type="button">삭제</button>
-				</div>
-			</div>
-		</section>
-
-		<div>
-			<button type="button" onclick="updateData()">수정</button>
-			<button type="button" onclick="deleteData()">삭제</button>
-			<button type="button" onclick="cancelAction()">취소</button>
-		</div>
-
-	</main>
-
-	<th:block layout:fragment="script">
-		<script th:src="@{/js/eqp/detail.js}"></script>
-	</th:block>
+    <th:block layout:fragment="script">
+        <script th:src="@{/js/eqp/detail.js}"></script>
+    </th:block>
 </div>
 
 </html>
