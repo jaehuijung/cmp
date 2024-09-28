@@ -114,7 +114,7 @@ public interface eqpMapper {
 	 * @return 장비 정보 리스트
 	 */
 	public Map<String, Object> getEquipmentDetailTotalList(String eqp_manage_id); // 장비 상세 리스트
-
+	public Map<String, Object> getEquipmentDetailAssetList(Map<String, Object> paramMap); // 장비 상세 리스트 : 장비 분류 카테고리
 
 
 

@@ -537,7 +537,10 @@ public class eqpManageService {
         returnMap.put("errorCode",false);
 
         try{
-            returnMap.put("selectData", eqpMapper.getEquipmentDetailTotalList(eqp_manage_id));
+            Map<String, Object> selectData = eqpMapper.getEquipmentDetailTotalList(eqp_manage_id);
+            selectData.putAll(eqpMapper.getEquipmentDetailAssetList(selectData));
+
+            returnMap.put("selectData", selectData);
             returnMap.put("errorCode",true);
         }
         catch (Exception e){
