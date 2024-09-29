@@ -44,9 +44,7 @@ public class eqpManageService {
         try {
 
             if (paramMap.containsKey("searchData")) {
-                Map<String, Object> searchData = null;
-                searchData = (Map<String, Object>) paramMap.get("searchData");
-                paramMap.putAll(searchData);
+                paramMap.putAll((Map<String, Object>) paramMap.get("searchData"));
             }
 
             List<Map<String, Object>> rows = eqpMapper.getEquipmentTotalList(paramMap);
@@ -97,7 +95,8 @@ public class eqpManageService {
                     }
                 }
 
-                eqpMapper.insertEqpList(insertExcelMap);
+                // 장비 기본정보 상세정보 연결정보 3개로 변경해야함!!
+                // eqpMapper.insertEqpList(insertExcelMap);
                 successList.add(insertExcelMap);
 
             } catch (Exception e) {
@@ -515,7 +514,8 @@ public class eqpManageService {
         returnMap.put("errorCode",false);
 
         try {
-            eqpMapper.updateEqpList(paramMap);
+            eqpMapper.updateBasicEqpList(paramMap);
+            eqpMapper.updateDetailEqpList(paramMap);
             returnMap.put("errorCode",true);
 
         } catch (Exception e) {

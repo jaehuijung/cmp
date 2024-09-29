@@ -1,24 +1,20 @@
 package sl.qr.mh.controller.eqp;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import sl.qr.mh.service.cableService;
 import sl.qr.mh.service.eqp.eqpManageService;
-import sl.qr.mh.service.qrService;
-import sl.qr.mh.vo.Equipment;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 @Slf4j
+
 @CrossOrigin(origins = "*", allowedHeaders = "*") /* CORS 어노테이션 */
 @Controller
 @RequestMapping("/eqpManage")
@@ -26,7 +22,7 @@ public class eqpManageController {
 
     private final eqpManageService eqpManageService;
 
-    public eqpManageController(qrService qrService, eqpManageService eqpManageService, cableService cableservice) {
+    public eqpManageController(eqpManageService eqpManageService) {
         this.eqpManageService = eqpManageService;
     }
 
@@ -200,7 +196,7 @@ public class eqpManageController {
 
     /**
      * 장비관리 > 장비목록 > 추가
-     * 장비 저장
+     * 장비 정보 저장
      *
      * @return 장비 저장 결과
      */
@@ -247,6 +243,18 @@ public class eqpManageController {
         else{
             return "views/error/error";
         }
+    }
+
+    /**
+     * 장비관리 > 장비목록 > 수정
+     * 장비 정보 수정
+     *
+     * @return 장비 수정 결과
+     */
+    @ResponseBody
+    @PostMapping("/updateEquipmentInfo")
+    public Map<String, Object> updateEquipmentInfo(@RequestBody Map<String, Object> paramMap) {
+        return eqpManageService.updateEqpList(paramMap);
     }
 
 }

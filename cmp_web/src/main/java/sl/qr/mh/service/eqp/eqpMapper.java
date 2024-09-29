@@ -117,19 +117,13 @@ public interface eqpMapper {
 	public Map<String, Object> getEquipmentDetailAssetList(Map<String, Object> paramMap); // 장비 상세 리스트 : 장비 분류 카테고리
 
 
-
-
-	/* 테이블 쪼개면서 아래 쿼리 다시 작성해야 함... 나중에 지우기  */
-
 	/**
-	 * 장비관리 > 장비목록 > 추가
-	 * 장비관리 > 장비목록 > 장비 업로드
-	 * 데이터 저장
-	 * ... 기본정보, 세부정보, 연결정보 등록 쿼리 3개 만들어야 함
-	 * @param paramMap 입력받은 데이터 또는 업로드된 엑셀 파일의 데이터
+	 * 장비관리 > 장비목록 > 수정
+	 * 선택한 장비 정보 리스트 수정 (기본정보, 세부정보, 연결정보)
+	 * ... 기본정보, 세부정보, 연결정보 수정 쿼리 3개 만들어야 함
+	 * @param paramMap 삭제할 장비의 장비관리번호
 	 */
-	public void insertEqpList(Map<String, Object> paramMap);
-
+	public void updateBasicEqpList(Map<String, Object> paramMap);
 
 	/**
 	 * 장비관리 > 장비목록 > 수정
@@ -137,7 +131,9 @@ public interface eqpMapper {
 	 * ... 기본정보, 세부정보, 연결정보 수정 쿼리 3개 만들어야 함
 	 * @param paramMap 삭제할 장비의 장비관리번호
 	 */
-	public void updateEqpList(Map<String, Object> paramMap);
+	public void updateDetailEqpList(Map<String, Object> paramMap);
+
+
 
 	/**
 	 * 장비관리 > 장비목록 > 삭제
@@ -146,5 +142,7 @@ public interface eqpMapper {
 	 * @param deleteEqpTarget 삭제할 장비의 장비관리번호
 	 */
 	public void deleteEqpList(String deleteEqpTarget);
+
+
 
 }

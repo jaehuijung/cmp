@@ -285,7 +285,7 @@
 
     <select id="getEquipmentDetailAssetList" parameterType="map" resultType="map">
         /* getEquipmentDetailAssetList...
-        장비관리 > 장비목록 > 상세 페이지 > 장비 정보 (기본정보의 장비 분류 카테고리)
+            장비관리 > 장비목록 > 상세 페이지 > 장비 정보 (기본정보의 장비 분류 카테고리)
         */
         select
             ec.config_category,
@@ -308,24 +308,48 @@
 
 
 
-
-
-    <!-- -->
-
-    <update id="updateEqpList" parameterType="Map">
-        /* updateEqpList ...
-            장비관리 > 장비목록 > 수정 */
-        UPDATE equipment
+    <update id="updateBasicEqpList" parameterType="Map">
+        /* updateBasicEqpList ...
+            장비관리 > 장비목록 > 수정 페이지 > 저장 : 장비 기본정보*/
+        UPDATE
+            equipment_basic
         SET
             eqp_name = #{eqp_name}
-        <if test="config_category != null and config_category != ''">
-            , config_category = #{config_category}
+        <if test="host_name != null and host_name != ''">
+            , host_name = #{host_name}
+        </if>
+        <if test="model_name != null and model_name != ''">
+            , model_name = #{model_name}
+        </if>
+        <if test="m_company != null and m_company != ''">
+            , m_company = #{m_company}
+        </if>
+        <if test="domestic != null and domestic != ''">
+            , domestic = #{domestic}
+        </if>
+        <if test="redundancy_config != null and redundancy_config != ''">
+            , redundancy_config = #{redundancy_config}
+        </if>
+        <if test="maintenance_contract_target != null and maintenance_contract_target != ''">
+            , maintenance_contract_target = #{maintenance_contract_target}
+        </if>
+        <if test="config_id != null and config_id != ''">
+            , config_id = #{config_id}
         </if>
         <if test="asset_id != null and asset_id != ''">
             , asset_id = #{asset_id}
         </if>
-        <if test="m_company != null and m_company != ''">
-            , m_company = #{m_company}
+        <if test="sub_id != null and sub_id != ''">
+            , sub_id = #{sub_id}
+        </if>
+        <if test="detail_id != null and detail_id != ''">
+            , detail_id = #{detail_id}
+        </if>
+        <if test="network_operation_type != null and network_operation_type != ''">
+            , network_operation_type = #{network_operation_type}
+        </if>
+        <if test="operating_status != null and operating_status != ''">
+            , operating_status = #{operating_status}
         </if>
         <if test="operating_department != null and operating_department != ''">
             , operating_department = #{operating_department}
@@ -342,62 +366,38 @@
         <if test="secondary_outsourced_operator != null and secondary_outsourced_operator != ''">
             , secondary_outsourced_operator = #{secondary_outsourced_operator}
         </if>
-        <if test="maintenance_contract_target != null and maintenance_contract_target != ''">
-            , maintenance_contract_target = #{maintenance_contract_target}
+        <if test="updated_at != null and updated_at != ''">
+            , updated_at = NOW()
         </if>
-        <if test="redundancy_config != null and redundancy_config != ''">
-            , redundancy_config = #{redundancy_config}
+        WHERE
+            eqp_manage_id = #{eqp_manage_id};
+    </update>
+
+    <update id="updateDetailEqpList" parameterType="Map">
+        /* updateDetailEqpList ...
+            장비관리 > 장비목록 > 수정 페이지 > 저장 : 장비 세부정보 저장 */
+        UPDATE
+            equipment_detail
+        SET
+            dbrain_number = #{dbrain_number}
+            , serial_number = #{serial_number}
+        <if test="CPU != null and CPU != ''">
+            , CPU = #{cpu}
         </if>
-        <if test="domestic != null and domestic != ''">
-            , domestic = #{domestic}
+        <if test="MEMORY != null and MEMORY != ''">
+            , MEMORY = #{mem}
         </if>
-        <if test="asset_category != null and asset_category != ''">
-            , asset_category = #{asset_category}
-        </if>
-        <if test="config_id != null and config_id != ''">
-            , config_id = #{config_id}
-        </if>
-        <if test="model != null and model != ''">
-            , model = #{model}
-        </if>
-        <if test="operating_status != null and operating_status != ''">
-            , operating_status = #{operating_status}
-        </if>
-        <if test="asset_acquisition_date != null and asset_acquisition_date != ''">
-            , asset_acquisition_date = #{asset_acquisition_date}
-        </if>
-        <if test="asset_disposal_date != null and asset_disposal_date != ''">
-            , asset_disposal_date = #{asset_disposal_date}
-        </if>
-        <if test="yearofintroduct != null and yearofintroduct != ''">
-            , yearofintroduct = #{yearofintroduct}
-        </if>
-        <if test="acquisition_cost != null and acquisition_cost != ''">
-            , acquisition_cost = #{acquisition_cost}
-        </if>
-        <if test="unit_position != null and unit_position != ''">
-            , unit_position = #{unit_position}
-        </if>
-        <if test="dbrain_number != null and dbrain_number != ''">
-            , dbrain_number = #{dbrain_number}
-        </if>
-        <if test="eol_status != null and eol_status != ''">
-            , eol_status = #{eol_status}
-        </if>
-        <if test="eos_status != null and eos_status != ''">
-            , eos_status = #{eos_status}
-        </if>
-        <if test="network_operation_type != null and network_operation_type != ''">
-            , network_operation_type = #{network_operation_type}
-        </if>
-        <if test="hostname != null and hostname != ''">
-            , hostname = #{hostname}
+        <if test="DISK != null and DISK != ''">
+            , DISK = #{disk}
         </if>
         <if test="ip_address != null and ip_address != ''">
             , ip_address = #{ip_address}
         </if>
-        <if test="serial_number != null and serial_number != ''">
-            , serial_number = #{serial_number}
+        <if test="OS != null and OS != ''">
+            , OS = #{os_version}
+        </if>
+        <if test="acquisition_cost != null and acquisition_cost != ''">
+            , acquisition_cost = #{acquisition_cost}
         </if>
         <if test="installation_coordinates != null and installation_coordinates != ''">
             , installation_coordinates = #{installation_coordinates}
@@ -405,30 +405,29 @@
         <if test="installation_units != null and installation_units != ''">
             , installation_units = #{installation_units}
         </if>
-        <if test="resource_name != null and resource_name != ''">
-            , resource_name = #{resource_name}
-        </if>
-        <if test="os_version != null and os_version != ''">
-            , os_version = #{os_version}
-        </if>
-        <if test="cpu != null and cpu != ''">
-            , cpu = #{cpu}
-        </if>
-        <if test="mem != null and mem != ''">
-            , mem = #{mem}
-        </if>
-        <if test="disk != null and disk != ''">
-            , disk = #{disk}
-        </if>
         <if test="equipment_size_units != null and equipment_size_units != ''">
             , equipment_size_units = #{equipment_size_units}
         </if>
-        WHERE id = #{eqp_id};
+        <if test="asset_acquisition_date != null and asset_acquisition_date != ''">
+            , asset_acquisition_date = #{asset_acquisition_date}
+        </if>
+        <if test="asset_disposal_date != null and asset_disposal_date != ''">
+            , asset_disposal_date = #{asset_disposal_date}
+        </if>
+        <if test="eol_status != null and eol_status != ''">
+            , eol_status = #{eol_status}
+        </if>
+        <if test="eos_status != null and eos_status != ''">
+            , eos_status = #{eos_status}
+        </if>
+        WHERE
+            eqp_manage_id = #{eqp_manage_id};
     </update>
 
     <update id="deleteEqpList" parameterType="String">
         /* deleteEqpList ...
-            장비관리 > 장비목록 > 삭제*/
+            장비관리 > 장비목록 > 삭제 */
+            장비관리 > 장비목록 > 상세 페이지 > 삭제 */
         update equipment_basic
         set is_deleted = 'Y'
         where eqp_manage_id = #{deleteEqpTarget}

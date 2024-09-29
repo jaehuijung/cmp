@@ -177,7 +177,6 @@ function setDefaultDates() {
 /**
  * 장비관리 > 장비목록 > 장비추가 > 저장버튼
  * 저장 버튼을 클릭했을 때 호출되는 함수입니다.
- * 각 폼 데이터를 수집하여 서버로 전송합니다.
  */
 function saveData() {
 

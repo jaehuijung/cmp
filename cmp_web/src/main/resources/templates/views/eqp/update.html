@@ -36,6 +36,7 @@
         </div>
 
         <input type="hidden" id="eqp_manage_id" name="eqp_manage_id" th:value="${equipment.eqp_manage_id}"/>
+        <input type="hidden" id="categories" name="categories"/>
 
         <section id="selection-equipment">
             <!-- 장비기본정보 -->
@@ -130,10 +131,10 @@
                     </select>
 
                     <label for="primary_operator">운영담당자(정):</label>
-                    <input type="text" id="primary_operator" name="primary_operator"/>
+                    <input type="text" id="primary_operator" name="primary_operator" th:value="${equipment.primary_operator}" />
 
                     <label for="primary_outsourced_operator">위탁운영사용자(정):</label>
-                    <input type="text" id="primary_outsourced_operator" name="primary_outsourced_operator"/>
+                    <input type="text" id="primary_outsourced_operator" name="primary_outsourced_operator" th:value="${equipment.primary_outsourced_operator}"/>
                 </div>
                 <div class="equipment-wrap">
                     <label for="operating_status">운영상태:</label>
@@ -143,14 +144,14 @@
                     </select>
 
                     <label for="secondary_operator">운영담당자(부):</label>
-                    <input type="text" id="secondary_operator" name="secondary_operator"/>
+                    <input type="text" id="secondary_operator" name="secondary_operator" th:value="${equipment.secondary_operator}"/>
 
                     <label for="secondary_outsourced_operator">위탁운영사용자(부):</label>
-                    <input type="text" id="secondary_outsourced_operator" name="secondary_outsourced_operator"/>
+                    <input type="text" id="secondary_outsourced_operator" name="secondary_outsourced_operator" th:value="${equipment.secondary_outsourced_operator}"/>
                 </div>
                 <div class="equipment-wrap">
                     <label for="operating_department">운영부서:</label>
-                    <input type="text" id="operating_department" name="operating_department"/>
+                    <input type="text" id="operating_department" name="operating_department" th:value="${equipment.operating_department}"/>
                 </div>
             </div>
 
@@ -217,7 +218,7 @@
         </section>
 
         <div>
-            <button type="button" onclick="updateData()">저장</button>
+            <button type="button" onclick="saveData()">저장</button>
             <button type="button" onclick="back()">취소</button>
         </div>
 
