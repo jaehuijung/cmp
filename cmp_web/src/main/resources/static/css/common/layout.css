@@ -12,7 +12,7 @@ header {
     color: #fff;
     display: flex;
     align-items: center;
-    padding: 0 20px;
+    // padding: 0 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     width: calc(100% - 300px); /* 사이드 메뉴를 제외한 너비 */
     margin-left: 300px; /* 사이드 메뉴 너비만큼 왼쪽 여백 */
@@ -24,16 +24,17 @@ header {
     flex-grow: 1;
 }
 
-.sidebar-toggle {
-    display: flex;
-    align-items: center;
-    margin-right: 20px;
+.sidebar-toggle-img {
+    width: 24px;
+    height: 24px;
 }
+
 
 .top-menu {
     display: flex;
     align-items: center;
     height: 100%;
+    margin-left: 30px;
 }
 
 .top-menu a {
@@ -105,7 +106,7 @@ header {
 }
 
 #menu-search {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     padding: 5px;
     border: 1px solid #495057;
     border-radius: 10px;
