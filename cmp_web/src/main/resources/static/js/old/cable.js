@@ -148,7 +148,7 @@ var columns = [
 $(function(){
 
     $('#cableTable').bootstrapTable({
-        url: '/cable/eqp//list',
+        url: '/cable/eqp/list',
         method: 'post',
         queryParams: function(params) {
             let searchEqpSearchInput = $("#searchEqpSearchInput").val().trim();
@@ -360,7 +360,7 @@ $('#end-cable').on('hidden.bs.modal', function (e) {     
 function SearchCableList(page){
 
     // let url = urlPre + '/cable/list';
-    let url = urlPre + '/cable/eqp//list';
+    let url = urlPre + '/cable/eqp/list';
     let s_group_name = document.getElementById("s_group_name").value;
     let s_eqp_name = document.getElementById("s_eqp_name").value;
     let s_rack_name = document.getElementById("s_rack_name").value;
