@@ -15,9 +15,27 @@
 
         <div class="right-section">
             <!-- 사용자 정보 표시 -->
-            <span th:text="${session.name} + '님'"></span>
+            <a class="nav-link align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+               <span class="dropdown-toggle ps-2" th:text="${session.name}+'님'"></span>
+            </a>
+
+            <ul class="dropdown-menu dropdown-menu-arrow profile">
+                <li class="dropdown-header">
+                    <h6>관리자 권한 계정</h6>
+                </li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li>
+                    <a class="dropdown-item d-flex align-items-center" href="#" onclick="usrlogout();">
+                        <span>로그아웃</span>
+                    </a>
+                </li>
+            </ul>
         </div>
     </header>
+
+    <form name='logoutform' id='logoutform' method='POST' action='/sl/user/logout'></form>
 
     <div class="side-menu" th:fragment="asideFragment">
         <div class="menu-section">

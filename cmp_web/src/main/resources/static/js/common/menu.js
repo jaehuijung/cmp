@@ -1,15 +1,20 @@
+
+
 $(function(){
     loadMenu();
 
     $('#sidebarToggle').on('click', function () {
         $('.side-menu').toggleClass('toggled');
         if ($('.side-menu').hasClass('toggled')) {
-            $('body').css('margin-left', '0');
+            $('header').css('margin-left', '0');
+            $('.content').css('margin-left', '0');
         } else {
-            $('body').css('margin-left', '300px');
+            $('header').css('margin-left', '300px');
+            $('.content').css('margin-left', '300px');
         }
     });
 });
+
 
 function loadMenu() {
     $.ajax({

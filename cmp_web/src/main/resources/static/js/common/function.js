@@ -103,3 +103,11 @@ function combineIP() {
 
     return `${block1}.${block2}.${block3}.${block4}`;
 }
+
+
+
+
+function usrlogout() {
+    let fchk = document.getElementById("logoutform");
+    fchk.submit();
+}
