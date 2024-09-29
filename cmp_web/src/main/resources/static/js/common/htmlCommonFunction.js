@@ -48,3 +48,36 @@ function checkLength(input, maxLength) {
 function back() {
     window.history.back();
 }
+
+
+
+
+
+
+function moveToNext(current, nextId) {
+    if (current.value.length >= 3) {
+        if (parseInt(current.value) > 255) {
+            alert('IP 블록의 값은 0에서 255 사이여야 합니다.');
+            current.value = '';
+        }
+        else{
+            document.getElementById(nextId).focus();
+        }
+    }
+}
+
+function checkIPBlock(input) {
+    if (parseInt(input.value) > 255) {
+        alert('IP 블록의 값은 0에서 255 사이여야 합니다.');
+        input.value = '';
+    }
+}
+
+function combineIP() {
+    const block1 = document.getElementById('ip_block1').value;
+    const block2 = document.getElementById('ip_block2').value;
+    const block3 = document.getElementById('ip_block3').value;
+    const block4 = document.getElementById('ip_block4').value;
+
+    return `${block1}.${block2}.${block3}.${block4}`;
+}
