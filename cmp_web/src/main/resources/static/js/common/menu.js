@@ -20,10 +20,11 @@ function loadMenu() {
             if (data.errorCode) {
                 buildMenus(data.menuList);
             } else {
+
             }
         },
         error: function(error) {
-            console.error('Error:', error);
+
         }
     });
 }
@@ -47,8 +48,12 @@ function buildTopMenu(menuData) {
 }
 
 function buildSideMenu(menuData) {
+
+    const currentUrl = window.location.pathname;
+    const parentMenuId = getParentMenuId(menuData, currentUrl);
+
     const sideMenuContainer = $('#menu-items');
-    const filteredMenu = menuData.filter(menu => menu.parent_menu_id == '00000000');
+    const filteredMenu = menuData.filter(menu => menu.parent_menu_id == parentMenuId);
 
     const sideMenuHtml = filteredMenu
         .map(menu => `<a href="${menu.url}">${menu.menu_name}</a>`)
@@ -59,6 +64,10 @@ function buildSideMenu(menuData) {
     }
 }
 
+function getParentMenuId(menuData, currentUrl) {
+    const currentMenu = menuData.find(menu => (menu.menu_order ==2 && menu.url === currentUrl));
+    return currentMenu ? currentMenu.parent_menu_id : null;
+}
 
 
 

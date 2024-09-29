@@ -17,7 +17,7 @@ import sl.qr.mh.vo.User;
 @Slf4j
 @CrossOrigin(origins = "*", allowedHeaders = "*") /* CORS 어노테이션 */
 @Controller
-@RequestMapping("/settings")
+@RequestMapping("/settings/user")
 public class userController {
 	
 	 private final databaseService databaseService;
@@ -29,17 +29,15 @@ public class userController {
 				this.bcrypt = bcrypt;
 	    }
 	
-	@GetMapping("/user/list")
-	public String getusrList(HttpSession session,
-			HttpServletRequest request) {
+	@GetMapping("/view")
+	public String getusrList() {
 		return "views/user/view";
-		        
-	}
+	 }
 	
 	@GetMapping("/usr/regster")
 	public String getusrregster(HttpSession session,
 			HttpServletRequest request) {
-		// return "new/userregster";
+
 		return "views/old/userregster";
 		        
 	}
