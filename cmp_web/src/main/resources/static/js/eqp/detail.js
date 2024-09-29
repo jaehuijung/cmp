@@ -14,6 +14,7 @@ $(function(){
  * 사용자가 수정 페이지로 이동하도록 합니다.
  */
 function updateData(){
+    let id = $("#eqp_manage_id").val();
     const url = `/eqpManage/update/${id}`;
     window.location.href = url;
 }

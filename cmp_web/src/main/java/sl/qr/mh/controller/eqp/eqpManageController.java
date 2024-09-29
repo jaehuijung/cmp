@@ -233,11 +233,20 @@ public class eqpManageController {
      * @return 장비 수정 뷰 페이지
      */
     @GetMapping("/update/{id}")
-    public String updateEquipmentPage(@PathVariable("id") Long id, Model model) {
-        //장비 ID로 실제 데이터를 조회하는 로직
-        // Equipment equipment = equipmentService.getById(id);
-        // model.addAttribute("equipment", equipment);
-        return "views/eqp/update";
+    public String updateEquipmentPage(@PathVariable("id") String eqp_manage_id, Model model) {
+        Map<String, Object> result = eqpManageService.getEquipmentUpdateTotalList(eqp_manage_id);
+        if((boolean) result.get("errorCode")){
+            model.addAttribute("equipment",       result.get("selectData"));
+            model.addAttribute("config_category", result.get("config_category"));
+            model.addAttribute("asset_category",  result.get("asset_category"));
+            model.addAttribute("sub_category",    result.get("sub_category"));
+            model.addAttribute("detail_category", result.get("detail_category"));
+
+            return "views/eqp/update";
+        }
+        else{
+            return "views/error/error";
+        }
     }
 
 }

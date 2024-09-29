@@ -14,7 +14,18 @@ function tableRefresh(){
  * @param {string} title - 컬럼 제목
  * @returns {object} 컬럼 설정 객체
  */
-function createColumn(field, checkbox = false, title) {
+function createColumn1(field, checkbox = false, title) {
+    return {
+        title: title,
+        field: field,
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap underline',
+        checkbox: checkbox
+    };
+}
+
+function createColumn2(field, checkbox = false, title) {
     return {
         title: title,
         field: field,
@@ -29,18 +40,18 @@ function createColumn(field, checkbox = false, title) {
  * eqpTable에서 사용할 컬럼 리스트
 */
 var columns = [
-    createColumn('',                              true,  ''),
-    createColumn('eqp_manage_id',                 false, '관리번호'),
-    createColumn('eqp_name',                      false, '장비명'),
-    createColumn('host_name',                     false, '호스트명'),
-    createColumn('model_name',                    false, '모델명'),
-    createColumn('m_company',                     false, '제조사'),
-    createColumn('operating_status',              false, '운영상태'),
-    createColumn('operating_department',          false, '운영부서'),
-    createColumn('primary_operator',              false, '운영담당자(정)'),
-    createColumn('secondary_operator',            false, '운영담당자(부)'),
-    createColumn('primary_outsourced_operator',   false, '위탁운영사용자(정)'),
-    createColumn('secondary_outsourced_operator', false, '위탁운영사용자(부)')
+    createColumn2('',                              true,  ''),
+    createColumn1('eqp_manage_id',                 false, '관리번호'),
+    createColumn1('eqp_name',                      false, '장비명'),
+    createColumn2('host_name',                     false, '호스트명'),
+    createColumn2('model_name',                    false, '모델명'),
+    createColumn2('m_company',                     false, '제조사'),
+    createColumn2('operating_status',              false, '운영상태'),
+    createColumn2('operating_department',          false, '운영부서'),
+    createColumn2('primary_operator',              false, '운영담당자(정)'),
+    createColumn2('secondary_operator',            false, '운영담당자(부)'),
+    createColumn2('primary_outsourced_operator',   false, '위탁운영사용자(정)'),
+    createColumn2('secondary_outsourced_operator', false, '위탁운영사용자(부)')
 ];
 
 
@@ -75,8 +86,16 @@ $(function(){
             $("#eqpTotalCnt").text("총 " + res.total + "건")
         },
         onClickCell: function (field, value, row, $element){
-            if(!$element.hasClass("bs-checkbox") && (field == 'eqp_manage_id' || field == 'eqp_name')){
-                eqpDetail(row.eqp_manage_id)
+            if (!$element.hasClass("bs-checkbox")) {
+                if((field == 'eqp_manage_id' || field == 'eqp_name')){
+                    eqpDetail(row.eqp_manage_id)
+                }
+                else{
+                    let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
+                    if ($checkbox.length) {
+                        $checkbox.click();
+                    }
+                }
             }
         },
     });

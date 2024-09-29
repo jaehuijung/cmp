@@ -526,7 +526,7 @@ public class eqpManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 수정/상세
+     * 장비관리 > 장비목록 > 상세
      * 선택한 장비 정보 리스트 (기본정보, 세부정보, 연결정보)
      *
      * @param eqp_manage_id 장비 관리번호
@@ -537,10 +537,43 @@ public class eqpManageService {
         returnMap.put("errorCode",false);
 
         try{
-            Map<String, Object> selectData = eqpMapper.getEquipmentDetailTotalList(eqp_manage_id);
-            selectData.putAll(eqpMapper.getEquipmentDetailAssetList(selectData));
+            Map<String, Object> selectData = eqpMapper.getEquipmentDetailTotalList(eqp_manage_id); // 장비 정보
+            selectData.putAll(eqpMapper.getEquipmentDetailAssetList(selectData)); // 장비분류 항목
 
             returnMap.put("selectData", selectData);
+            returnMap.put("errorCode",true);
+        }
+        catch (Exception e){
+            log.error(e.getMessage());
+        }
+
+        return returnMap;
+    }
+
+    /**
+     * 장비관리 > 장비목록 > 상세
+     * 선택한 장비 정보 리스트 (기본정보, 세부정보, 연결정보)
+     *
+     * @param eqp_manage_id 장비 관리번호
+     * @return 장비 정보 리스트
+     */
+    public Map<String, Object> getEquipmentUpdateTotalList(String eqp_manage_id){
+        Map<String, Object> returnMap = new HashMap<>();
+        returnMap.put("errorCode",false);
+
+        try{
+            Map<String, Object> selectData = eqpMapper.getEquipmentDetailTotalList(eqp_manage_id); // 장비 정보
+            List<Map<String, Object>> config_category = eqpMapper.getSelectConfigData();           // 장비분류 : 구성분류
+            List<Map<String, Object>> asset_category  = eqpMapper.getSelectAssetData(selectData);  // 장비분류 : 자산분류
+            List<Map<String, Object>> sub_category    = eqpMapper.getSelectSubData(selectData);    // 장비분류 : 자산세부분류
+            List<Map<String, Object>> detail_category = eqpMapper.getSelectDetailData(selectData); // 장비분류 : 자산상세분류
+
+            returnMap.put("selectData", selectData);
+            returnMap.put("config_category", config_category);
+            returnMap.put("asset_category",  asset_category);
+            returnMap.put("sub_category",    sub_category);
+            returnMap.put("detail_category", detail_category);
+
             returnMap.put("errorCode",true);
         }
         catch (Exception e){

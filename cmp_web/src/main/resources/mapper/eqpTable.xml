@@ -48,10 +48,11 @@
             , A.created_at                    /* 생성일 */
             , A.updated_at                    /* 수정일 */
             , A.creator                       /* 등록자 */
-        FROM equipment_basic A
+        FROM
+            equipment_basic A
         WHERE 1=1
         <include refid="getEquipmentTotalCommon"/>
-        LIMIT #{offset},#{limit};
+        LIMIT #{offset},#{limit}
     </select>
 
 
@@ -73,7 +74,8 @@
             config_id as `id`, config_category as `name`
         from
             equipment_categories
-        GROUP BY config_id;
+        group by
+            config_id
     </select>
 
     <select id="getSelectAssetData" parameterType="map" resultType="map">
@@ -84,8 +86,9 @@
         from
             equipment_categories
         where
-            config_id = #{id}
-        group by asset_id;
+            config_id = #{config_id}
+        group by
+            asset_id
     </select>
 
     <select id="getSelectSubData" parameterType="map" resultType="map">
@@ -96,8 +99,9 @@
         from
             equipment_categories
         where
-            asset_id = #{id}
-        GROUP BY sub_id;
+            asset_id = #{asset_id}
+        group by
+            sub_id
     </select>
 
     <select id="getSelectDetailData" parameterType="map" resultType="map">
@@ -108,8 +112,9 @@
         from
             equipment_categories
         where
-            sub_id = #{id}
-        GROUP BY detail_id;
+            sub_id = #{sub_id}
+        group by
+            detail_id
     </select>
 
     <select id="generateEqpManageId" parameterType="map" resultType="String">
@@ -120,7 +125,8 @@
             CONCAT(#{categories}, YEAR(CURDATE()), LPAD(IFNULL(MAX(CAST(SUBSTRING(eqp_manage_id, -4) AS UNSIGNED)) + 1, 1), 4, '0'))
         FROM
             equipment_basic
-        WHERE eqp_manage_id LIKE CONCAT(#{categories}, YEAR(CURDATE()), '%');
+        WHERE
+            eqp_manage_id LIKE CONCAT(#{categories}, YEAR(CURDATE()), '%')
     </select>
 
     <insert id="insertEquipmentBasic" parameterType="map">
@@ -268,8 +274,10 @@
             ed.asset_disposal_date,
             ed.eol_status,
             ed.eos_status
-        from equipment_basic eb
-        join equipment_detail ed
+        from
+            equipment_basic eb
+        join
+            equipment_detail ed
             on eb.eqp_manage_id = ed.eqp_manage_id
         where 1=1
             and eb.eqp_manage_id = #{eqp_manage_id}
@@ -292,8 +300,8 @@
             and eb.asset_id = ec.asset_id
             and eb.sub_id = ec.sub_id
             and eb.detail_id = ec.detail_id
-        where 1=1
-            and eb.eqp_manage_id = #{eqp_manage_id}
+        where
+            eb.eqp_manage_id = #{eqp_manage_id}
     </select>
 
 

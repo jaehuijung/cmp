@@ -69,7 +69,7 @@ function getSelectAsset(configValue){
     $.ajax({
         url: "/eqpManage/selectAsset",
         type: "GET",
-        data: {id: configValue},
+        data: {config_id: configValue},
         success: function (res) {
             const assetSelect = $("#asset_id");
             assetSelect.empty();
@@ -100,7 +100,7 @@ function getSelectSub(assetValue){
     $.ajax({
         url: "/eqpManage/selectSub",
         type: "GET",
-        data: {id: assetValue},
+        data: {asset_id: assetValue},
         success: function (res) {
 
             let data = res.selectData;
@@ -134,7 +134,7 @@ function getSelectDetail(subValue){
     $.ajax({
         url: "/eqpManage/selectDetail",
         type: "GET",
-        data: {id: subValue},
+        data: {sub_id: subValue},
         success: function (res) {
 
             let data = res.selectData;

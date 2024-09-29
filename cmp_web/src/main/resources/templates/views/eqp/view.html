@@ -82,6 +82,19 @@
             white-space: nowrap;
         }
 
+        .underline {
+            text-decoration: underline;
+            transition: color 0.3s, filter 0.3s; font-weight 0.3s /* 부드러운 애니메이션 효과 추가 */
+        }
+        .underline:hover { /* 마우스 올림 */
+            color: blue;
+            font-weight: bold; /* 글자 굵게 */
+            cursor: pointer;   /* 마우스 커서를 클릭 모양으로 변경 */
+        }
+        .underline:active { /* 마우스 클릭 */
+            color: red;
+        }
+
         /* 위에 다 지우면 될듯 */
 
         .searchChkWrap{ display: flex; align-items: flex-start; }
