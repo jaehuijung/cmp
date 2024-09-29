@@ -109,7 +109,7 @@ public class loginPageController {
 
 				//url = "redirect:/sl/qr/showqr";
 				// url = "redirect:/cablelist";
-				url = "redirect:/cableManage/view";
+				url = "redirect:/cable/eqp//view";
 			} else {
 				session.setAttribute("loginChk", "no");
 				session.setAttribute("message", "비밀번호가 다릅니다.");

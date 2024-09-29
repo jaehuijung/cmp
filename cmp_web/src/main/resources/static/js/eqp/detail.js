@@ -15,7 +15,7 @@ $(function(){
  */
 function updateData(){
     let id = $("#eqp_manage_id").val();
-    const url = `/eqpManage/update/${id}`;
+    const url = `/cable/eqp/update/${id}`;
     window.location.href = url;
 }
 
@@ -41,7 +41,7 @@ function deleteData(){
             alert3("delete");
             let data = [{"eqp_manage_id": $("#eqp_manage_id").val()}];
             $.ajax({
-                url : '/eqpManage/delete',
+                url : '/cable/eqp/delete',
                 type: 'post',
                 contentType: 'application/json',
                 data: JSON.stringify(data),

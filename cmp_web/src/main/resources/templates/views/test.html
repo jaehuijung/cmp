@@ -2,102 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout}">
-<!--      layout:decorate="~{layouts/new_default_layout}">-->
+      layout:decorate="~{layouts/layout}" >
 
 <head>
+
     <style>
-        /* 이놈들 나중에 공통으로 옮겨야... */
-
-        /* 추가, 수정 모달 크기 */
-        .custom-width {
-            width: 1000px;
-        }
-
-        /* 검색 체크박스 */
-        .searchEqpChkWrap{
-            display: flex;
-            justify-content: space-between;
-            margin-top:10px;
-        }
-        .searchEqpChkWrap > .searchEqpChkColumn{
-            display: flex;
-            align-items: center;
-        }
-        #searchEqpChkWrap > #searchEqpChkColumn > #searchEqpTitle1{
-            margin-left: 5px;
-            margin-right: 10px;
-            font-size: 18px;
-            font-weight: bold;
-            min-width: max-content;
-        }
-        .searchEqpChkWrap > .searchEqpChkColumn > .searchEqpChk{
-            display: flex;
-            margin-left: 10px;
-        }
-        .searchEqpChkWrap > .searchEqpChk > .searchEqpTitle2{
-            margin-left: 5px;
-            font-size: 16px;
-            min-width: max-content;
-        }
-
-        .searchEqpSelectWrap{
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            margin-top: 25px;
-        }
-        .searchEqpSelectWrap > .searchEqpSelect{
-            display: flex;
-            align-items: center;
-            margin-right: 10px;
-        }
-        .searchEqpSelectWrap > .searchEqpSelect > #searchEqpTitle3{
-            margin-left: 10px;
-            font-size: 14px;
-            width: 55px;
-            min-width: max-content;
-            text-align: center;
-        }
-        .searchEqpSelectWrap > .searchEqpSelect > .searchEqpSelectInput{
-            margin-left: 5px;
-            width: 120px;
-            height: 30px;
-        }
-
-        .searchEqpSearchWrap{
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            margin-top: 25px;
-        }
-        .searchEqpSearchWrap > .searchEqpSearch{
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            margin-left: 5px;
-            width: 100%;
-        }
-
-        .nowrap {
-            white-space: nowrap;
-        }
-
-        .underline {
-            text-decoration: underline;
-            transition: color 0.3s, filter 0.3s; font-weight 0.3s /* 부드러운 애니메이션 효과 추가 */
-        }
-        .underline:hover { /* 마우스 올림 */
-            color: blue;
-            font-weight: bold; /* 글자 굵게 */
-            cursor: pointer;   /* 마우스 커서를 클릭 모양으로 변경 */
-        }
-        .underline:active { /* 마우스 클릭 */
-            color: red;
-        }
-
-        /* 위에 다 지우면 될듯 */
-
         .searchChkWrap{ display: flex; align-items: flex-start; }
         .searchChkWrap > .searchTitle1 { min-width: 100px; font-size: 18px; font-weight: bold; margin-right: 10px; }
         .searchChkWrap > .searchChkLabels { display: flex; flex-wrap: wrap; }
@@ -112,20 +21,7 @@
 
 
     <main id="main" class="main">
-        <!--
-        <div class="pagetitle">
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item">장비관리</li>
-                    <li class="breadcrumb-item active">장비목록조회</li>
-                </ol>
-            </nav>
 
-            <h1 style="padding: 0px 0px 10px;">장비목록조회</h1>
-
-        </div>
-        -->
 
         <section class="section">
             <div class="card">
@@ -192,22 +88,6 @@
                             <input type="text" id="searchEqpSearchInput" style="width:90%; height:40px; padding-left: 10px;" placeholder="검색어를 입력해주세요"/>
                             <button type="button" class="btn btn-secondary btn-lg" style="margin-left: 10px; font-size: 15px; min-width: max-content;" onclick="searchEqpList();">검색</button>
                         </div>
-                    </div>
-
-
-                    <div class="searchSelectWrap">
-                        <!--
-                        연도 선택박스(도입년도 등), 그룹(유닛번호 등) 선택박스 영역
-                        필요없다고 하면 지우기
-                        -->
-                        <label class="searchSelect">
-                            <div class="searchTitle3" style="margin-left: 10px;">도입년도</div>
-                            <input type="text" class="searchEqpSelectInput" />
-                        </label>
-                        <label class="searchSelect">
-                            <div class="searchTitle3" style="margin-left: 10px;">유닛번호</div>
-                            <input type="text" class="searchEqpSelectInput" />
-                        </label>
                     </div>
 
                 </div>

@@ -96,7 +96,7 @@ function saveData() {
 
     $.ajax({
         type: "POST",
-        url: "/eqpManage/saveEquipmentInfo",
+        url: "/cable/eqp/saveEquipmentInfo",
         data: JSON.stringify(data), // 데이터를 JSON 문자열로 변환
         contentType: "application/json",
         success: function(response) {

@@ -16,7 +16,7 @@ import java.util.Map;
 @Slf4j
 @CrossOrigin(origins = "*", allowedHeaders = "*") /* CORS 어노테이션 */
 @Controller
-@RequestMapping(value = "/cableManage")
+@RequestMapping(value = "/cable/rack")
 public class cableManageController {
 
     private final cableManageService cableManageService;
@@ -24,9 +24,6 @@ public class cableManageController {
     public cableManageController(cableManageService cableManageService) {
         this.cableManageService = cableManageService;
     }
-
-    /*************/
-    // 새로 작성한놈들
 
     // 선번장관리 > 선번장목록 페이지
     @GetMapping("/view")
@@ -67,11 +64,5 @@ public class cableManageController {
         return "views/cable/view";
     }
 
-
-    /************************************/
-    // 아직 변경 안한놈들
-
-    /*****************/
-    // 과거 리스트... 나중에 지우기
 
 }

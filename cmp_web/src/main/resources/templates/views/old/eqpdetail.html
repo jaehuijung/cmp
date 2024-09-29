@@ -32,7 +32,7 @@
 				<div class="card-body">
 				
 					<!-- <form id="writeForm" action="/eqp/update" name="writeForm" method="post"> -->
-					<form id="writeForm" action="/eqpManage/update" name="writeForm" method="post">
+					<form id="writeForm" action="/cable/eqp/update" name="writeForm" method="post">
 
 
 						<input type="hidden" id="sgroup_name"   th:value="${Equipment.group_name}"/>
@@ -265,7 +265,7 @@
 
 				function goList() {
 					// location.href = "/eqplist";
-					location.href = "/eqpManage/view";
+					location.href = "/cable/eqp/view";
 				}
 
 			</script>

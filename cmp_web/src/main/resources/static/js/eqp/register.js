@@ -33,7 +33,7 @@ $(function(){
  */
 function getSelectConfig(){
     $.ajax({
-        url: "/eqpManage/selectConfig",
+        url: "/cable/eqp/selectConfig",
         type: "GET",
         success: function (res) {
             const categorySelect = $("#config_id");
@@ -67,7 +67,7 @@ function getSelectConfig(){
  */
 function getSelectAsset(configValue){
     $.ajax({
-        url: "/eqpManage/selectAsset",
+        url: "/cable/eqp/selectAsset",
         type: "GET",
         data: {config_id: configValue},
         success: function (res) {
@@ -98,7 +98,7 @@ function getSelectAsset(configValue){
  */
 function getSelectSub(assetValue){
     $.ajax({
-        url: "/eqpManage/selectSub",
+        url: "/cable/eqp/selectSub",
         type: "GET",
         data: {asset_id: assetValue},
         success: function (res) {
@@ -132,7 +132,7 @@ function getSelectSub(assetValue){
  */
 function getSelectDetail(subValue){
     $.ajax({
-        url: "/eqpManage/selectDetail",
+        url: "/cable/eqp/selectDetail",
         type: "GET",
         data: {sub_id: subValue},
         success: function (res) {
@@ -277,7 +277,7 @@ function saveData() {
 
             $.ajax({
                 type: "POST",
-                url: "/eqpManage/saveEquipmentInfo",
+                url: "/cable/eqp/saveEquipmentInfo",
                 data: JSON.stringify(data),
                 contentType: "application/json",
                 success: function(res) {

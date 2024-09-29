@@ -284,7 +284,7 @@ var columns = [
 $(function(){
 
     $('#eqpTable').bootstrapTable({
-        url: '/eqpManage/list',
+        url: '/cable/eqp/list',
         method: 'post',
         queryParams: function(params) {
             let searchEqpSearchInput = $("#searchEqpSearchInput").val().trim();
@@ -513,7 +513,7 @@ function eqp_create_popup(){
         if (result.isConfirmed) {
             let data = result.value;
             $.ajax({
-                url : '/eqpManage/insertEqp',
+                url : '/cable/eqp/insertEqp',
                 type: 'post',
                 data : data,
                 dataType : 'JSON',
@@ -533,7 +533,7 @@ function eqp_create_popup(){
 // 장비관리 > 장비목록 > 장비상세 모달
 function eqp_detail_popup(id){
     $.ajax({
-        url : '/eqpManage/update?eqp_id='+id,
+        url : '/cable/eqp/update?eqp_id='+id,
         type: 'get',
         dataType : 'JSON',
         success : function(res){
@@ -656,7 +656,7 @@ function eqp_update_popup(id) {
             id = target[0].eqp_id;
         }
         $.ajax({
-            url : '/eqpManage/update?eqp_id='+id,
+            url : '/cable/eqp/update?eqp_id='+id,
             type: 'get',
             dataType : 'JSON',
             success : function(res){
@@ -791,7 +791,7 @@ function eqp_update_popup(id) {
                          if (result.isConfirmed) {
                              let data = result.value;
                              $.ajax({
-                                 url : '/eqpManage/updateEqp',
+                                 url : '/cable/eqp/updateEqp',
                                  type: 'post',
                                  data : data,
                                  dataType : 'JSON',
@@ -817,7 +817,7 @@ function eqp_delete() {
     let data = $("#eqpTable").bootstrapTable('getSelections');
 
     $.ajax({
-        url : '/eqpManage/delete',
+        url : '/cable/eqp/delete',
         type: 'post',
         contentType: 'application/json',
         data: JSON.stringify(data),
@@ -864,7 +864,7 @@ function excel_upload(){
                         formData.append("file", data);
 
                         $.ajax({
-                            url : '/eqpManage/excelSave',
+                            url : '/cable/eqp/excelSave',
                             type: 'post',
                             data: formData,
                             processData: false,
@@ -878,7 +878,7 @@ function excel_upload(){
                                 })
                                 .then((result) => {
                                     $.ajax({
-                                        url : '/eqpManage/excelResponse',
+                                        url : '/cable/eqp/excelResponse',
                                         type: 'post',
                                         data: JSON.stringify(res),
                                         contentType: 'application/json',
@@ -911,7 +911,7 @@ function excel_upload(){
 // 장비목록 추가용 엑셀 템플릿 다운로드
 function downloadExcelTemplate(){
     $.ajax({
-        url: "/eqpManage/excelTemplate",
+        url: "/cable/eqp/excelTemplate",
         method: "GET",
         xhrFields: {
             responseType: 'blob'
@@ -946,7 +946,7 @@ function validExcelEquipmentList() {
         formData.append("file", data);
 
         $.ajax({
-            url : '/eqpManage/excelValid',
+            url : '/cable/eqp/excelValid',
             type: 'post',
             data: formData,
             processData: false,

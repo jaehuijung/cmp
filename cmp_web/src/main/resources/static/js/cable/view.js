@@ -144,7 +144,7 @@ var columns = [
 $(function(){
 
     $('#cableTable').bootstrapTable({
-        url: '/cableManage/list',
+        url: '/cable/eqp//list',
         method: 'post',
         queryParams: function(params) {
             let searchEqpSearchInput = $("#searchEqpSearchInput").val().trim();

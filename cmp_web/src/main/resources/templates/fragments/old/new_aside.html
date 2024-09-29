@@ -10,12 +10,12 @@
                 </a>
                 <ul id="cable-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                     <li>
-                        <a id="cablelist_link" href="/cableManage/view" class="a-link">
+                        <a id="cablelist_link" href="/cable/eqp//view" class="a-link">
                             <i class="bi bi-circle"></i><span>선번장목록</span>
                         </a>
                     </li>
                     <li>
-                        <a id="cablereg_link" href="/cableManage/register">
+                        <a id="cablereg_link" href="/cable/eqp//register">
                             <i class="bi bi-circle"></i><span>선번장추가</span>
                         </a>
                     </li>
@@ -30,13 +30,13 @@
             </a>
             <ul id="eqp-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a id="eqplist_link" href="/eqpManage/view">
+                    <a id="eqplist_link" href="/cable/eqp/view">
                         <i class="bi bi-circle"></i><span>장비목록</span>
                     </a>
                 </li>
 				<!--
 				<li>
-					<a id="eqpreg_link" href="/eqpManage/register">
+					<a id="eqpreg_link" href="/cable/eqp/register">
 						<i class="bi bi-circle"></i><span>장비추가</span>
 					</a>
 				</li>
@@ -93,10 +93,10 @@
             } else if(loc_path == "/cable/register") {
                 $("#cable-nav").addClass("show");
                 $("#cablereg_link").addClass("active");
-            } else if(loc_path == "/eqpManage/view") {
+            } else if(loc_path == "/cable/eqp/view") {
                 $("#eqp-nav").addClass("show");
                 $("#eqplist_link").addClass("active");
-            // } else if(loc_path == "/eqpManage/register") {
+            // } else if(loc_path == "/cable/eqp/register") {
             // 	 $("#eqp-nav").addClass("show");
             // 	 $("#eqpreg_link").addClass("active");
             } else if(loc_path == "/usr/list") {

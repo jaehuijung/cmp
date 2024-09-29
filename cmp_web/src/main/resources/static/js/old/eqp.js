@@ -76,7 +76,7 @@ var columns = [
 $(function(){
 
     $('#eqpTable').bootstrapTable({
-        url: '/eqpManage/list',
+        url: '/cable/eqp/list',
         method: 'post',
         queryParams: function(params) {
             let searchEqpSearchInput = $("#searchEqpSearchInput").val().trim();
@@ -247,7 +247,7 @@ function eqpDelete() {
     let data = $("#eqpTable").bootstrapTable('getSelections');
 
     $.ajax({
-        url : '/eqpManage/delete',
+        url : '/cable/eqp/delete',
         type: 'post',
         contentType: 'application/json',
         data: JSON.stringify(data),
@@ -385,7 +385,7 @@ function saveFile(file){
     let formData = new FormData();
     formData.append("file", file);
     $.ajax({
-        url : '/eqpManage/excelInsert',
+        url : '/cable/eqp/excelInsert',
         type: 'post',
         data: formData,
         processData: false,
@@ -410,7 +410,7 @@ function notifySaveResult(res){
     })
     .then(() => {
         $.ajax({
-            url : '/eqpManage/excelResponse',
+            url : '/cable/eqp/excelResponse',
             type: 'post',
             data: JSON.stringify(res),
             contentType: 'application/json',
@@ -433,7 +433,7 @@ function notifySaveResult(res){
  */
 function downloadExcelTemplate(){
     $.ajax({
-        url: "/eqpManage/excelTemplate",
+        url: "/cable/eqp/excelTemplate",
         method: "GET",
         xhrFields: {
             responseType: 'blob'
@@ -460,7 +460,7 @@ function validExcelEquipmentList() {
         formData.append("file", data);
 
         $.ajax({
-            url : '/eqpManage/excelValid',
+            url : '/cable/eqp/excelValid',
             type: 'post',
             data: formData,
             processData: false,
@@ -502,19 +502,19 @@ function downloadFileFunction(res, fileName){
 
 // 장비관리 > 장비목록 > 장비추가 페이지 이동
 function eqpCreate(){
-    const newPageUrl = "/eqpManage/create";
+    const newPageUrl = "/cable/eqp/create";
     window.location.href = newPageUrl;
 }
 
 // 장비관리 > 장비목록 > 장비상세 페이지 이동
 function eqpDetail(id){
-    const detailPageUrl = `/eqpManage/detail/${id}`;
+    const detailPageUrl = `/cable/eqp/detail/${id}`;
     window.location.href = detailPageUrl;
 }
 
 // 장비관리 > 장비목록 > 장비수정 페이지 이동
 function eqpUpdate(id) {
-    const updatePageUrl = `/eqpManage/update/${id}`;
+    const updatePageUrl = `/cable/eqp/update/${id}`;
     window.location.href = updatePageUrl;
 };
 

@@ -14,10 +14,9 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-
 @CrossOrigin(origins = "*", allowedHeaders = "*") /* CORS 어노테이션 */
 @Controller
-@RequestMapping("/eqpManage")
+@RequestMapping("/cable/eqp")
 public class eqpManageController {
 
     private final eqpManageService eqpManageService;
@@ -33,7 +32,8 @@ public class eqpManageController {
      */
     @GetMapping("/view")
     public String view() {
-        return "views/eqp/view";
+        // return "views/eqp/view";
+        return "views/test";
     }
 
 

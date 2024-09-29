@@ -58,7 +58,7 @@ var columns = [
 $(function(){
 
     $('#eqpTable').bootstrapTable({
-        url: '/eqpManage/list',
+        url: '/cable/eqp/list',
         method: 'post',
         queryParams: function(params) {
             let searchEqpSearchInput = $("#searchEqpSearchInput").val().trim();
@@ -203,13 +203,13 @@ function searchState(type, isChecked){
 
 // 장비관리 > 장비목록 > 장비추가 페이지 이동
 function eqpCreate(){
-    const url = "/eqpManage/create";
+    const url = "/cable/eqp/create";
     window.location.href = url;
 }
 
 // 장비관리 > 장비목록 > 장비상세 페이지 이동
 function eqpDetail(id){
-    const url = `/eqpManage/detail/${id}`;
+    const url = `/cable/eqp/detail/${id}`;
     window.location.href = url;
 }
 
@@ -225,7 +225,7 @@ function eqpUpdate() {
     }
     else{
         let id = data[0].eqp_manage_id;
-        const url = `/eqpManage/update/${id}`;
+        const url = `/cable/eqp/update/${id}`;
         window.location.href = url;
     }
 };
@@ -257,7 +257,7 @@ function eqpDelete() {
             if (result.isConfirmed) {
                 alert3("load");
                 $.ajax({
-                    url : '/eqpManage/delete',
+                    url : '/cable/eqp/delete',
                     type: 'post',
                     contentType: 'application/json',
                     data: JSON.stringify(data),
@@ -294,7 +294,7 @@ function selectEquipmentDownload(){
         /*
         장비목록 컬럼변경때문에 테이블 일단 조회추가수정상세 구현한 다음에
         $.ajax({
-            url : '/eqpManage/excelInsert',
+            url : '/cable/eqp/excelInsert',
             type: 'post',
             data: formData,
             processData: false,
@@ -405,7 +405,7 @@ function saveFile(file){
     let formData = new FormData();
     formData.append("file", file);
     $.ajax({
-        url : '/eqpManage/excelInsert',
+        url : '/cable/eqp/excelInsert',
         type: 'post',
         data: formData,
         processData: false,
@@ -430,7 +430,7 @@ function notifySaveResult(res){
     })
     .then(() => {
         $.ajax({
-            url : '/eqpManage/excelResponse',
+            url : '/cable/eqp/excelResponse',
             type: 'post',
             data: JSON.stringify(res),
             contentType: 'application/json',
@@ -453,7 +453,7 @@ function notifySaveResult(res){
  */
 function downloadExcelTemplate(){
     $.ajax({
-        url: "/eqpManage/excelTemplate",
+        url: "/cable/eqp/excelTemplate",
         method: "GET",
         xhrFields: {
             responseType: 'blob'
@@ -480,7 +480,7 @@ function validExcelEquipmentList() {
         formData.append("file", data);
 
         $.ajax({
-            url : '/eqpManage/excelValid',
+            url : '/cable/eqp/excelValid',
             type: 'post',
             data: formData,
             processData: false,

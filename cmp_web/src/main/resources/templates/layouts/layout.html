@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+	<head>
+		<meta charset="UTF-8" http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+		<meta content="width=device-width, initial-scale=1.0" name="viewport">
+		<link rel="icon" type="image/x-icon" href="/images/icon/favicon.png">
+		<title>Cable Management Platform</title>
+
+		<th:block layout:fragment="css">
+			<link th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+			<link th:href="@{/assets/vendor/bootstrap/css/bootstrap-table.min.css}" rel="stylesheet">
+			<link th:href="@{/assets/vendor/SweetAlert2/sweetalert2.min.css}" rel="stylesheet">
+			<link th:href="@{/css/common/layout.css}" rel="stylesheet">
+		</th:block>
+	</head>
+
+	<body>
+
+		<th:block layout:fragment="script">
+			<script th:src="@{/assets/vendor/axios/axios.min.js}"></script>
+			<script th:src="@{/assets/vendor/jquery/jquery.min.js}"></script>
+			<script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+			<script th:src="@{/assets/vendor/bootstrap/js/bootstrap-table.min.js}"></script>
+			<script th:src="@{/assets/vendor/SweetAlert2/sweetalert2.min.js}"></script>
+
+			<script th:src="@{/js/common/menu.js}"></script>
+			<script th:src="@{/js/common/htmlCommonFunction.js}"></script>
+			<script th:src="@{/js/common/sweetAlert2Custom.js}"></script>
+		</th:block>
+
+
+		<th:block th:replace="~{fragments/aside :: aside}"></th:block>
+
+		<div class="content">
+			<th:block th:replace="~{fragments/pageTitle :: pageTitle}"></th:block>
+			<th:block layout:fragment="content"></th:block>
+		</div>
+
+	</body>`
+
+</html>

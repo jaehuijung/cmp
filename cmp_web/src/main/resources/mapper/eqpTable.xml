@@ -314,7 +314,7 @@
 
     <update id="updateBasicEqpList" parameterType="Map">
         /* updateBasicEqpList ...
-            장비관리 > 장비목록 > 수정 페이지 > 저장 : 장비 기본정보*/
+            장비관리 > 장비목록 > 수정 페이지 > 저장 : 장비 기본정보 */
         UPDATE
             equipment_basic
         SET
@@ -425,12 +425,12 @@
             , eos_status = #{eos_status}
         </if>
         WHERE
-            eqp_manage_id = #{eqp_manage_id};
+            eqp_manage_id = #{eqp_manage_id}
     </update>
 
     <update id="deleteEqpList" parameterType="String">
         /* deleteEqpList ...
-            장비관리 > 장비목록 > 삭제 */
+            장비관리 > 장비목록 > 삭제
             장비관리 > 장비목록 > 상세 페이지 > 삭제 */
         update equipment_basic
         set is_deleted = 'Y'

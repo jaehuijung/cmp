@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestMapping;
 import sl.qr.mh.service.old.databaseService;
 import sl.qr.mh.vo.User;
 
 @Slf4j
 @CrossOrigin(origins = "*", allowedHeaders = "*") /* CORS 어노테이션 */
 @Controller
+@RequestMapping("/settings")
 public class userController {
 	
 	 private final databaseService databaseService;
@@ -27,7 +29,7 @@ public class userController {
 				this.bcrypt = bcrypt;
 	    }
 	
-	@GetMapping("/usr/list")
+	@GetMapping("/user/list")
 	public String getusrList(HttpSession session,
 			HttpServletRequest request) {
 		return "views/user/view";
