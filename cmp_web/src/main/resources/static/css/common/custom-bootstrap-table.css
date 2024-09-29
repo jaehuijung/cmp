@@ -1,0 +1,39 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+th {
+    background-color: #f2f2f2;
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #ddd;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.underline {
+    text-decoration: underline;
+    transition: color 0.3s, filter 0.3s; font-weight 0.3s /* 부드러운 애니메이션 효과 추가 */
+}
+.underline:hover { /* 마우스 올림 */
+    color: blue;
+    font-weight: bold; /* 글자 굵게 */
+    cursor: pointer;   /* 마우스 커서를 클릭 모양으로 변경 */
+}
+.underline:active { /* 마우스 클릭 */
+    color: red;
+}

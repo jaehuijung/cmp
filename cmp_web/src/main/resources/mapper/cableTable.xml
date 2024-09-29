@@ -4,7 +4,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="sl.qr.mh.service.cableMapper">
+<mapper namespace="sl.qr.mh.service.old.cableMapper">
 
 
     <select id="selectCableList" parameterType="sl.qr.mh.vo.Cable" resultType="sl.qr.mh.vo.Cable">

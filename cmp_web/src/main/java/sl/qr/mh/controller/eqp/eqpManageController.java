@@ -32,8 +32,7 @@ public class eqpManageController {
      */
     @GetMapping("/view")
     public String view() {
-        // return "views/eqp/view";
-        return "views/test";
+        return "views/eqp/view";
     }
 
 

@@ -4,15 +4,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import sl.qr.mh.paging.CommonForm;
 import sl.qr.mh.paging.PagingUtil;
-import sl.qr.mh.service.cableMapper;
+import sl.qr.mh.service.old.cableMapper;
 import sl.qr.mh.vo.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import sl.qr.mh.service.cableMapper;
 
 @Slf4j
 @Service

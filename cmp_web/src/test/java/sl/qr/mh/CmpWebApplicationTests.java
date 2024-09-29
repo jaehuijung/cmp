@@ -23,8 +23,7 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
 import lombok.extern.slf4j.Slf4j;
-import sl.qr.mh.service.cableService;
-import sl.qr.mh.service.qrService;
+import sl.qr.mh.service.old.cableService;
 import sl.qr.mh.vo.QR;
 
 @Slf4j

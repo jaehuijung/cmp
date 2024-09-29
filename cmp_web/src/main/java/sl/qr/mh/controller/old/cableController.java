@@ -2,22 +2,18 @@ package sl.qr.mh.controller;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
-import sl.qr.mh.service.cableService;
-import sl.qr.mh.service.qrService;
-import sl.qr.mh.vo.Cable;
+import sl.qr.mh.service.old.cableService;
+import sl.qr.mh.service.old.qrService;
 import sl.qr.mh.vo.Equipment;
 
 @Slf4j

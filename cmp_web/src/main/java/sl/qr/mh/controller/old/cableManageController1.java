@@ -1,6 +1,5 @@
 package sl.qr.mh.controller;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
-import sl.qr.mh.service.cableService;
+import sl.qr.mh.service.old.cableService;
 import sl.qr.mh.vo.Equipment;
 import sl.qr.mh.vo.Group;
 import sl.qr.mh.vo.Rack;

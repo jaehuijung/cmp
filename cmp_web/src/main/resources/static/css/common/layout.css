@@ -116,6 +116,8 @@ header {
     font-size: 10px;
 }
 
+
+/* 콘텐츠 영역 */
 .content {
     flex: 1;
     overflow-y: auto;
@@ -125,8 +127,73 @@ header {
 }
 
 
+/* 페이지 네비게이션 영역 */
 .pagetitle{
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
 }
+
+.pagetitle h1 {
+  font-size: 24px;
+  margin-bottom: 0;
+  font-weight: 600;
+  color: #012970;
+}
+
+/* Breadcrumbs */
+.breadcrumb {
+  font-size: 14px;
+  font-family: "Nunito", sans-serif;
+  color: #899bbd;
+  font-weight: 600;
+}
+
+.breadcrumb a {
+  color: #899bbd;
+  transition: 0.3s;
+}
+
+.breadcrumb a:hover {
+  color: #51678f;
+}
+
+.breadcrumb .breadcrumb-item::before {
+  color: #899bbd;
+}
+
+.breadcrumb .active {
+  color: #51678f;
+  font-weight: 600;
+}
+
+/* Bordered Tabs */
+.nav-tabs-bordered {
+  border-bottom: 2px solid #ebeef4;
+}
+
+.nav-tabs-bordered .nav-link {
+  margin-bottom: -2px;
+  border: none;
+  color: #2c384e;
+}
+
+.nav-tabs-bordered .nav-link:hover,
+.nav-tabs-bordered .nav-link:focus {
+  color: #4154f1;
+}
+
+.nav-tabs-bordered .nav-link.active {
+  background-color: #fff;
+  color: #4154f1;
+  border-bottom: 2px solid #4154f1;
+}
+
+
+
+/* 검색영역 */
+.searchChkWrap{ display: flex; align-items: flex-start; }
+.searchChkWrap > .searchTitle1 { min-width: 100px; font-size: 18px; font-weight: bold; margin-right: 10px; }
+.searchChkWrap > .searchChkLabels { display: flex; flex-wrap: wrap; }
+.searchChkWrap > .searchChkLabels > .searchTitle2 { }
+.searchChkWrap > .searchChkLabels > .searchChk { display: flex; margin: 0px 10px 10px 0px;}
