@@ -179,6 +179,9 @@ function saveData() {
 
             data[name] = acquisition_cost;
         }
+        else if(name.includes("ip_block")){
+            // 아무 처리도 하지 않음
+        }
         else{
             if (["eqp_name", "hostname", "model", "m_company", "primary_operator", "primary_outsourced_operator",
                 "secondary_operator", "secondary_outsourced_operator", "operating_department", "cpu", "mem",
@@ -202,6 +205,7 @@ function saveData() {
         }
     });
 
+    data["ip_address"] = combineIP(); // ip_block1 ~ ip_block4까지 구분자 붙여서 ip_address 문자열 생성
 
     $('select').each(function() {
         const selectedId = $(this).attr('id');
