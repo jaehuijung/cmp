@@ -1,56 +1,58 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8" http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-    <title>CMS Login</title>
-	<link rel="icon" type="image/x-icon" href="/images/icon/favicon.png">
-	<link rel="stylesheet" href="/css/login.css" />
-</head>
+	<head>
+		<meta charset="utf-8" http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+		<title>CMS Login</title>
+		<link rel="icon" type="image/x-icon" href="/images/icon/favicon.png">
+		<link rel="stylesheet" href="/css/login.css" />
+	</head>
 
-<body>
+	<body>
 
-	<!-- <hr id="sep"> -->
-	<input type="hidden" id="sessionLoginChk" th:value="${session.loginChk}" />
-	<input type="hidden" id="sessionMessage" th:value="${session.message}" />
+		<input type="hidden" id="sessionLoginChk" th:value="${session.loginChk}" />
+		<input type="hidden" id="sessionMessage" th:value="${session.message}" />
 
+		<div class="video-background">
+			<video autoplay loop muted>
+				<source src="/images/bg.mp4" type="video/mp4">
+			</video>
+			<div class="video-overlay"></div>
+		</div>
 
-	<div class="lg-wrap lg-bg">
-		<div class="lg-box">
-			<div class="wrap">
-				<div class="lg-box-wrap">
-					<div class="lg-head">
-						<img src="/images/logo/technopark.png" alt="logo" />
+		<div class="login-form">
+			<div class="left-content">
+				<div>
+					<p class="smart-cms">Smart CMS</p>
+					<p class="cable-management">CABLE MANAGEMENT SYSTEM</p>
+
+				</div>
+				<div>
+					<img src="/images/logo/logo_.png" alt="logo" />
+				</div>
+			</div>
+			<div class="right-content">
+				<div class="logo-section">
+					<img src="/images/logo/technopark.png" alt="logo" />
+				</div>
+
+				<div class="login-inputs">
+					<div class="line-with-text"><span>Login</span></div>
+					<div>
+						<input type="text" placeholder="아이디를 입력해주세요" name="userId" />
 					</div>
-					<div class="lg-inputbox">
-						<div class="pj-title">
-							<div class="line-with-text"><span>Login</span></div>
-						</div>
-						<form action="/sl/user/login" id="formDiv" method="post">
-							<div class="input-form">
-								<input type="text" placeholder="ID" name="userId" />
-							</div>
-							<div class="input-form">
-								<input type="password" placeholder="PASSWORD" name="userPassword" />
-							</div>
-							<div class="input-form">
-								<input type="submit" value="로그인" />
-							</div>
-						</form>
+					<div>
+						<input type="password" placeholder="비밀번호를 입력해주세요." name="userPassword" />
 					</div>
-<!--					<div class="lg-head"><img src="/images/logo/logo_.png" alt="logo" style="height:40px;"/></div>-->
+				</div>
+
+				<div class="login-button">
+					<div>
+						<input type="button" value="로그인" />
+					</div>
 				</div>
 			</div>
 		</div>
-    </div>
 
-	<script>
-		let sessionLoginChk = document.getElementById("sessionLoginChk").value;
-		let sessionMessage = document.getElementById("sessionMessage").value;
-		
-		if((sessionLoginChk != '') && (sessionLoginChk == "no")){
-			alert(sessionMessage);
-		}
-	</script>
-</body>
+	</body>
 
 </html>

@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8" http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+	<title>CMS Login</title>
+	<link rel="icon" type="image/x-icon" href="/images/icon/favicon.png">
+	<link rel="stylesheet" href="/css/login.css" />
+</head>
+
+<body>
+
+<!-- <hr id="sep"> -->
+<input type="hidden" id="sessionLoginChk" th:value="${session.loginChk}" />
+<input type="hidden" id="sessionMessage" th:value="${session.message}" />
+
+
+<div class="lg-wrap lg-bg">
+	<div class="lg-box">
+		<div class="wrap">
+			<div class="lg-box-wrap">
+				<div class="lg-head">
+					<img src="/images/logo/technopark.png" alt="logo" />
+				</div>
+				<div class="lg-inputbox">
+					<div class="pj-title">
+						<div class="line-with-text"><span>Login</span></div>
+					</div>
+					<form action="/sl/user/login" id="formDiv" method="post">
+						<div class="input-form">
+							<input type="text" placeholder="ID" name="userId" />
+						</div>
+						<div class="input-form">
+							<input type="password" placeholder="PASSWORD" name="userPassword" />
+						</div>
+						<div class="input-form">
+							<input type="submit" value="로그인" />
+						</div>
+					</form>
+				</div>
+				<!--					<div class="lg-head"><img src="/images/logo/logo_.png" alt="logo" style="height:40px;"/></div>-->
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	let sessionLoginChk = document.getElementById("sessionLoginChk").value;
+    let sessionMessage = document.getElementById("sessionMessage").value;
+
+    if((sessionLoginChk != '') && (sessionLoginChk == "no")){
+        alert(sessionMessage);
+    }
+</script>
+</body>
+
+</html>
