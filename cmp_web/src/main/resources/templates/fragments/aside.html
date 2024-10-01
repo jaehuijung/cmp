@@ -7,7 +7,7 @@
         <div class="left-section">
             <!-- 왼쪽 사이드바 접는 버튼 -->
             <button id="sidebarToggle" class="btn">
-                <img src="/images/icon/mingcute_left-fill.svg" alt="Toggle Sidebar" class="sidebar-toggle-img">
+                <img src="/images/icon/folder.png" alt="Toggle Sidebar" class="sidebar-toggle-img">
             </button>
             <!-- 상단 메뉴 항목 -->
             <nav id="top-menu" class="top-menu" th:fragment="topMenuFragment"></nav>
@@ -40,6 +40,9 @@
     <div class="side-menu" th:fragment="asideFragment">
         <div class="menu-section">
             <input id="menu-search" type="text" placeholder="Search..." />
+<!--            <img id="menu-search" src="/images/logo/technopark.png" alt="Search" onclick="location.href='/cable/rack/view'" />-->
+
+            <!-- 사이드바 메뉴 항목 menu.js 에서 동적생성 -->
             <div id="menu-items" class="items-section"> </div>
         </div>
         <div class="bottom-section">

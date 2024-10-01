@@ -10,8 +10,8 @@ body {
 /* 상단 바 */
 header {
     height: 100px;
-    background: #343a40;
-    color: #fff;
+    background: #fff;
+    color: #959AA6;
     display: flex;
     align-items: center;
     padding: 0 20px;
@@ -46,13 +46,15 @@ header {
 .top-menu a {
     display: block;
     padding: 15px 20px;
-    color: #fff;
+    color: #959AA6;
     text-decoration: none;
     border-bottom: 1px solid #495057;
 }
 
 .top-menu a:hover {
-    background-color: #495057;
+    font-weight: bold;
+    color: #2A79C4;
+    border-bottom: 3px solid #2A79C4;
 }
 
 /* 상단바 > 오른쪽 영역 */
@@ -123,7 +125,7 @@ header {
 /* 왼쪽 바 */
 .side-menu {
     width: 300px;
-    background: #343a40;
+    background: #243C93;
     color: #fff;
     overflow-y: auto;
     position: fixed;
@@ -180,6 +182,11 @@ header {
 
 .side-menu a:hover {
     background-color: #495057;
+}
+
+.side-menu .menu-icon{
+    width: 30px;
+    margin-right: 20px;
 }
 
 /* 왼쪽 바 > 하단 영역 > 애플리케이션 로고 */
