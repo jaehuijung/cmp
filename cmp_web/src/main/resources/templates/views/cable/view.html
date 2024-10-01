@@ -204,11 +204,21 @@
                         </div>
                     </div>
 
+                    <div class="searchEqpSearchWrap">
+                        <div class="searchEqpSearch">
+                            <input type="text" id="searchEqpSearchInput"
+                                   style="width:90%; height:40px; padding-left: 10px;" placeholder="검색어를 입력해주세요"/>
+                            <button type="button" class="btn btn-secondary btn-lg"
+                                    style="margin-left: 10px; font-size: 15px;" onclick="searchEqpList();">검색
+                            </button>
+                        </div>
+                    </div>
+
                     <div class="searchEqpSelectWrap">
                         <!--
                         연도 선택박스(도입년도 등), 그룹(유닛번호 등) 선택박스 영역
                         필요없다고 하면 지우기
-                        -->
+
                         <div class="searchEqpSelect">
                             <div id="searchEqpTitle3">도입년도</div>
                             <input type="text" class="searchEqpSelectInput" id="searchEqpYear">
@@ -229,18 +239,8 @@
                             <div id="searchEqpTitle3">... 추가</div>
                             <input type="text" class="searchEqpSelectInput" id="searchEqpUnitNumber">
                         </div>
+                        -->
                     </div>
-
-                    <div class="searchEqpSearchWrap">
-                        <div class="searchEqpSearch">
-                            <input type="text" id="searchEqpSearchInput"
-                                   style="width:90%; height:40px; padding-left: 10px;" placeholder="검색어를 입력해주세요"/>
-                            <button type="button" class="btn btn-secondary btn-lg"
-                                    style="margin-left: 10px; font-size: 15px;" onclick="searchEqpList();">검색
-                            </button>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </section>

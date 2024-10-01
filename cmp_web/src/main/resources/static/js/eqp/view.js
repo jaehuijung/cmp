@@ -61,9 +61,9 @@ $(function(){
         url: '/cable/eqp/list',
         method: 'post',
         queryParams: function(params) {
-            let searchEqpSearchInput = $("#searchEqpSearchInput").val().trim();
+            let searchInput = $("#searchInput").val().trim();
             params.searchData = {
-                searchEqpSearchInput
+                searchInput
             }
             return params;
         },
@@ -100,7 +100,7 @@ $(function(){
         },
     });
 
-    $('#searchEqpSearchInput').keyup(function(e){
+    $('#searchInput').keyup(function(e){
         if(e.which == 13){
             tableRefresh();
         }
