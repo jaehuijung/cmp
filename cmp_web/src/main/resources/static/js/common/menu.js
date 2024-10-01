@@ -55,6 +55,7 @@ function buildTopMenu(menuData) {
     }
 }
 
+/*
 // 왼쪽 사이드메뉴 구성
 function buildSideMenu(menuData) {
 
@@ -109,6 +110,72 @@ function buildPageNavigation(menuData) {
             <li class="breadcrumb-item active">${currentMenu.menu_name}</li>
         `;
     }
+}
+*/
+
+// 왼쪽 사이드메뉴 구성
+function buildSideMenu(menuData) {
+
+    const currentMenu = getParentMenuId(menuData);
+
+    if (!currentMenu) {
+        alert2("알림","메뉴를 찾을 수 없는 오류가 발생했습니다. <br> 새로고침 후 문제가 지속되면 관리자에게 문의하세요.", "info", "확인");
+        return;
+    }
+
+    const sideMenuContainer = $('#menu-items');
+    const filteredMenu = menuData.filter(menu => menu.parent_menu_id == currentMenu.parent_menu_id);
+
+    const sideMenuHtml = filteredMenu
+        .map(menu => `<a href="${menu.url}">${menu.menu_name}</a>`)
+        .join('');
+
+    if (sideMenuContainer.length > 0) {
+        sideMenuContainer.html(sideMenuHtml);
+    }
+}
+
+// 페이지 네비게이션 구성
+function buildPageNavigation(menuData) {
+
+    // 중메뉴 찾기
+    const currentMenu = getParentMenuId(menuData);
+    if (!currentMenu) {
+        alert2("알림","메뉴를 찾을 수 없는 오류가 발생했습니다. <br> 새로고침 후 문제가 지속되면 관리자에게 문의하세요.", "info", "확인");
+        return;
+    }
+
+    // 대메뉴 찾기
+    const parentMenu = menuData.find(menu => menu.menu_id === currentMenu.parent_menu_id);
+    if (!parentMenu) {
+        alert2("알림","메뉴를 찾을 수 없는 오류가 발생했습니다. <br> 새로고침 후 문제가 지속되면 관리자에게 문의하세요.", "info", "확인");
+        return;
+    }
+
+    // 페이지 구성
+    const h1Element = document.querySelector('.pagetitle h1');
+    if (h1Element) {
+        h1Element.textContent = currentMenu.menu_name;
+    }
+
+    const breadcrumbElement = document.querySelector('.breadcrumb');
+
+    // home 링크는 만약 대시보드 만들면 거기로 이동하도록 수정!
+    if (breadcrumbElement) {
+        breadcrumbElement.innerHTML = `
+            <li class="breadcrumb-item"><a href="/cable/rack/view">Home</a></li>
+            <li class="breadcrumb-item"><a href="${parentMenu.url}">${parentMenu.menu_name}</a></li>
+            <li class="breadcrumb-item active"><a href="${parentMenu.url}">${currentMenu.menu_name}</a></li>
+        `;
+    }
+}
+
+// 사용자가 접근한 상위 메뉴 id 찾기
+function getParentMenuId(menuData) {
+    const currentUrl = window.location.pathname;
+    const currentMenu = menuData.find(menu => (menu.menu_order ==2 && currentUrl.includes(menu.menu_role)));
+
+    return currentMenu ? currentMenu : null;
 }
 
 
