@@ -1,3 +1,4 @@
+
 body {
     margin: 0;
     display: flex;
@@ -6,6 +7,7 @@ body {
     height: 100vh;
 }
 
+/* 상단 바 */
 header {
     height: 100px;
     background: #343a40;
@@ -18,18 +20,22 @@ header {
     transition: margin-left 0.3s, width 0.3s; /* 애니메이션 추가 */
 }
 
+
+/* 상단 바 > 왼쪽 영역 */
 .left-section {
     display: flex;
     align-items: center;
     flex-grow: 1;
 }
 
+/* 상단바 > 왼쪽 영역 > 사이드바 접는 버튼 */
 .sidebar-toggle-img {
     width: 24px;
     height: 24px;
 }
 
 
+/* 상단바 > 왼쪽 영역 > 상단 메뉴 항목 */
 .top-menu {
     display: flex;
     align-items: center;
@@ -49,6 +55,7 @@ header {
     background-color: #495057;
 }
 
+/* 상단바 > 오른쪽 영역 */
 .right-section {
     display: flex;
     align-items: center;
@@ -56,81 +63,9 @@ header {
     font-size: 14px;
 }
 
-.content-wrapper {
-    display: flex;
-}
+/* 상단바 > 오른쪽 영역 > 사용자 정보 css는 bootstrap 으로 구성 */
 
-.side-menu {
-    width: 300px;
-    background: #343a40;
-    color: #fff;
-    overflow-y: auto;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    height: 100%;
-    padding-top: 15px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    z-index: 1; /* 사이드 메뉴를 content 위로 오게 하기 위한 설정 */
-    transition: margin-left 0.3s, width 0.3s;
-}
-
-.side-menu.toggled {
-    margin-left: -300px; /* 사이드 메뉴 숨김 */
-}
-
-.menu-section {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-}
-
-.items-section {
-    display: flex;
-    flex-direction: column;
-}
-
-.bottom-section {
-    padding: 20px;
-    border-top: 1px solid #495057;
-}
-
-.side-menu a {
-    display: block;
-    padding: 15px 20px;
-    color: #fff;
-    text-decoration: none;
-    border-bottom: 1px solid #495057;
-}
-
-.side-menu a:hover {
-    background-color: #495057;
-}
-
-#menu-search {
-    margin-bottom: 30px;
-    padding: 5px;
-    border: 1px solid #495057;
-    border-radius: 10px;
-}
-
-#bottom-text {
-    text-align: center;
-    font-size: 10px;
-}
-
-
-
-
-
-
-
-.nav-link, .align-items-center, .pe-0, .d-none, .d-md-block, .dropdown-toggle, .ps-2 {
-}
-
+/* 상단바 > 오른쪽 영역 > 사용자 정보 드롭다운 */
 .dropdown-menu {
   border-radius: 4px;
   padding: 10px 0;
@@ -182,23 +117,92 @@ header {
   transition: 0.3s;
 }
 
-.dropdown-item i {
-  margin-right: 10px;
-  font-size: 18px;
-  line-height: 0;
-}
-
 .dropdown-item:hover {
-  background-color: #f6f9ff;
+  background-color: #eaedf1;
+}
+
+/* 왼쪽 바 */
+.side-menu {
+    width: 300px;
+    background: #343a40;
+    color: #fff;
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    padding-top: 15px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 1; /* 사이드 메뉴를 content 위로 오게 하기 위한 설정 */
+    transition: margin-left 0.3s, width 0.3s;
+}
+
+/* 왼쪽 바 > 토글 */
+.side-menu.toggled {
+    margin-left: -300px;
+}
+
+/* 왼쪽 바 > 상단 영역 */
+.menu-section {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+/* 왼쪽 바 > 상단 영역 > 검색 */
+#menu-search {
+    margin-bottom: 30px;
+    padding: 5px;
+    border: 1px solid #495057;
+    border-radius: 10px;
+}
+
+/* 왼쪽 바 > 상단 영역 > 메뉴 항목 */
+.items-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.items-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.side-menu a {
+    display: block;
+    padding: 15px 20px;
+    color: #fff;
+    text-decoration: none;
+    border-bottom: 1px solid #495057;
+}
+
+.side-menu a:hover {
+    background-color: #495057;
+}
+
+/* 왼쪽 바 > 하단 영역 > 애플리케이션 로고 */
+.bottom-section {
+    padding: 20px;
+    border-top: 1px solid #495057;
+}
+
+.bottom-section .bottom-text-title {
+    text-align: center;
+    font-size: 20px;
+    margin: 0;
+}
+
+.bottom-section .bottom-text-content {
+    text-align: center;
+    font-size: 10px;
+    margin: 0;
 }
 
 
-
-
-
-
-
-/* 콘텐츠 영역 */
+/* 중앙 콘텐츠 */
 .content {
     flex: 1;
     overflow-y: auto;
@@ -216,9 +220,7 @@ header {
     margin-left: 0;
 }
 
-
-
-/* 페이지 네비게이션 영역 */
+/* 중앙 콘텐츠 > 페이지 네비게이션 영역 */
 .pagetitle{
     display: flex;
     justify-content: space-between;
