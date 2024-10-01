@@ -74,7 +74,7 @@ function buildSideMenu(menuData) {
 
     const sideMenuHtml = filteredMenu
         .map(menu => {
-            const isActive = menu.url === window.location.pathname ? ' active' : '';
+            const isActive = menu.menu_id === currentMenu.menu_id ? ' active' : '';
             return `<a href="${menu.url}" class="side-menu-item${isActive}"><img src="/images/icon/folder.png" alt="icon" class="menu-icon" />${menu.menu_name}</a>`;
         })
         .join('');
