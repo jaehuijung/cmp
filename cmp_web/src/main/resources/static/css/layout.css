@@ -300,10 +300,11 @@ header {
 }
 
 
-/* 검색영역 */
-.searchChkWrap, .searchSearchWrap {
+/* 검색 체크박스 영역 */
+.searchChkWrap {
   display: flex;
   align-items: flex-start;
+  flex-direction: column;
 }
 
 .searchTitle1 {
@@ -326,6 +327,40 @@ header {
 .searchChkLabels .searchChk {
   display: flex;
   margin: 0px 10px 10px 0px;
+}
+
+.searchChk input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #DADADA;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  margin-right: 15px;
+}
+
+.searchChk input[type="checkbox"]:checked {
+  background-color: #014188;
+  border: 2px solid #014188;
+}
+
+.searchChk input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  width: 6px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* 검색 검색어 영역 */
+.searchSearchWrap {
+  display: flex;
+  align-items: flex-start;
 }
 
 .searchSearchInput{
@@ -371,34 +406,10 @@ header {
     margin-right: 10px;
 }
 
-/* 체크박스 스타일 */
-.searchChk input[type="checkbox"] {
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  border: 1px solid #DADADA;
-  position: relative;
-  cursor: pointer;
-  outline: none;
-  margin-right: 15px;
-}
 
-.searchChk input[type="checkbox"]:checked {
-  background-color: #014188;
-  border: 2px solid #014188;
-}
 
-.searchChk input[type="checkbox"]:checked::after {
-  content: '';
-  position: absolute;
-  top: 2px;
-  left: 5px;
-  width: 6px;
-  height: 10px;
-  border: solid white;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-}
+/**************************/
+
 
 
 
