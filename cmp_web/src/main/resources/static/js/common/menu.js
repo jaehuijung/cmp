@@ -47,7 +47,10 @@ function buildTopMenu(menuData) {
     const filteredMenu = menuData.filter(menu => menu.parent_menu_id === '00000000');
 
     const topMenuHtml = filteredMenu
-        .map(menu => `<a href="${menu.url}" class="top-menu-item">${menu.menu_name}</a>`)
+        .map(menu => {
+            const isActive = menu.url === window.location.pathname ? ' active' : '';
+            return `<a href="${menu.url}" class="top-menu-item${isActive}">${menu.menu_name}</a>`;
+        })
         .join('');
 
     if (topMenuContainer.length > 0) {
@@ -57,11 +60,10 @@ function buildTopMenu(menuData) {
 
 // 왼쪽 사이드메뉴 구성
 function buildSideMenu(menuData) {
-
     const currentMenu = getParentMenuId(menuData);
 
     if (!currentMenu) {
-        alert2("알림","메뉴를 찾을 수 없는 오류가 발생했습니다. <br> 새로고침 후 문제가 지속되면 관리자에게 문의하세요.", "info", "확인");
+        alert2("알림", "메뉴를 찾을 수 없는 오류가 발생했습니다. <br> 새로고침 후 문제가 지속되면 관리자에게 문의하세요.", "info", "확인");
         return;
     }
 
@@ -69,7 +71,10 @@ function buildSideMenu(menuData) {
     const filteredMenu = menuData.filter(menu => menu.parent_menu_id == currentMenu.parent_menu_id);
 
     const sideMenuHtml = filteredMenu
-        .map(menu => `<a href="${menu.url}"><img src="/images/icon/folder.png" alt="icon" class="menu-icon" />${menu.menu_name}</a>`)
+        .map(menu => {
+            const isActive = menu.url === window.location.pathname ? ' active' : '';
+            return `<a href="${menu.url}" class="side-menu-item${isActive}"><img src="/images/icon/folder.png" alt="icon" class="menu-icon" />${menu.menu_name}</a>`;
+        })
         .join('');
 
     if (sideMenuContainer.length > 0) {
