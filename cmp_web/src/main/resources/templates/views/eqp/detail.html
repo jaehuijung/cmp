@@ -4,40 +4,85 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 
-<!--      layout:decorate="~{layouts/new_default_layout}">-->
-
 <head>
     <style>
-        #section-equipment-basic-info,
-        #section-equipment-category,
-        #section-equipment-operation-info,
-        #section-equipment-details,
-        #section-equipment-connection-info {
-            margin-bottom: 30px;
-        }
+        /* 기본 구역의 스타일 */
+       #section-equipment-basic-info,
+       #section-equipment-category,
+       #section-equipment-operation-info,
+       #section-equipment-details {
+           margin-bottom: 20px;
+       }
 
-        .equipment-wrap {
-            display: flex;
-        }
+       /* h2 태그의 기본 스타일 */
+       #section-equipment-basic-info h2,
+       #section-equipment-category h2,
+       #section-equipment-operation-info h2,
+       #section-equipment-details h2 {
+           font-size: 20px;
+           margin-bottom: 10px;
+       }
+
+       /* 각 equipment-wrap의 스타일 */
+       .equipment-wrap {
+           display: flex;
+           flex-wrap: wrap;
+           margin-bottom: 10px;
+       }
+
+       /* 레이블 스타일 */
+       .equipment-wrap label {
+           min-width: 150px;
+           margin-right: 10px;
+           font-size: 14px;
+           margin-bottom: 5px;
+           line-height: 28px;
+       }
+
+       /* 입력란 스타일 */
+       .equipment-wrap input[type="text"],
+       .equipment-wrap input[type="number"],
+       .equipment-wrap input[type="date"] {
+           width: 200px;
+           padding: 5px 10px;
+           font-size: 14px;
+           height: 28px;
+           margin-bottom: 10px;
+           border: 1px solid #DADADA;
+           border-radius: 4px;
+           background-color: #F9F9F9;
+           box-sizing: border-box;
+       }
+
+       /* 특수한 값을 위한 input 스타일 */
+       .equipment-wrap input#ip_block1,
+       .equipment-wrap input#ip_block2,
+       .equipment-wrap input#ip_block3,
+       .equipment-wrap input#ip_block4 {
+           width: 50px;
+           margin-bottom: 0; /* 점에서 line-height가 동일하게 */
+       }
+
+       /* 버튼 스타일 */
+       button {
+           background-color: #014188;
+           color: white;
+           border: none;
+           padding: 8px 16px;
+           font-size: 14px;
+           margin-right: 5px;
+           border-radius: 4px;
+           cursor: pointer;
+       }
+
+       button:hover {
+           background-color: #01307a;
+       }
     </style>
 </head>
 
 <div layout:fragment="content">
     <main id="main" class="main">
-
-        <!--
-        <div class="pagetitle">
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item">장비관리</li>
-                    <li class="breadcrumb-item active">장비 DETAIL</li>
-                </ol>
-            </nav>
-
-            <h1 style="padding: 0px 0px 10px;">장비 DETAIL</h1>
-        </div>
-        -->
 
         <input type="hidden" id="eqp_manage_id" name="eqp_manage_id" th:value="${equipment.eqp_manage_id}"/>
 
