@@ -44,11 +44,13 @@ function buildMenus(menuData) {
 // 상단 메뉴 구성
 function buildTopMenu(menuData) {
     const topMenuContainer = $('#top-menu');
+
+    const currentMenu = getParentMenuId(menuData);
     const filteredMenu = menuData.filter(menu => menu.parent_menu_id === '00000000');
 
     const topMenuHtml = filteredMenu
         .map(menu => {
-            const isActive = menu.url === window.location.pathname ? ' active' : '';
+            const isActive = menu.menu_id === currentMenu.parent_menu_id ? ' active' : '';
             return `<a href="${menu.url}" class="top-menu-item${isActive}">${menu.menu_name}</a>`;
         })
         .join('');
