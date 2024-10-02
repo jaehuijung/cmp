@@ -1,24 +1,60 @@
 @font-face {
-  font-family: "NanumGothic";
-  src: url("../../font/NanumGothicLight.otf");
-  font-weight: 300;
+  font-family: "Pretendard";
+  src: url("../../font/Pretendard/Pretendard-Black.otf") format("otf");
+  font-weight: 900;
 }
 
 @font-face {
-  font-family: "NanumGothic";
-  src: url("../../font/NanumGothic.otf");
+  font-family: "Pretendard";
+  src: url("../../font/Pretendard/Pretendard-Thin.otf") format("otf");
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("../../font/Pretendard/Pretendard-SemiBold.otf") format("otf");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("../../font/Pretendard/Pretendard-Regular.otf") format("otf");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("../../font/Pretendard/Pretendard-Medium.otf") format("otf");
   font-weight: 500;
 }
 
 @font-face {
-  font-family: "NanumGothic";
-  src: url("../../font/NanumGothicBold.otf");
+  font-family: "Pretendard";
+  src: url("../../font/Pretendard/Pretendard-Light.otf") format("otf");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("../../font/Pretendard/Pretendard-ExtraLight.otf") format("otf");
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("../../font/Pretendard/Pretendard-ExtraBold.otf") format("otf");
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("../../font/Pretendard/Pretendard-Bold.otf") format("otf");
   font-weight: 700;
 }
 
 * {
   box-sizing: border-box;
-  font-family: "NanumGothic", sans-serif;
+  font-family: "Pretendard", sans-serif;
 }
 
 html, body, div, span {
@@ -26,6 +62,9 @@ html, body, div, span {
   padding: 0;
   border: 0;
   font: inherit;
+  font-family: "Pretendard", sans-serif;
+  font-weight: 300;
+  line-height: 1.2;
   vertical-align: baseline;
 }
 
@@ -34,9 +73,6 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  font-family: "NanumGothic", sans-serif;
-  line-height: 1.2;
-  font-weight: 300;
   margin: 0;
   padding: 0;
   background: #f0f0f0;
@@ -45,8 +81,8 @@ body {
 
 
 
-/* 비디오 배경 스타일 */
-.video-background {
+/* 이미지 배경 스타일 */
+.image-background {
   position: fixed;
   top: 0;
   left: 0;
@@ -56,7 +92,7 @@ body {
   z-index: -1;
 }
 
-.video-background video {
+.image-background img {
   min-width: 100%;
   min-height: 100%;
   width: auto;
@@ -68,8 +104,8 @@ body {
   object-fit: cover;
 }
 
-/* 비디오 오버레이 스타일 */
-.video-overlay {
+/* 이미지 오버레이 스타일 */
+.image-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -79,6 +115,40 @@ body {
   z-index: 1;
 }
 
+
+// /* 비디오 배경 스타일 */
+// .video-background {
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   overflow: hidden;
+//   z-index: -1;
+// }
+//
+// .video-background video {
+//   min-width: 100%;
+//   min-height: 100%;
+//   width: auto;
+//   height: auto;
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   object-fit: cover;
+// }
+//
+// /* 비디오 오버레이 스타일 */
+// .video-overlay {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background-color: rgba(0, 0, 0, 0.5);
+//   z-index: 1;
+// }
 
 
 
@@ -97,7 +167,7 @@ body {
 /* 왼쪽 소개 영역 스타일 */
 .left-content {
   flex: 1;
-  margin: 10px;
+  margin: 0px 50px 0px 0px;
   background: rgba(255, 255, 255, 0); /* 투명 배경 */
 }
 
@@ -112,16 +182,18 @@ body {
 
 /* Smart CMS 텍스트 스타일 */
 .left-content .introduce-title .smart-cms {
-  font-size: 68px;
+  font-size: 75px;
+  font-weight: 700;
+  letter-spacing: -2px;
   color: #fff;
-  font-weight: bold;
   width: max-content;
   margin: 0px; /* 세로 여백 줄이기 */
 }
 
 /* CABLE MANAGEMENT SYSTEM 텍스트 스타일 */
 .left-content .introduce-title .cable-management {
-  font-size: 24px;
+  font-size: 27.7px;
+  font-weight: 400;
   color: #fff;
   width: max-content;
   margin: 0;   /* 세로 여백 줄이기 */
@@ -129,15 +201,16 @@ body {
 
 /* 오른쪽 로그인 영역 스타일 */
 .right-content {
-  width: 450px;
+  width: 480px;
+  height: 475px;
 
   margin: 10px;
   background: white;
 
-
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 /* 로고 섹션 스타일 */
@@ -187,6 +260,11 @@ body {
   margin-bottom: 10px; /* 각 입력 필드 사이에 여백 추가 */
 }
 
+.login-input-id {
+  margin-top: 20px;
+}
+
+
 .login-inputs input[type="text"],
 .login-inputs input[type="password"] {
   width: 100%;
@@ -202,14 +280,14 @@ body {
 .login-inputs input[type="text"] {
   background: url('/images/icon/computer.png') no-repeat scroll 10px center;
   background-size: 20px 20px;
-  padding-left: 40px; /* 이미지를 피하기 위한 패딩 조정 */
+  padding-left: 40px;
 }
 
 /* 비밀번호 입력 필드에 이미지 삽입을 위한 스타일 */
 .login-inputs input[type="password"] {
   background: url('/images/icon/search.png') no-repeat scroll 10px center;
   background-size: 20px 20px;
-  padding-left: 40px; /* 이미지를 피하기 위한 패딩 조정 */
+  padding-left: 40px;
 }
 
 .login-inputs input::placeholder {
@@ -223,31 +301,41 @@ body {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-
-
-
-
 /* 로그인 버튼 스타일 */
 .login-button {
-    background-color: blue;
+    background-color: #288FCF;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     text-align: center;
     padding: 20px;
-}
-
-.login-button input[type="submit"] {
-    background-color: blue;
-    color: white;
-    border: none; /* 테두리 제거 */
-    font-size: 24px;
-    padding: 0px 20px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
 }
 
-.login-button input[type="submit"]:hover {
-    background-color: darkblue;
+.login-button button {
+    background-color: transparent;
+    color: white;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.login-button:hover {
+    background-color: #688FCF;
+}
+
+.login-button button:focus {
+    outline: none;
+}
+
 
 
 
