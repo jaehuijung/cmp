@@ -125,7 +125,7 @@ function buildPageNavigation(menuData, currentUrl) {
         breadcrumbElement.innerHTML = `
             <li class="breadcrumb-item"><a href="/cable/rack/view">Home</a></li>
             <li class="breadcrumb-item"><a href="${parentMenu.url}">${parentMenu.menu_name}</a></li>
-            <li class="breadcrumb-item active"><a href="${parentMenu.url}">${currentMenu.menu_name}</a></li>
+            <li class="breadcrumb-item active"><a href="${currentMenu.url}">${currentMenu.menu_name}</a></li>
         `;
     }
 }
