@@ -408,8 +408,107 @@ header {
 
 
 
-/**************************/
 
+
+/* 중앙 콘텐츠 > 장비관리 > 추가 / 수정 / 상세 페이지 */
+#main.equipment {
+   display: flex;
+}
+
+#selection-equipment{
+    margin-bottom: 50px;
+}
+
+#section-equipment-basic-info,
+#section-equipment-category,
+#section-equipment-operation-info,
+#section-equipment-details {
+   margin-bottom: 20px;
+}
+
+/* h2 태그의 기본 스타일 */
+#section-equipment-basic-info h2,
+#section-equipment-category h2,
+#section-equipment-operation-info h2,
+#section-equipment-details h2 {
+   font-size: 20px;
+   margin-bottom: 10px;
+}
+
+/* 각 equipment-wrap의 스타일 */
+.equipment-wrap {
+   display: flex;
+   flex-direction: row;
+   margin-bottom: 10px;
+}
+
+.equipment-item {
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    margin-right: 20px;
+}
+
+.equipment-item .ip-address {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+/* 레이블 스타일 */
+.equipment-wrap label {
+   min-width: 150px;
+   margin-right: 10px;
+   font-size: 14px;
+   margin-bottom: 5px;
+   line-height: 28px;
+}
+
+/* 입력란 스타일 */
+.equipment-wrap input[type="text"],
+.equipment-wrap input[type="number"],
+.equipment-wrap input[type="date"],
+.equipment-wrap select {
+   width: 200px;
+   padding: 5px 10px;
+   font-size: 14px;
+   height: 28px;
+   margin-bottom: 10px;
+   border: 1px solid #DADADA;
+   border-radius: 4px;
+   box-sizing: border-box;
+}
+
+.equipment-wrap input[type="text"]:read-only,
+.equipment-wrap input[type="number"]:read-only,
+.equipment-wrap input[type="date"]:read-only,
+.equipment-wrap select:read-only {
+   color: gray; /* 원하는 색상으로 변경 */
+}
+
+/* 특수한 값을 위한 input 스타일 */
+.equipment-wrap input#ip_block1,
+.equipment-wrap input#ip_block2,
+.equipment-wrap input#ip_block3,
+.equipment-wrap input#ip_block4 {
+   width: 47px;
+   margin-bottom: 0; /* 점에서 line-height가 동일하게 */
+}
+
+/* 버튼 스타일 */
+button {
+   background-color: #014188;
+   color: white;
+   border: none;
+   padding: 8px 16px;
+   font-size: 14px;
+   margin-right: 5px;
+   border-radius: 4px;
+   cursor: pointer;
+}
+
+button:hover {
+   background-color: #01307a;
+}
 
 
 

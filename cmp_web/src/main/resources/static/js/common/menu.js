@@ -36,16 +36,17 @@ function loadMenu() {
 }
 
 function buildMenus(menuData) {
-    buildTopMenu(menuData);
-    buildSideMenu(menuData);
-    buildPageNavigation(menuData);
+    const currentUrl = window.location.pathname;
+
+    buildTopMenu(menuData, currentUrl);
+    buildSideMenu(menuData, currentUrl);
+    buildPageNavigation(menuData, currentUrl);
 }
 
 // 상단 메뉴 구성
-function buildTopMenu(menuData) {
+function buildTopMenu(menuData, currentUrl) {
     const topMenuContainer = $('#top-menu');
-
-    const currentMenu = getParentMenuId(menuData);
+    const currentMenu = getParentMenuId(menuData, currentUrl);
     const filteredMenu = menuData.filter(menu => menu.parent_menu_id === '00000000');
 
     const topMenuHtml = filteredMenu
@@ -61,8 +62,8 @@ function buildTopMenu(menuData) {
 }
 
 // 왼쪽 사이드메뉴 구성
-function buildSideMenu(menuData) {
-    const currentMenu = getParentMenuId(menuData);
+function buildSideMenu(menuData, currentUrl) {
+    const currentMenu = getParentMenuId(menuData, currentUrl);
 
     if (!currentMenu) {
         alert2("알림", "메뉴를 찾을 수 없는 오류가 발생했습니다. <br> 새로고침 후 문제가 지속되면 관리자에게 문의하세요.", "info", "확인");
@@ -85,10 +86,9 @@ function buildSideMenu(menuData) {
 }
 
 // 페이지 네비게이션 구성
-function buildPageNavigation(menuData) {
-
+function buildPageNavigation(menuData, currentUrl) {
     // 중메뉴 찾기
-    const currentMenu = getParentMenuId(menuData);
+    const currentMenu = getParentMenuId(menuData, currentUrl);
     if (!currentMenu) {
         alert2("알림","메뉴를 찾을 수 없는 오류가 발생했습니다. <br> 새로고침 후 문제가 지속되면 관리자에게 문의하세요.", "info", "확인");
         return;
@@ -104,7 +104,18 @@ function buildPageNavigation(menuData) {
     // 페이지 구성
     const h1Element = document.querySelector('.pagetitle h1');
     if (h1Element) {
-        h1Element.textContent = currentMenu.menu_name;
+        let subTitle = "";
+        if(currentUrl.includes("create")){
+            subTitle = " (추가)"
+        }
+        else if(currentUrl.includes("update")){
+            subTitle = " (수정)"
+        }
+        else if(currentUrl.includes("detail")){
+            subTitle = " (상세)"
+        }
+
+        h1Element.textContent = currentMenu.menu_name + subTitle;
     }
 
     const breadcrumbElement = document.querySelector('.breadcrumb');
@@ -120,8 +131,7 @@ function buildPageNavigation(menuData) {
 }
 
 // 사용자가 접근한 상위 메뉴 id 찾기
-function getParentMenuId(menuData) {
-    const currentUrl = window.location.pathname;
+function getParentMenuId(menuData, currentUrl) {
     const currentMenu = menuData.find(menu => (menu.menu_order ==2 && currentUrl.includes(menu.menu_role)));
 
     return currentMenu ? currentMenu : null;
