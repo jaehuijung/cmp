@@ -35,8 +35,13 @@
 		<th:block th:replace="~{fragments/aside :: aside}"></th:block>
 
 		<div class="content">
-			<th:block th:replace="~{fragments/pageTitle :: pageTitle}"></th:block>
-			<th:block layout:fragment="content"></th:block>
+			<div>
+				<th:block th:replace="~{fragments/pageTitle :: pageTitle}"></th:block>
+				<th:block layout:fragment="content"></th:block>
+			</div>
+			<div>
+				<th:block th:replace="~{fragments/copyright :: copyright}"></th:block>
+			</div>
 		</div>
 
 	</body>

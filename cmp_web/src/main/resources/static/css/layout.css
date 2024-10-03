@@ -252,14 +252,14 @@ header {
 }
 
 /* 중앙 콘텐츠 > 페이지 네비게이션 영역 */
-.pagetitle{
+.pageTitle{
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    padding: 0px 0px 10px;
+    padding: 0px 0px 30px 0px;
 }
 
-.pagetitle h1 {
+.pageTitle h1 {
   font-size: 24px;
   margin-bottom: 0;
   font-weight: 600;
@@ -406,13 +406,21 @@ header {
     margin-right: 10px;
 }
 
-
-
+/* 중앙 콘텐츠 카드영역 */
+.contentCard{
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
 
 
 /* 중앙 콘텐츠 > 장비관리 > 추가 / 수정 / 상세 페이지 */
 #main.equipment {
    display: flex;
+   flex-direction: column;
 }
 
 #selection-equipment{

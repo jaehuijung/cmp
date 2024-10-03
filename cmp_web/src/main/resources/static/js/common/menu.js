@@ -102,7 +102,7 @@ function buildPageNavigation(menuData, currentUrl) {
     }
 
     // 페이지 구성
-    const h1Element = document.querySelector('.pagetitle h1');
+    const h1Element = document.querySelector('.pageTitle h1');
     if (h1Element) {
         let subTitle = "";
         if(currentUrl.includes("create")){
