@@ -173,7 +173,7 @@ body {
 
 .left-content .introduce-title {
   margin: 0px;
-  padding: 70px 0px 50px 0px;
+  padding: 80px 0px 80px 0px;
 }
 
 .left-content .company-logo {
@@ -278,14 +278,14 @@ body {
 
 /* 아이디 입력 필드에 이미지 삽입을 위한 스타일 */
 .login-inputs input[type="text"] {
-  background: url('/images/icon/computer.png') no-repeat scroll 10px center;
+  background: url('/images/icon/login_id.png') no-repeat scroll 10px center;
   background-size: 20px 20px;
   padding-left: 40px;
 }
 
 /* 비밀번호 입력 필드에 이미지 삽입을 위한 스타일 */
 .login-inputs input[type="password"] {
-  background: url('/images/icon/search.png') no-repeat scroll 10px center;
+  background: url('/images/icon/login_password.png') no-repeat scroll 10px center;
   background-size: 20px 20px;
   padding-left: 40px;
 }
