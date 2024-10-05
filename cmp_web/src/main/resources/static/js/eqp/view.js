@@ -39,7 +39,7 @@ function createColumn2(field, checkbox = false, title) {
 /**
  * eqpTable에서 사용할 컬럼 리스트
 */
-var columns = [
+var equColumns = [
     createColumn2('',                              true,  ''),
     createColumn1('eqp_manage_id',                 false, '관리번호'),
     createColumn1('eqp_name',                      false, '장비명'),
@@ -67,7 +67,7 @@ $(function(){
             }
             return params;
         },
-        pageSize: 10, columns: columns, cache: false, undefinedText: "",
+        pageSize: 10, columns: equColumns, cache: false, undefinedText: "",
         pagination: true, sidePagination: 'server', checkboxHeader: true,
         classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
         responseHandler: function(res) {
@@ -120,7 +120,7 @@ function searchState(type, isChecked){
     if (isChecked) {
         if (type === "all") {
             // 전체 컬럼 필터링
-            columns = columns.filter(column =>
+            equColumns = equColumns.filter(column =>
                 [
                     'host_name', 'model_name', 'm_company', 'operating_status', 'operating_department',
                     'primary_operator', 'secondary_operator','primary_outsourced_operator', 'secondary_outsourced_operator'
@@ -128,15 +128,15 @@ function searchState(type, isChecked){
             );
 
             // 다시 순서대로 열 추가
-            columns.splice(3,  0, {field: 'host_name', align: 'center', valign: 'middle', class: 'nowrap', title: '호스트명'});
-            columns.splice(4,  0, {field: 'model_name', align: 'center', valign: 'middle', class: 'nowrap', title: '모델명'});
-            columns.splice(5,  0, {field: 'm_company', align: 'center', valign: 'middle', class: 'nowrap', title: '제조사'});
-            columns.splice(6,  0, {field: 'operating_status', align: 'center', valign: 'middle', class: 'nowrap', title: '운영상태'});
-            columns.splice(7,  0, {field: 'operating_department', align: 'center', valign: 'middle', class: 'nowrap', title: '운영부서'});
-            columns.splice(8,  0, {field: 'primary_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '운영담당자(정)'});
-            columns.splice(9,  0, {field: 'secondary_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '운영담당자(부)'});
-            columns.splice(10, 0, {field: 'primary_outsourced_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '위탁운영담당자(정)'});
-            columns.splice(11, 0, {field: 'secondary_outsourced_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '위탁운영담당자(부)'});
+            equColumns.splice(3,  0, {field: 'host_name', align: 'center', valign: 'middle', class: 'nowrap', title: '호스트명'});
+            equColumns.splice(4,  0, {field: 'model_name', align: 'center', valign: 'middle', class: 'nowrap', title: '모델명'});
+            equColumns.splice(5,  0, {field: 'm_company', align: 'center', valign: 'middle', class: 'nowrap', title: '제조사'});
+            equColumns.splice(6,  0, {field: 'operating_status', align: 'center', valign: 'middle', class: 'nowrap', title: '운영상태'});
+            equColumns.splice(7,  0, {field: 'operating_department', align: 'center', valign: 'middle', class: 'nowrap', title: '운영부서'});
+            equColumns.splice(8,  0, {field: 'primary_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '운영담당자(정)'});
+            equColumns.splice(9,  0, {field: 'secondary_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '운영담당자(부)'});
+            equColumns.splice(10, 0, {field: 'primary_outsourced_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '위탁운영담당자(정)'});
+            equColumns.splice(11, 0, {field: 'secondary_outsourced_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '위탁운영담당자(부)'});
 
             // 모든 단일 선택박스 체크
             document.querySelectorAll(".selectStateChk").forEach(ele => {
@@ -146,31 +146,31 @@ function searchState(type, isChecked){
             // 특정 유형 컬럼 추가
             switch (type) {
                 case "host_name":
-                    columns.splice(3, 0, {field: 'host_name', align: 'center', valign: 'middle', class: 'nowrap', title: '호스트명'});
+                    equColumns.splice(3, 0, {field: 'host_name', align: 'center', valign: 'middle', class: 'nowrap', title: '호스트명'});
                     break;
                 case "model_name":
-                    columns.splice(4, 0, {field: 'model_name', align: 'center', valign: 'middle', class: 'nowrap', title: '모델명'});
+                    equColumns.splice(4, 0, {field: 'model_name', align: 'center', valign: 'middle', class: 'nowrap', title: '모델명'});
                     break;
                 case "m_company":
-                    columns.splice(5, 0, {field: 'm_company', align: 'center', valign: 'middle', class: 'nowrap', title: '제조사'});
+                    equColumns.splice(5, 0, {field: 'm_company', align: 'center', valign: 'middle', class: 'nowrap', title: '제조사'});
                     break;
                 case "operating_status":
-                    columns.splice(6, 0, {field: 'operating_status', align: 'center', valign: 'middle', class: 'nowrap', title: '운영상태'});
+                    equColumns.splice(6, 0, {field: 'operating_status', align: 'center', valign: 'middle', class: 'nowrap', title: '운영상태'});
                     break;
                 case "operating_department":
-                    columns.splice(7, 0, {field: 'operating_department', align: 'center', valign: 'middle', class: 'nowrap', title: '운영부서'});
+                    equColumns.splice(7, 0, {field: 'operating_department', align: 'center', valign: 'middle', class: 'nowrap', title: '운영부서'});
                     break;
                 case "primary_operator":
-                    columns.splice(8, 0, {field: 'primary_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '운영담당자(정)'});
+                    equColumns.splice(8, 0, {field: 'primary_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '운영담당자(정)'});
                     break;
                 case "secondary_operator":
-                    columns.splice(9, 0, {field: 'secondary_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '운영담당자(부)'});
+                    equColumns.splice(9, 0, {field: 'secondary_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '운영담당자(부)'});
                     break;
                 case "primary_outsourced_operator":
-                    columns.splice(10, 0, {field: 'primary_outsourced_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '위탁운영담당자(정)'});
+                    equColumns.splice(10, 0, {field: 'primary_outsourced_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '위탁운영담당자(정)'});
                     break;
                 case "secondary_outsourced_operator":
-                    columns.splice(11, 0, {field: 'secondary_outsourced_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '위탁운영담당자(부)'});
+                    equColumns.splice(11, 0, {field: 'secondary_outsourced_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '위탁운영담당자(부)'});
                     break;
             }
         }
@@ -179,7 +179,7 @@ function searchState(type, isChecked){
     else {
         if (type === "all") {
             // 전체 컬럼 필터링
-            columns = columns.filter(column =>
+            equColumns = equColumns.filter(column =>
                 [
                     'host_name', 'model_name', 'm_company', 'operating_status', 'operating_department',
                     'primary_operator', 'secondary_operator', 'primary_outsourced_operator', 'secondary_outsourced_operator'
@@ -192,13 +192,13 @@ function searchState(type, isChecked){
             });
         } else {
             // 특정 컬럼 제거
-            columns = columns.filter(column => column.field !== type);
+            equColumns = equColumns.filter(column => column.field !== type);
             // 전체 선택박스 해제
             document.querySelector(".selectStateChkAll").checked = false;
         }
     }
 
-    $('#eqpTable').bootstrapTable('refreshOptions', { columns: columns });
+    $('#eqpTable').bootstrapTable('refreshOptions', { columns: equColumns });
 }
 
 // 장비관리 > 장비목록 > 장비추가 페이지 이동

@@ -1,5 +1,12 @@
 
 
+let eqpRegisterPortColumn = [
+    { field: '',   title: '', checkbox: true },
+    { field: 'Host', title: 'Host' },
+    { field: 'IP', title: 'IP' },
+    { field: 'Port', title: 'Port' }
+];
+
 $(function(){
 
     // 화면 렌더링 시 날짜 컬럼들 현재날짜로 세팅
@@ -26,7 +33,40 @@ $(function(){
         })
     })
 
+    var initialData = [
+        {
+            Host: `<input type="text" class="form-control" name="host">`,
+            IP: `<input type="text" class="form-control" name="ip">`,
+            Port: `<input type="text" class="form-control" name="port">`,
+            Select: false
+        }
+    ];
+
+    $('#eqpRegisterPortTable').bootstrapTable({
+        columns: eqpRegisterPortColumn,
+        data: initialData
+    });
+
 });
+
+function eqpAddPortRow(){
+    let newRow = {
+        Host: '<input type="text" class="form-control" name="host">',
+        IP: '<input type="text" class="form-control" name="ip">',
+        Port: '<input type="text" class="form-control" name="port">',
+        Select: false
+    };
+    $('#eqpRegisterPortTable').bootstrapTable('append', newRow);
+}
+
+function eqpDeletePortRow(){
+    var tableData = $('#eqpRegisterPortTable').bootstrapTable('getData');
+    var updatedData = tableData.filter(function(row) {
+        return !row.Select;
+    });
+    $('#eqpRegisterPortTable').bootstrapTable('load', updatedData);
+}
+
 
 /**
  * 구성분류 리스트

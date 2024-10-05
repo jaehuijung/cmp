@@ -336,7 +336,10 @@ body {
     outline: none;
 }
 
-
+.copyright {
+    display: flex;
+    justify-content: center;
+}
 
 
 
