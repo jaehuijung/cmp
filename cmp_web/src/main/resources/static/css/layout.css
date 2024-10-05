@@ -240,6 +240,9 @@ header {
     margin-left: 300px;
     transition: margin-left 0.3s, width 0.3s;
     min-width: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .side-menu.toggled + header {
@@ -519,6 +522,10 @@ button:hover {
 }
 
 
-
+/* 중앙 콘텐츠 > 화면 하단 copyright */
+.copyright {
+    text-align: center;
+    font-size: 12px;
+}
 
 
