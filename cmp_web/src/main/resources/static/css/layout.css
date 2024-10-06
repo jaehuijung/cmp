@@ -433,7 +433,8 @@ header {
 #section-equipment-basic-info,
 #section-equipment-category,
 #section-equipment-operation-info,
-#section-equipment-details {
+#section-equipment-details,
+#section-equipment-connection-info {
    margin-bottom: 20px;
 }
 
@@ -441,15 +442,22 @@ header {
 #section-equipment-basic-info h2,
 #section-equipment-category h2,
 #section-equipment-operation-info h2,
-#section-equipment-details h2,
-#section-equipment-connection-info h2 {
+#section-equipment-details h2 {
    font-size: 20px;
    margin-bottom: 10px;
 }
 
-#section-equipment-connection-info {
-    display: flex;
+#section-equipment-connection-info h2 {
+   font-size: 20px;
+   margin: 0;
 }
+
+.section-equipment-title {
+    margin: 0px 0px 10px 0px;
+    display: flex;
+    align-items: center;
+}
+
 
 /* 각 equipment-wrap의 스타일 */
 .equipment-wrap {

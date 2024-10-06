@@ -1,10 +1,9 @@
 
-
 let eqpRegisterPortColumn = [
-    { field: '',   title: '', checkbox: true },
-    { field: 'Host', title: 'Host' },
-    { field: 'IP', title: 'IP' },
-    { field: 'Port', title: 'Port' }
+    { field: '',     title: ''      , checkbox: true },
+    { field: 'Host', title: 'Host'  , formatter: inputFormatter },
+    { field: 'IP',   title: 'IP'    , formatter: inputFormatter },
+    { field: 'Port', title: 'Port'  , formatter: inputFormatter }
 ];
 
 $(function(){
@@ -33,40 +32,71 @@ $(function(){
         })
     })
 
-    var initialData = [
-        {
-            Host: `<input type="text" class="form-control" name="host">`,
-            IP: `<input type="text" class="form-control" name="ip">`,
-            Port: `<input type="text" class="form-control" name="port">`,
-            Select: false
-        }
-    ];
-
     $('#eqpRegisterPortTable').bootstrapTable({
-        columns: eqpRegisterPortColumn,
-        data: initialData
+        columns: eqpRegisterPortColumn
     });
 
 });
 
-function eqpAddPortRow(){
-    let newRow = {
-        Host: '<input type="text" class="form-control" name="host">',
-        IP: '<input type="text" class="form-control" name="ip">',
-        Port: '<input type="text" class="form-control" name="port">',
-        Select: false
-    };
-    $('#eqpRegisterPortTable').bootstrapTable('append', newRow);
+function inputFormatter(value, row, index, field) {
+    return `<input type="text" class="form-control" name="${field}" value="${value}" onchange="updateTableData(${index}, '${field}', this.value)">`;
 }
 
-function eqpDeletePortRow(){
-    var tableData = $('#eqpRegisterPortTable').bootstrapTable('getData');
-    var updatedData = tableData.filter(function(row) {
-        return !row.Select;
+function updateTableData(index, field, value) {
+    let $table = $('#eqpRegisterPortTable');
+    let data = $table.bootstrapTable('getData');
+    data[index][field] = value;
+    $table.bootstrapTable('updateRow', {
+        index: index,
+        row: data[index]
     });
-    $('#eqpRegisterPortTable').bootstrapTable('load', updatedData);
 }
 
+function eqpAddPortRow() {
+    let $table = $('#eqpRegisterPortTable');
+    let data = $table.bootstrapTable('getData');
+    data.push({
+        Host: '',
+        IP: '',
+        Port: ''
+    });
+    $table.bootstrapTable('load', data);
+}
+
+function eqpDeletePortRow() {
+    let $table = $('#eqpRegisterPortTable');
+    let selections = $table.bootstrapTable('getSelections');
+
+    if (selections.length === 0) {
+        alert2('알림', '삭제할 행을 선택해주세요.', 'info', '확인');
+        return;
+    }
+
+    let data = $table.bootstrapTable('getData');
+    for (let i = selections.length - 1; i >= 0; i--) {
+        let index = data.indexOf(selections[i]);
+        if (index !== -1) {
+            data.splice(index, 1);
+        }
+    }
+
+    $table.bootstrapTable('load', data);
+}
+
+// 전체 선택박스 : 선택/해제
+function toggleSelectAll(source) {
+    let checkboxes = $('#eqpRegisterPortTable tbody .row-select');
+    checkboxes.prop('checked', source.checked);
+}
+
+// 전체 선택박스 : 하위 선택박스 선택/해제 시 전체 선택박스도 선택/해제
+function toggleRowSelect() {
+    let allCheckboxes = $('#eqpRegisterPortTable tbody .row-select');
+    let checkedCheckboxes = $('#eqpRegisterPortTable tbody .row-select:checked');
+    let selectAllCheckbox = $('#select-all');
+
+    selectAllCheckbox.prop('checked', allCheckboxes.length === checkedCheckboxes.length);
+}
 
 /**
  * 구성분류 리스트
