@@ -1,4 +1,7 @@
 
+/**
+    프로젝트 공통
+*/
 // 날짜 형식 검증 함수
 function isValidDate(dateString) {
     const regex = /^\d{4}-\d{2}-\d{2}$/;
@@ -49,7 +52,135 @@ function back() {
     window.history.back();
 }
 
-// 장비목록 > 추가/상세/수정 > ip 주소 검증 함수
+
+
+/**
+    장비관리 메뉴 공통
+*/
+
+// 장비목록 > 추가/상세/수정 > 장비분류 > 구성분류 리스트
+function getSelectConfig(){
+    $.ajax({
+        url: "/cable/eqp/selectConfig",
+        type: "GET",
+        success: function (res) {
+            const categorySelect = $("#config_id");
+            categorySelect.empty();
+            categorySelect.append(new Option("선택", ""));
+
+            const assetSelect = $("#asset_id");
+            assetSelect.empty();
+            assetSelect.append(new Option("선택", ""));
+
+            const subSelect = $("#sub_id");
+            subSelect.empty();
+            subSelect.append(new Option("선택", ""));
+
+            const detailSelect = $("#detail_id");
+            detailSelect.empty();
+            detailSelect.append(new Option("선택", ""));
+
+            $("#categories").val("");
+
+            let data = res.selectData;
+            data.forEach(function(item) {
+                categorySelect.append(new Option(item.name, item.id));
+            });
+        },
+    });
+}
+
+// 장비목록 > 추가/상세/수정 > 장비분류 > 자산분류 리스트
+function getSelectAsset(configValue){
+    $.ajax({
+        url: "/cable/eqp/selectAsset",
+        type: "GET",
+        data: {config_id: configValue},
+        success: function (res) {
+            const assetSelect = $("#asset_id");
+            assetSelect.empty();
+            assetSelect.append(new Option("선택", ""));
+
+            const subSelect = $("#sub_id");
+            subSelect.empty();
+            subSelect.append(new Option("선택", ""));
+
+            const detailSelect = $("#detail_id");
+            detailSelect.empty();
+            detailSelect.append(new Option("선택", ""));
+
+            let data = res.selectData;
+            data.forEach(function(item) {
+                assetSelect.append(new Option(item.name, item.id));
+            });
+
+            $("#categories").val("");
+        },
+    });
+}
+
+// 장비목록 > 추가/상세/수정 > 장비분류 > 자산세부 리스트
+function getSelectSub(assetValue){
+    $.ajax({
+        url: "/cable/eqp/selectSub",
+        type: "GET",
+        data: {asset_id: assetValue},
+        success: function (res) {
+
+            let data = res.selectData;
+            if(data.length != 0){
+                const subSelect = $("#sub_id");
+                subSelect.empty();
+                subSelect.append(new Option("선택", ""));
+
+                const detailSelect = $("#detail_id");
+                detailSelect.empty();
+                detailSelect.append(new Option("선택", ""));
+
+
+                data.forEach(function(item) {
+                    subSelect.append(new Option(item.name, item.id));
+                });
+
+                $("#categories").val(data[0].categories);
+            }
+            else{
+                $("#categories").val("");
+            }
+        },
+    });
+}
+
+// 장비목록 > 추가/상세/수정 > 장비분류 > 자산상세 리스트
+function getSelectDetail(subValue){
+    $.ajax({
+        url: "/cable/eqp/selectDetail",
+        type: "GET",
+        data: {sub_id: subValue},
+        success: function (res) {
+
+            let data = res.selectData;
+            if(data.length != 0){
+                const detailSelect = $("#detail_id");
+
+                if (res.selectData[0].id === ''){
+                    detailSelect.empty();
+                    detailSelect.append(new Option("없음", ""));
+                }
+                else{
+                    detailSelect.empty();
+                    detailSelect.append(new Option("선택", ""));
+
+                    data.forEach(function(item) {
+                        detailSelect.append(new Option(item.name, item.id));
+                    });
+                }
+            }
+        },
+    });
+}
+
+// 장비목록 > 추가/상세/수정 > 장비상세정보 > ip 주소 검증 함수
 function checkIPBlock(input) {
     if (input.value.length === 0) {
         input.value = '';
@@ -68,28 +199,127 @@ function checkIPBlock(input) {
     }
 }
 
-// 장비목록 > 추가/상세/수정 > ip 주소 저장용 함수
+// 장비목록 > 추가/상세/수정 > 장비상세정보 > ip 주소 저장용 함수
 function combineIP() {
     let block1 = document.getElementById('ip_block1').value;
     let block2 = document.getElementById('ip_block2').value;
     let block3 = document.getElementById('ip_block3').value;
     let block4 = document.getElementById('ip_block4').value;
 
-    if (block1 === "")
-        block1 = 0
-
-    if (block2 === "")
-        block2 = 0
-
-    if (block3 === "")
-        block3 = 0
-
-    if (block4 === "")
-        block4 = 0
+    if (block1 === "") block1 = 0
+    if (block2 === "") block2 = 0
+    if (block3 === "") block3 = 0
+    if (block4 === "") block4 = 0
 
     return `${block1}.${block2}.${block3}.${block4}`;
 }
 
+// 장비목록 > 추가/상세/수정 > 장비연결정보 > 컬럼 formater
+function inputEqpLinkFormatter(value, row, index, field) {
+    if (field === 'IP') {
+        if (!value) value = '';
+
+        let ipBlocks = value.split('.');
+        while (ipBlocks.length < 4) {
+            ipBlocks.push('');
+        }
+
+        return `
+            <div class="ip-address">
+                <input type="text" class="form-control d-inline-block" id="ip_block_${index}_1" maxlength="3" size="3" value="${ipBlocks[0]}" oninput="updateEqpLinkInputData(this, ${index}, '${field}')" /> .
+                <input type="text" class="form-control d-inline-block" id="ip_block_${index}_2" maxlength="3" size="3" value="${ipBlocks[1]}" oninput="updateEqpLinkInputData(this, ${index}, '${field}')" /> .
+                <input type="text" class="form-control d-inline-block" id="ip_block_${index}_3" maxlength="3" size="3" value="${ipBlocks[2]}" oninput="updateEqpLinkInputData(this, ${index}, '${field}')" /> .
+                <input type="text" class="form-control d-inline-block" id="ip_block_${index}_4" maxlength="3" size="3" value="${ipBlocks[3]}" oninput="updateEqpLinkInputData(this, ${index}, '${field}')" />
+            </div>`;
+    } else if (field === 'Port') {
+        return `<input type="text" class="form-control" name="${field}" value="${value}" maxlength="5" size="5" oninput="updateEqpLinkInputData(this, ${index}, '${field}')">`;
+    } else {
+        return `<input type="text" class="form-control" name="${field}" value="${value}" oninput="updateEqpLinkInputData(this, ${index}, '${field}')">`;
+    }
+}
+
+// 장비목록 > 추가/상세/수정 > 장비연결정보 > 사용자가 컬럼 입력 시 검증
+function updateEqpLinkInputData(input, index, field) {
+    let $table = $('#eqpLinkTable');
+    let data = $table.bootstrapTable('getData');
+
+    if (field === 'IP') {
+        if (input.value.length === 0) {
+            input.value = '';
+        }
+
+        if (!/^\d+$/.test(input.value)) {
+            alert2("알림", "ip는 숫자로만 구성되어야 합니다.", "info", "확인");
+            input.value = '';
+        }
+
+        if (parseInt(input.value) > 255) {
+            alert2("알림", "IP 블록의 값은 0에서 255 사이여야 합니다.", "info", "확인");
+            input.value = '';
+        }
+
+        let block1 = document.getElementById(`ip_block_${index}_1`).value;
+        let block2 = document.getElementById(`ip_block_${index}_2`).value;
+        let block3 = document.getElementById(`ip_block_${index}_3`).value;
+        let block4 = document.getElementById(`ip_block_${index}_4`).value;
+
+        if (block1 === "") block1 = 0
+        if (block2 === "") block2 = 0
+        if (block3 === "") block3 = 0
+        if (block4 === "") block4 = 0
+
+        let ipBlocks = [
+            block1,
+            block2,
+            block3,
+            block4
+        ];
+
+        data[index][field] = ipBlocks.join('.');
+    } else {
+        if(field === 'Port'){
+            if (!/^\d+$/.test(input.value)) {
+                alert2("알림", "port는 숫자로만 구성되어야 합니다.", "info", "확인");
+                input.value = '';
+            }
+        }
+
+        data[index][field] = input.value;
+    }
+}
+
+// 장비목록 > 추가/상세/수정 > 장비연결정보 > row 추가
+function addEqpLinkRow() {
+    let $table = $('#eqpLinkTable');
+    let data = $table.bootstrapTable('getData');
+    data.push({
+        Host: '',
+        IP: '',
+        Port: ''
+    });
+    $table.bootstrapTable('load', data);
+}
+
+// 장비목록 > 추가/상세/수정 > 장비연결정보 > row 삭제
+function deleteEqpLinkRow() {
+    let $table = $('#eqpLinkTable');
+    let selections = $table.bootstrapTable('getSelections');
+
+    if (selections.length === 0) {
+        alert2('알림', '삭제할 행을 선택해주세요.', 'info', '확인');
+        return;
+    }
+
+    let data = $table.bootstrapTable('getData');
+    for (let i = selections.length - 1; i >= 0; i--) {
+        let index = data.indexOf(selections[i]);
+        if (index !== -1) {
+            data.splice(index, 1);
+        }
+    }
+
+    $table.bootstrapTable('load', data);
+}
 
 
 

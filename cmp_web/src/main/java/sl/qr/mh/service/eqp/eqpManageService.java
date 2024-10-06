@@ -478,17 +478,24 @@ public class eqpManageService {
      * @return 저장 결과
      */
     // 장비관리 > 장비목록 > 장비 추가
+    @SuppressWarnings("unchecked")
     @Transactional
     public Map<String, Object> insertEqpList(Map<String, Object> paramMap) {
         Map<String, Object> returnMap = new HashMap<>();
         returnMap.put("errorCode",false);
 
         try {
-            paramMap.put("eqp_manage_id", eqpMapper.generateEqpManageId(paramMap)); // 장비 관리번호 생성
+            String eqp_manage_id = eqpMapper.generateEqpManageId(paramMap);
+            paramMap.put("eqp_manage_id", eqp_manage_id); // 장비 관리번호 생성
 
             eqpMapper.insertEquipmentBasic(paramMap); // 장비 기본정보 저장
             eqpMapper.insertEquipmentDetail(paramMap); // 장비 세부정보 저장
-            // eqpMapper.insertEquipmentPort(paramMap); // 장비 포트정보 저장
+
+            List<Map<String, Object>> eqpLink = (List<Map<String, Object>>) paramMap.get("eqpLink");
+            for(Map<String, Object> link : eqpLink){
+                link.put("eqp_manage_id", eqp_manage_id);
+                eqpMapper.insertEquipmentLink(link); // 장비 연결정보 저장
+            }
 
             returnMap.put("errorCode",true);
 

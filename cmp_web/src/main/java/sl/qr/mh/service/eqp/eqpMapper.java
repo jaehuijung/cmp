@@ -101,7 +101,7 @@ public interface eqpMapper {
 	 *
 	 * @param paramMap 저장할 장비 데이터
 	 */
-	public void insertEquipmentPort(Map<String, Object> paramMap);
+	public void insertEquipmentLink(Map<String, Object> paramMap);
 
 
 

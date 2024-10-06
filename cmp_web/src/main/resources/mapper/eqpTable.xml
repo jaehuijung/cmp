@@ -227,11 +227,22 @@
         )
     </insert>
 
-    <insert id="insertEquipmentPort" parameterType="map">
-        /* insertEquipmentPort...
+    <insert id="insertEquipmentLink" parameterType="map">
+        /* insertEquipmentLink...
             장비관리 > 장비목록 > 추가 페이지 > 저장 > 장비 연결정보 저장
         */
-
+        insert into equipment_link (
+            eqp_manage_id,
+            host,
+            ip_address,
+            port
+        )
+        values(
+            #{eqp_manage_id},
+            #{Host},
+            #{IP},
+            #{Port}
+        )
     </insert>
 
 
