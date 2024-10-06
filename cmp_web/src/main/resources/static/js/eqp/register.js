@@ -85,25 +85,24 @@ function saveData() {
     let isValid = true;
     let errorMessage = "";
 
-    // document.querySelectorAll('#selection-equipment input, #selection-equipment select').forEach(input => {
     document.querySelectorAll(
         `#section-equipment-basic-info input, #section-equipment-basic-info select,
         #section-equipment-category input, #section-equipment-category select,
         #section-equipment-operation-info input, #section-equipment-operation-info select,
         #section-equipment-details input, #section-equipment-details select`,
     ).forEach(input => {
-        const value = input.value.trim();
-        const name = input.name;
-        const labelName = getLabelForInput(input);
+        let value = input.value.trim();
+        let name = input.name;
+        let labelName = getLabelForInput(input);
 
         if (name === "acquisition_cost"){
             let acquisition_cost = removeComma(value);
 
-            // if (acquisition_cost === ''){
-            //     acquisition_cost = 0;
-            // }
+            if (acquisition_cost === ''){
+                acquisition_cost = 0;
+            }
 
-            if((isNaN(acquisition_cost) || Number(acquisition_cost) > 100000000000)) {
+            if(isNaN(acquisition_cost) || Number(acquisition_cost) > 100000000000) {
                 errorMessage += `${labelName} 숫자만 입력가능하며, 1000억 이하입니다.</br>`;
                 isValid = false;
             }
@@ -130,6 +129,13 @@ function saveData() {
             }
 
             if(name != ""){
+                if ((name === "installation_units") && (value === '')){
+                    value = 0;
+                }
+                if ((name === "equipment_size_units") && (value=== '')){
+                    value = 0;
+                }
+
                 data[name] = value;
             }
         }
@@ -149,8 +155,7 @@ function saveData() {
         return false;
     }
 
-    // 장비 추가 시 서버에서 관리번호 생성할 때 자산세부분류 사용
-    data["categories"] = $("#categories").val();
+    data["categories"] = $("#categories").val(); // 장비 추가 시 서버에서 관리번호 생성할 때 자산세부분류 사용
 
     // 장비연결정보 추가
     const eqpLinkData = $("#eqpLinkTable").bootstrapTable('getData');
@@ -160,7 +165,7 @@ function saveData() {
         let eqpLinkErrorMessage = "";
 
         eqpLinkData.forEach((item, index) => {
-            const { Host, IP, Port } = item;
+            let { Host, IP, Port } = item;
             eqpLinkErrorMessage += `장비연결정보${index + 1} [`
             if (!Host) {
                 eqpLinkErrorMessage += ` Host `;
@@ -170,6 +175,9 @@ function saveData() {
             //     eqpLinkErrorMessage += ` IP `;
             //     eqpLinkValid = false;
             // }
+            if (!IP) {
+                item.IP = '0.0.0.0';
+            }
             if (!Port) {
                 eqpLinkErrorMessage += ` Port `;
                 eqpLinkValid = false;
