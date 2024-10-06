@@ -171,10 +171,6 @@ function saveData() {
                 eqpLinkErrorMessage += ` Host `;
                 eqpLinkValid = false;
             }
-            // if (!IP) {
-            //     eqpLinkErrorMessage += ` IP `;
-            //     eqpLinkValid = false;
-            // }
             if (!IP) {
                 item.IP = '0.0.0.0';
             }
