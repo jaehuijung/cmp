@@ -473,9 +473,10 @@ header {
     margin-right: 20px;
 }
 
-.equipment-item .ip-address {
+.ip-address {
     display: flex;
     flex-wrap: nowrap;
+    align-items: baseline;
 }
 
 /* 레이블 스타일 */

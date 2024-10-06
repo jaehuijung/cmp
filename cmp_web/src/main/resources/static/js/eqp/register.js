@@ -1,10 +1,5 @@
 
-let eqpRegisterPortColumn = [
-    { field: '',     title: ''      , checkbox: true },
-    { field: 'Host', title: 'Host'  , formatter: inputFormatter },
-    { field: 'IP',   title: 'IP'    , formatter: inputFormatter },
-    { field: 'Port', title: 'Port'  , formatter: inputFormatter }
-];
+
 
 $(function(){
 
@@ -38,19 +33,77 @@ $(function(){
 
 });
 
-function inputFormatter(value, row, index, field) {
-    return `<input type="text" class="form-control" name="${field}" value="${value}" onchange="updateTableData(${index}, '${field}', this.value)">`;
+
+
+let eqpRegisterPortColumn = [
+    { field: '',     title: ''      , checkbox: true },
+    { field: 'Host', title: 'Host'  , formatter: inputEqpFormatter },
+    { field: 'IP',   title: 'IP'    , formatter: inputEqpFormatter },
+    { field: 'Port', title: 'Port'  , formatter: inputEqpFormatter }
+];
+
+function inputEqpFormatter(value, row, index, field) {
+    if (field === 'IP') {
+        if (!value) value = '';
+
+        let ipBlocks = value.split('.');
+        while (ipBlocks.length < 4) {
+            ipBlocks.push('');
+        }
+
+        return `
+            <div class="ip-address">
+                <input type="text" class="form-control d-inline-block" id="ip_block_${index}_1" maxlength="3" size="3" value="${ipBlocks[0]}" oninput="updateEqpInputData(this, ${index}, '${field}')" /> .
+                <input type="text" class="form-control d-inline-block" id="ip_block_${index}_2" maxlength="3" size="3" value="${ipBlocks[1]}" oninput="updateEqpInputData(this, ${index}, '${field}')" /> .
+                <input type="text" class="form-control d-inline-block" id="ip_block_${index}_3" maxlength="3" size="3" value="${ipBlocks[2]}" oninput="updateEqpInputData(this, ${index}, '${field}')" /> .
+                <input type="text" class="form-control d-inline-block" id="ip_block_${index}_4" maxlength="3" size="3" value="${ipBlocks[3]}" oninput="updateEqpInputData(this, ${index}, '${field}')" />
+            </div>`;
+    } else if (field === 'Port') {
+        return `<input type="text" class="form-control" name="${field}" value="${value}" maxlength="5" size="5" oninput="updateEqpInputData(this, ${index}, '${field}')">`;
+    } else {
+        return `<input type="text" class="form-control" name="${field}" value="${value}" oninput="updateEqpInputData(this, ${index}, '${field}')">`;
+    }
 }
 
-function updateTableData(index, field, value) {
+function updateEqpInputData(input, index, field) {
     let $table = $('#eqpRegisterPortTable');
     let data = $table.bootstrapTable('getData');
-    data[index][field] = value;
-    $table.bootstrapTable('updateRow', {
-        index: index,
-        row: data[index]
-    });
+
+    if (field === 'IP') {
+        if (input.value.length === 0) {
+            input.value = '';
+        }
+
+        if (!/^\d+$/.test(input.value)) {
+            alert2("알림", "ip는 숫자로만 구성되어야 합니다.", "info", "확인");
+            input.value = '';
+        }
+
+        if (parseInt(input.value) > 255) {
+            alert2("알림", "IP 블록의 값은 0에서 255 사이여야 합니다.", "info", "확인");
+            input.value = '';
+        }
+
+        let ipBlocks = [
+            document.getElementById(`ip_block_${index}_1`).value,
+            document.getElementById(`ip_block_${index}_2`).value,
+            document.getElementById(`ip_block_${index}_3`).value,
+            document.getElementById(`ip_block_${index}_4`).value
+        ];
+
+        data[index][field] = ipBlocks.join('.');
+    } else {
+        if(field === 'Port'){
+            if (!/^\d+$/.test(input.value)) {
+                alert2("알림", "port는 숫자로만 구성되어야 합니다.", "info", "확인");
+                input.value = '';
+            }
+        }
+
+        data[index][field] = input.value;
+    }
 }
+
 
 function eqpAddPortRow() {
     let $table = $('#eqpRegisterPortTable');
