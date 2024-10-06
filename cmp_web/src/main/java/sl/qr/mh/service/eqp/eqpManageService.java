@@ -492,9 +492,11 @@ public class eqpManageService {
             eqpMapper.insertEquipmentDetail(paramMap); // 장비 세부정보 저장
 
             List<Map<String, Object>> eqpLink = (List<Map<String, Object>>) paramMap.get("eqpLink");
-            for(Map<String, Object> link : eqpLink){
-                link.put("eqp_manage_id", eqp_manage_id);
-                eqpMapper.insertEquipmentLink(link); // 장비 연결정보 저장
+            if (eqpLink != null) {
+                for (Map<String, Object> link : eqpLink) {
+                    link.put("eqp_manage_id", eqp_manage_id);
+                    eqpMapper.insertEquipmentLink(link); // 장비 연결정보 저장
+                }
             }
 
             returnMap.put("errorCode",true);

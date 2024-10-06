@@ -98,6 +98,11 @@ function saveData() {
 
         if (name === "acquisition_cost"){
             let acquisition_cost = removeComma(value);
+
+            // if (acquisition_cost === ''){
+            //     acquisition_cost = 0;
+            // }
+
             if((isNaN(acquisition_cost) || Number(acquisition_cost) > 100000000000)) {
                 errorMessage += `${labelName} 숫자만 입력가능하며, 1000억 이하입니다.</br>`;
                 isValid = false;
@@ -161,10 +166,10 @@ function saveData() {
                 eqpLinkErrorMessage += ` Host `;
                 eqpLinkValid = false;
             }
-            if (!IP) {
-                eqpLinkErrorMessage += ` IP `;
-                eqpLinkValid = false;
-            }
+            // if (!IP) {
+            //     eqpLinkErrorMessage += ` IP `;
+            //     eqpLinkValid = false;
+            // }
             if (!Port) {
                 eqpLinkErrorMessage += ` Port `;
                 eqpLinkValid = false;
@@ -181,7 +186,7 @@ function saveData() {
 
         data["eqpLink"] = eqpLinkData;
     }
-/*
+
     Swal.fire({
         title: '알림',
         html : '저장하시겠습니까?',
@@ -218,7 +223,6 @@ function saveData() {
             });
         }
     })
-    */
 }
 
 /**

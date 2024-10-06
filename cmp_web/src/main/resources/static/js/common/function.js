@@ -246,16 +246,19 @@ function updateEqpLinkInputData(input, index, field) {
     if (field === 'IP') {
         if (input.value.length === 0) {
             input.value = '';
+            return;
         }
 
         if (!/^\d+$/.test(input.value)) {
             alert2("알림", "ip는 숫자로만 구성되어야 합니다.", "info", "확인");
             input.value = '';
+            return;
         }
 
         if (parseInt(input.value) > 255) {
             alert2("알림", "IP 블록의 값은 0에서 255 사이여야 합니다.", "info", "확인");
             input.value = '';
+            return;
         }
 
         let block1 = document.getElementById(`ip_block_${index}_1`).value;
