@@ -15,11 +15,11 @@ function alert2(title, html, icon, confirmButtonText, callback) {
         icon: icon,
         confirmButtonText: confirmButtonText
     }).then((result) => {
-        if(result.isConfirmed){
+        //if(result.isConfirmed){
             if (typeof callback === 'function') {
                 callback();
             }
-        }
+        //}
     });
 }
 

@@ -324,6 +324,17 @@ function deleteEqpLinkRow() {
     $table.bootstrapTable('load', data);
 }
 
+//  장비관리 > 장비목록 > 추가 / 수정 > 저장하기 전 검증 실패시 에러메세지에 보여줄 항목 이름 조회
+function getLabelForInput(input) {
+    const id = input.id;
+    if (id) {
+        const label = document.querySelector(`label[for="${id}"]`);
+        if (label) {
+            return label.textContent;
+        }
+    }
+    return input.name; // label이 없으면 name 사용
+}
 
 
 function usrlogout() {

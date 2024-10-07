@@ -172,7 +172,7 @@ function saveData() {
                 eqpLinkValid = false;
             }
             if (!ip_address) {
-                item.IP = '0.0.0.0';
+                item.ip_address = '0.0.0.0';
             }
             if (!port) {
                 eqpLinkErrorMessage += ` Port `;
@@ -227,19 +227,4 @@ function saveData() {
             });
         }
     })
-}
-
-/**
- * 장비관리 > 장비목록 > 장비추가 > 저장버튼
- * 저장하기 전 검증 실패시 에러메세지에 보여줄 항목 이름 조회
- */
-function getLabelForInput(input) {
-    const id = input.id;
-    if (id) {
-        const label = document.querySelector(`label[for="${id}"]`);
-        if (label) {
-            return label.textContent;
-        }
-    }
-    return input.name; // label이 없으면 name을 사용
 }

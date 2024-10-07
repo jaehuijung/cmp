@@ -1,10 +1,13 @@
 let eqpRegisterPortColumn = [
-    { field: '',             title: ''         , checkbox: true },
+    { field: 'id',        title: 'id',        visible: false },
+    { field: '',           title: ''         , checkbox: true },
     { field: 'host',         title: '호스트명'  , formatter: inputEqpLinkFormatter },
     { field: 'ip_address',   title: 'IP 주소'   , formatter: inputEqpLinkFormatter },
     { field: 'port',         title: '포트'      , formatter: inputEqpLinkFormatter }
 ];
 
+
+let old_eqpLinkData = '';
 $(function(){
 
     addComma(document.getElementById("acquisition_cost")); // 도입금액 콤마처리
@@ -51,142 +54,13 @@ $(function(){
             let errorCode = res.errorCode;
             if (!errorCode){
                 alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+                return;
             }
+
+            old_eqpLinkData = JSON.parse(JSON.stringify(res.rows));
         },
     });
 });
-
-
-/**
- * 구성분류 리스트
- */
-function getSelectConfig(){
-    $.ajax({
-        url: "/cable/eqp/selectConfig",
-        type: "GET",
-        success: function (res) {
-            const categorySelect = $("#config_id");
-            categorySelect.empty();
-            categorySelect.append(new Option("선택", ""));
-
-            const assetSelect = $("#asset_id");
-            assetSelect.empty();
-            assetSelect.append(new Option("선택", ""));
-
-            const subSelect = $("#sub_id");
-            subSelect.empty();
-            subSelect.append(new Option("선택", ""));
-
-            const detailSelect = $("#detail_id");
-            detailSelect.empty();
-            detailSelect.append(new Option("선택", ""));
-
-            $("#categories").val("");
-
-            let data = res.selectData;
-            data.forEach(function(item) {
-                categorySelect.append(new Option(item.name, item.id));
-            });
-        },
-    });
-}
-
-/**
- * 자산분류 리스트
- */
-function getSelectAsset(configValue){
-    $.ajax({
-        url: "/cable/eqp/selectAsset",
-        type: "GET",
-        data: {config_id: configValue},
-        success: function (res) {
-            const assetSelect = $("#asset_id");
-            assetSelect.empty();
-            assetSelect.append(new Option("선택", ""));
-
-            const subSelect = $("#sub_id");
-            subSelect.empty();
-            subSelect.append(new Option("선택", ""));
-
-            const detailSelect = $("#detail_id");
-            detailSelect.empty();
-            detailSelect.append(new Option("선택", ""));
-
-            let data = res.selectData;
-            data.forEach(function(item) {
-                assetSelect.append(new Option(item.name, item.id));
-            });
-
-            $("#categories").val("");
-        },
-    });
-}
-
-/**
- * 자산세부 리스트
- */
-function getSelectSub(assetValue){
-    $.ajax({
-        url: "/cable/eqp/selectSub",
-        type: "GET",
-        data: {asset_id: assetValue},
-        success: function (res) {
-
-            let data = res.selectData;
-            if(data.length != 0){
-                const subSelect = $("#sub_id");
-                subSelect.empty();
-                subSelect.append(new Option("선택", ""));
-
-                const detailSelect = $("#detail_id");
-                detailSelect.empty();
-                detailSelect.append(new Option("선택", ""));
-
-
-                data.forEach(function(item) {
-                    subSelect.append(new Option(item.name, item.id));
-                });
-
-                $("#categories").val(data[0].categories);
-            }
-            else{
-                $("#categories").val("");
-            }
-        },
-    });
-}
-
-/**
- * 자산상세 리스트
- */
-function getSelectDetail(subValue){
-    $.ajax({
-        url: "/cable/eqp/selectDetail",
-        type: "GET",
-        data: {sub_id: subValue},
-        success: function (res) {
-
-            let data = res.selectData;
-            if(data.length != 0){
-                const detailSelect = $("#detail_id");
-
-                if (res.selectData[0].id === ''){
-                    detailSelect.empty();
-                    detailSelect.append(new Option("없음", ""));
-                }
-                else{
-                    detailSelect.empty();
-                    detailSelect.append(new Option("선택", ""));
-
-                    data.forEach(function(item) {
-                        detailSelect.append(new Option(item.name, item.id));
-                    });
-                }
-            }
-        },
-    });
-}
-
 
 /**
  * 장비관리 > 장비목록 > 장비수정 > 저장버튼
@@ -194,61 +68,11 @@ function getSelectDetail(subValue){
  */
 function saveData() {
 
-    let data = {};
-    let isValid = true;
-    let errorMessage = "";
-
-    document.querySelectorAll('#selection-equipment input, #selection-equipment select').forEach(input => {
-        const value = input.value.trim();
-        const name = input.name;
-
-        if (name === "acquisition_cost"){
-            let acquisition_cost = removeComma(value);
-            if((isNaN(acquisition_cost) || Number(acquisition_cost) > 100000000000)) {
-                errorMessage += `도입금액은 숫자만 입력가능하며, 1000억 이하입니다.\n`;
-                isValid = false;
-            }
-
-            data[name] = acquisition_cost;
-        }
-        else if(name.includes("ip_block")){
-            // 아무 처리도 하지 않음
-        }
-        else{
-            if (["eqp_name", "hostname", "model", "m_company", "primary_operator", "primary_outsourced_operator",
-                "secondary_operator", "secondary_outsourced_operator", "operating_department", "cpu", "mem",
-                "disk", "ip_address", "os_version", "dbrain_number", "serial_number", "installation_coordinates"].includes(name)) {
-                if (value.length > 30) {
-                    errorMessage += `${name}는 30글자 초과할 수 없습니다.\n`;
-                    isValid = false;
-                }
-            }
-            if ((name === "installation_units" || name === "equipment_size_units") && (isNaN(value) || Number(value) > 1000)) {
-                errorMessage += `${name}는 숫자만 입력가능하며, 1000 이하입니다.\n`;
-                isValid = false;
-            }
-
-            if (name.includes("date") && !isValidDate(value)) {
-                errorMessage += `${name}는 유효한 날짜여야 합니다.\n`;
-                isValid = false;
-            }
-
-            data[name] = value;
-        }
-    });
-
-    data["ip_address"] = combineIP(); // ip_block1 ~ ip_block4까지 구분자 붙여서 ip_address 문자열 생성
-
-    $('select').each(function() {
-        const selectedId = $(this).attr('id');
-        const selectedValue = $(this).val();
-        const selectedText = $(this).find("option:selected").text();
-    });
-
-    if (!isValid) {
-        alert2("알림", errorMessage, "error", "확인");
+    if($("#eqp_name").val() === ""){
+        alert2("알림", "장비명을 입력해주세요", "info", "확인");
         return false;
     }
+
     if($("#config_id").val() === ""){
         alert2("알림", "구성분류를 선택해주세요", "info", "확인");
         return false;
@@ -271,9 +95,134 @@ function saveData() {
         }
     }
 
+    let data = {};
+    let isValid = true;
+    let errorMessage = "";
 
-    data["categories"] = $("#categories").val();
-    data["eqp_manage_id"] = $("#eqp_manage_id").val();
+    document.querySelectorAll(
+        `#section-equipment-basic-info input, #section-equipment-basic-info select,
+        #section-equipment-category input, #section-equipment-category select,
+        #section-equipment-operation-info input, #section-equipment-operation-info select,
+        #section-equipment-details input, #section-equipment-details select`,
+    ).forEach(input => {
+        let value = input.value.trim();
+        let name = input.name;
+        let labelName = getLabelForInput(input);
+
+        if (name === "acquisition_cost"){
+            let acquisition_cost = removeComma(value);
+
+            if (acquisition_cost === ''){
+                acquisition_cost = 0;
+            }
+
+            if(isNaN(acquisition_cost) || Number(acquisition_cost) > 100000000000) {
+                errorMessage += `${labelName} 숫자만 입력가능하며, 1000억 이하입니다.</br>`;
+                isValid = false;
+            }
+
+            data[name] = acquisition_cost;
+        }
+        else{
+            if (["eqp_name", "hostname", "model", "m_company", "primary_operator", "primary_outsourced_operator",
+                "secondary_operator", "secondary_outsourced_operator", "operating_department", "cpu", "mem",
+                "disk", "os_version", "dbrain_number", "serial_number", "installation_coordinates"].includes(name)) {
+                if (value.length > 30) {
+                    errorMessage += `${labelName} 30글자 초과할 수 없습니다.</br>`;
+                    isValid = false;
+                }
+            }
+            if ((name === "installation_units" || name === "equipment_size_units") && (isNaN(value) || Number(value) > 1000)) {
+                errorMessage += `${labelName} 숫자만 입력가능하며, 1000 이하입니다.</br>`;
+                isValid = false;
+            }
+
+            if (name.includes("date") && !isValidDate(value)) {
+                errorMessage += `${labelName} 유효한 날짜여야 합니다.</br>`;
+                isValid = false;
+            }
+
+            if(name != ""){
+                if ((name === "installation_units") && (value === '')){
+                    value = 0;
+                }
+                if ((name === "equipment_size_units") && (value=== '')){
+                    value = 0;
+                }
+
+                data[name] = value;
+            }
+        }
+
+        data["ip_address"] = combineIP(); // ip_block1 ~ ip_block4까지 구분자 붙여서 ip_address 문자열 생성
+    });
+
+
+    $('select').each(function() {
+        const selectedId = $(this).attr('id');
+        const selectedValue = $(this).val();
+        const selectedText = $(this).find("option:selected").text();
+    });
+
+    if (!isValid) {
+        alert2("알림", errorMessage, "error", "확인");
+        return false;
+    }
+
+    data["categories"] = $("#categories").val(); // 장비 추가 시 서버에서 관리번호 생성할 때 자산세부분류 사용
+
+    // 장비연결정보 추가
+    const eqpLinkData = $("#eqpLinkTable").bootstrapTable('getData');
+
+    let eqpLinkValid = true;
+    let eqpLinkErrorMessage = "";
+
+    eqpLinkData.forEach((item, index) => {
+        let { host, ip_address, port } = item;
+        let msg += `장비연결정보${index + 1} [`
+        if (!host) {
+            msg += ` host `;
+            eqpLinkValid = false;
+        }
+        if (!ip_address) {
+            item.ip_address = '0.0.0.0';
+        }
+        if (!port) {
+            msg += ` Port `;
+            eqpLinkValid = false;
+        }
+
+        msg += `] 가 비어있습니다.</br>`
+
+        if (!eqpLinkValid) {
+            eqpLinkErrorMessage = msg;
+        }
+    });
+
+    if (!eqpLinkValid) {
+        alert2("알림", eqpLinkErrorMessage, "error", "확인");
+        return false;
+    }
+
+    // 추가된 항목
+    const eqpLinkAdd = eqpLinkData.filter(newItem => !old_eqpLinkData.some(oldItem => oldItem.id === newItem.id) );
+
+    // 제거된 항목
+    const eqpLinkDelete = old_eqpLinkData.filter(oldItem => !eqpLinkData.some(newItem => newItem.id === oldItem.id) );
+
+    // 수정된 항목
+    const eqpLinkUpdate = old_eqpLinkData.filter(oldItem => {
+        const newItem = eqpLinkData.find(newItem => newItem.id === oldItem.id);
+        return newItem && (
+            oldItem.host !== newItem.host ||
+            oldItem.ip_address !== newItem.ip_address ||
+            oldItem.port !== newItem.port
+        );
+    });
+
+    data["eqpLinkAdd"]    = eqpLinkAdd;
+    data["eqpLinkDelete"] = eqpLinkDelete;
+    data["eqpLinkUpdate"] = eqpLinkUpdate;
 
     Swal.fire({
         title: '알림',

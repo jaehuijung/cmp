@@ -10,6 +10,33 @@
         <input type="hidden" id="eqp_manage_id" name="eqp_manage_id" th:value="${equipment.eqp_manage_id}"/>
 
         <section id="selection-equipment">
+            <!-- 장비분류 -->
+            <div id="section-equipment-category">
+                <div class="section-equipment-title">
+                    <h2>장비분류</h2>
+                </div>
+                <div>
+                    <div class="equipment-wrap">
+                        <div class="equipment-item">
+                            <label for="config_category">구성분류:</label>
+                            <input type="text" id="config_category" name="config_category" th:value="${equipment.config_category}" readonly/>
+                        </div>
+                        <div class="equipment-item">
+                            <label for="asset_category">자산분류:</label>
+                            <input type="text" id="asset_category" name="asset_category" th:value="${equipment.asset_category}" readonly/>
+                        </div>
+                        <div class="equipment-item">
+                            <label for="sub_category">자산세부분류:</label>
+                            <input type="text" id="sub_category" name="sub_category" th:value="${equipment.sub_category}" readonly/>
+                        </div>
+                        <div class="equipment-item">
+                            <label for="detail_category">자산상세분류:</label>
+                            <input type="text" id="detail_category" name="detail_category" th:value="${equipment.containsKey('detail_category')} ? ${equipment['detail_category']} : ''" readonly/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- 장비기본정보 -->
             <div id="section-equipment-basic-info">
                 <div class="section-equipment-title">
@@ -52,32 +79,7 @@
                 </div>
             </div>
 
-            <!-- 장비분류 -->
-            <div id="section-equipment-category">
-                <div class="section-equipment-title">
-                    <h2>장비분류</h2>
-                </div>
-                <div>
-                    <div class="equipment-wrap">
-                        <div class="equipment-item">
-                            <label for="config_category">구성분류:</label>
-                            <input type="text" id="config_category" name="config_category" th:value="${equipment.config_category}" readonly/>
-                        </div>
-                        <div class="equipment-item">
-                            <label for="asset_category">자산분류:</label>
-                            <input type="text" id="asset_category" name="asset_category" th:value="${equipment.asset_category}" readonly/>
-                        </div>
-                        <div class="equipment-item">
-                            <label for="sub_category">자산세부분류:</label>
-                            <input type="text" id="sub_category" name="sub_category" th:value="${equipment.sub_category}" readonly/>
-                        </div>
-                        <div class="equipment-item">
-                            <label for="detail_category">자산상세분류:</label>
-                            <input type="text" id="detail_category" name="detail_category" th:value="${equipment.containsKey('detail_category')} ? ${equipment['detail_category']} : ''" readonly/>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
 
             <!-- 장비운영정보 -->
             <div id="section-equipment-operation-info">

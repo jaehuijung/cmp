@@ -553,8 +553,8 @@ public class eqpManageService {
         returnMap.put("errorCode",false);
 
         try {
-            eqpMapper.updateBasicEqpList(paramMap);
-            eqpMapper.updateDetailEqpList(paramMap);
+            // eqpMapper.updateBasicEqpList(paramMap);
+            // eqpMapper.updateDetailEqpList(paramMap);
             returnMap.put("errorCode",true);
 
         } catch (Exception e) {
