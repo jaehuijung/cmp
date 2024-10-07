@@ -509,6 +509,36 @@ public class eqpManageService {
         return returnMap;
     }
 
+    /**
+     * 장비관리 > 장비목록 > 수정/상세
+     * 장비연결정보 데이터 가져오기
+     *
+     * @return 장비 연결정보 리스트
+     */
+    @SuppressWarnings("unchecked")
+    public Map<String, Object> getEqpLinkList(Map<String, Object> paramMap){
+        Map<String, Object> returnMap = new HashMap<>();
+        returnMap.put("errorCode",false);
+
+        try {
+
+            if (paramMap.containsKey("searchData")) {
+                paramMap.putAll((Map<String, Object>) paramMap.get("searchData"));
+            }
+
+            List<Map<String, Object>> rows = eqpMapper.getEquipmentDetailLinkList(paramMap);
+            int total = eqpMapper.getEquipmentDetailLinkListCnt(paramMap);
+
+            returnMap.put("rows", rows);
+            returnMap.put("total", total);
+            returnMap.put("errorCode",true);
+
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+
+        return returnMap;
+    }
 
     /**
      * 장비관리 > 장비목록 > 수정
@@ -547,7 +577,7 @@ public class eqpManageService {
 
         try{
             Map<String, Object> selectData = eqpMapper.getEquipmentDetailTotalList(eqp_manage_id); // 장비 정보
-            selectData.putAll(eqpMapper.getEquipmentDetailAssetList(selectData)); // 장비분류 항목
+            selectData.putAll(eqpMapper.getEquipmentDetailAssetList(selectData)); // 선택한 장비 분류 카테고리(구성분류, 자산분류, 자산세부분류, 자산상세분류)
 
             returnMap.put("selectData", selectData);
             returnMap.put("errorCode",true);
@@ -560,7 +590,7 @@ public class eqpManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 상세
+     * 장비관리 > 장비목록 > 수정
      * 선택한 장비 정보 리스트 (기본정보, 세부정보, 연결정보)
      *
      * @param eqp_manage_id 장비 관리번호

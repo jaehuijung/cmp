@@ -1,9 +1,40 @@
-
+let eqpRegisterPortColumn = [
+    { field: 'host',         title: '호스트명'  , formatter: inputEqpLinkFormatter },
+    { field: 'ip_address',   title: 'IP 주소'   , formatter: inputEqpLinkFormatter },
+    { field: 'port',         title: '포트'      , formatter: inputEqpLinkFormatter }
+];
 
 $(function(){
 
     addComma(document.getElementById("acquisition_cost")); // 도입금액 콤마처리
 
+    $('#eqpLinkTable').bootstrapTable({
+        url: '/cable/eqp/selectEqpLinkList',
+        method: 'post',
+        queryParams: function(params) {
+            let eqp_manage_id = $("#eqp_manage_id").val();
+            params.searchData = {
+                eqp_manage_id
+            }
+            return params;
+        },
+        pageSize: 5, columns: eqpRegisterPortColumn, cache: false, undefinedText: "",
+        pagination: true, sidePagination: 'server', checkboxHeader: true,
+        classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
+        responseHandler: function(res) {
+            return {
+                rows: res.rows,
+                total: res.total,
+                errorCode: res.errorCode
+            }
+        },
+        onLoadSuccess: function(res) {
+            let errorCode = res.errorCode;
+            if (!errorCode){
+                alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+            }
+        },
+    });
 });
 
 

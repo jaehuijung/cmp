@@ -223,6 +223,18 @@ public class eqpManageController {
     }
 
     /**
+     * 장비관리 > 장비목록 > 수정 / 상세 > 장비 연결정보
+     *
+     * @return 장비 연걸정보 리스트
+     */
+    @ResponseBody
+    @PostMapping("/selectEqpLinkList")
+    public Map<String, Object> getEquipmentLinkList(@RequestBody Map<String, Object> paramMap) {
+        return eqpManageService.getEqpLinkList(paramMap);
+    }
+
+
+    /**
      * 장비관리 > 장비목록 > 수정
      *
      * @return 장비 수정 뷰 페이지

@@ -216,7 +216,7 @@ function combineIP() {
 
 // 장비목록 > 추가/상세/수정 > 장비연결정보 > 컬럼 formater
 function inputEqpLinkFormatter(value, row, index, field) {
-    if (field === 'IP') {
+    if (field === 'ip_address') {
         if (!value) value = '';
 
         let ipBlocks = value.split('.');
@@ -231,7 +231,7 @@ function inputEqpLinkFormatter(value, row, index, field) {
                 <input type="text" class="form-control d-inline-block" id="ip_block_${index}_3" maxlength="3" size="3" value="${ipBlocks[2]}" oninput="updateEqpLinkInputData(this, ${index}, '${field}')" /> .
                 <input type="text" class="form-control d-inline-block" id="ip_block_${index}_4" maxlength="3" size="3" value="${ipBlocks[3]}" oninput="updateEqpLinkInputData(this, ${index}, '${field}')" />
             </div>`;
-    } else if (field === 'Port') {
+    } else if (field === 'port') {
         return `<input type="text" class="form-control" name="${field}" value="${value}" maxlength="5" size="5" oninput="updateEqpLinkInputData(this, ${index}, '${field}')">`;
     } else {
         return `<input type="text" class="form-control" name="${field}" value="${value}" oninput="updateEqpLinkInputData(this, ${index}, '${field}')">`;
@@ -243,7 +243,7 @@ function updateEqpLinkInputData(input, index, field) {
     let $table = $('#eqpLinkTable');
     let data = $table.bootstrapTable('getData');
 
-    if (field === 'IP') {
+    if (field === 'ip_address') {
         if (input.value.length === 0) {
             input.value = '';
         }
@@ -280,7 +280,7 @@ function updateEqpLinkInputData(input, index, field) {
 
         data[index][field] = ipBlocks.join('.');
     } else {
-        if(field === 'Port'){
+        if(field === 'port'){
             if (!/^\d+$/.test(input.value)) {
                 alert2("알림", "port는 숫자로만 구성되어야 합니다.", "info", "확인");
                 input.value = '';
@@ -296,9 +296,9 @@ function addEqpLinkRow() {
     let $table = $('#eqpLinkTable');
     let data = $table.bootstrapTable('getData');
     data.push({
-        Host: '',
-        IP: '',
-        Port: ''
+        host: '',
+        ip_address: '',
+        port: ''
     });
     $table.bootstrapTable('load', data);
 }

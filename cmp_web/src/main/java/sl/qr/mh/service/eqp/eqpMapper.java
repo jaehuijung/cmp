@@ -113,8 +113,11 @@ public interface eqpMapper {
 	 * @param eqp_manage_id 장비 관리번호
 	 * @return 장비 정보 리스트
 	 */
-	public Map<String, Object> getEquipmentDetailTotalList(String eqp_manage_id); // 장비 상세 리스트
-	public Map<String, Object> getEquipmentDetailAssetList(Map<String, Object> paramMap); // 장비 상세 리스트 : 장비 분류 카테고리
+	public Map<String, Object> getEquipmentDetailTotalList(String eqp_manage_id); // 장비 상세 리스트 : 기본정보, 상세정보
+	public Map<String, Object> getEquipmentDetailAssetList(Map<String, Object> paramMap); // 장비 상세 리스트 : 선택한 장비 분류 카테고리(구성분류, 자산분류, 자산세부분류, 자산상세분류)
+	public List<Map<String, Object>> getEquipmentDetailLinkList(Map<String, Object> paramMap); // 장비 상세 리스트 : 장비 연결정보 리스트
+	public int getEquipmentDetailLinkListCnt(Map<String, Object> paramMap); // 장비 상세 리스트 : 장비 연결정보 리스트 개수
+
 
 
 	/**

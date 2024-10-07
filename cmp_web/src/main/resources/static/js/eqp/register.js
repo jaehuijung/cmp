@@ -1,8 +1,8 @@
 let eqpRegisterPortColumn = [
-    { field: '',     title: ''      , checkbox: true },
-    { field: 'Host', title: 'Host'  , formatter: inputEqpLinkFormatter },
-    { field: 'IP',   title: 'IP'    , formatter: inputEqpLinkFormatter },
-    { field: 'Port', title: 'Port'  , formatter: inputEqpLinkFormatter }
+    { field: '',             title: ''         , checkbox: true },
+    { field: 'host',         title: '호스트명'  , formatter: inputEqpLinkFormatter },
+    { field: 'ip_address',   title: 'IP 주소'   , formatter: inputEqpLinkFormatter },
+    { field: 'port',         title: '포트'      , formatter: inputEqpLinkFormatter }
 ];
 
 $(function(){
@@ -167,14 +167,14 @@ function saveData() {
         eqpLinkData.forEach((item, index) => {
             let { Host, IP, Port } = item;
             eqpLinkErrorMessage += `장비연결정보${index + 1} [`
-            if (!Host) {
+            if (!host) {
                 eqpLinkErrorMessage += ` Host `;
                 eqpLinkValid = false;
             }
-            if (!IP) {
+            if (!ip_address) {
                 item.IP = '0.0.0.0';
             }
-            if (!Port) {
+            if (!port) {
                 eqpLinkErrorMessage += ` Port `;
                 eqpLinkValid = false;
             }
