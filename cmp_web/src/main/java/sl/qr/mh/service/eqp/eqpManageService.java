@@ -547,14 +547,40 @@ public class eqpManageService {
      * @param paramMap 수정할 장비 데이터
      * @return 수정 결과
      */
+
+    @SuppressWarnings("unchecked")
     @Transactional
     public Map<String, Object> updateEqpList(Map<String, Object> paramMap) {
         Map<String, Object> returnMap = new HashMap<>();
         returnMap.put("errorCode",false);
 
         try {
-            // eqpMapper.updateBasicEqpList(paramMap);
-            // eqpMapper.updateDetailEqpList(paramMap);
+            eqpMapper.updateBasicEqpList(paramMap);
+            eqpMapper.updateDetailEqpList(paramMap);
+
+            List<Map<String, Object>> eqpLinkAdd = (List<Map<String, Object>>) paramMap.get("eqpLinkAdd");
+            List<Map<String, Object>> eqpLinkUpdate = (List<Map<String, Object>>) paramMap.get("eqpLinkUpdate");
+            List<Map<String, Object>> eqpLinkDelete = (List<Map<String, Object>>) paramMap.get("eqpLinkDelete");
+
+            if(eqpLinkAdd != null) {
+                for(Map<String, Object> link : eqpLinkAdd) {
+                    link.put("eqp_manage_id", paramMap.get("eqp_manage_id"));
+                    eqpMapper.insertEquipmentLink(link);
+                }
+            }
+            if(eqpLinkUpdate != null) {
+                for(Map<String, Object> link : eqpLinkUpdate) {
+                    link.put("eqp_manage_id", paramMap.get("eqp_manage_id"));
+                    eqpMapper.updateEquipmentLink(link);
+                }
+            }
+            if(eqpLinkDelete != null) {
+                for(Map<String, Object> link : eqpLinkDelete) {
+                    link.put("eqp_manage_id", paramMap.get("eqp_manage_id"));
+                    eqpMapper.deleteEquipmentLink(link);
+                }
+            }
+
             returnMap.put("errorCode",true);
 
         } catch (Exception e) {

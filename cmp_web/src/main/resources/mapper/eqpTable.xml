@@ -52,6 +52,7 @@
             equipment_basic A
         WHERE 1=1
         <include refid="getEquipmentTotalCommon"/>
+        ORDER BY A.eqp_manage_id desc
         LIMIT #{offset},#{limit}
     </select>
 
@@ -229,7 +230,7 @@
 
     <insert id="insertEquipmentLink" parameterType="map">
         /* insertEquipmentLink...
-            장비관리 > 장비목록 > 추가 페이지 > 저장 > 장비 연결정보 저장
+            장비관리 > 장비목록 > 추가/수정 페이지 > 저장 > 장비 연결정보 저장
         */
         insert into equipment_link (
             eqp_manage_id,
@@ -239,11 +240,38 @@
         )
         values(
             #{eqp_manage_id},
-            #{Host},
-            #{IP},
-            #{Port}
+            #{host},
+            #{ip_address},
+            #{port}
         )
     </insert>
+
+    <update id="updateEquipmentLink" parameterType="map">
+        /* updateEquipmentLink...
+            장비관리 > 장비목록 > 추가/수정 페이지 > 저장 > 장비 연결정보 수정
+        */
+        update
+            equipment_link
+        set
+            host = #{host},
+            ip_address = #{ip_address},
+            port = #{port}
+        where
+            id = #{id}
+            and eqp_manage_id = #{eqp_manage_id}
+    </update>
+
+    <delete id="deleteEquipmentLink" parameterType="map">
+        /* deleteEquipmentLink...
+            장비관리 > 장비목록 > 추가/수정 페이지 > 저장 > 장비 연결정보 삭제
+        */
+        delete from
+            equipment_link
+        where
+            id = #{id}
+            and eqp_manage_id = #{eqp_manage_id}
+    </delete>
+
 
 
     <select id="getEquipmentDetailTotalList" parameterType="String" resultType="map">
@@ -415,21 +443,23 @@
         UPDATE
             equipment_detail
         SET
-            dbrain_number = #{dbrain_number}
-            , serial_number = #{serial_number}
-        <if test="CPU != null and CPU != ''">
+            serial_number = #{serial_number}
+        <if test="dbrain_number != null and dbrain_number != ''">
+            , dbrain_number = #{dbrain_number}
+        </if>
+        <if test="cpu != null and cpu != ''">
             , CPU = #{cpu}
         </if>
-        <if test="MEMORY != null and MEMORY != ''">
+        <if test="mem != null and mem != ''">
             , MEMORY = #{mem}
         </if>
-        <if test="DISK != null and DISK != ''">
+        <if test="disk != null and disk != ''">
             , DISK = #{disk}
         </if>
         <if test="ip_address != null and ip_address != ''">
             , ip_address = #{ip_address}
         </if>
-        <if test="OS != null and OS != ''">
+        <if test="os_version != null and os_version != ''">
             , OS = #{os_version}
         </if>
         <if test="acquisition_cost != null and acquisition_cost != ''">
@@ -459,6 +489,7 @@
         WHERE
             eqp_manage_id = #{eqp_manage_id}
     </update>
+
 
     <update id="deleteEqpList" parameterType="String">
         /* deleteEqpList ...

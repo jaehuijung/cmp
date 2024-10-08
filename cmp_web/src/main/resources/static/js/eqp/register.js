@@ -81,6 +81,11 @@ function saveData() {
         }
     }
 
+    if($("#serial_number").val() === ""){
+        alert2("알림", "시리얼 번호를 입력해주세요", "info", "확인");
+        return false;
+    }
+
     let data = {};
     let isValid = true;
     let errorMessage = "";
@@ -166,21 +171,26 @@ function saveData() {
         let eqpLinkErrorMessage = "";
 
         eqpLinkData.forEach((item, index) => {
-            let { Host, IP, Port } = item;
-            eqpLinkErrorMessage += `장비연결정보${index + 1} [`
+            let { host, ip_address, port } = item;
+
+            let msg = `장비연결정보${index + 1} [`
             if (!host) {
-                eqpLinkErrorMessage += ` Host `;
+                msg += ` host `;
                 eqpLinkValid = false;
             }
             if (!ip_address) {
                 item.ip_address = '0.0.0.0';
             }
             if (!port) {
-                eqpLinkErrorMessage += ` Port `;
+                msg += ` Port `;
                 eqpLinkValid = false;
             }
 
-            eqpLinkErrorMessage += `] 가 비어있습니다.</br>`
+            msg += `] 가 비어있습니다.</br>`
+
+            if (!eqpLinkValid) {
+                eqpLinkErrorMessage = msg;
+            }
         });
 
         if (!eqpLinkValid) {
@@ -188,6 +198,14 @@ function saveData() {
             return false;
         }
 
+        let ip_address_arr = item.ip_address.split(".");
+        ip_address_arr = ip_address_arr.map(ele => {
+            if (ele.length >= 2 && ele.startsWith("0")) {
+                return ele.substring(1);
+            }
+            return ele;
+        });
+        item.ip_address = ip_address_arr.join(".");
 
         data["eqpLink"] = eqpLinkData;
     }

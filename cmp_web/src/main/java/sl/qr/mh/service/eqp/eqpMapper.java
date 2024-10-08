@@ -95,14 +95,28 @@ public interface eqpMapper {
 	 */
 	public void insertEquipmentDetail(Map<String, Object> paramMap);
 
+
 	/**
-	 * 장비관리 > 장비목록 > 추가
+	 * 장비관리 > 장비목록 > 추가/수정
 	 * 장비 저장 : 연결정보
 	 *
 	 * @param paramMap 저장할 장비 데이터
 	 */
 	public void insertEquipmentLink(Map<String, Object> paramMap);
-
+	/**
+	 * 장비관리 > 장비목록 > 추가/수정
+	 * 장비 저장 : 연결정보
+	 *
+	 * @param paramMap 수정할 장비 데이터
+	 */
+	public void updateEquipmentLink(Map<String, Object> paramMap);
+	/**
+	 * 장비관리 > 장비목록 > 추가/수정
+	 * 장비 저장 : 연결정보
+	 *
+	 * @param paramMap 삭제할 장비 데이터
+	 */
+	public void deleteEquipmentLink(Map<String, Object> paramMap);
 
 
 

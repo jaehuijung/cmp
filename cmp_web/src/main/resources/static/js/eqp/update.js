@@ -197,6 +197,15 @@ function saveData() {
         if (!eqpLinkValid) {
             eqpLinkErrorMessage = msg;
         }
+
+        let ip_address_arr = item.ip_address.split(".");
+        ip_address_arr = ip_address_arr.map(ele => {
+            if (ele.length >= 2 && ele.startsWith("0")) {
+                return ele.substring(1);
+            }
+            return ele;
+        });
+        item.ip_address = ip_address_arr.join(".");
     });
 
     if (!eqpLinkValid) {
@@ -211,18 +220,21 @@ function saveData() {
     const eqpLinkDelete = old_eqpLinkData.filter(oldItem => !eqpLinkData.some(newItem => newItem.id === oldItem.id) );
 
     // 수정된 항목
-    const eqpLinkUpdate = old_eqpLinkData.filter(oldItem => {
-        const newItem = eqpLinkData.find(newItem => newItem.id === oldItem.id);
-        return newItem && (
+    const eqpLinkUpdate = eqpLinkData.filter(newItem => {
+        const oldItem = old_eqpLinkData.find(oldItem => oldItem.id === newItem.id);
+        const isDifferent = oldItem && (
             oldItem.host !== newItem.host ||
             oldItem.ip_address !== newItem.ip_address ||
             oldItem.port !== newItem.port
         );
-    });
+
+        return isDifferent ? newItem : null;
+    }).filter(item => item !== null);
 
     data["eqpLinkAdd"]    = eqpLinkAdd;
     data["eqpLinkDelete"] = eqpLinkDelete;
     data["eqpLinkUpdate"] = eqpLinkUpdate;
+    data["eqp_manage_id"] = $("#eqp_manage_id").val();
 
     Swal.fire({
         title: '알림',
