@@ -113,8 +113,9 @@ function saveData() {
             if (["eqp_name", "hostname", "model", "m_company", "primary_operator", "primary_outsourced_operator",
                 "secondary_operator", "secondary_outsourced_operator", "operating_department", "cpu", "mem",
                 "disk", "os_version", "dbrain_number", "serial_number", "installation_coordinates"].includes(name)) {
-                if (value.length > 30) {
-                    errorMessage += `${labelName} 30글자 초과할 수 없습니다.</br>`;
+                // 글자수 변경필요!!!
+                if (value.length > 50) {
+                    errorMessage += `${labelName} 50글자 초과할 수 없습니다.</br>`;
                     isValid = false;
                 }
             }

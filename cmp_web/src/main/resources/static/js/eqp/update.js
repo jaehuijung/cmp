@@ -179,7 +179,7 @@ function saveData() {
 
     eqpLinkData.forEach((item, index) => {
         let { host, ip_address, port } = item;
-        let msg += `장비연결정보${index + 1} [`
+        let msg = `장비연결정보${index + 1} [`
         if (!host) {
             msg += ` host `;
             eqpLinkValid = false;
