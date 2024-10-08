@@ -290,11 +290,8 @@ function selectEquipmentDownload(){
         alert2('알림', '다운로드 할 장비를 선택하세요.', 'info', '확인');
     }
     else{
-
-        /*
-        장비목록 컬럼변경때문에 테이블 일단 조회추가수정상세 구현한 다음에
         $.ajax({
-            url : '/cable/eqp/excelInsert',
+            url : '/cable/eqp/excelDownload',
             type: 'post',
             data: formData,
             processData: false,
@@ -303,7 +300,6 @@ function selectEquipmentDownload(){
                 notifySaveResult(res);
             }
         });
-        */
     }
 }
 

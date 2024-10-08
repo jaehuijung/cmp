@@ -23,14 +23,15 @@ public class eqpManageService {
 
 
     private final eqpMapper eqpMapper;
+    private final String sep = "/";
+    private final String staticPath = System.getProperty("user.dir") + sep + "src" + sep + "main" + sep + "resources" + sep + "static" + sep + "excelTemplate" + sep;
 
     public eqpManageService(eqpMapper eqpMapper) {
         this.eqpMapper = eqpMapper;
     }
 
     /**
-     * 장비관리 > 장비목록
-     * 장비 목록 데이터 가져오기
+     * 장비관리 > 장비목록 > 장비 목록 데이터 가져오기
      *
      * @param paramMap 요청 파라미터 맵
      * @return 장비 목록 데이터
@@ -62,8 +63,44 @@ public class eqpManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 장비 업로드
-     * 데이터 저장
+     * 장비관리 > 장비목록 > 엑셀 다운로드
+     *
+     * @return 장비 목록 데이터
+     */
+    @Transactional
+    public Workbook excelDownloadEquipmentList() throws IOException {
+        String resultPath = staticPath + "equipmentListTemplate.xlsx";
+        FileInputStream file = new FileInputStream(resultPath);
+        Workbook wb = new XSSFWorkbook(file);
+        Sheet sheet = wb.getSheetAt(0);
+
+        Map<String, Object> insertExcelMap = new HashMap<>();
+        try {
+            List<Map<String, Object>> equipmentDetailTotalList = eqpMapper.getExcelEquipmentTotalList();
+            List<Map<String, Object>> equipmentLinkList = eqpMapper.getExcelEquipmentLinkList();
+
+            Row row = sheet.getRow(rowIndex);
+
+            if (row != null) {
+                for (int cnt = 1; cnt < 41; cnt++) {
+                    Cell cellHeader = rowHeader.getCell(cnt);
+                    Cell cellValue = row.getCell(cnt);
+
+                    insertExcelMap.putAll(excelCellProcess(cellHeader, cellValue));
+                }
+            }
+
+        } catch (Exception e) {
+
+        }
+
+        // 결과파일 생성 시 데이터 받아와서 엑셀 생성
+        // 장비추가/수정/상세/삭제 기능 개발 완료 후 개발
+        return wb;
+    }
+
+    /**
+     * 장비관리 > 장비목록 > 장비 업로드 > 데이터 저장
      *
      * @param file 업로드된 엑셀 파일
      * @return 삽입 결과
@@ -110,13 +147,8 @@ public class eqpManageService {
         return returnMap;
     }
 
-
-    private final String sep = "/";
-    private final String staticPath = System.getProperty("user.dir") + sep + "src" + sep + "main" + sep + "resources" + sep + "static" + sep + "excelTemplate" + sep;
-
     /**
-     * 장비관리 > 장비목록 > 장비 업로드
-     * 저장 완료 후 결과파일 생성
+     * 장비관리 > 장비목록 > 장비 업로드 > 데이터 저장 후 결과파일 생성
      *
      * @param paramMap 저장결과 파라미터 맵
      * @return 엑셀 워크북 객체
@@ -133,8 +165,7 @@ public class eqpManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 장비 업로드
-     * 업로드 양식 엑셀 파일 생성
+     * 장비관리 > 장비목록 > 장비 업로드 > 업로드 양식 엑셀 파일 생성
      *
      * @return 엑셀 워크북 객체
      * @throws IOException 입력/출력 예외
@@ -146,8 +177,7 @@ public class eqpManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 장비 업로드
-     * 엑셀 업로드 파일 유효성 검증
+     * 장비관리 > 장비목록 > 장비 업로드 > 엑셀 업로드 파일 유효성 검증
      *
      * @param file 업로드된 엑셀 파일
      * @return 엑셀 워크북 객체
@@ -187,8 +217,7 @@ public class eqpManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 장비 업로드
-     * 검증용 메서드1 : 문자/숫자 셀 형식 찾기
+     * 장비관리 > 장비목록 > 장비 업로드 > 검증용 메서드1 : 문자/숫자 셀 형식 찾기
      *
      * @param cellHeader 셀 헤더
      * @param cellValue 셀 값
@@ -212,8 +241,7 @@ public class eqpManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 장비 업로드
-     * 검증용 메서드2 : 숫자만 들어가야 하는 컬럼들
+     * 장비관리 > 장비목록 > 장비 업로드 > 검증용 메서드2 : 숫자만 들어가야 하는 컬럼들
      *
      * @param cellHeaderStr 셀 헤더 문자열
      * @return 셀이 숫자여야 하는 경우 true, 그렇지 않으면 false
@@ -226,8 +254,7 @@ public class eqpManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 장비 업로드
-     * 검증용 메서드3 : 셀이 숫자여야 할 때
+     * 장비관리 > 장비목록 > 장비 업로드 > 검증용 메서드3 : 셀이 숫자여야 할 때
      *
      * @param cellHeaderStr 셀 헤더 문자열
      * @param cellValue 셀 값
@@ -254,8 +281,7 @@ public class eqpManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 장비 업로드
-     * 검증용 메서드4 : 셀이 문자여야 할 때
+     * 장비관리 > 장비목록 > 장비 업로드 > 검증용 메서드4 : 셀이 문자여야 할 때
      *
      * @param cellHeaderStr 셀 헤더 문자열
      * @param cellValue 셀 값
@@ -282,8 +308,7 @@ public class eqpManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 장비 업로드
-     * 검증용 메서드5 : 셀이 비었을 때 처리
+     * 장비관리 > 장비목록 > 장비 업로드 > 검증용 메서드5 : 셀이 비었을 때 처리
      *
      * @param cellHeaderStr 셀 헤더 문자열
      * @param processMap 처리된 셀 데이터와 관련된 맵
@@ -297,8 +322,7 @@ public class eqpManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 장비 업로드
-     * 검증용 메서드6 : workbook 시트에 셀 값 지정
+     * 장비관리 > 장비목록 > 장비 업로드 > 검증용 메서드6 : workbook 시트에 셀 값 지정
      *
      * @param workbook 엑셀 워크북 객체
      * @param sheetIndex 시트 인덱스
@@ -353,8 +377,7 @@ public class eqpManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 장비 업로드
-     * 검증용 메서드7 : 문자인지 숫자인지 구분해서 셀 값 지정
+     * 장비관리 > 장비목록 > 장비 업로드 > 검증용 메서드7 : 문자인지 숫자인지 구분해서 셀 값 지정
      *
      * @param sheetIndex 시트 인덱스
      * @param cellIndex 셀 인덱스
@@ -386,8 +409,7 @@ public class eqpManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 추가/수정/상세
-     * 장비분류 선택박스 : 구성분류 데이터 가져오기
+     * 장비관리 > 장비목록 > 추가/수정/상세 > 장비분류 선택박스 : 구성분류 데이터 가져오기
      *
      * @return 구성분류 데이터
      */
@@ -407,8 +429,7 @@ public class eqpManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 추가/수정/상세
-     * 장비분류 선택박스 : 자산분류 데이터 가져오기
+     * 장비관리 > 장비목록 > 추가/수정/상세 > 장비분류 선택박스 : 자산분류 데이터 가져오기
      *
      * @return 자산분류 데이터
      */
@@ -428,8 +449,7 @@ public class eqpManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 추가/수정/상세
-     * 장비분류 선택박스 : 자산세부 데이터 가져오기
+     * 장비관리 > 장비목록 > 추가/수정/상세 > 장비분류 선택박스 : 자산세부 데이터 가져오기
      *
      * @return 자산세부 데이터
      */
@@ -450,8 +470,7 @@ public class eqpManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 추가/수정/상세
-     * 장비분류 선택박스 : 자산상세 데이터 가져오기
+     * 장비관리 > 장비목록 > 추가/수정/상세 > 장비분류 선택박스 : 자산상세 데이터 가져오기
      *
      * @return 자산상세 데이터
      */
@@ -471,13 +490,11 @@ public class eqpManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 추가
-     * 장비 저장 (기본정보, 세부정보, 연결정보)
+     * 장비관리 > 장비목록 > 추가 > 장비 저장 (기본정보, 세부정보, 연결정보)
      *
      * @param paramMap 저장할 장비 데이터
      * @return 저장 결과
      */
-    // 장비관리 > 장비목록 > 장비 추가
     @SuppressWarnings("unchecked")
     @Transactional
     public Map<String, Object> insertEqpList(Map<String, Object> paramMap) {
@@ -510,8 +527,7 @@ public class eqpManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 수정/상세
-     * 장비연결정보 데이터 가져오기
+     * 장비관리 > 장비목록 > 수정/상세 > 장비연결정보 데이터 가져오기
      *
      * @return 장비 연결정보 리스트
      */
@@ -541,13 +557,11 @@ public class eqpManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 수정
-     * 선택한 장비 정보 리스트 수정 (기본정보, 세부정보, 연결정보)
+     * 장비관리 > 장비목록 > 수정 > 선택한 장비 정보 리스트 수정 (기본정보, 세부정보, 연결정보)
      *
      * @param paramMap 수정할 장비 데이터
      * @return 수정 결과
      */
-
     @SuppressWarnings("unchecked")
     @Transactional
     public Map<String, Object> updateEqpList(Map<String, Object> paramMap) {
@@ -591,8 +605,7 @@ public class eqpManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 상세
-     * 선택한 장비 정보 리스트 (기본정보, 세부정보, 연결정보)
+     * 장비관리 > 장비목록 > 상세 > 선택한 장비 정보 리스트 (기본정보, 세부정보, 연결정보)
      *
      * @param eqp_manage_id 장비 관리번호
      * @return 장비 정보 리스트
@@ -616,8 +629,7 @@ public class eqpManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 수정
-     * 선택한 장비 정보 리스트 (기본정보, 세부정보, 연결정보)
+     * 장비관리 > 장비목록 > 수정 > 선택한 장비 정보 리스트 (기본정보, 세부정보, 연결정보)
      *
      * @param eqp_manage_id 장비 관리번호
      * @return 장비 정보 리스트
@@ -649,8 +661,7 @@ public class eqpManageService {
     }
     
     /**
-     * 장비관리 > 장비목록 > 삭제
-     * 선택한 장비 정보 리스트 삭제 (기본정보, 세부정보, 연결정보)
+     * 장비관리 > 장비목록 > 삭제 > 선택한 장비 정보 리스트 삭제 (기본정보, 세부정보, 연결정보)
      *
      * @param deleteList 삭제할 장비 데이터
      * @return 삭제 결과

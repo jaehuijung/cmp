@@ -65,6 +65,23 @@ public class eqpManageController {
 
 
     /**
+     * 장비관리 > 장비목록
+     * 모든 장비 목록 다운로드
+     *
+     */
+    @ResponseBody
+    @PostMapping("/excelDownload")
+    public void excelDownloadEquipmentList(HttpServletResponse response) throws IOException {
+        Workbook wb = eqpManageService.excelDownloadEquipmentList();
+        response.setContentType("ms-vnd/excel");
+        response.setHeader("Content-Disposition", "attachment;filename=equipmentUploadTemplate.xlsx");
+
+        wb.write(response.getOutputStream());
+        wb.close();
+    }
+
+
+    /**
      * 장비관리 > 장비목록 > 장비 업로드
      * 업로드 양식 엑셀 파일 다운로드
      *
