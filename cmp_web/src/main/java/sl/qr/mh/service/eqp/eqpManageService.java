@@ -72,22 +72,21 @@ public class eqpManageService {
         String resultPath = staticPath + "equipmentListTemplate.xlsx";
         FileInputStream file = new FileInputStream(resultPath);
         Workbook wb = new XSSFWorkbook(file);
-        Sheet sheet = wb.getSheetAt(0);
+        Sheet sheet;
 
-        Map<String, Object> insertExcelMap = new HashMap<>();
         try {
+            sheet = wb.getSheetAt(0);
+            int sheetIndex = 0;
+
             List<Map<String, Object>> equipmentDetailTotalList = eqpMapper.getExcelEquipmentTotalList();
+            for(Map<String, Object> ele : equipmentDetailTotalList) {
+
+            }
+
+            sheet = wb.getSheetAt(1);
             List<Map<String, Object>> equipmentLinkList = eqpMapper.getExcelEquipmentLinkList();
+            for(Map<String, Object> ele : equipmentLinkList) {
 
-            Row row = sheet.getRow(rowIndex);
-
-            if (row != null) {
-                for (int cnt = 1; cnt < 41; cnt++) {
-                    Cell cellHeader = rowHeader.getCell(cnt);
-                    Cell cellValue = row.getCell(cnt);
-
-                    insertExcelMap.putAll(excelCellProcess(cellHeader, cellValue));
-                }
             }
 
         } catch (Exception e) {
@@ -97,6 +96,59 @@ public class eqpManageService {
         // 결과파일 생성 시 데이터 받아와서 엑셀 생성
         // 장비추가/수정/상세/삭제 기능 개발 완료 후 개발
         return wb;
+    }
+
+
+    /**
+     * 장비관리 > 장비목록 > 엑셀 다운로드 : 시트에 데이터 입력
+     *
+     * @param workbook 엑셀 워크북 객체
+     * @param sheetIndex 시트 인덱스
+     * @param data 셀에 입력할 데이터 맵
+     */
+    private void insertDataToSheet(Workbook workbook, int sheetIndex, Map<String, Object> data) {
+
+        Sheet sheet = workbook.getSheetAt(sheetIndex);
+        int lastRowNum = sheet.getLastRowNum();
+
+        Row dataRow = sheet.createRow(lastRowNum + 1);
+
+        setCellValue(sheetIndex, 1,  workbook, dataRow, data.get("eqp_manage_id"));
+        setCellValue(sheetIndex, 2,  workbook, dataRow, data.get("eqp_name"));
+        setCellValue(sheetIndex, 3,  workbook, dataRow, data.get("host_name"));
+        setCellValue(sheetIndex, 4,  workbook, dataRow, data.get("m_company"));
+        setCellValue(sheetIndex, 5,  workbook, dataRow, data.get("model_name"));
+        setCellValue(sheetIndex, 6,  workbook, dataRow, data.get("config_category"));
+        setCellValue(sheetIndex, 7,  workbook, dataRow, data.get("asset_category"));
+        setCellValue(sheetIndex, 8,  workbook, dataRow, data.get("sub_category"));
+        setCellValue(sheetIndex, 9,  workbook, dataRow, data.get("detail_category"));
+        setCellValue(sheetIndex, 10, workbook, dataRow, data.get("ip_address"));
+        setCellValue(sheetIndex, 11, workbook, dataRow, data.get("os_version"));
+        setCellValue(sheetIndex, 12, workbook, dataRow, data.get("operating_department"));
+        setCellValue(sheetIndex, 13, workbook, dataRow, data.get("primary_operator"));
+        setCellValue(sheetIndex, 14, workbook, dataRow, data.get("secondary_operator"));
+        setCellValue(sheetIndex, 15, workbook, dataRow, data.get("primary_outsourced_operator"));
+        setCellValue(sheetIndex, 16, workbook, dataRow, data.get("secondary_outsourced_operator"));
+        setCellValue(sheetIndex, 17, workbook, dataRow, data.get("operating_status"));
+        setCellValue(sheetIndex, 18, workbook, dataRow, data.get("eol_status"));
+        setCellValue(sheetIndex, 19, workbook, dataRow, data.get("eos_status"));
+        setCellValue(sheetIndex, 20, workbook, dataRow, data.get("redundancy_config"));
+        setCellValue(sheetIndex, 21, workbook, dataRow, data.get("network_operation_type"));
+        setCellValue(sheetIndex, 22, workbook, dataRow, data.get("asset_acquisition_date"));
+        setCellValue(sheetIndex, 23, workbook, dataRow, data.get("asset_disposal_date"));
+        setCellValue(sheetIndex, 24, workbook, dataRow, data.get("acquisition_cost"));
+        setCellValue(sheetIndex, 25, workbook, dataRow, data.get("dbrain_number"));
+        setCellValue(sheetIndex, 26, workbook, dataRow, data.get("domestic"));
+        setCellValue(sheetIndex, 27, workbook, dataRow, data.get("unit_position"));
+        setCellValue(sheetIndex, 28, workbook, dataRow, data.get("installation_coordinates"));
+        setCellValue(sheetIndex, 29, workbook, dataRow, data.get("installation_units"));
+        setCellValue(sheetIndex, 30, workbook, dataRow, data.get("equipment_size_units"));
+        setCellValue(sheetIndex, 31, workbook, dataRow, data.get("maintenance_contract_target"));
+        setCellValue(sheetIndex, 32, workbook, dataRow, data.get("cpu"));
+        setCellValue(sheetIndex, 33, workbook, dataRow, data.get("mem"));
+        setCellValue(sheetIndex, 34, workbook, dataRow, data.get("disk"));
+        setCellValue(sheetIndex, 35, workbook, dataRow, data.get("serial_number"));
+        setCellValue(sheetIndex, 36, workbook, dataRow, data.get("created_at"));
     }
 
     /**
@@ -386,14 +438,11 @@ public class eqpManageService {
      * @param value 셀에 입력할 값
      */
     private void setCellValue(int sheetIndex, int cellIndex, Workbook workbook, Row dataRow, Object value) {
-        if (value == null) {
-            dataRow.createCell(cellIndex).setCellValue("");
-        } else if (value instanceof String) {
-            dataRow.createCell(cellIndex).setCellValue((String) value);
-        } else if (value instanceof Number) {
-            dataRow.createCell(cellIndex).setCellValue(((Number) value).doubleValue());
-        } else {
-            dataRow.createCell(cellIndex).setCellValue(value.toString());
+        ㅏ switch (value) {
+            case null -> dataRow.createCell(cellIndex).setCellValue("");
+            case String s -> dataRow.createCell(cellIndex).setCellValue(s);
+            case Number number -> dataRow.createCell(cellIndex).setCellValue(number.doubleValue());
+            default -> dataRow.createCell(cellIndex).setCellValue(value.toString());
         }
 
         // 실패한 셀에 빨간색

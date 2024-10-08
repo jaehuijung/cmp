@@ -36,6 +36,24 @@ function createColumn2(field, checkbox = false, title) {
     };
 }
 
+function createColumn3(field, checkbox = false, title) {
+    return {
+        title: title,
+        field: field,
+        align: 'center',
+        valign: 'middle',
+        class: 'nowrap',
+        formatter: function(value, row, index) {
+            if (value === '1') {
+                return 'Y';
+            } else {
+                return 'N';
+            }
+        },
+        checkbox: checkbox
+    };
+}
+
 /**
  * eqpTable에서 사용할 컬럼 리스트
 */
@@ -46,7 +64,7 @@ var equColumns = [
     createColumn2('host_name',                     false, '호스트명'),
     createColumn2('model_name',                    false, '모델명'),
     createColumn2('m_company',                     false, '제조사'),
-    createColumn2('operating_status',              false, '운영상태'),
+    createColumn3('operating_status',              false, '운영상태'),
     createColumn2('operating_department',          false, '운영부서'),
     createColumn2('primary_operator',              false, '운영담당자(정)'),
     createColumn2('secondary_operator',            false, '운영담당자(부)'),
@@ -281,26 +299,25 @@ function eqpDelete() {
 
 
 /**
- * 장비관리 > 장비목록 > 장비 다운로드 버튼
+ * 장비관리 > 장비목록 > 장비목록 다운로드 버튼
 */
 function selectEquipmentDownload(){
+    alert3("save");
 
-    let data = $("#eqpTable").bootstrapTable('getSelections');
-    if (data.length == 0){
-        alert2('알림', '다운로드 할 장비를 선택하세요.', 'info', '확인');
-    }
-    else{
-        $.ajax({
-            url : '/cable/eqp/excelDownload',
-            type: 'post',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success : (res) => {
-                notifySaveResult(res);
-            }
-        });
-    }
+    $.ajax({
+        url: "/cable/eqp/excelDownload",
+        method: "post",
+        xhrFields: {
+            responseType: 'blob'
+        }
+    }).done(function(res) {
+        alert3Close();
+    }).then(function(res) {
+        downloadFileFunction(res, 'equipmentListTemplate.xlsx');
+        alert2('알림', '장비목록이 다운로드되었습니다.', 'info', '확인');
+    }).catch(function() {
+        alert2('알림', '엑셀 파일을 다운로드하는 중 오류가 발생했습니다. 관리자에게 문의하세요.', 'error', '확인');
+    });
 }
 
 
@@ -450,7 +467,7 @@ function notifySaveResult(res){
 function downloadExcelTemplate(){
     $.ajax({
         url: "/cable/eqp/excelTemplate",
-        method: "GET",
+        method: "post",
         xhrFields: {
             responseType: 'blob'
         },

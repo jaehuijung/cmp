@@ -74,7 +74,7 @@ public class eqpManageController {
     public void excelDownloadEquipmentList(HttpServletResponse response) throws IOException {
         Workbook wb = eqpManageService.excelDownloadEquipmentList();
         response.setContentType("ms-vnd/excel");
-        response.setHeader("Content-Disposition", "attachment;filename=equipmentUploadTemplate.xlsx");
+        response.setHeader("Content-Disposition", "attachment;filename=equipmentListTemplate.xlsx");
 
         wb.write(response.getOutputStream());
         wb.close();
@@ -90,7 +90,7 @@ public class eqpManageController {
      * @throws IOException 입력/출력 예외
      */
     @ResponseBody
-    @GetMapping("/excelTemplate")
+    @PostMapping("/excelTemplate")
     public void excelTemplate(HttpServletResponse response) throws IOException {
         Workbook wb = eqpManageService.excelTemplate();
         response.setContentType("ms-vnd/excel");
