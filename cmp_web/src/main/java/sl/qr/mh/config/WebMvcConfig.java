@@ -9,6 +9,7 @@ import sl.qr.mh.interceptor.LoginCheckInterceptor;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
+    /*
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
@@ -17,5 +18,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addPathPatterns("/*")
                 .excludePathPatterns("/test");
     }
+     */
 
 }
