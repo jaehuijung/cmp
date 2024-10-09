@@ -555,7 +555,8 @@
             ed.asset_acquisition_date,
             ed.asset_disposal_date,
             ed.eol_status,
-            ed.eos_status
+            ed.eos_status,
+            eb.created_at
         from
             equipment_basic eb
         join
