@@ -12,12 +12,18 @@
 
     <sql id="getEquipmentTotalCommon">
         AND is_deleted = 'N'
-        <if test="searchEqpSearchInput != null and searchEqpSearchInput != ''">
+        <if test="searchInput != null and searchInput != ''">
             AND (
-            BINARY A.eqp_name Like CONCAT('%', #{searchEqpSearchInput}, '%') OR
-            BINARY A.hostname Like CONCAT('%', #{searchEqpSearchInput}, '%') OR
-            BINARY A.m_company Like CONCAT('%', #{searchEqpSearchInput}, '%') OR
-            BINARY A.model Like CONCAT('%', #{searchEqpSearchInput}, '%')
+            BINARY A.eqp_manage_id                  Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY A.eqp_name                       Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY A.host_name                      Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY A.model_name                     Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY A.m_company                      Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY A.operating_department           Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY A.primary_operator               Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY A.secondary_operator             Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY A.primary_outsourced_operator    Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY A.secondary_outsourced_operator  Like CONCAT('%', #{searchInput}, '%')
             )
         </if>
     </sql>
