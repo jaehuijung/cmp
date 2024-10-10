@@ -71,7 +71,7 @@
                 <div>
                     <div class="equipment-wrap">
                         <div class="equipment-item">
-                            <label for="eqp_name">장비명:</label>
+                            <label for="eqp_name">구성자원명:</label>
                             <input type="text" id="eqp_name" name="eqp_name" th:value="${equipment.eqp_name}" />
                         </div>
                         <div class="equipment-item">
@@ -231,6 +231,21 @@
                             <label for="eol_status">단종상태(EOL):</label>
                             <input type="date" id="eol_status" name="eol_status" th:value="${equipment.eol_status}" />
                         </div>
+                        <div class="equipment-item">
+                            <label for="eos_status">단종상태(EOS):</label>
+                            <input type="date" id="eos_status" name="eos_status" th:value="${equipment.eos_status}" />
+                        </div>
+                    </div>
+                    <!--
+                    <div class="equipment-wrap">
+                        <div class="equipment-item">
+                            <label for="asset_acquisition_date">자산취득일자:</label>
+                            <input type="date" id="asset_acquisition_date" name="asset_acquisition_date" th:value="${equipment.asset_acquisition_date}" />
+                        </div>
+                        <div class="equipment-item">
+                            <label for="eol_status">단종상태(EOL):</label>
+                            <input type="date" id="eol_status" name="eol_status" th:value="${equipment.eol_status}" />
+                        </div>
                     </div>
                     <div class="equipment-wrap">
                         <div class="equipment-item">
@@ -242,6 +257,7 @@
                             <input type="date" id="eos_status" name="eos_status" th:value="${equipment.eos_status}" />
                         </div>
                     </div>
+                    -->
                 </div>
             </div>
 

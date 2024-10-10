@@ -60,7 +60,7 @@ function createColumn3(field, checkbox = false, title) {
 var equColumns = [
     createColumn2('',                              true,  ''),
     createColumn1('eqp_manage_id',                 false, '관리번호'),
-    createColumn1('eqp_name',                      false, '장비명'),
+    createColumn1('eqp_name',                      false, '구성자원명'),
     createColumn2('host_name',                     false, '호스트명'),
     createColumn2('model_name',                    false, '모델명'),
     createColumn2('m_company',                     false, '제조사'),
@@ -146,15 +146,15 @@ function searchState(type, isChecked){
             );
 
             // 다시 순서대로 열 추가
-            equColumns.splice(3,  0, {field: 'host_name', align: 'center', valign: 'middle', class: 'nowrap', title: '호스트명'});
-            equColumns.splice(4,  0, {field: 'model_name', align: 'center', valign: 'middle', class: 'nowrap', title: '모델명'});
-            equColumns.splice(5,  0, {field: 'm_company', align: 'center', valign: 'middle', class: 'nowrap', title: '제조사'});
-            equColumns.splice(6,  0, {field: 'operating_status', align: 'center', valign: 'middle', class: 'nowrap', title: '운영상태'});
-            equColumns.splice(7,  0, {field: 'operating_department', align: 'center', valign: 'middle', class: 'nowrap', title: '운영부서'});
-            equColumns.splice(8,  0, {field: 'primary_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '운영담당자(정)'});
-            equColumns.splice(9,  0, {field: 'secondary_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '운영담당자(부)'});
-            equColumns.splice(10, 0, {field: 'primary_outsourced_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '위탁운영담당자(정)'});
-            equColumns.splice(11, 0, {field: 'secondary_outsourced_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '위탁운영담당자(부)'});
+            equColumns.splice(3,  0, createColumn2('host_name',                     false, '호스트명'));
+            equColumns.splice(4,  0, createColumn2('model_name',                    false, '모델명'));
+            equColumns.splice(5,  0, createColumn2('m_company',                     false, '제조사'));
+            equColumns.splice(6,  0, createColumn3('operating_status',              false, '운영상태'));
+            equColumns.splice(7,  0, createColumn2('operating_department',          false, '운영부서'));
+            equColumns.splice(8,  0, createColumn2('primary_operator',              false, '운영담당자(정)'));
+            equColumns.splice(9,  0, createColumn2('secondary_operator',            false, '운영담당자(부)'));
+            equColumns.splice(10, 0, createColumn2('primary_outsourced_operator',   false, '위탁운영사용자(정)'));
+            equColumns.splice(11, 0, createColumn2('secondary_outsourced_operator', false, '위탁운영사용자(부)'));
 
             // 모든 단일 선택박스 체크
             document.querySelectorAll(".selectStateChk").forEach(ele => {
@@ -164,32 +164,37 @@ function searchState(type, isChecked){
             // 특정 유형 컬럼 추가
             switch (type) {
                 case "host_name":
-                    equColumns.splice(3, 0, {field: 'host_name', align: 'center', valign: 'middle', class: 'nowrap', title: '호스트명'});
+                    equColumns.splice(3, 0, createColumn2('host_name', false, '호스트명'));
                     break;
                 case "model_name":
-                    equColumns.splice(4, 0, {field: 'model_name', align: 'center', valign: 'middle', class: 'nowrap', title: '모델명'});
+                    equColumns.splice(4, 0, createColumn2('model_name', false, '모델명'));
                     break;
                 case "m_company":
-                    equColumns.splice(5, 0, {field: 'm_company', align: 'center', valign: 'middle', class: 'nowrap', title: '제조사'});
+                    equColumns.splice(5, 0, createColumn2('m_company', false, '제조사'));
                     break;
                 case "operating_status":
-                    equColumns.splice(6, 0, {field: 'operating_status', align: 'center', valign: 'middle', class: 'nowrap', title: '운영상태'});
+                    equColumns.splice(6, 0, createColumn3('operating_status', false, '운영상태'));
                     break;
                 case "operating_department":
-                    equColumns.splice(7, 0, {field: 'operating_department', align: 'center', valign: 'middle', class: 'nowrap', title: '운영부서'});
+                    equColumns.splice(7, 0, createColumn2('operating_department', false, '운영부서'));
                     break;
                 case "primary_operator":
-                    equColumns.splice(8, 0, {field: 'primary_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '운영담당자(정)'});
+                    equColumns.splice(8, 0, createColumn2('primary_operator', false, '운영담당자(정)'));
                     break;
                 case "secondary_operator":
-                    equColumns.splice(9, 0, {field: 'secondary_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '운영담당자(부)'});
+                    equColumns.splice(9, 0, createColumn2('secondary_operator', false, '운영담당자(부)'));
                     break;
                 case "primary_outsourced_operator":
-                    equColumns.splice(10, 0, {field: 'primary_outsourced_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '위탁운영담당자(정)'});
+                    equColumns.splice(10, 0, createColumn2('primary_outsourced_operator', false, '위탁운영사용자(정)'));
                     break;
                 case "secondary_outsourced_operator":
-                    equColumns.splice(11, 0, {field: 'secondary_outsourced_operator', align: 'center', valign: 'middle', class: 'nowrap', title: '위탁운영담당자(부)'});
+                    equColumns.splice(11, 0, createColumn2('secondary_outsourced_operator', false, '위탁운영사용자(부)'));
                     break;
+            }
+            // 모든 하위 선택박스가 체크되었는지 확인하여 전체 선택박스 체크
+            let allChecked = Array.from(document.querySelectorAll('.selectStateChk')).every(ele => ele.checked);
+            if (allChecked) {
+                document.querySelector(".selectStateChkAll").checked = true;
             }
         }
     }

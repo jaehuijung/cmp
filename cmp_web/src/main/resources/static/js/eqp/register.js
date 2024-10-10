@@ -55,7 +55,7 @@ function setDefaultDates() {
 function saveData() {
 
     if($("#eqp_name").val() === ""){
-        alert2("알림", "장비명을 입력해주세요", "info", "확인");
+        alert2("알림", "구성자원명을 입력해주세요", "info", "확인");
         return false;
     }
 
