@@ -20,7 +20,7 @@ public class CustomUser extends User {
         super(member.getId(),
                 member.getPassword(),
                 member.getAuthList().stream()
-                        .map(auth -> new SimpleGrantedAuthority(auth.getAuth()))
+                        .map(auth -> new SimpleGrantedAuthority(auth))
                         .collect(Collectors.toList()));
 
         this.member = member;

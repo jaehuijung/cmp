@@ -6,21 +6,47 @@
 
 <mapper namespace="sl.qr.mh.service.config.configMapper">
 
-    <select id="getSecurityUserInfoList" parameterType="String" resultType="MemberDao">
+    <select id="getSecurityUserInfoList" parameterType="String" resultType="sl.qr.mh.config.MemberDao">
         select
-            id
+            id,
             password,
             name,
             email,
             phone,
             position,
-            group_idx
+            group_idx groupIdx
         from
             user
         where
             id = #{id}
             and is_deleted = 'N'
 
+    </select>
+
+    <select id="getSecurityUserAuthList" parameterType="map" resultType="map">
+        SELECT
+            m.`menu_id`,
+            m.`parent_menu_id`,
+            m.`menu_name`,
+            m.`menu_role`,
+            m.`url`,
+            m.`menu_order`,
+            m.`menu_auth`,
+            ma.`create`,
+            ma.`read`,
+            ma.`update`,
+            ma.`delete`
+        FROM
+            menu_auth ma
+        JOIN
+            menu m
+            ON ma.menu_id = m.menu_id
+        JOIN
+            `group` g
+            ON ma.group_idx = g.group_idx
+        WHERE
+            g.group_idx = #{groupIdx}
+            AND m.menu_order = #{menu_order}
     </select>
 
 </mapper>

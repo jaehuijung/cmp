@@ -44,7 +44,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
                 customUser,
                 customUser.getPassword(),
                 member.getAuthList().stream()
-                        .map(auth -> new SimpleGrantedAuthority(auth.getAuth()))
+                        .map(auth -> new SimpleGrantedAuthority(auth))
                         .collect(Collectors.toList()));
     }
 

@@ -16,8 +16,8 @@ public class MemberDao {
     private String email;
     private String phone;
     private String position;
-    private Integer group_idx;
+    private Integer groupIdx;
 
-    private List<Auth> authList;
+    private List<String> authList;
     private List<Map<String, Object>> menuList;
 }

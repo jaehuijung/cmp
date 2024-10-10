@@ -4,6 +4,7 @@ package sl.qr.mh.controller.cable;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import sl.qr.mh.service.cable.cableManageService;
@@ -27,13 +28,12 @@ public class cableManageController {
 
     // 선번장관리 > 선번장목록 페이지
     @GetMapping("/view")
-    public String view(HttpSession session, HttpServletRequest request) {
+    public String view(Authentication authentication) {
         return "views/cable/view";
-
     }
 
     // 선번장관리 > 선번장목록 > 리스트
-    // post test 완료되면 지우기
+    // post test 완료되면 지우기ㅊ
     @GetMapping(value = "/list")
     @ResponseBody
     public List<HashMap<String, Object>> getCableListData(Cable vo) {
