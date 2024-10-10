@@ -14,62 +14,51 @@ function tableRefresh(){
  * @param {string} title - 컬럼 제목
  * @returns {object} 컬럼 설정 객체
  */
-function createColumn1(field, checkbox = false, title) {
-    return {
+// 모든 유형의 컬럼을 생성할 수 있는 공통 함수
+function createColumn(field, checkbox = false, title, type = 'default') {
+    let column = {
         title: title,
         field: field,
         align: 'center',
         valign: 'middle',
-        class: 'nowrap underline',
         checkbox: checkbox
     };
-}
 
-function createColumn2(field, checkbox = false, title) {
-    return {
-        title: title,
-        field: field,
-        align: 'center',
-        valign: 'middle',
-        class: 'nowrap',
-        checkbox: checkbox
-    };
-}
+    if (type === 'underline') {
+        column.class = 'nowrap underline';
+    } else {
+        column.class = 'nowrap';
+    }
 
-function createColumn3(field, checkbox = false, title) {
-    return {
-        title: title,
-        field: field,
-        align: 'center',
-        valign: 'middle',
-        class: 'nowrap',
-        formatter: function(value, row, index) {
+    if (type === 'formatted') {
+        column.formatter = function(value, row, index) {
             if (value === '1') {
                 return 'Y';
             } else {
                 return 'N';
             }
-        },
-        checkbox: checkbox
-    };
+        };
+    }
+
+    return column;
 }
 
 /**
  * eqpTable에서 사용할 컬럼 리스트
-*/
+ */
 var equColumns = [
-    createColumn2('',                              true,  ''),
-    createColumn1('eqp_manage_id',                 false, '관리번호'),
-    createColumn1('eqp_name',                      false, '구성자원명'),
-    createColumn2('host_name',                     false, '호스트명'),
-    createColumn2('model_name',                    false, '모델명'),
-    createColumn2('m_company',                     false, '제조사'),
-    createColumn3('operating_status',              false, '운영상태'),
-    createColumn2('operating_department',          false, '운영부서'),
-    createColumn2('primary_operator',              false, '운영담당자(정)'),
-    createColumn2('secondary_operator',            false, '운영담당자(부)'),
-    createColumn2('primary_outsourced_operator',   false, '위탁운영사용자(정)'),
-    createColumn2('secondary_outsourced_operator', false, '위탁운영사용자(부)')
+    createColumn('',                                true,  ''                      ),
+    createColumn('eqp_manage_id',                   false, '관리번호',   'underline' ),
+    createColumn('eqp_name',                        false, '구성자원명', 'underline' ),
+    createColumn('host_name',                       false, '호스트명'               ),
+    createColumn('model_name',                      false, '모델명'                 ),
+    createColumn('m_company',                       false, '제조사'                 ),
+    createColumn('operating_status',                false, '운영상태',  'formatted' ),
+    createColumn('operating_department',            false, '운영부서'               ),
+    createColumn('primary_operator',                false, '운영담당자(정)'          ),
+    createColumn('secondary_operator',              false, '운영담당자(부)'          ),
+    createColumn('primary_outsourced_operator',     false, '위탁운영사용자(정)'       ),
+    createColumn('secondary_outsourced_operator',   false, '위탁운영사용자(부)'       )
 ];
 
 
@@ -146,15 +135,15 @@ function searchState(type, isChecked){
             );
 
             // 다시 순서대로 열 추가
-            equColumns.splice(3,  0, createColumn2('host_name',                     false, '호스트명'));
-            equColumns.splice(4,  0, createColumn2('model_name',                    false, '모델명'));
-            equColumns.splice(5,  0, createColumn2('m_company',                     false, '제조사'));
-            equColumns.splice(6,  0, createColumn3('operating_status',              false, '운영상태'));
-            equColumns.splice(7,  0, createColumn2('operating_department',          false, '운영부서'));
-            equColumns.splice(8,  0, createColumn2('primary_operator',              false, '운영담당자(정)'));
-            equColumns.splice(9,  0, createColumn2('secondary_operator',            false, '운영담당자(부)'));
-            equColumns.splice(10, 0, createColumn2('primary_outsourced_operator',   false, '위탁운영사용자(정)'));
-            equColumns.splice(11, 0, createColumn2('secondary_outsourced_operator', false, '위탁운영사용자(부)'));
+            equColumns.splice(3,  0, createColumn('host_name',                     false, '호스트명'));
+            equColumns.splice(4,  0, createColumn('model_name',                    false, '모델명'));
+            equColumns.splice(5,  0, createColumn('m_company',                     false, '제조사'));
+            equColumns.splice(6,  0, createColumn('operating_status',              false, '운영상태', 'formatted'));
+            equColumns.splice(7,  0, createColumn('operating_department',          false, '운영부서'));
+            equColumns.splice(8,  0, createColumn('primary_operator',              false, '운영담당자(정)'));
+            equColumns.splice(9,  0, createColumn('secondary_operator',            false, '운영담당자(부)'));
+            equColumns.splice(10, 0, createColumn('primary_outsourced_operator',   false, '위탁운영사용자(정)'));
+            equColumns.splice(11, 0, createColumn('secondary_outsourced_operator', false, '위탁운영사용자(부)'));
 
             // 모든 단일 선택박스 체크
             document.querySelectorAll(".selectStateChk").forEach(ele => {
@@ -164,31 +153,31 @@ function searchState(type, isChecked){
             // 특정 유형 컬럼 추가
             switch (type) {
                 case "host_name":
-                    equColumns.splice(3, 0, createColumn2('host_name', false, '호스트명'));
+                    equColumns.splice(3, 0, createColumn('host_name', false, '호스트명'));
                     break;
                 case "model_name":
-                    equColumns.splice(4, 0, createColumn2('model_name', false, '모델명'));
+                    equColumns.splice(4, 0, createColumn('model_name', false, '모델명'));
                     break;
                 case "m_company":
-                    equColumns.splice(5, 0, createColumn2('m_company', false, '제조사'));
+                    equColumns.splice(5, 0, createColumn('m_company', false, '제조사'));
                     break;
                 case "operating_status":
-                    equColumns.splice(6, 0, createColumn3('operating_status', false, '운영상태'));
+                    equColumns.splice(6, 0, createColumn('operating_status', false, '운영상태', 'formatted'));
                     break;
                 case "operating_department":
-                    equColumns.splice(7, 0, createColumn2('operating_department', false, '운영부서'));
+                    equColumns.splice(7, 0, createColumn('operating_department', false, '운영부서'));
                     break;
                 case "primary_operator":
-                    equColumns.splice(8, 0, createColumn2('primary_operator', false, '운영담당자(정)'));
+                    equColumns.splice(8, 0, createColumn('primary_operator', false, '운영담당자(정)'));
                     break;
                 case "secondary_operator":
-                    equColumns.splice(9, 0, createColumn2('secondary_operator', false, '운영담당자(부)'));
+                    equColumns.splice(9, 0, createColumn('secondary_operator', false, '운영담당자(부)'));
                     break;
                 case "primary_outsourced_operator":
-                    equColumns.splice(10, 0, createColumn2('primary_outsourced_operator', false, '위탁운영사용자(정)'));
+                    equColumns.splice(10, 0, createColumn('primary_outsourced_operator', false, '위탁운영사용자(정)'));
                     break;
                 case "secondary_outsourced_operator":
-                    equColumns.splice(11, 0, createColumn2('secondary_outsourced_operator', false, '위탁운영사용자(부)'));
+                    equColumns.splice(11, 0, createColumn('secondary_outsourced_operator', false, '위탁운영사용자(부)'));
                     break;
             }
             // 모든 하위 선택박스가 체크되었는지 확인하여 전체 선택박스 체크

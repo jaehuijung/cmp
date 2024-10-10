@@ -6,10 +6,6 @@
 
 <mapper namespace="sl.qr.mh.service.eqp.eqpMapper">
 
-    <!--
-     장비목록 불러오는 select도 테이블 쪼갰으니까 다시 짜야함
-     -->
-
     <sql id="getEquipmentTotalCommon">
         AND is_deleted = 'N'
         <if test="searchInput != null and searchInput != ''">

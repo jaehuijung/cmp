@@ -7,298 +7,204 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
-<!--      layout:decorate="~{layouts/new_default_layout}">-->
-
-<head>
-
-    <style>
-        /* 이놈들 나중에 공통으로 옮겨야... */
-
-        /* 추가, 수정 모달 크기 */
-        .custom-width {
-            width: 1000px;
-        }
-
-        /* 검색 체크박스 */
-        .searchEqpChkWrap{
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            margin-top:10px;
-        }
-        .searchEqpChkWrap > .searchEqpChkColumn{
-            display: flex;
-            align-items: center;
-            margin-top: 10px;
-        }
-        .searchEqpChkWrap > .searchEqpChkColumn > #searchEqpTitle1{
-            margin-left: 5px;
-            margin-right: 10px;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        .searchEqpChkWrap > .searchEqpChkColumn > .searchEqpChk{
-            display: flex;
-            margin-left: 15px;
-        }
-        .searchEqpChkWrap > .searchEqpChk > .searchEqpTitle2{
-            margin-left: 5px;
-            font-size: 16px;
-        }
-
-        .searchEqpSelectWrap{
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            margin-top: 25px;
-        }
-        .searchEqpSelectWrap > .searchEqpSelect{
-            display: flex;
-            align-items: center;
-            margin-left: 5px;
-        }
-        .searchEqpSelectWrap > .searchEqpSelect > #searchEqpTitle3{
-            margin-left: 10px;
-            font-size: 14px;
-            width: 55px;
-            text-align: center;
-        }
-        .searchEqpSelectWrap > .searchEqpSelect > .searchEqpSelectInput{
-            margin-left: 10px;
-            width: 120px;
-            height: 30px;
-        }
-
-        .searchEqpSearchWrap{
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            margin-top: 25px;
-        }
-        .searchEqpSearchWrap > .searchEqpSearch{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-left: 5px;
-            width: 100%;
-        }
-
-    </style>
-
-</head>
 
 
-<div layout:fragment="content">
+    <div layout:fragment="content">
 
-    <main id="main" class="main">
+        <main id="main" class="main">
 
-        <section class="section">
-            <div class="card">
-                <div class="card-body" style="padding-top: 10px;">
-
-                    <div class="searchChkWrap">
-                        <div class="searchChkColumn">
-                            <div class="searchTitle1">출발지 컬럼선택</div>
-                            <div class="searchChkLabels">
-                                <label class="searchChk">
-                                    <input type="checkbox" class="selectStateChkAll"
-                                           onchange="searchState('all', this.checked)" checked>
-                                    <span></span>
-                                    <div class="searchTitle2">전체</div>
-                                </label>
-                                <label class="searchChk">
-                                    <input type="checkbox" class="selectStateChk"
-                                           onchange="searchState('unitNumber', this.checked)" checked>
-                                    <span></span>
-                                    <div class="searchTitle2">장비명</div>
-                                </label>
-                                <label class="searchChk">
-                                    <input type="checkbox" class="selectStateChk"
-                                           onchange="searchState('model', this.checked)" checked>
-                                    <span></span>
-                                    <div class="searchTitle2">유닛번호</div>
-                                </label>
-                                <label class="searchChk">
-                                    <input type="checkbox" class="selectStateChk"
-                                           onchange="searchState('year', this.checked)" checked>
-                                    <span></span>
-                                    <div class="searchTitle2">도입년도</div>
-                                </label>
-                                <label class="searchChk">
-                                    <input type="checkbox" class="selectStateChk"
-                                           onchange="searchState('year', this.checked)" checked>
-                                    <span></span>
-                                    <div class="searchTitle2">호스트명</div>
-                                </label>
-                                <label class="searchChk">
-                                    <input type="checkbox" class="selectStateChk"
-                                           onchange="searchState('year', this.checked)" checked>
-                                    <span></span>
-                                    <div class="searchTitle2">슬롯번호</div>
-                                </label>
-                                <label class="searchChk">
-                                    <input type="checkbox" class="selectStateChk"
-                                           onchange="searchState('year', this.checked)" checked>
-                                    <span></span>
-                                    <div class="searchTitle2">포트번호</div>
-                                </label>
-                                <label class="searchChk">
-                                    <input type="checkbox" class="selectStateChk"
-                                           onchange="searchState('year', this.checked)" checked>
-                                    <span></span>
-                                    <div class="searchTitle2"> ... 추가</div>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="searchChkColumn">
-                            <div class="searchTitle1">목적지 컬럼선택</div>
-                            <div class="searchChkLabels">
-                                <label class="searchChk">
-                                <input type="checkbox" class="selectStateChkAll"
-                                       onchange="searchState('all', this.checked)" checked>
+            <div class="contentCard">
+                <div class="searchChkWrap">
+                    <div class="searchChkColumn">
+                        <div class="searchTitle1">출발지 컬럼선택</div>
+                        <div class="searchChkLabels">
+                            <label class="searchChk">
+                                <input type="checkbox" class="selectStateChkAll" onchange="searchState('all', this.checked)" checked>
                                 <span></span>
                                 <div class="searchTitle2">전체</div>
-                                </label>
-                                <label class="searchChk">
-                                    <input type="checkbox" class="selectStateChk"
-                                           onchange="searchState('unitNumber', this.checked)" checked>
-                                    <span></span>
-                                    <div class="searchTitle2">장비명</div>
-                                </label>
-                                <label class="searchChk">
-                                    <input type="checkbox" class="selectStateChk"
-                                           onchange="searchState('model', this.checked)" checked>
-                                    <span></span>
-                                    <div class="searchTitle2">유닛번호</div>
-                                </label>
-                                <label class="searchChk">
-                                    <input type="checkbox" class="selectStateChk"
-                                           onchange="searchState('year', this.checked)" checked>
-                                    <span></span>
-                                    <div class="searchTitle2">도입년도</div>
-                                </label>
-
-                                <label class="searchChk">
-                                    <input type="checkbox" class="selectStateChk"
-                                           onchange="searchState('year', this.checked)" checked>
-                                    <span></span>
-                                    <div class="searchTitle2">호스트명</div>
-                                </label>
-                                <label class="searchChk">
-                                    <input type="checkbox" class="selectStateChk"
-                                           onchange="searchState('year', this.checked)" checked>
-                                    <span></span>
-                                    <div class="searchTitle2">슬롯번호</div>
-                                </label>
-                                <label class="searchChk">
-                                    <input type="checkbox" class="selectStateChk"
-                                           onchange="searchState('year', this.checked)" checked>
-                                    <span></span>
-                                    <div class="searchTitle2">포트번호</div>
-                                </label>
-                                <label class="searchChk">
-                                    <input type="checkbox" class="selectStateChk"
-                                           onchange="searchState('year', this.checked)" checked>
-                                    <span></span>
-                                    <div class="searchTitle2"> ... 추가</div>
-                                </label>
-                            </div>
+                            </label>
+                            <label class="searchChk">
+                                <input type="checkbox" class="selectStateChk" onchange="searchState('unitNumber', this.checked)" checked>
+                                <span></span>
+                                <div class="searchTitle2">자산분류</div>
+                            </label>
+                            <label class="searchChk">
+                                <input type="checkbox" class="selectStateChk" onchange="searchState('model', this.checked)" checked>
+                                <span></span>
+                                <div class="searchTitle2">설치좌표</div>
+                            </label>
+                            <label class="searchChk">
+                                <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
+                                <span></span>
+                                <div class="searchTitle2">관리 id</div>
+                            </label>
+                            <label class="searchChk">
+                                <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
+                                <span></span>
+                                <div class="searchTitle2">구성자원명</div>
+                            </label>
+                            <label class="searchChk">
+                                <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
+                                <span></span>
+                                <div class="searchTitle2">모델명</div>
+                            </label>
+                            <label class="searchChk">
+                                <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
+                                <span></span>
+                                <div class="searchTitle2">호스트명</div>
+                            </label>
+                            <label class="searchChk">
+                                <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
+                                <span></span>
+                                <div class="searchTitle2">제조사</div>
+                            </label>
+                            <label class="searchChk">
+                                <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
+                                <span></span>
+                                <div class="searchTitle2">포트번호</div>
+                            </label>
+                            <label class="searchChk">
+                                <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
+                                <span></span>
+                                <div class="searchTitle2">운영담당자</div>
+                            </label>
+                            <label class="searchChk">
+                                <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
+                                <span></span>
+                                <div class="searchTitle2">위탁운영담당자</div>
+                            </label>
                         </div>
                     </div>
 
-                    <div class="searchSearchWrap">
-                        <div class="searchTitle1">검색어</div>
-                        <div class="searchSearchInput">
-                            <input type="text" id="searchInput" placeholder="검색어를 입력하세요"/>
-                            <button type="button"  onclick="searchEqpList();">검색</button>
+                    <div class="searchChkColumn">
+                        <div class="searchTitle1">목적지 컬럼선택</div>
+                        <div class="searchChkLabels">
+                            <label class="searchChk">
+                                <input type="checkbox" class="selectStateChkAll" onchange="searchState('all', this.checked)" checked>
+                                <span></span>
+                                <div class="searchTitle2">전체</div>
+                            </label>
+                            <label class="searchChk">
+                                <input type="checkbox" class="selectStateChk" onchange="searchState('unitNumber', this.checked)" checked>
+                                <span></span>
+                                <div class="searchTitle2">자산분류</div>
+                            </label>
+                            <label class="searchChk">
+                                <input type="checkbox" class="selectStateChk" onchange="searchState('model', this.checked)" checked>
+                                <span></span>
+                                <div class="searchTitle2">설치좌표</div>
+                            </label>
+                            <label class="searchChk">
+                                <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
+                                <span></span>
+                                <div class="searchTitle2">관리 id</div>
+                            </label>
+                            <label class="searchChk">
+                                <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
+                                <span></span>
+                                <div class="searchTitle2">구성자원명</div>
+                            </label>
+                            <label class="searchChk">
+                                <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
+                                <span></span>
+                                <div class="searchTitle2">모델명</div>
+                            </label>
+                            <label class="searchChk">
+                                <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
+                                <span></span>
+                                <div class="searchTitle2">호스트명</div>
+                            </label>
+                            <label class="searchChk">
+                                <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
+                                <span></span>
+                                <div class="searchTitle2">제조사</div>
+                            </label>
+                            <label class="searchChk">
+                                <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
+                                <span></span>
+                                <div class="searchTitle2">포트번호</div>
+                            </label>
+                            <label class="searchChk">
+                                <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
+                                <span></span>
+                                <div class="searchTitle2">운영담당자</div>
+                            </label>
+                            <label class="searchChk">
+                                <input type="checkbox" class="selectStateChk" onchange="searchState('year', this.checked)" checked>
+                                <span></span>
+                                <div class="searchTitle2">위탁운영담당자</div>
+                            </label>
                         </div>
-                    </div>
-
-                    <div class="searchEqpSelectWrap">
-                        <!--
-                        연도 선택박스(도입년도 등), 그룹(유닛번호 등) 선택박스 영역
-                        필요없다고 하면 지우기
-
-                        <div class="searchEqpSelect">
-                            <div id="searchEqpTitle3">도입년도</div>
-                            <input type="text" class="searchEqpSelectInput" id="searchEqpYear">
-                        </div>
-                        <div class="searchEqpSelect">
-                            <div id="searchEqpTitle3">유닛번호</div>
-                            <input type="text" class="searchEqpSelectInput" id="searchEqpUnitNumber">
-                        </div>
-                        <div class="searchEqpSelect">
-                            <div id="searchEqpTitle3">슬롯번호</div>
-                            <input type="text" class="searchEqpSelectInput" id="searchEqpUnitNumber">
-                        </div>
-                        <div class="searchEqpSelect">
-                            <div id="searchEqpTitle3">회선구분</div>
-                            <input type="text" class="searchEqpSelectInput" id="searchEqpUnitNumber">
-                        </div>
-                        <div class="searchEqpSelect">
-                            <div id="searchEqpTitle3">... 추가</div>
-                            <input type="text" class="searchEqpSelectInput" id="searchEqpUnitNumber">
-                        </div>
-                        -->
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section">
-            <div class="card">
-                <div class="card-body">
-                    <div style='display: flex; justify-content: space-between;'>
-                        <div>
-                            <p id="eqpTotalCnt" style="margin:10px 0px 10px 0px;font-size:14px;padding:3px 8px;"></p>
-                        </div>
-                        <div>
-                            <button type='button' class='btn btn-outline-secondary'
-                                    style='margin:10px 0px 10px 10px;font-size:13px;padding:3px 8px;'
-                                    onclick="cable_create_popup()">추가
-                            </button>
-                            <button type='button' class='btn btn-outline-secondary'
-                                    style='margin:10px 0px 10px 10px;font-size:13px;padding:3px 8px;'
-                                    onclick="cable_update_popup('')">수정
-                            </button>
-                            <button type='button' class='btn btn-outline-secondary'
-                                    style='margin:10px 0px 10px 10px;font-size:13px;padding:3px 8px;'
-                                    onclick="cable_delete()">삭제
-                            </button>
-                            <button type='button' class='btn btn-outline-secondary'
-                                    style='margin:10px 0px 10px 10px;font-size:13px;padding:3px 8px;'
-                                    onclick="location.href='/eqp/exceldown'">엑셀 다운로드
-                            </button>
-                            <button type='button' class='btn btn-outline-secondary'
-                                    style='margin:10px 0px 10px 10px;font-size:13px;padding:3px 8px;'
-                                    onclick="">PDF 다운로드
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="tbl-bootstrap-wrap">
-                        <table id="cableTable"></table>
                     </div>
                 </div>
+
+                <div class="searchSearchWrap">
+                    <div class="searchTitle1">검색어</div>
+                    <div class="searchSearchInput">
+                        <input type="text" id="searchInput" placeholder="검색어를 입력하세요"/>
+                        <button type="button"  onclick="searchEqpList();">검색</button>
+                    </div>
+                </div>
+
+
+                <div class="searchSelectWrap">
+                    <!--
+                    연도 선택박스(도입년도 등), 그룹(유닛번호 등) 선택박스 영역
+                    필요없다고 하면 지우기
+
+                    <label class="searchSelect">
+                        <div class="searchTitle3" style="margin-left: 10px;">도입년도</div>
+                        <input type="text" class="searchEqpSelectInput" />
+                    </label>
+                    <label class="searchSelect">
+                        <div class="searchTitle3" style="margin-left: 10px;">유닛번호</div>
+                        <input type="text" class="searchEqpSelectInput" />
+                    </label>
+                    -->
+                </div>
             </div>
-        </section>
 
-    </main><!-- End #main -->
+            <div class="contentCard">
+                <div style='display: flex; justify-content: space-between;'>
+                    <div>
+                        <p id="eqpTotalCnt" style="margin:10px 0px 10px 0px;font-size:14px;padding:3px 8px;"></p>
+                    </div>
+                    <div>
+                        <button type='button' class='btn btn-outline-secondary'
+                                style='margin:10px 0px 10px 10px;font-size:13px;padding:3px 8px;'
+                                onclick="cableCreate()">추가
+                        </button>
+                        <button type='button' class='btn btn-outline-secondary'
+                                style='margin:10px 0px 10px 10px;font-size:13px;padding:3px 8px;'
+                                onclick="cable_update_popup('')">수정
+                        </button>
+                        <button type='button' class='btn btn-outline-secondary'
+                                style='margin:10px 0px 10px 10px;font-size:13px;padding:3px 8px;'
+                                onclick="cable_delete()">삭제
+                        </button>
+                        <button type='button' class='btn btn-outline-secondary'
+                                style='margin:10px 0px 10px 10px;font-size:13px;padding:3px 8px;'
+                                onclick="selectRackDownload()">선번장 목록 다운로드
+                        </button>
+                        <button type='button' class='btn btn-outline-secondary'
+                                style='margin:10px 0px 10px 10px;font-size:13px;padding:3px 8px;'
+                                onclick="">PDF 다운로드
+                        </button>
+                    </div>
+                </div>
 
-    <th:block layout:fragment="script">
-        <script th:src="@{/js/cable/view.js}"></script>
+                <div class="tbl-bootstrap-wrap">
+                    <table id="cableTable"></table>
+                </div>
+            </div>
 
-        <script>
-            let fchk = document.getElementById("targetForm");
-            function excelsubmit() {
-                qrSubmit();
-                fchk.submit();
-            }
+        </main><!-- End #main -->
 
-        </script>
-    </th:block>
+        <th:block layout:fragment="script">
+            <script th:src="@{/js/cable/view.js}"></script>
+        </th:block>
 
-</div>
+    </div>
 
 
 </html>

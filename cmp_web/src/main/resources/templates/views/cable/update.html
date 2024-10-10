@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<div layout:fragment="content">
+    <main id="main" class="equipment">
+
+        <input type="hidden" id="eqp_manage_id" name="eqp_manage_id" th:value="${equipment.eqp_manage_id}"/>
+        <input type="hidden" id="categories" name="categories"/>
+
+        <section id="selection-equipment">
+
+            <!-- 장비분류 -->
+            <div id="section-equipment-category">
+                <div class="section-equipment-title">
+                    <h2>장비분류</h2>
+                </div>
+                <div>
+                    <div class="equipment-wrap">
+                        <div class="equipment-item">
+                            <label for="config_id">구성분류:</label>
+                            <select id="config_id" name="config_id">
+                                <option th:each="category : ${config_category}"
+                                        th:value="${category['id']}"
+                                        th:text="${category['name']}"
+                                        th:selected="${category['id'] == equipment.config_id}"></option>
+                            </select>
+                        </div>
+                        <div class="equipment-item">
+                            <label for="asset_id">자산분류:</label>
+                            <select id="asset_id" name="asset_id">
+                                <option th:each="category : ${asset_category}"
+                                        th:value="${category['id']}"
+                                        th:text="${category['name']}"
+                                        th:selected="${category['id'] == equipment.asset_id}"></option>
+                            </select>
+                        </div>
+                        <div class="equipment-item">
+                            <label for="sub_id">자산세부분류:</label>
+                            <select id="sub_id" name="sub_id">
+                                <option th:each="category : ${sub_category}"
+                                        th:value="${category['id']}"
+                                        th:text="${category['name']}"
+                                        th:selected="${category['id'] == equipment.sub_id}"></option>
+                            </select>
+                        </div>
+                        <div class="equipment-item">
+                            <label for="detail_id">자산상세분류:</label>
+                            <select id="detail_id" name="detail_id">
+                                <option th:if="${detail_category.size() == 1}"
+                                        th:text="없음"
+                                        value=""></option>
+                                <option th:if="${detail_category.size() > 1}"
+                                        th:each="category : ${detail_category}"
+                                        th:value="${category['id']}"
+                                        th:text="${category['name']}"
+                                        th:selected="${category['id'] == equipment.detail_id}"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 장비기본정보 -->
+            <div id="section-equipment-basic-info">
+                <div class="section-equipment-title">
+                    <h2>장비기본정보</h2>
+                </div>
+                <div>
+                    <div class="equipment-wrap">
+                        <div class="equipment-item">
+                            <label for="eqp_name">구성자원명:</label>
+                            <input type="text" id="eqp_name" name="eqp_name" th:value="${equipment.eqp_name}" />
+                        </div>
+                        <div class="equipment-item">
+                            <label for="host_name">호스트명:</label>
+                            <input type="text" id="host_name" name="host_name" th:value="${equipment.host_name}" />
+                        </div>
+                        <div class="equipment-item">
+                            <label for="model_name">모델명:</label>
+                            <input type="text" id="model_name" name="model_name" th:value="${equipment.model_name}" />
+                        </div>
+                        <div class="equipment-item">
+                            <label for="m_company">제조사:</label>
+                            <input type="text" id="m_company" name="m_company" th:value="${equipment.m_company}" />
+                        </div>
+                    </div>
+                    <div class="equipment-wrap">
+                        <div class="equipment-item">
+                            <label for="domestic">국산여부:</label>
+                            <select id="domestic" name="domestic">
+                                <option value="1" th:selected="${equipment.domestic == '1'}">국산</option>
+                                <option value="2" th:selected="${equipment.domestic == '2'}">외산</option>
+                            </select>
+                        </div>
+                        <div class="equipment-item">
+                            <label for="redundancy_config">이중화 구성여부:</label>
+                            <select id="redundancy_config" name="redundancy_config">
+                                <option value="1" th:selected="${equipment.redundancy_config == '1'}">단일</option>
+                                <option value="2" th:selected="${equipment.redundancy_config == '2'}">이중화</option>
+                            </select>
+                        </div>
+                        <div class="equipment-item">
+                            <label for="maintenance_contract_target">유지관리 계약대상여부:</label>
+                            <select id="maintenance_contract_target" name="maintenance_contract_target">
+                                <option value="1" th:selected="${equipment.maintenance_contract_target == '1'}">Y</option>
+                                <option value="2" th:selected="${equipment.maintenance_contract_target == '2'}">N</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 장비운영정보 -->
+            <div id="section-equipment-operation-info">
+                <div class="section-equipment-title">
+                    <h2>장비운영정보</h2>
+                </div>
+                <div>
+                    <div class="equipment-wrap">
+                        <div class="equipment-item">
+                            <label for="network_operation_type">운영구분:</label>
+                            <select id="network_operation_type" name="network_operation_type">
+                                <option value="1" th:selected="${equipment.network_operation_type == '1'}" >인터넷망</option>
+                                <option value="2" th:selected="${equipment.network_operation_type == '2'}" >업무망</option>
+                                <option value="3" th:selected="${equipment.network_operation_type == '3'}" >운영망</option>
+                            </select>
+                        </div>
+                        <div class="equipment-item">
+                            <label for="primary_operator">운영담당자(정):</label>
+                            <input type="text" id="primary_operator" name="primary_operator" th:value="${equipment.primary_operator}" />
+                        </div>
+                        <div class="equipment-item">
+                            <label for="primary_outsourced_operator">위탁운영사용자(정):</label>
+                            <input type="text" id="primary_outsourced_operator" name="primary_outsourced_operator" th:value="${equipment.primary_outsourced_operator}"/>
+                        </div>
+                    </div>
+                    <div class="equipment-wrap">
+                        <div class="equipment-item">
+                            <label for="operating_status">운영상태:</label>
+                            <select id="operating_status" name="operating_status">
+                                <option value="1" th:selected="${equipment.operating_status == '1'}">사용</option>
+                                <option value="2" th:selected="${equipment.operating_status == '2'}">정지</option>
+                            </select>
+                        </div>
+                        <div class="equipment-item">
+                            <label for="secondary_operator">운영담당자(부):</label>
+                            <input type="text" id="secondary_operator" name="secondary_operator" th:value="${equipment.secondary_operator}"/>
+                        </div>
+                        <div class="equipment-item">
+                            <label for="secondary_outsourced_operator">위탁운영사용자(부):</label>
+                            <input type="text" id="secondary_outsourced_operator" name="secondary_outsourced_operator" th:value="${equipment.secondary_outsourced_operator}"/>
+                        </div>
+                    </div>
+                    <div class="equipment-wrap">
+                        <div class="equipment-item">
+                            <label for="operating_department">운영부서:</label>
+                            <input type="text" id="operating_department" name="operating_department" th:value="${equipment.operating_department}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 장비상세정보 -->
+            <div id="section-equipment-details">
+                <div class="section-equipment-title">
+                    <h2>장비상세정보</h2>
+                </div>
+                <div>
+                    <div class="equipment-wrap">
+                        <div class="equipment-item">
+                            <label for="cpu">CPU:</label>
+                            <input type="text" id="cpu" name="cpu" th:value="${equipment.CPU}" />
+                        </div>
+                        <div class="equipment-item">
+                            <label for="ip_block1">IP 주소:</label>
+                            <input type="text" id="ip_block1" th:value="${equipment.ip_block1}" maxlength="3" size="3" oninput="moveToNext(this, 'ip_block2')" /> .
+                            <input type="text" id="ip_block2" th:value="${equipment.ip_block2}" maxlength="3" size="3" oninput="moveToNext(this, 'ip_block3')" /> .
+                            <input type="text" id="ip_block3" th:value="${equipment.ip_block3}" maxlength="3" size="3" oninput="moveToNext(this, 'ip_block4')" /> .
+                            <input type="text" id="ip_block4" th:value="${equipment.ip_block4}" maxlength="3" size="3" oninput="checkIPBlock(this)" />
+                        </div>
+                        <div class="equipment-item">
+                            <label for="installation_coordinates">설치좌표(좌표):</label>
+                            <input type="text" id="installation_coordinates" name="installation_coordinates" th:value="${equipment.installation_coordinates}" />
+                        </div>
+                        <div class="equipment-item">
+                            <label for="dbrain_number">디브레인번호:</label>
+                            <input type="text" id="dbrain_number" name="dbrain_number" th:value="${equipment.dbrain_number}" />
+                        </div>
+                    </div>
+                    <div class="equipment-wrap">
+                        <div class="equipment-item">
+                            <label for="mem">Memory:</label>
+                            <input type="text" id="mem" name="mem" th:value="${equipment.MEMORY}" />
+                        </div>
+                        <div class="equipment-item">
+                            <label for="os_version">OS:</label>
+                            <input type="text" id="os_version" name="os_version" th:value="${equipment.OS}" />
+                        </div>
+                        <div class="equipment-item">
+                            <label for="installation_units">설치좌표(유닛수):</label>
+                            <input type="number" id="installation_units" name="installation_units" th:value="${equipment.installation_units}" />
+                        </div>
+                        <div class="equipment-item">
+                            <label for="serial_number">시리얼번호:</label>
+                            <input type="text" id="serial_number" name="serial_number" th:value="${equipment.serial_number}" />
+                        </div>
+                    </div>
+                    <div class="equipment-wrap">
+                        <div class="equipment-item">
+                            <label for="disk">Disk:</label>
+                            <input type="text" id="disk" name="disk" th:value="${equipment.DISK}" />
+                        </div>
+                        <div class="equipment-item">
+                            <label for="acquisition_cost">도입금액:</label>
+                            <input type="text" id="acquisition_cost" name="acquisition_cost" th:value="${equipment.acquisition_cost}" oninput="formatCurrency(this)" />
+                        </div>
+                        <div class="equipment-item">
+                            <label for="equipment_size_units">장비크기(유닛수):</label>
+                            <input type="number" id="equipment_size_units" name="equipment_size_units" th:value="${equipment.equipment_size_units}" />
+                        </div>
+                    </div>
+                    <div class="equipment-wrap">
+                        <div class="equipment-item">
+                            <label for="asset_acquisition_date">자산취득일자:</label>
+                            <input type="date" id="asset_acquisition_date" name="asset_acquisition_date" th:value="${equipment.asset_acquisition_date}" />
+                        </div>
+                        <div class="equipment-item">
+                            <label for="eol_status">단종상태(EOL):</label>
+                            <input type="date" id="eol_status" name="eol_status" th:value="${equipment.eol_status}" />
+                        </div>
+                        <div class="equipment-item">
+                            <label for="eos_status">단종상태(EOS):</label>
+                            <input type="date" id="eos_status" name="eos_status" th:value="${equipment.eos_status}" />
+                        </div>
+                    </div>
+                    <!--
+                    <div class="equipment-wrap">
+                        <div class="equipment-item">
+                            <label for="asset_acquisition_date">자산취득일자:</label>
+                            <input type="date" id="asset_acquisition_date" name="asset_acquisition_date" th:value="${equipment.asset_acquisition_date}" />
+                        </div>
+                        <div class="equipment-item">
+                            <label for="eol_status">단종상태(EOL):</label>
+                            <input type="date" id="eol_status" name="eol_status" th:value="${equipment.eol_status}" />
+                        </div>
+                    </div>
+                    <div class="equipment-wrap">
+                        <div class="equipment-item">
+                            <label for="asset_disposal_date">자산폐기일자:</label>
+                            <input type="date" id="asset_disposal_date" name="asset_disposal_date" th:value="${equipment.asset_disposal_date}" />
+                        </div>
+                        <div class="equipment-item">
+                            <label for="eos_status">단종상태(EOS):</label>
+                            <input type="date" id="eos_status" name="eos_status" th:value="${equipment.eos_status}" />
+                        </div>
+                    </div>
+                    -->
+                </div>
+            </div>
+
+            <!-- 장비연결정보 -->
+            <div id="section-equipment-connection-info">
+                <div class="section-equipment-title">
+                    <h2>장비연결정보</h2>
+                    <div style="margin-left: 20px;">
+                        <button type="button" style="width: 40px; height: 30px; font-size: 12px; padding: 0;" onclick="addEqpLinkRow()">추가</button>
+                        <button type="button" style="width: 40px; height: 30px; font-size: 12px; padding: 0;" onclick="deleteEqpLinkRow()">삭제</button>
+                    </div>
+                </div>
+                <div class="tbl-bootstrap-wrap">
+                    <table id="eqpLinkTable"></table>
+                </div>
+            </div>
+        </section>
+
+        <div>
+            <button type="button" onclick="saveData()">저장</button>
+            <button type="button" onclick="back()">취소</button>
+        </div>
+
+    </main>
+
+    <th:block layout:fragment="script">
+        <script th:src="@{/js/eqp/update.js}"></script>
+    </th:block>
+</div>
+
+</html>

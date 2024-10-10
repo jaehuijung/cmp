@@ -23,9 +23,6 @@ public class cableManageService {
 			this.cableMapper = cableMapper;
 		}
 
-		/*************/
-		// 새로 작성
-
 		public Map<String, Object> getCableList(Map<String, Object> paramMap){
 
 			Map<String, Object> returnMap = new HashMap<>();
@@ -46,6 +43,8 @@ public class cableManageService {
 
 			return returnMap;
 		}
+
+
 
 		/************************************/
 

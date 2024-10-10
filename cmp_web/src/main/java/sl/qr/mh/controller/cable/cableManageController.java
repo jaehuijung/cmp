@@ -26,37 +26,45 @@ public class cableManageController {
         this.cableManageService = cableManageService;
     }
 
-    // 선번장관리 > 선번장목록 페이지
+    /**
+     * 선번장관리 > 선번장목록
+     * 
+     * @return 선번장 목록 뷰 페이지
+     */
     @GetMapping("/view")
     public String view(Authentication authentication) {
         return "views/cable/view";
     }
-
-    // 선번장관리 > 선번장목록 > 리스트
-    // post test 완료되면 지우기ㅊ
-    @GetMapping(value = "/list")
-    @ResponseBody
-    public List<HashMap<String, Object>> getCableListData(Cable vo) {
-        List<HashMap<String, Object>> selectCableList = cableManageService.selectCableList(vo);
-
-        return selectCableList;
-    }
-
-    // 선번장관리 > 선번장목록 > 리스트
+    
+    /**
+     * 선번장관리 > 선번장목록
+     * 선번장 목록 데이터 
+     *
+     * @param paramMap 요청 파라미터 맵
+     * @return 선번장 목록 데이터 및 기타 메타 정보
+     */
     @PostMapping("/list")
     @ResponseBody
     public Map<String, Object> list(@RequestBody Map<String, Object> paramMap) {
         return cableManageService.getCableList(paramMap);
     }
 
-
-    // 선번장관리 > 선번장추가
-    @GetMapping("/register")
-    public String register(HttpSession session, HttpServletRequest request) {
+    /**
+     * 선번장관리 > 선번장목록 > 추가
+     *
+     * @return 선번장 추가 뷰 페이지
+     */
+    @GetMapping("/create")
+    public String register() {
         return "views/cable/register";
     }
 
-    // 선번장관리 > 선번장추가 > 저장
+    /**
+     * 선번장관리 > 선번장목록 > 추가
+     * 선번장 정보 저장
+     *
+     * @return 선번장 저장 결과
+     */
     @PostMapping("/insert")
     public String insert(Cable vo, HttpServletRequest request) {
         // cableservice.insertCable(vo);

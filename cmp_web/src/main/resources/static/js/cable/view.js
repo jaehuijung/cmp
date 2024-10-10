@@ -1,148 +1,80 @@
 
-// cable table column
-var columns = [
+// cable table column creation function
+function createColumn(field, checkbox = false, title, type = 'default', formatter = null, visible = true) {
+    let column = {
+        title: title,
+        field: field,
+        align: 'center',
+        valign: 'middle',
+        checkbox: checkbox
+    };
+
+    if (formatter) {
+        column.formatter = formatter;
+    }
+
+    if (type === 'underline') {
+        column.class = 'nowrap underline';
+    } else {
+        column.class = 'nowrap';
+    }
+
+    if (!visible) {
+        column.visible = visible;
+    }
+
+    return column;
+}
+
+// Define columns for cableTable
+let columns = [
     [
-        {
-            title: '구분',
-            field: 'division',
-            align: 'center',
-            valign: 'middle',
-            colspan: 2
-        },
-        {
-            title: '출발지',
-            align: 'center',
-            valign: 'middle',
-            colspan: 6
-        },
-        {
-            title: '목적지',
-            align: 'center',
-            valign: 'middle',
-            colspan: 5
-        },
-        {
-            title: '회선',
-            align: 'center',
-            valign: 'middle',
-            colspan: 3
-        }
+        { title: '구분',   align: 'center', valign: 'middle', colspan: 3 },
+        { title: '출발지', align: 'center', valign: 'middle', colspan: 10 },
+        { title: '목적지', align: 'center', valign: 'middle', colspan: 10 },
+        { title: '회선',   align: 'center', valign: 'middle', colspan: 3 }
     ],
     [
         // 구분
-        {
-            title: '',
-            field: '',
-            align: 'center',
-            valign: 'middle',
-            checkbox: true
-        },
-        {
-            title: 'no',
-            field: 'no',
-            align: 'center',
-            valign: 'middle',
-            width: '10px',
-            formatter: function(value, row, index) {
-                const tableOptions = $('#cableTable').bootstrapTable('getOptions');
-                return tableOptions.totalRows - ((tableOptions.pageNumber - 1) * tableOptions.pageSize) - index;
-            }
-        },
+        createColumn('cable_manage_id', false, '케이블 관리번호', "", "", false),
+        createColumn('', true, ''),
+        createColumn('no', false, 'no', function(value, row, index) {
+            let tableOptions = $('#cableTable').bootstrapTable('getOptions');
+            return tableOptions.totalRows - ((tableOptions.pageNumber - 1) * tableOptions.pageSize) - index;
+        }),
 
         // 출발지
-        {
-            title: '장비명',
-            field: 's_eqp_name',
-            align: 'center',
-            valign: 'middle',
-        },
-        {
-            title: '랙번호',
-            field: 'departure_number',
-            align: 'center',
-            valign: 'middle',
-        },
-        {
-            title: '유닛번호',
-            field: 's_unit_position',
-            align: 'center',
-            valign: 'middle',
-        },
-        {
-            title: '호스트명',
-            field: 's_hostname',
-            align: 'center',
-            valign: 'middle',
-        },
-        {
-            title: '슬롯번호',
-            field: 's_slotnum',
-            align: 'center',
-            valign: 'middle',
-        },
-        {
-            title: '포트번호',
-            field: 's_portnum',
-            align: 'center',
-            valign: 'middle',
-        },
+        createColumn('s_asset_category',              false, '자산분류'),
+        createColumn('s_installation_coordinates',    false, '설치좌표'),
+        createColumn('s_eqp_manage_id',               false, '관리 id', 'underline'),
+        createColumn('s_eqp_name',                    false, '구성자원명', 'underline'),
+        createColumn('s_model_name',                  false, '모델명'),
+        createColumn('s_host_name',                   false, '호스트명'),
+        createColumn('s_m_company',                   false, '제조사'),
+        createColumn('s_port',                        false, '포트번호'),
+        createColumn('s_primary_operator',            false, '운영담당자'),
+        createColumn('s_primary_outsourced_operator', false, '위탁운영담당자'),
 
         // 목적지
-        {
-            title: '랙번호',
-            field: 'departure_number',
-            align: 'center',
-            valign: 'middle',
-        },
-        {
-            title: '유닛번호',
-            field: 'e_unit_position',
-            align: 'center',
-            valign: 'middle',
-        },
-        {
-            title: '호스트명',
-            field: 'e_hostname',
-            align: 'center',
-            valign: 'middle',
-        },
-        {
-            title: '슬롯번호',
-            field: 'e_slotnum',
-            align: 'center',
-            valign: 'middle',
-        },
-        {
-            title: '포트번호',
-            field: 'e_portnum',
-            align: 'center',
-            valign: 'middle',
-        },
+        createColumn('e_asset_category',              false, '자산분류'),
+        createColumn('e_installation_coordinates',    false, '설치좌표'),
+        createColumn('e_eqp_manage_id',               false, '관리 id', 'underline'),
+        createColumn('e_eqp_name',                    false, '구성자원명', 'underline'),
+        createColumn('e_model_name',                  false, '모델명'),
+        createColumn('e_host_name',                   false, '호스트명'),
+        createColumn('e_m_company',                   false, '제조사'),
+        createColumn('e_port',                        false, '포트번호'),
+        createColumn('e_primary_operator',            false, '운영담당자'),
+        createColumn('e_primary_outsourced_operator', false, '위탁운영담당자'),
 
         // 회선
-        {
-            title: '선속도',
-            field: 'c_velocity',
-            align: 'center',
-            valign: 'middle',
-        },
-        {
-            title: '선구분',
-            field: 'c_type',
-            align: 'center',
-            valign: 'middle',
-        },
-        {
-            title: '선색상',
-            field: 'c_color',
-            align: 'center',
-            valign: 'middle',
-        }
+        createColumn('cable_speed',     false, '속도'),
+        createColumn('cable_category',  false, '구분'),
+        createColumn('cable_color',     false, '색상')
     ]
 ];
 
-$(function(){
-
+$(function() {
     $('#cableTable').bootstrapTable({
         url: '/cable/rack/list',
         method: 'post',
@@ -151,13 +83,19 @@ $(function(){
             params.searchData = {
                 searchInput
             }
-
             return params;
         },
-        pageSize: 10, columns: columns, cache: false, undefinedText: "",
-        pagination: true, sidePagination: 'server', checkboxHeader: true,
-        classes: "txt-pd", clickToSelect: false,
-        sortOrder: 'desc', sortName: 'ORDER',
+        pageSize: 10,
+        columns: columns,
+        cache: false,
+        undefinedText: "",
+        pagination: true,
+        sidePagination: 'server',
+        checkboxHeader: true,
+        classes: "txt-pd",
+        clickToSelect: false,
+        sortOrder: 'desc',
+        sortName: 'ORDER',
         responseHandler: function(res) {
             return {
                 rows: res.rows,
@@ -167,32 +105,38 @@ $(function(){
         },
         onLoadSuccess: function(res) {
             let errorCode = res.errorCode;
-            if (!errorCode){
-                Swal.fire({
-                    title: '알림',
-                    html: '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.',
-                    icon: 'error',
-                    confirmButtonText: '확인'
-                });
-            }
-            else{
+            if (!errorCode) {
+                alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+            } else {
                 $("#cableTotalCnt").text("총 " + res.total + "건")
             }
         },
-        onClickCell: function (field, value, row, $element){
-            if(!$element.hasClass("bs-checkbox")){
-                eqp_detail_popup(row.eqp_id);
+        onClickCell: function(field, value, row, $element) {
+            if (!$element.hasClass("bs-checkbox")) {
+                if((field == 's_eqp_manage_id' || field == 's_eqp_name' || field == 'e_eqp_manage_id' || field == 'e_eqp_name')){
+                    rackDetail(row.eqp_manage_id)
+                }
+                else{
+                    let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
+                    if ($checkbox.length) {
+                        $checkbox.click();
+                    }
+                }
             }
         },
     });
 
-    $('#searchInput').keyup(function(e){
-        if(e.which == 13){
-            searchEqpList();
+    $('#searchInput').keyup(function(e) {
+        if(e.which == 13) {
+            $('#cableTable').bootstrapTable('refresh');
         }
-    })
-
+    });
 });
+
+function cableCreate(){
+    const url = "/cable/rack/create";
+    window.location.href = url;
+}
 
 
 // 엑셀 download
