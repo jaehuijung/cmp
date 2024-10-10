@@ -4,11 +4,13 @@
 		<meta charset="utf-8" http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 		<title>CMS Login</title>
 		<link rel="icon" type="image/x-icon" href="/images/icon/favicon.png">
-		<link rel="stylesheet" href="/css/login.css" />
+		<th:block layout:fragment="css">
+			<link rel="stylesheet" href="/css/login.css" />
+		</th:block>
+
 	</head>
 
 	<body>
-
 		<input type="hidden" id="sessionLoginChk" th:value="${session.loginChk}" />
 		<input type="hidden" id="sessionMessage" th:value="${session.message}" />
 
@@ -32,6 +34,7 @@
 					<img src="/images/logo/technopark.png" alt="logo" />
 				</div>
 
+
 				<form action="/perform_login" id="formDiv" method="post">
 					<div class="login-inputs">
 						<div class="line-with-text"><span>Login</span></div>
@@ -46,9 +49,31 @@
 					<div class="login-button">
 						<button type="submit">로그인</button>
 					</div>
+				</form>
 			</div>
 		</div>
-
 	</body>
+	<th:block layout:fragment="script">
+		<script th:src="@{/assets/vendor/jquery/jquery.min.js}"></script>
+		<script>
+			$(document).ready(function() {
+				$('#formDiv').submit(function(event) {
+					event.preventDefault();
+					$.ajax({
+						type: 'POST',
+						url: '/perform_login',
+						data: $(this).serialize(),
+						success: function(response) {
+							// 로그인 성공 시 페이지 이동
+							window.location.href = '/cable/rack/view';
+						},
+						error: function(xhr) {
+							alert(xhr.responseJSON.message)
+						}
+					});
+				});
+			});
+		</script>
+	</th:block>
 
 </html>

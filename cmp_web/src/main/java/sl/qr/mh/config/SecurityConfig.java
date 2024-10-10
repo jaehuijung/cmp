@@ -72,13 +72,13 @@ public class SecurityConfig {
                 .requiresChannel(channel -> channel.anyRequest().requiresSecure())  // 모든 요청을 HTTPS로 강제 전환
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(NOT_SECURED).permitAll()  // 특정 URL 허용
-                        .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()  // 정적 자원 허용
+                        .requestMatchers("/css/**", "/js/**", "/images/**", "/assets/**").permitAll()  // 정적 자원 허용
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")  // 사용자 정의 로그인 페이지 경로
                         .loginProcessingUrl("/perform_login")  // 로그인 폼 액션 URL
                         .defaultSuccessUrl("/cable/rack/view", true)  // 로그인 성공 후 이동할 기본 URL
-                        .failureUrl("/login?error=true")  // 로그인 실패 시 이동할 URL
+                        .failureHandler(customAuthenticationFailureHandler())
                         .permitAll())  // 로그인 페이지는 누구나 접근 가능
                 .logout(logout -> logout
                         .logoutUrl("/logout")  // 로그아웃 URL
@@ -94,10 +94,14 @@ public class SecurityConfig {
         return new CustomAuthenticationProvider(customUserDetailsService);
     }
 
+    /** 
+     * 로그인 실패 시
+     */
     @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers(NOT_SECURED);
+    public CustomAuthenticationFailureHandler customAuthenticationFailureHandler() {
+        return new CustomAuthenticationFailureHandler();
     }
+    
 
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
@@ -105,5 +109,12 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider())
                 .build();
     }
+
+
+
+    // @Bean
+    // public WebSecurityCustomizer webSecurityCustomizer() {
+    //     return (web) -> web.ignoring().requestMatchers(NOT_SECURED);
+    // }
 
 }
