@@ -115,13 +115,61 @@
     </select>
 
     <select id="getRackEquipmentList" parameterType="map" resultType="map">
-        /** getCableTotalListCnt ...
+        /** getRackEquipmentList ...
             선번장관리 > 선번장목록 > 추가 > 출발지, 목적지 리스트 */
+        select
+            eb.eqp_manage_id , /* 관리번호 */
+            eb.eqp_name , /* 구성자원명 */
+            eb.model_name , /* 모델명 */
+            eb.host_name , /* 호스트명 */
+            eb.m_company , /* 제조사 */
+            el.port, /* 포트번호 */
+            eb.primary_operator , /* 운영담당자 */
+            eb.primary_outsourced_operator , /* 위탁운영담당자 */
+            ec.config_category ,  /* 구성분류 */
+            ec.asset_category , /* 자산분류 */
+            ec.sub_category , /* 자산세부분류 */
+            ec.detail_category , /* 자산상세분류 */
+            ed.installation_coordinates /* 설치좌표 */
+        from
+            equipment_basic eb
+        join
+            equipment_detail ed
+            on eb.eqp_manage_id = ed.eqp_manage_id
+        left join
+            equipment_link el
+            on eb.eqp_manage_id = el.eqp_manage_id
+            and ed.eqp_manage_id = el.eqp_manage_id
+        join
+            equipment_categories ec
+            on eb.config_id = ec.config_id
+            and eb.asset_id = ec.asset_id
+            and eb.sub_id = ec.sub_id
+            and eb.detail_id = ec.detail_id
+        ORDER BY eb.eqp_manage_id desc
+        LIMIT #{offset},#{limit};
     </select>
 
     <select id="getRackEquipmentListCnt" parameterType="map" resultType="int">
         /** getRackEquipmentListCnt ...
             선번장관리 > 선번장목록 > 추가 > 출발지, 목적지 리스트 개수 */
+        select
+            count(eb.eqp_manage_id)
+        from
+            equipment_basic eb
+        join
+            equipment_detail ed
+            on eb.eqp_manage_id = ed.eqp_manage_id
+        left join
+            equipment_link el
+            on eb.eqp_manage_id = el.eqp_manage_id
+            and ed.eqp_manage_id = el.eqp_manage_id
+        join
+            equipment_categories ec
+            on eb.config_id = ec.config_id
+            and eb.asset_id = ec.asset_id
+            and eb.sub_id = ec.sub_id
+            and eb.detail_id = ec.detail_id
     </select>
 
 

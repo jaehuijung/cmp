@@ -66,7 +66,7 @@ public class cableManageController {
      */
     @ResponseBody
     @PostMapping("/rackEquipmentList")
-    public Map<String, Object> rackEquipmentList(Map<String, Object> paramMap) {
+    public Map<String, Object> rackEquipmentList(@RequestBody Map<String, Object> paramMap) {
         return cableManageService.getRackEquipmentList(paramMap);
     }
 

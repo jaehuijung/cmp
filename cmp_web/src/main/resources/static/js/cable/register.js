@@ -28,30 +28,30 @@ function createColumn(field, checkbox = false, title, type = 'default', formatte
 
 let startRackColumn = [
     createColumn('',                              true,  ''),
-    createColumn('s_asset_category',              false, '자산분류'),
-    createColumn('s_installation_coordinates',    false, '설치좌표'),
-    createColumn('s_eqp_manage_id',               false, '관리 id', 'underline'),
-    createColumn('s_eqp_name',                    false, '구성자원명', 'underline'),
-    createColumn('s_model_name',                  false, '모델명'),
-    createColumn('s_host_name',                   false, '호스트명'),
-    createColumn('s_m_company',                   false, '제조사'),
-    createColumn('s_port',                        false, '포트번호'),
-    createColumn('s_primary_operator',            false, '운영담당자'),
-    createColumn('s_primary_outsourced_operator', false, '위탁운영담당자'),
+    createColumn('asset_category',              false, '자산분류'),
+    createColumn('installation_coordinates',    false, '설치좌표'),
+    createColumn('eqp_manage_id',               false, '관리 id', 'underline'),
+    createColumn('eqp_name',                    false, '구성자원명', 'underline'),
+    createColumn('model_name',                  false, '모델명'),
+    createColumn('host_name',                   false, '호스트명'),
+    createColumn('m_company',                   false, '제조사'),
+    createColumn('port',                        false, '포트번호'),
+    createColumn('primary_operator',            false, '운영담당자'),
+    createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
 ];
 
 let endRackColumn = [
     createColumn('',                              true,  ''),
-    createColumn('e_asset_category',              false, '자산분류'),
-    createColumn('e_installation_coordinates',    false, '설치좌표'),
-    createColumn('e_eqp_manage_id',               false, '관리 id', 'underline'),
-    createColumn('e_eqp_name',                    false, '구성자원명', 'underline'),
-    createColumn('e_model_name',                  false, '모델명'),
-    createColumn('e_host_name',                   false, '호스트명'),
-    createColumn('e_m_company',                   false, '제조사'),
-    createColumn('e_port',                        false, '포트번호'),
-    createColumn('e_primary_operator',            false, '운영담당자'),
-    createColumn('e_primary_outsourced_operator', false, '위탁운영담당자'),
+    createColumn('asset_category',              false, '자산분류'),
+    createColumn('installation_coordinates',    false, '설치좌표'),
+    createColumn('eqp_manage_id',               false, '관리 id', 'underline'),
+    createColumn('eqp_name',                    false, '구성자원명', 'underline'),
+    createColumn('model_name',                  false, '모델명'),
+    createColumn('host_name',                   false, '호스트명'),
+    createColumn('m_company',                   false, '제조사'),
+    createColumn('port',                        false, '포트번호'),
+    createColumn('primary_operator',            false, '운영담당자'),
+    createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
 ];
 
 $(function(){
@@ -60,17 +60,16 @@ $(function(){
     $('#startRackTable').bootstrapTable({
         url: '/cable/rack/rackEquipmentList',
         method: 'post',
-        pageSize: 5,
-        columns: startRackColumn,
-        cache: false,
-        undefinedText: "",
-        pagination: true,
-        sidePagination: 'server',
-        checkboxHeader: true,
-        classes: "txt-pd",
-        clickToSelect: false,
-        sortOrder: 'desc',
-        sortName: 'ORDER',
+        queryParams: function(params) {
+            let eqp_manage_id = $("#searchInput").val();
+            params.searchData = {
+                eqp_manage_id
+            }
+            return params;
+        },
+        pageSize: 5, columns: startRackColumn, cache: false, undefinedText: "",
+        pagination: true, sidePagination: 'server', checkboxHeader: true,
+        classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
         responseHandler: function(res) {
             return {
                 rows: res.rows,
@@ -104,17 +103,16 @@ $(function(){
     $('#endRackTable').bootstrapTable({
         url: '/cable/rack/rackEquipmentList',
         method: 'post',
-        pageSize: 5,
-        columns: endRackColumn,
-        cache: false,
-        undefinedText: "",
-        pagination: true,
-        sidePagination: 'server',
-        checkboxHeader: true,
-        classes: "txt-pd",
-        clickToSelect: false,
-        sortOrder: 'desc',
-        sortName: 'ORDER',
+        queryParams: function(params) {
+            let eqp_manage_id = $("#searchInput").val();
+            params.searchData = {
+                eqp_manage_id
+            }
+            return params;
+        },
+        pageSize: 5, columns: endRackColumn, cache: false, undefinedText: "",
+        pagination: true, sidePagination: 'server', checkboxHeader: true,
+        classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
         responseHandler: function(res) {
             return {
                 rows: res.rows,
