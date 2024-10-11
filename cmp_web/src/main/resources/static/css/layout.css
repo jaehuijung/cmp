@@ -487,6 +487,7 @@ header {
 
 #section-rack-start-info,
 #section-rack-end-info,
+#section-rack-cable-info,
 #section-equipment-basic-info,
 #section-equipment-category,
 #section-equipment-operation-info,
@@ -498,6 +499,7 @@ header {
 /* h2 태그의 기본 스타일 */
 #section-rack-start-info h2,
 #section-rack-end-info h2,
+#section-rack-cable-info h2,
 #section-equipment-basic-info h2,
 #section-equipment-category h2,
 #section-equipment-operation-info h2,
@@ -564,7 +566,7 @@ header {
    width: 200px;
    padding: 5px 10px;
    font-size: 14px;
-   height: 28px;
+   height: 35px;
    margin-bottom: 10px;
    border: 1px solid #DADADA;
    border-radius: 4px;

@@ -1,32 +1,148 @@
-let eqpRegisterPortColumn = [
-    { field: '',             title: ''         , checkbox: true },
-    { field: 'host',         title: '호스트명'  , formatter: inputEqpLinkFormatter },
-    { field: 'ip_address',   title: 'IP 주소'   , formatter: inputEqpLinkFormatter },
-    { field: 'port',         title: '포트'      , formatter: inputEqpLinkFormatter }
+
+// cable table column creation function
+function createColumn(field, checkbox = false, title, type = 'default', formatter = null, visible = true) {
+    let column = {
+        title: title,
+        field: field,
+        align: 'center',
+        valign: 'middle',
+        checkbox: checkbox
+    };
+
+    if (formatter) {
+        column.formatter = formatter;
+    }
+
+    if (type === 'underline') {
+        column.class = 'nowrap underline';
+    } else {
+        column.class = 'nowrap';
+    }
+
+    if (!visible) {
+        column.visible = visible;
+    }
+
+    return column;
+}
+
+let startRackColumn = [
+    createColumn('',                              true,  ''),
+    createColumn('s_asset_category',              false, '자산분류'),
+    createColumn('s_installation_coordinates',    false, '설치좌표'),
+    createColumn('s_eqp_manage_id',               false, '관리 id', 'underline'),
+    createColumn('s_eqp_name',                    false, '구성자원명', 'underline'),
+    createColumn('s_model_name',                  false, '모델명'),
+    createColumn('s_host_name',                   false, '호스트명'),
+    createColumn('s_m_company',                   false, '제조사'),
+    createColumn('s_port',                        false, '포트번호'),
+    createColumn('s_primary_operator',            false, '운영담당자'),
+    createColumn('s_primary_outsourced_operator', false, '위탁운영담당자'),
+];
+
+let endRackColumn = [
+    createColumn('',                              true,  ''),
+    createColumn('e_asset_category',              false, '자산분류'),
+    createColumn('e_installation_coordinates',    false, '설치좌표'),
+    createColumn('e_eqp_manage_id',               false, '관리 id', 'underline'),
+    createColumn('e_eqp_name',                    false, '구성자원명', 'underline'),
+    createColumn('e_model_name',                  false, '모델명'),
+    createColumn('e_host_name',                   false, '호스트명'),
+    createColumn('e_m_company',                   false, '제조사'),
+    createColumn('e_port',                        false, '포트번호'),
+    createColumn('e_primary_operator',            false, '운영담당자'),
+    createColumn('e_primary_outsourced_operator', false, '위탁운영담당자'),
 ];
 
 $(function(){
-    setDefaultDates(); // 화면 렌더링 시 날짜 컬럼들 현재날짜로 세팅
-    getSelectConfig(); // 화면 렌더링 시 구성분류 선택박스 세팅
 
-    // 장비분류 선택 시 선택박스 세팅
-    $(document).ready(function() {
-        $('#config_id').change(function(){     // 구성분류 > 자산분류
-            const configValue = $(this).val();
-            getSelectAsset(configValue);
-        })
-        $('#asset_id').change(function(){      // 자산분류 > 자산세부분류
-            const assetValue = $(this).val();
-            getSelectSub(assetValue);
-        })
-        $('#sub_id').change(function(){        // 자산세부분류 > 자산상세분류
-            const subValue = $(this).val();
-            getSelectDetail(subValue);
-        })
-    })
 
-    $('#eqpLinkTable').bootstrapTable({
-        columns: eqpRegisterPortColumn
+    $('#startRackTable').bootstrapTable({
+        url: '/cable/rack/rackEquipmentList',
+        method: 'post',
+        pageSize: 5,
+        columns: startRackColumn,
+        cache: false,
+        undefinedText: "",
+        pagination: true,
+        sidePagination: 'server',
+        checkboxHeader: true,
+        classes: "txt-pd",
+        clickToSelect: false,
+        sortOrder: 'desc',
+        sortName: 'ORDER',
+        responseHandler: function(res) {
+            return {
+                rows: res.rows,
+                total: res.total,
+                errorCode: res.errorCode
+            }
+        },
+        onLoadSuccess: function(res) {
+            let errorCode = res.errorCode;
+            if (!errorCode) {
+                alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+            } else {
+                $("#startRackTotalCnt").text("총 " + res.total + "건")
+            }
+        },
+        onClickCell: function(field, value, row, $element) {
+            if (!$element.hasClass("bs-checkbox")) {
+                if((field == 's_eqp_manage_id' || field == 's_eqp_name' || field == 'e_eqp_manage_id' || field == 'e_eqp_name')){
+                    // rackDetail(row.eqp_manage_id)
+                }
+                else{
+                    let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
+                    if ($checkbox.length) {
+                        $checkbox.click();
+                    }
+                }
+            }
+        },
+    });
+
+    $('#endRackTable').bootstrapTable({
+        url: '/cable/rack/rackEquipmentList',
+        method: 'post',
+        pageSize: 5,
+        columns: endRackColumn,
+        cache: false,
+        undefinedText: "",
+        pagination: true,
+        sidePagination: 'server',
+        checkboxHeader: true,
+        classes: "txt-pd",
+        clickToSelect: false,
+        sortOrder: 'desc',
+        sortName: 'ORDER',
+        responseHandler: function(res) {
+            return {
+                rows: res.rows,
+                total: res.total,
+                errorCode: res.errorCode
+            }
+        },
+        onLoadSuccess: function(res) {
+            let errorCode = res.errorCode;
+            if (!errorCode) {
+                alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+            } else {
+                $("#endRackTotalCnt").text("총 " + res.total + "건")
+            }
+        },
+        onClickCell: function(field, value, row, $element) {
+            if (!$element.hasClass("bs-checkbox")) {
+                if((field == 's_eqp_manage_id' || field == 's_eqp_name' || field == 'e_eqp_manage_id' || field == 'e_eqp_name')){
+                    //rackDetail(row.eqp_manage_id)
+                }
+                else{
+                    let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
+                    if ($checkbox.length) {
+                        $checkbox.click();
+                    }
+                }
+            }
+        },
     });
 });
 

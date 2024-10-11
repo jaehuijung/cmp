@@ -61,6 +61,17 @@ public class cableManageController {
 
     /**
      * 선번장관리 > 선번장목록 > 추가
+     *
+     * @return 선번장 추가 뷰 페이지
+     */
+    @ResponseBody
+    @PostMapping("/rackEquipmentList")
+    public Map<String, Object> rackEquipmentList(Map<String, Object> paramMap) {
+        return cableManageService.getRackEquipmentList(paramMap);
+    }
+
+    /**
+     * 선번장관리 > 선번장목록 > 추가
      * 선번장 정보 저장
      *
      * @return 선번장 저장 결과

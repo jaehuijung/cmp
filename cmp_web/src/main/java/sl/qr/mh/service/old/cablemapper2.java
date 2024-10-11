@@ -3,16 +3,14 @@ package sl.qr.mh.service.old;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Mapper;
-
 import sl.qr.mh.vo.Cable;
 import sl.qr.mh.vo.Equipment;
 import sl.qr.mh.vo.Group;
 import sl.qr.mh.vo.QR;
 import sl.qr.mh.vo.Rack;
 
-@Mapper
-public interface cableMapper {
+// @Mapper
+public interface cablemapper2 {
 
 	/*************/
 	// 새로 작성한놈들

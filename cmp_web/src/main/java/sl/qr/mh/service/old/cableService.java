@@ -1,28 +1,23 @@
 package sl.qr.mh.service.old;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import sl.qr.mh.paging.CommonForm;
+import sl.qr.mh.paging.PagingUtil;
+import sl.qr.mh.vo.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import org.springframework.stereotype.Service;
-
-import lombok.extern.slf4j.Slf4j;
-import sl.qr.mh.paging.CommonForm;
-import sl.qr.mh.paging.PagingUtil;
-import sl.qr.mh.vo.Cable;
-import sl.qr.mh.vo.Equipment;
-import sl.qr.mh.vo.Group;
-import sl.qr.mh.vo.QR;
-import sl.qr.mh.vo.Rack;
 
 @Slf4j
 @Service
 public class cableService {
 
 	 
-		private final cableMapper cableMapper;
+		private final cablemapper2 cableMapper;
 
-		public cableService(cableMapper cableMapper) {
+		public cableService(cablemapper2 cableMapper) {
 			this.cableMapper = cableMapper;
 		}
 		
