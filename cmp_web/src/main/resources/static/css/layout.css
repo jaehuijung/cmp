@@ -1,9 +1,65 @@
+@font-face {
+  font-family: "Pretendard";
+  src: url("../../font/Pretendard/Pretendard-Black.otf") format("otf");
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("../../font/Pretendard/Pretendard-Thin.otf") format("otf");
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("../../font/Pretendard/Pretendard-SemiBold.otf") format("otf");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("../../font/Pretendard/Pretendard-Regular.otf") format("otf");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("../../font/Pretendard/Pretendard-Medium.otf") format("otf");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("../../font/Pretendard/Pretendard-Light.otf") format("otf");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("../../font/Pretendard/Pretendard-ExtraLight.otf") format("otf");
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("../../font/Pretendard/Pretendard-ExtraBold.otf") format("otf");
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("../../font/Pretendard/Pretendard-Bold.otf") format("otf");
+  font-weight: 700;
+}
+
+html, body, span, div, h1, h2, h3, h4{
+    font-family: "Pretendard", sans-serif;
+}
 
 body {
     margin: 0;
     display: flex;
     flex-direction: column;
-    font-family: Arial, sans-serif;
     height: 100vh;
 }
 
@@ -419,17 +475,18 @@ header {
     margin-bottom: 30px;
 }
 
-
-/* 중앙 콘텐츠 > 장비관리 > 추가 / 수정 / 상세 페이지 */
+/*
+    중앙 콘텐츠 > 선번장관리 > 추가 / 수정 / 상세 페이지
+    중앙 콘텐츠 > 장비관리 > 추가 / 수정 / 상세 페이지
+*/
+#main.rack,
 #main.equipment {
    display: flex;
    flex-direction: column;
 }
 
-#selection-equipment{
-    margin-bottom: 50px;
-}
-
+#section-rack-start-info,
+#section-rack-end-info,
 #section-equipment-basic-info,
 #section-equipment-category,
 #section-equipment-operation-info,
@@ -439,12 +496,15 @@ header {
 }
 
 /* h2 태그의 기본 스타일 */
+#section-rack-start-info h2,
+#section-rack-end-info h2,
 #section-equipment-basic-info h2,
 #section-equipment-category h2,
 #section-equipment-operation-info h2,
 #section-equipment-details h2 {
    font-size: 20px;
    margin-bottom: 10px;
+   font-family: "Pretendard", sans-serif;
 }
 
 #section-equipment-connection-info h2 {
@@ -452,6 +512,7 @@ header {
    margin: 0;
 }
 
+.section-rack-title,
 .section-equipment-title {
     margin: 0px 0px 10px 0px;
     display: flex;
@@ -459,13 +520,15 @@ header {
 }
 
 
-/* 각 equipment-wrap의 스타일 */
+/* 각 rack-wrap, equipment-wrap의 스타일 */
+.rack-wrap,
 .equipment-wrap {
    display: flex;
    flex-direction: row;
    margin-bottom: 10px;
 }
 
+.rack-item,
 .equipment-item {
     display: flex;
     flex-direction: row;
@@ -480,6 +543,7 @@ header {
 }
 
 /* 레이블 스타일 */
+.rack-wrap label,
 .equipment-wrap label {
    min-width: 150px;
    margin-right: 10px;
@@ -489,6 +553,10 @@ header {
 }
 
 /* 입력란 스타일 */
+.rack-wrap input[type="text"],
+.rack-wrap input[type="number"],
+.rack-wrap input[type="date"],
+.rack-wrap select,
 .equipment-wrap input[type="text"],
 .equipment-wrap input[type="number"],
 .equipment-wrap input[type="date"],
@@ -503,6 +571,10 @@ header {
    box-sizing: border-box;
 }
 
+.rack-wrap input[type="text"]:readonly,
+.rack-wrap input[type="number"]:readonly,
+.rack-wrap input[type="date"]:readonly,
+.rack-wrap select:read-only,
 .equipment-wrap input[type="text"]:read-only,
 .equipment-wrap input[type="number"]:read-only,
 .equipment-wrap input[type="date"]:read-only,

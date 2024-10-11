@@ -56,7 +56,7 @@ public class cableManageController {
      */
     @GetMapping("/create")
     public String register() {
-        return "views/cable/register";
+        return "views/cable/register2";
     }
 
     /**

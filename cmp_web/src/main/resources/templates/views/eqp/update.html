@@ -7,10 +7,9 @@
 <div layout:fragment="content">
     <main id="main" class="equipment">
 
-        <input type="hidden" id="eqp_manage_id" name="eqp_manage_id" th:value="${equipment.eqp_manage_id}"/>
-        <input type="hidden" id="categories" name="categories"/>
-
-        <section id="selection-equipment">
+        <div class="contentCard">
+            <input type="hidden" id="eqp_manage_id" name="eqp_manage_id" th:value="${equipment.eqp_manage_id}"/>
+            <input type="hidden" id="categories" name="categories"/>
 
             <!-- 장비분류 -->
             <div id="section-equipment-category">
@@ -274,7 +273,7 @@
                     <table id="eqpLinkTable"></table>
                 </div>
             </div>
-        </section>
+        </div>
 
         <div>
             <button type="button" onclick="saveData()">저장</button>

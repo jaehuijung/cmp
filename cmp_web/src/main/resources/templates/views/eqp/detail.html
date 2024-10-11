@@ -5,11 +5,11 @@
       layout:decorate="~{layouts/layout}">
 
 <div layout:fragment="content">
-    <main id="main" class="main">
+    <main id="main" class="equipment">
 
-        <input type="hidden" id="eqp_manage_id" name="eqp_manage_id" th:value="${equipment.eqp_manage_id}"/>
+        <div class="contentCard">
+            <input type="hidden" id="eqp_manage_id" name="eqp_manage_id" th:value="${equipment.eqp_manage_id}"/>
 
-        <section id="selection-equipment">
             <!-- 장비분류 -->
             <div id="section-equipment-category">
                 <div class="section-equipment-title">
@@ -26,11 +26,11 @@
                             <input type="text" id="asset_category" name="asset_category" th:value="${equipment.asset_category}" readonly/>
                         </div>
                         <div class="equipment-item">
-                            <label for="sub_category">자산세부분류:</label>
+                            <label for="sub_category">세부분류:</label>
                             <input type="text" id="sub_category" name="sub_category" th:value="${equipment.sub_category}" readonly/>
                         </div>
                         <div class="equipment-item">
-                            <label for="detail_category">자산상세분류:</label>
+                            <label for="detail_category">상세분류:</label>
                             <input type="text" id="detail_category" name="detail_category" th:value="${equipment.containsKey('detail_category')} ? ${equipment['detail_category']} : ''" readonly/>
                         </div>
                     </div>
@@ -234,7 +234,7 @@
                     <table id="eqpLinkTable"></table>
                 </div>
             </div>
-        </section>
+        </div>
 
         <div>
             <button type="button" onclick="updateData()">수정</button>
