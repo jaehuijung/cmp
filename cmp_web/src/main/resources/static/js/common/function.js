@@ -53,6 +53,38 @@ function back() {
 }
 
 
+/**
+    선번장관리 메뉴 공통
+*/
+
+// 선번장목록 > 추가/상세/수정 > 회선 > 회선구분, 회선속도, 회선색상 리스트
+function getSelectLink(){
+    $.ajax({
+        url: "/cable/rack/selectLink",
+        type: "post",
+        success: function (res) {
+            const categorySelect = $("#cable_category");
+            const category = res.category;
+            category.forEach(function(item) {
+                categorySelect.append(new Option(item.line_value, item.line_id));
+            });
+
+            const speedSelect = $("#cable_speed");
+            const speed    = res.speed;
+            speed.forEach(function(item) {
+                speedSelect.append(new Option(item.line_value, item.line_id));
+            });
+
+            const colorSelect = $("#cable_color");
+            const color    = res.color;
+            color.forEach(function(item) {
+                colorSelect.append(new Option(item.line_value, item.line_id));
+            });
+        },
+    });
+}
+
+
 
 /**
     장비관리 메뉴 공통
@@ -62,7 +94,7 @@ function back() {
 function getSelectConfig(){
     $.ajax({
         url: "/cable/eqp/selectConfig",
-        type: "GET",
+        type: "post",
         success: function (res) {
             const categorySelect = $("#config_id");
             categorySelect.empty();
@@ -94,7 +126,7 @@ function getSelectConfig(){
 function getSelectAsset(configValue){
     $.ajax({
         url: "/cable/eqp/selectAsset",
-        type: "GET",
+        type: "post",
         data: {config_id: configValue},
         success: function (res) {
             const assetSelect = $("#asset_id");
@@ -123,7 +155,7 @@ function getSelectAsset(configValue){
 function getSelectSub(assetValue){
     $.ajax({
         url: "/cable/eqp/selectSub",
-        type: "GET",
+        type: "post",
         data: {asset_id: assetValue},
         success: function (res) {
 
@@ -155,7 +187,7 @@ function getSelectSub(assetValue){
 function getSelectDetail(subValue){
     $.ajax({
         url: "/cable/eqp/selectDetail",
-        type: "GET",
+        type: "post",
         data: {sub_id: subValue},
         success: function (res) {
 
@@ -337,6 +369,7 @@ function getLabelForInput(input) {
 }
 
 
+///////
 function usrlogout() {
     let fchk = document.getElementById("logoutform");
     fchk.submit();

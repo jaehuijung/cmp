@@ -10,7 +10,7 @@ $(function(){
     getSelectConfig(); // 화면 렌더링 시 구성분류 선택박스 세팅
 
     // 장비분류 선택 시 선택박스 세팅
-    $(document).ready(function() {
+    // $(document).ready(function() {
         $('#config_id').change(function(){     // 구성분류 > 자산분류
             const configValue = $(this).val();
             getSelectAsset(configValue);
@@ -23,7 +23,7 @@ $(function(){
             const subValue = $(this).val();
             getSelectDetail(subValue);
         })
-    })
+    // })
 
     $('#eqpLinkTable').bootstrapTable({
         columns: eqpRegisterPortColumn

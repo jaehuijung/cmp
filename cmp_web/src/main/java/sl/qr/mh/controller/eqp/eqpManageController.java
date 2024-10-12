@@ -171,7 +171,7 @@ public class eqpManageController {
      * @return 장비분류 구성분류 리스트
      */
     @ResponseBody
-    @GetMapping("/selectConfig")
+    @PostMapping("/selectConfig")
     public Map<String, Object> getSelectConfigData() {
         return eqpManageService.getSelectConfigData();
     }
@@ -183,7 +183,7 @@ public class eqpManageController {
      */
 
     @ResponseBody
-    @GetMapping("/selectAsset")
+    @PostMapping("/selectAsset")
     public Map<String, Object> getSelectAssetData(@RequestParam Map<String, Object> paramMap) {
         return eqpManageService.getSelectAssetData(paramMap);
     }
@@ -194,7 +194,7 @@ public class eqpManageController {
      * @return 장비분류 자산세부분류 리스트
      */
     @ResponseBody
-    @GetMapping("/selectSub")
+    @PostMapping("/selectSub")
     public Map<String, Object> getSelectSubData(@RequestParam Map<String, Object> paramMap) {
         return eqpManageService.getSelectSubData(paramMap);
     }
@@ -205,7 +205,7 @@ public class eqpManageController {
      * @return 장비분류 자산상세분류 리스트
      */
     @ResponseBody
-    @GetMapping("/selectDetail")
+    @PostMapping("/selectDetail")
     public Map<String, Object> getSelectDetailData(@RequestParam Map<String, Object> paramMap) {
         return eqpManageService.getSelectDetailData(paramMap);
     }

@@ -57,4 +57,37 @@ public class cableManageService {
 
 		return returnMap;
 	}
+
+	public Map<String, Object> getRackLinkList(){
+		Map<String, Object> returnMap = new HashMap<>();
+		returnMap.put("errorCode", false);
+
+		try{
+			Map<String, Object> paramMap = new HashMap<>();
+
+			paramMap.put("lineCategory", "1");
+			List<Map<String, Object>> category = cableMapper.getRackLinkList(paramMap);
+			paramMap.put("lineCategory", "2");
+			List<Map<String, Object>> speed    = cableMapper.getRackLinkList(paramMap);
+			paramMap.put("lineCategory", "3");
+			List<Map<String, Object>> color    = cableMapper.getRackLinkList(paramMap);
+
+			returnMap.put("category", category);
+			returnMap.put("speed", speed);
+			returnMap.put("color", color);
+
+			returnMap.put("errorCode", true);
+		} catch (Exception e){
+			log.error(e.getMessage());
+		}
+
+		return returnMap;
+	}
+
+	public Map<String, Object> insertCableList(Map<String, Object> paramMap){
+		Map<String, Object> returnMap = new HashMap<>();
+		returnMap.put("errorCode", false);
+
+		return returnMap;
+	}
 }

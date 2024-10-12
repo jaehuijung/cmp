@@ -20,7 +20,7 @@
             seb.model_name s_model_name,                                    /* 모델명 */
             seb.host_name s_host_name,                                      /* 호스트명 */
             seb.m_company s_m_company,                                      /* 제조사 */
-            null s_port,                                                    /* 포트번호 */
+            cb.start_eqp_port s_port,                                       /* 포트번호 */
             seb.primary_operator s_primary_operator,                        /* 운영담당자 */
             seb.primary_outsourced_operator s_primary_outsourced_operator,  /* 위탁운영담당자 */
             /* 목적지 */
@@ -32,7 +32,7 @@
             eeb.model_name e_model_name,                                    /* 모델명 */
             eeb.host_name e_host_name,                                      /* 호스트명 */
             eeb.m_company e_m_company,                                      /* 제조사 */
-            null e_port,                                                    /* 포트번호 */
+            cb.end_eqp_port e_port,                                         /* 포트번호 */
             eeb.primary_operator e_primary_operator,                        /* 운영담당자 */
             eeb.primary_outsourced_operator e_primary_outsourced_operator,  /* 위탁운영담당자 */
             /* 선번장 회선 */
@@ -146,7 +146,7 @@
             and eb.asset_id = ec.asset_id
             and eb.sub_id = ec.sub_id
             and eb.detail_id = ec.detail_id
-        ORDER BY eb.eqp_manage_id desc
+        ORDER BY eb.eqp_manage_id desc, el.port
         LIMIT #{offset},#{limit};
     </select>
 
@@ -172,5 +172,17 @@
             and eb.detail_id = ec.detail_id
     </select>
 
+    <select id="getRackLinkList" parameterType="map" resultType="map">
+        /** getRackLinkList ...
+        선번장관리 > 선번장목록 > 추가 > 회선구분, 회선속도, 회선색상 리스트 */
+        select
+            line_id, line_value
+        from
+            cable_line
+        where
+            line_category = #{lineCategory}
+        order by
+            line_id
+    </select>
 
 </mapper>

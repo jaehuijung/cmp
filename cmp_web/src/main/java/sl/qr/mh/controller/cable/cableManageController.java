@@ -56,7 +56,7 @@ public class cableManageController {
      */
     @GetMapping("/create")
     public String register() {
-        return "views/cable/register2";
+        return "views/cable/register";
     }
 
     /**
@@ -66,8 +66,14 @@ public class cableManageController {
      */
     @ResponseBody
     @PostMapping("/rackEquipmentList")
-    public Map<String, Object> rackEquipmentList(@RequestBody Map<String, Object> paramMap) {
+    public Map<String, Object> getRackEquipmentList(@RequestBody Map<String, Object> paramMap) {
         return cableManageService.getRackEquipmentList(paramMap);
+    }
+
+    @ResponseBody
+    @PostMapping("/selectLink")
+    public Map<String, Object> getRackLinkList() {
+        return cableManageService.getRackLinkList();
     }
 
     /**
@@ -76,11 +82,10 @@ public class cableManageController {
      *
      * @return 선번장 저장 결과
      */
-    @PostMapping("/insert")
-    public String insert(Cable vo, HttpServletRequest request) {
-        // cableservice.insertCable(vo);
-
-        return "views/cable/view";
+    @ResponseBody
+    @PostMapping("/saveCableInfo")
+    public Map<String, Object> saveCableInfo(@RequestBody Map<String, Object> paramMap) {
+         return cableManageService.insertCableList(paramMap);
     }
 
 
