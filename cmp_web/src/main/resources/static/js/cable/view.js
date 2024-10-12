@@ -1,6 +1,6 @@
 
 // cable table column creation function
-function createColumn(field, checkbox = false, title, type = 'default', formatter = null, visible = true) {
+function createColumn(field, checkbox = false, title, type = 'default') {
     let column = {
         title: title,
         field: field,
@@ -9,18 +9,20 @@ function createColumn(field, checkbox = false, title, type = 'default', formatte
         checkbox: checkbox
     };
 
-    if (formatter) {
-        column.formatter = formatter;
-    }
-
     if (type === 'underline') {
         column.class = 'nowrap underline';
-    } else {
-        column.class = 'nowrap';
     }
-
-    if (!visible) {
-        column.visible = visible;
+    else if (type === 'visible') {
+        column.visible = false;
+    }
+    else if(type === 'formatter'){
+        column.formatter = function(value, row, index) {
+            let tableOptions = $('#cableTable').bootstrapTable('getOptions');
+            return tableOptions.totalRows - ((tableOptions.pageNumber - 1) * tableOptions.pageSize) - index;
+        };
+    }
+    else {
+        column.class = 'nowrap';
     }
 
     return column;
@@ -36,12 +38,9 @@ let columns = [
     ],
     [
         // 구분
-        createColumn('cable_manage_id', false, '케이블 관리번호', "", "", false),
+        createColumn('cable_manage_id', false, '케이블 관리번호', "visible"),
         createColumn('', true, ''),
-        createColumn('no', false, 'no', function(value, row, index) {
-            let tableOptions = $('#cableTable').bootstrapTable('getOptions');
-            return tableOptions.totalRows - ((tableOptions.pageNumber - 1) * tableOptions.pageSize) - index;
-        }),
+        createColumn('no', false, 'no', 'formatter'),
 
         // 출발지
         createColumn('s_asset_category',              false, '자산분류'),

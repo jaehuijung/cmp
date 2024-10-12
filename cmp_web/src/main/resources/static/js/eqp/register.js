@@ -10,20 +10,18 @@ $(function(){
     getSelectConfig(); // 화면 렌더링 시 구성분류 선택박스 세팅
 
     // 장비분류 선택 시 선택박스 세팅
-    // $(document).ready(function() {
-        $('#config_id').change(function(){     // 구성분류 > 자산분류
-            const configValue = $(this).val();
-            getSelectAsset(configValue);
-        })
-        $('#asset_id').change(function(){      // 자산분류 > 자산세부분류
-            const assetValue = $(this).val();
-            getSelectSub(assetValue);
-        })
-        $('#sub_id').change(function(){        // 자산세부분류 > 자산상세분류
-            const subValue = $(this).val();
-            getSelectDetail(subValue);
-        })
-    // })
+    $('#config_id').change(function(){     // 구성분류 > 자산분류
+        const configValue = $(this).val();
+        getSelectAsset(configValue);
+    })
+    $('#asset_id').change(function(){      // 자산분류 > 자산세부분류
+        const assetValue = $(this).val();
+        getSelectSub(assetValue);
+    })
+    $('#sub_id').change(function(){        // 자산세부분류 > 자산상세분류
+        const subValue = $(this).val();
+        getSelectDetail(subValue);
+    })
 
     $('#eqpLinkTable').bootstrapTable({
         columns: eqpRegisterPortColumn

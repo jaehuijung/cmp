@@ -84,9 +84,21 @@ public class cableManageService {
 		return returnMap;
 	}
 
-	public Map<String, Object> insertCableList(Map<String, Object> paramMap){
+	public Map<String, Object> saveCableInfo(Map<String, Object> paramMap){
 		Map<String, Object> returnMap = new HashMap<>();
 		returnMap.put("errorCode", false);
+		try{
+			String cableManageId = paramMap.get("cable_installation_year").toString();
+			paramMap.put("cableManageId", cableManageId.replaceAll("-", ""));
+
+			cableManageId = cableMapper.generateCableManageId(paramMap);
+			paramMap.put("cableManageId", cableManageId);
+
+			cableMapper.saveCableInfo(paramMap);
+			returnMap.put("errorCode", true);
+		} catch (Exception e){
+			log.error(e.getMessage());
+		}
 
 		return returnMap;
 	}

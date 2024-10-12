@@ -28,34 +28,35 @@ function createColumn(field, checkbox = false, title, type = 'default', formatte
 
 let rackStartColumn = [
     createColumn('',                              true,  ''),
-    createColumn('asset_category',              false, '자산분류'),
-    createColumn('installation_coordinates',    false, '설치좌표'),
     createColumn('eqp_manage_id',               false, '관리 id', 'underline'),
     createColumn('eqp_name',                    false, '구성자원명', 'underline'),
+    createColumn('port',                        false, '포트번호'),
+    createColumn('asset_category',              false, '자산분류'),
+    createColumn('installation_coordinates',    false, '설치좌표'),
     createColumn('model_name',                  false, '모델명'),
     createColumn('host_name',                   false, '호스트명'),
     createColumn('m_company',                   false, '제조사'),
-    createColumn('port',              false, '포트번호'),
     createColumn('primary_operator',            false, '운영담당자'),
     createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
 ];
 
 let rackEndColumn = [
     createColumn('',                              true,  ''),
-    createColumn('asset_category',              false, '자산분류'),
-    createColumn('installation_coordinates',    false, '설치좌표'),
     createColumn('eqp_manage_id',               false, '관리 id', 'underline'),
     createColumn('eqp_name',                    false, '구성자원명', 'underline'),
+    createColumn('port',                        false, '포트번호'),
+    createColumn('asset_category',              false, '자산분류'),
+    createColumn('installation_coordinates',    false, '설치좌표'),
     createColumn('model_name',                  false, '모델명'),
     createColumn('host_name',                   false, '호스트명'),
     createColumn('m_company',                   false, '제조사'),
-    createColumn('port',                false, '포트번호'),
     createColumn('primary_operator',            false, '운영담당자'),
     createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
 ];
 
 $(function(){
 
+    setDefaultDates(); // 화면 렌더링 시 날짜 컬럼들 현재날짜로 세팅
     getSelectLink(); // 화면 렌더링 시 회선 선택박스 세팅
 
     $('#rackStartTable').bootstrapTable({
@@ -146,6 +147,20 @@ $(function(){
 
 });
 
+/**
+ * 선번장관리 > 선번장목록 > 추가
+ * 맨 처음 페이지 렌더링 될 때 날짜 항목들 현재값으로 설정
+ */
+function setDefaultDates() {
+    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD 형식의 현재 날짜
+
+    ['cable_installation_year'].forEach(id => {
+        const element = document.getElementById(id);
+        if (!element.value) {
+            element.value = today;
+        }
+    });
+}
 
 /**
  * 선번장관리 > 선번장목록 > 추가 > 저장버튼
@@ -206,10 +221,48 @@ function saveData() {
 
     data["rackStartId"]    = rack_start_id;
     data["rackEndId"]      = rack_end_id;
+    data["rackStartPort"]  = rack_start_port;
+    data["rackEndPort"]    = rack_end_port;
     data["cable_category"] = cable_category;
     data["cable_speed"]    = cable_speed;
     data["cable_color"]    = cable_color;
+    data["cable_installation_year"] = $("#cable_installation_year").val();
 
-    console.log(data)
+    Swal.fire({
+        title: '알림',
+        html : '저장하시겠습니까?',
+        icon : 'info',
+        focusConfirm: false,
+        confirmButtonText: '저장',
+        cancelButtonText: '취소',
+        showCancelButton: true,
+        customClass: {
+            popup: 'custom-width'
+        },
+    }).then((result) => {
+        if (result.isConfirmed) {
+            alert3("save");
+
+            $.ajax({
+                type: "POST",
+                url: "/cable/rack/saveCableInfo",
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                success: function(res) {
+                    alert3Close();
+                    if(!res.errorCode){
+                        alert2("알림", "저장 중 오류가 발생했습니다. <br>관리자에게 문의하세요", "error", "확인");
+                    }
+                    else{
+                        alert2("알림", "저장되었습니다.", "info", "확인", back);
+                    }
+
+                },
+                error: function(error) {
+                    alert2("알림", "저장 중 오류가 발생했습니다. <br>관리자에게 문의하세요", "error", "확인");
+                }
+            });
+        }
+    })
 
 }

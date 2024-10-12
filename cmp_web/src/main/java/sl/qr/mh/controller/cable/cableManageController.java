@@ -85,7 +85,7 @@ public class cableManageController {
     @ResponseBody
     @PostMapping("/saveCableInfo")
     public Map<String, Object> saveCableInfo(@RequestBody Map<String, Object> paramMap) {
-         return cableManageService.insertCableList(paramMap);
+         return cableManageService.saveCableInfo(paramMap);
     }
 
 

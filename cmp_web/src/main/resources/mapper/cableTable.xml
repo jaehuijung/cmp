@@ -36,16 +36,16 @@
             eeb.primary_operator e_primary_operator,                        /* 운영담당자 */
             eeb.primary_outsourced_operator e_primary_outsourced_operator,  /* 위탁운영담당자 */
             /* 선번장 회선 */
-            cb.cable_speed ,    /* 회선속도 */
-            cb.cable_category , /* 회선구분 */
-            cb.cable_color      /* 회선색상 */
+            clctg.line_value cable_category,    /* 회선구분 */
+            clspd.line_value cable_speed,       /* 회선속도 */
+            clclr.line_value cable_color        /* 회선색상 */
         from
-            cable_basic cb
+            cable_basic cb /* 선번장 정보 */
         join
-            equipment_basic seb
+            equipment_basic seb /* 출발지 기본정보 */
             on cb.start_eqp_id = seb.eqp_manage_id
         join
-            equipment_detail sed
+            equipment_detail sed /* 출발지 상세정보 */
             on seb.eqp_manage_id = sed.eqp_manage_id
         join (
                 select
@@ -54,13 +54,13 @@
                     equipment_categories
                 group by
                     asset_id , asset_category
-            ) sec
+            ) sec /* 출발지 연결정보 */
             on seb.asset_id = sec.asset_id
         join
-            equipment_basic eeb
+            equipment_basic eeb /* 목적지 기본정보 */
             on cb.end_eqp_id = eeb.eqp_manage_id
         join
-            equipment_detail eed
+            equipment_detail eed /* 목적지 상세정보 */
             on eeb.eqp_manage_id = eed.eqp_manage_id
         join (
                 select
@@ -69,8 +69,17 @@
                     equipment_categories
                 group by
                     asset_id , asset_category
-            ) eec
+            ) eec /* 목적지 연결정보 */
             on eeb.asset_id = eec.asset_id
+        join
+            cable_line clctg /* 회선구분 */
+            on clctg.line_category = 1 and cb.cable_category = clctg.line_id
+        join
+            cable_line clspd /* 회선속도 */
+            on clspd.line_category = 2 and cb.cable_speed = clspd.line_id
+        join
+            cable_line clclr /* 회선색상 */
+            on clclr.line_category = 3 and cb.cable_color = clclr.line_id
         ORDER BY cb.cable_manage_id desc
         LIMIT #{offset},#{limit};
     </select>
@@ -81,42 +90,51 @@
         select
             count(cb.cable_manage_id)
         from
-            cable_basic cb
+            cable_basic cb /* 선번장 정보 */
         join
-            equipment_basic seb
+            equipment_basic seb /* 출발지 기본정보 */
             on cb.start_eqp_id = seb.eqp_manage_id
         join
-            equipment_detail sed
+            equipment_detail sed /* 출발지 상세정보 */
             on seb.eqp_manage_id = sed.eqp_manage_id
         join (
-                select
-                    asset_id , asset_category
-                from
-                    equipment_categories
-                group by
-                    asset_id , asset_category
-            ) sec
+            select
+                asset_id , asset_category
+            from
+                equipment_categories
+            group by
+                asset_id , asset_category
+            ) sec /* 출발지 연결정보 */
             on seb.asset_id = sec.asset_id
         join
-            equipment_basic eeb
+            equipment_basic eeb /* 목적지 기본정보 */
             on cb.end_eqp_id = eeb.eqp_manage_id
         join
-            equipment_detail eed
+            equipment_detail eed /* 목적지 상세정보 */
             on eeb.eqp_manage_id = eed.eqp_manage_id
         join (
-                select
-                    asset_id , asset_category
-                from
-                    equipment_categories
-                group by
-                    asset_id , asset_category
-            ) eec
+            select
+                asset_id , asset_category
+            from
+                equipment_categories
+            group by
+                asset_id , asset_category
+            ) eec /* 목적지 연결정보 */
             on eeb.asset_id = eec.asset_id
+        join
+            cable_line clctg /* 회선구분 */
+            on clctg.line_category = 1 and cb.cable_category = clctg.line_id
+        join
+            cable_line clspd /* 회선속도 */
+            on clspd.line_category = 2 and cb.cable_speed = clspd.line_id
+        join
+            cable_line clclr /* 회선색상 */
+            on clclr.line_category = 3 and cb.cable_color = clclr.line_id
     </select>
 
     <select id="getRackEquipmentList" parameterType="map" resultType="map">
         /** getRackEquipmentList ...
-            선번장관리 > 선번장목록 > 추가 > 출발지, 목적지 리스트 */
+            선번장관리 > 선번장목록 > 추가 페이지 > 출발지, 목적지 리스트 */
         select
             eb.eqp_manage_id , /* 관리번호 */
             eb.eqp_name , /* 구성자원명 */
@@ -152,7 +170,7 @@
 
     <select id="getRackEquipmentListCnt" parameterType="map" resultType="int">
         /** getRackEquipmentListCnt ...
-            선번장관리 > 선번장목록 > 추가 > 출발지, 목적지 리스트 개수 */
+            선번장관리 > 선번장목록 > 추가 페이지 > 출발지, 목적지 리스트 개수 */
         select
             count(eb.eqp_manage_id)
         from
@@ -184,5 +202,45 @@
         order by
             line_id
     </select>
+
+    <select id="generateCableManageId" parameterType="map" resultType="String">
+        SELECT
+            CONCAT(#{cableManageId}, '-', LPAD(IFNULL(MAX(CAST(SUBSTRING(cable_manage_id, -4) AS UNSIGNED)) + 1, 1), 4, '0')) AS next_id
+        FROM
+            cable_basic
+        WHERE
+            cable_manage_id LIKE CONCAT(#{cableManageId}, '-%')
+    </select>
+
+    <insert id="saveCableInfo" parameterType="map">
+        insert into cable_basic(
+            cable_manage_id,
+            start_eqp_id,
+            end_eqp_id,
+            cable_speed,
+            cable_category,
+            cable_color,
+            start_eqp_port,
+            end_eqp_port,
+            installation_year,
+            created_at,
+            updated_at,
+            is_deleted
+        )
+        values(
+            #{cableManageId},
+            #{rackStartId},
+            #{rackEndId},
+            #{cable_speed},
+            #{cable_category},
+            #{cable_color},
+            #{rackStartPort},
+            #{rackEndPort},
+            #{cable_installation_year},
+            NOW(),
+            NULL,
+            'N'
+        )
+    </insert>
 
 </mapper>
