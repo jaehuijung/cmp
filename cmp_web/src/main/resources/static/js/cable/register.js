@@ -244,29 +244,20 @@ function saveData() {
     let isValid = true;
     let errorMessage = "";
 
-
     // 출발지
-    const rackStartData = $("#rackStartTable").bootstrapTable('getSelections');
+    const rackStartData = $("#rackSelectTable").bootstrapTable("getData")[0];
+    const rack_start_id  = rackStartData.s_eqp_manage_id;
     // 목적지
-    const rackEndData = $("#rackEndTable").bootstrapTable('getSelections');
+    const rackEndData   = $("#rackSelectTable").bootstrapTable("getData")[0];
+    const rack_end_id    = rackEndData.e_eqp_manage_id;
 
-    if(rackStartData.length == 0){
+    if(rack_start_id === ""){
         errorMessage += `출발지 장비를 한 개 이상 선택해야 합니다.</br>`;
         isValid = false;
     }
 
-    if(rackStartData.length > 1){
-        errorMessage += `출발지는 하나의 장비만 선택되어야 합니다.</br>`;
-        isValid = false;
-    }
-
-    if(rackEndData.length == 0){
+    if(rack_end_id === ""){
         errorMessage += `목적지 장비를 한 개 이상 선택해야 합니다.</br>`;
-        isValid = false;
-    }
-
-    if(rackEndData.length > 1){
-        errorMessage += `목적지는 하나의 장비만 선택되어야 합니다.</br>`;
         isValid = false;
     }
 
@@ -275,11 +266,8 @@ function saveData() {
         return;
     }
 
-    const rack_start_id  = $("#rackStartTable").bootstrapTable('getSelections')[0].eqp_manage_id;
-    const rack_start_port = $("#rackStartTable").bootstrapTable('getSelections')[0].port;
-    const rack_end_id    = $("#rackEndTable").bootstrapTable('getSelections')[0].eqp_manage_id;
-    const rack_end_port   = $("#rackEndTable").bootstrapTable('getSelections')[0].port;
-
+    const rack_start_port = rackStartData.s_port;
+    const rack_end_port   = rackEndData.e_port;
 
     if ((rack_start_id === rack_end_id) && (rack_start_port == rack_end_port)){
         errorMessage += `출발지와 목적지 장비는 같을 수 없습니다.</br>`;
