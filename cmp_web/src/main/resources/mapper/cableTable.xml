@@ -192,7 +192,7 @@
 
     <select id="getRackLinkList" parameterType="map" resultType="map">
         /** getRackLinkList ...
-        선번장관리 > 선번장목록 > 추가 > 회선구분, 회선속도, 회선색상 리스트 */
+            선번장관리 > 선번장목록 > 추가 페이지 > 회선구분, 회선속도, 회선색상 리스트 */
         select
             line_id, line_value
         from
@@ -204,6 +204,9 @@
     </select>
 
     <select id="generateCableManageId" parameterType="map" resultType="String">
+        /* generateCableManageId...
+            선번장관리 > 선번장목록 > 추가 페이지 > 저장 > 선번장 관리번호 생성
+        */
         SELECT
             CONCAT(#{cableManageId}, '-', LPAD(IFNULL(MAX(CAST(SUBSTRING(cable_manage_id, -4) AS UNSIGNED)) + 1, 1), 4, '0')) AS next_id
         FROM
@@ -213,6 +216,9 @@
     </select>
 
     <insert id="saveCableInfo" parameterType="map">
+        /* saveCableInfo...
+            선번장관리 > 선번장목록 > 추가 페이지 > 저장 > 선번장 정보 저장
+        */
         insert into cable_basic(
             cable_manage_id,
             start_eqp_id,
@@ -242,5 +248,94 @@
             'N'
         )
     </insert>
+
+    <select id="getCableDetailLinkList" parameterType="String" resultType="map">
+        /* getCableDetailTotalList...
+            선번장관리 > 선번장목록 > 수정 / 상세 페이지 > 선번장 정보 (포설년도, 회선정보)
+        */
+        select
+            cb.cable_manage_id,
+            cb.installation_year cable_installation_year,
+            clctg.line_value cable_category,
+            clspd.line_value cable_speed,
+            clclr.line_value cable_color
+        from
+            cable_basic cb
+        join
+            cable_line clctg
+            on clctg.line_category = 1 and cb.cable_category = clctg.line_id
+        join
+            cable_line clspd
+            on clspd.line_category = 2 and cb.cable_speed = clspd.line_id
+        join
+            cable_line clclr
+            on clclr.line_category = 3 and cb.cable_color = clclr.line_id
+        where
+            cable_manage_id = #{cable_manage_id}
+    </select>
+
+    <select id="getCableDetailTotalList" parameterType="String" resultType="map">
+        /* getCableDetailTotalList...
+        선번장관리 > 선번장목록 > 수정 / 상세 페이지 > 선번장 정보 (포설년도, 회선정보)
+        */
+        select
+            cb.cable_manage_id, /* 선번장 관리번호 */
+            /* 출발지 */
+            seb.eqp_manage_id s_eqp_manage_id,                              /* 관리번호 */
+            seb.eqp_name s_eqp_name ,                                       /* 구성자원명 */
+            cb.start_eqp_port s_port,                                       /* 포트번호 */
+            sec.asset_category s_asset_category  ,                          /* 출발지 자산 카테고리 */
+            sed.installation_coordinates s_installation_coordinates,        /* 설치좌표 */
+            seb.model_name s_model_name,                                    /* 모델명 */
+            seb.host_name s_host_name,                                      /* 호스트명 */
+            seb.m_company s_m_company,                                      /* 제조사 */
+            seb.primary_operator s_primary_operator,                        /* 운영담당자 */
+            seb.primary_outsourced_operator s_primary_outsourced_operator,  /* 위탁운영담당자 */
+            /* 목적지 */
+            eeb.eqp_manage_id e_eqp_manage_id,                              /* 관리번호 */
+            eeb.eqp_name e_eqp_name ,                                       /* 구성자원명 */
+            cb.end_eqp_port e_port,                                         /* 포트번호 */
+            eec.asset_category e_asset_category,                            /* 목적지 자산 카테고리 */
+            eed.installation_coordinates e_installation_coordinates,        /* 설치좌표 */
+            eeb.model_name e_model_name,                                    /* 모델명 */
+            eeb.host_name e_host_name,                                      /* 호스트명 */
+            eeb.m_company e_m_company,                                      /* 제조사 */
+            eeb.primary_operator e_primary_operator,                        /* 운영담당자 */
+            eeb.primary_outsourced_operator e_primary_outsourced_operator   /* 위탁운영담당자 */
+        from
+            cable_basic cb /* 선번장 정보 */
+        join
+            equipment_basic seb /* 출발지 기본정보 */
+            on cb.start_eqp_id = seb.eqp_manage_id
+        join
+            equipment_detail sed /* 출발지 상세정보 */
+            on seb.eqp_manage_id = sed.eqp_manage_id
+        join (
+                select
+                    asset_id , asset_category
+                from
+                    equipment_categories
+                group by
+                    asset_id , asset_category
+            ) sec /* 출발지 연결정보 */
+            on seb.asset_id = sec.asset_id
+        join
+            equipment_basic eeb /* 목적지 기본정보 */
+            on cb.end_eqp_id = eeb.eqp_manage_id
+        join
+            equipment_detail eed /* 목적지 상세정보 */
+            on eeb.eqp_manage_id = eed.eqp_manage_id
+        join (
+            select
+                asset_id , asset_category
+            from
+                equipment_categories
+            group by
+                asset_id , asset_category
+            ) eec /* 목적지 연결정보 */
+            on eeb.asset_id = eec.asset_id
+        where
+            cable_manage_id = #{cable_manage_id}
+    </select>
 
 </mapper>

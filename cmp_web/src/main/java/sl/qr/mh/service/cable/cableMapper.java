@@ -28,5 +28,10 @@ public interface cableMapper {
 
 	// 선번장관리 > 선번장목록 > 추가 > 선번장 정보 저장
 	public void saveCableInfo(Map<String, Object> paramMap);
-	
+
+	// 선번장관리 > 선번장목록 > 수정/상세 > 선번장 상세 정보 (포설년도, 회선정보)
+	public Map<String, Object> getCableDetailLinkList(String cableManageId);
+
+	// 선번장관리 > 선번장목록 > 수정/상세 > 선택된 선번장 구성 데이터 (출발지, 목적지)
+	public List<Map<String, Object>> getCableDetailTotalList(Map<String, Object> paramMap);
 }

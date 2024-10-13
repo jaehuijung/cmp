@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import sl.qr.mh.service.cable.cableManageService;
 import sl.qr.mh.vo.Cable;
@@ -37,8 +38,7 @@ public class cableManageController {
     }
     
     /**
-     * 선번장관리 > 선번장목록
-     * 선번장 목록 데이터 
+     * 선번장관리 > 선번장목록 > 선번장 목록 데이터
      *
      * @param paramMap 요청 파라미터 맵
      * @return 선번장 목록 데이터 및 기타 메타 정보
@@ -55,14 +55,14 @@ public class cableManageController {
      * @return 선번장 추가 뷰 페이지
      */
     @GetMapping("/create")
-    public String register() {
+    public String createCablePage() {
         return "views/cable/register";
     }
 
     /**
-     * 선번장관리 > 선번장목록 > 추가
+     * 선번장관리 > 선번장목록 > 추가/수정 > 출발지, 목적지 장비 리스트
      *
-     * @return 선번장 추가 뷰 페이지
+     * @return 장비 리스트
      */
     @ResponseBody
     @PostMapping("/rackEquipmentList")
@@ -70,6 +70,11 @@ public class cableManageController {
         return cableManageService.getRackEquipmentList(paramMap);
     }
 
+    /**
+     * 선번장관리 > 선번장목록 > 추가 / 수정 > 회선정보 리스트
+     *
+     * @return 회선정보 리스트
+     */
     @ResponseBody
     @PostMapping("/selectLink")
     public Map<String, Object> getRackLinkList() {
@@ -88,5 +93,31 @@ public class cableManageController {
          return cableManageService.saveCableInfo(paramMap);
     }
 
+    /**
+     * 선번장관리 > 선번장목록 > 상세
+     *
+     * @return 선번장 상세 뷰 페이지
+     */
+    @GetMapping("/detail/{id}")
+    public String detailCablePage(@PathVariable("id") String cable_manage_id, Model model) {
+        Map<String, Object> result = cableManageService.getEquipmentDetailTotalList(cable_manage_id);
+        if((boolean) result.get("errorCode")){
+            model.addAttribute("cable", result.get("selectData"));
+            return "views/cable/detail";
+        }
+        else{
+            return "views/error/error";
+        }
+    }
 
+    /**
+     * 선번장관리 > 선번장목록 > 수정/상세 > 선택된 선번장 구성 데이터 (출발지, 목적지)
+     * 
+     * @return 선번장 구성 데이터
+     */
+    @ResponseBody
+    @PostMapping("/getCableDetailInfo")
+    public Map<String, Object> getCableDetailInfo(@RequestBody Map<String, Object> paramMap) {
+        return cableManageService.getCableDetailInfo(paramMap);
+    }
 }

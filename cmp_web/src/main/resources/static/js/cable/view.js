@@ -140,7 +140,7 @@ function cableCreate(){
 
 // 선번장관리 > 선번장목록 > 선번장상세 페이지 이동
 function rackDetail(id){
-    const url = `/cable/rack/create`;
+    const url = `/cable/rack/detail/${id}`;
     window.location.href = url;
 }
 
