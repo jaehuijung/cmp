@@ -134,12 +134,20 @@ $(function(){
                             field: 'eqp_manage_id',
                             values: [selectedStartRow.eqp_manage_id]
                         });
+
+
+                        // 기존 선택된 행의 클래스 제거
+                        $('#rackStartTable').find('tr[data-index="' + $('#rackStartTable').bootstrapTable('getData').indexOf(selectedStartRow) + '"]').removeClass('selected-row');
                     }
                     selectedStartRow = row;
                     $('#rackStartTable').bootstrapTable('checkBy', {
                         field: 'eqp_manage_id',
                         values: [selectedStartRow.eqp_manage_id]
                     });
+
+                    // 새로운 선택된 행에 클래스 추가
+                    $('#rackStartTable').find('tr[data-index="' + $('#rackStartTable').bootstrapTable('getData').indexOf(selectedStartRow) + '"]').addClass('selected-row');
+
                     updateSelectTable();
                 }
             }
@@ -183,14 +191,21 @@ $(function(){
                     if (selectedEndRow) {
                         $('#rackEndTable').bootstrapTable('uncheckBy', {
                             field: 'eqp_manage_id',
-                            values: [selectedStartRow.eqp_manage_id]
+                            values: [selectedEndRow.eqp_manage_id]
                         });
+
+                        // 기존 선택된 행의 클래스 제거
+                        $('#rackEndTable').find('tr[data-index="' + $('#rackEndTable').bootstrapTable('getData').indexOf(selectedEndRow) + '"]').removeClass('selected-row');
                     }
                     selectedEndRow = row;
                     $('#rackEndTable').bootstrapTable('checkBy', {
                         field: 'eqp_manage_id',
                         values: [selectedEndRow.eqp_manage_id]
                     });
+
+                    // 새로운 선택된 행에 클래스 추가
+                    $('#rackEndTable').find('tr[data-index="' + $('#rackEndTable').bootstrapTable('getData').indexOf(selectedEndRow) + '"]').addClass('selected-row');
+
                     updateSelectTable();
                 }
             }

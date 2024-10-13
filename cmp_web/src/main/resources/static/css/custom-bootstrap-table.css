@@ -39,7 +39,7 @@ tr:hover {
 }
 
 .selected-row {
-    background-color: #CCE5FF;
+    background-color: #CCE5FF !important;
 }
 
 
