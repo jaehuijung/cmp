@@ -46,6 +46,50 @@ let rackEndColumn = [
     // createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
 ];
 
+let rackSelectColumn = [
+    [
+        { title: '출발지', align: 'center', valign: 'middle', colspan: 6 },
+        { title: '목적지', align: 'center', valign: 'middle', colspan: 6 },
+    ],
+    [
+        createColumn('s_eqp_manage_id', false, '관리번호'),
+        createColumn('s_eqp_name', false, '구성자원명'),
+        createColumn('s_port', false, '포트번호'),
+        createColumn('s_asset_category', false, '자산분류'),
+        createColumn('s_installation_coordinates', false, '설치좌표'),
+        createColumn('s_model_name', false, '모델명'),
+
+        createColumn('e_eqp_manage_id', false, '관리번호'),
+        createColumn('e_eqp_name', false, '구성자원명'),
+        createColumn('e_port', false, '포트번호'),
+        createColumn('e_asset_category', false, '자산분류'),
+        createColumn('e_installation_coordinates', false, '설치좌표'),
+        createColumn('e_model_name', false, '모델명'),
+    ]
+];
+
+let selectedStartRow = null;
+let selectedEndRow = null;
+
+function updateSelectTable() {
+    let data = [{
+        s_eqp_manage_id: selectedStartRow ? selectedStartRow.eqp_manage_id : "",
+        s_eqp_name: selectedStartRow ? selectedStartRow.eqp_name : "",
+        s_port: selectedStartRow ? selectedStartRow.port : "",
+        s_asset_category: selectedStartRow ? selectedStartRow.asset_category : "",
+        s_installation_coordinates: selectedStartRow ? selectedStartRow.installation_coordinates : "",
+        s_model_name: selectedStartRow ? selectedStartRow.model_name : "",
+        e_eqp_manage_id: selectedEndRow ? selectedEndRow.eqp_manage_id : "",
+        e_eqp_name: selectedEndRow ? selectedEndRow.eqp_name : "",
+        e_port: selectedEndRow ? selectedEndRow.port : "",
+        e_asset_category: selectedEndRow ? selectedEndRow.asset_category : "",
+        e_installation_coordinates: selectedEndRow ? selectedEndRow.installation_coordinates : "",
+        e_model_name: selectedEndRow ? selectedEndRow.model_name : ""
+    }];
+
+    $('#rackSelectTable').bootstrapTable('load', data);
+}
+
 $(function(){
 
     setDefaultDates(); // 화면 렌더링 시 날짜 컬럼들 현재날짜로 세팅
@@ -81,14 +125,22 @@ $(function(){
         },
         onClickCell: function(field, value, row, $element) {
             if (!$element.hasClass("bs-checkbox")) {
-                if((field == 'eqp_manage_id' || field == 'eqp_name')){
-                    // rackDetail(row.eqp_manage_id)
+                if ((field == 'eqp_manage_id' || field == 'eqp_name')) {
+                    // 여기에 필요한 추가 기능을 작성할 수 있습니다. 예: rackDetail(row.eqp_manage_id)
                 }
                 else{
-                    let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
-                    if ($checkbox.length) {
-                        $checkbox.click();
+                    if (selectedStartRow) {
+                        $('#rackStartTable').bootstrapTable('uncheckBy', {
+                            field: 'eqp_manage_id',
+                            values: [selectedStartRow.eqp_manage_id]
+                        });
                     }
+                    selectedStartRow = row;
+                    $('#rackStartTable').bootstrapTable('checkBy', {
+                        field: 'eqp_manage_id',
+                        values: [selectedStartRow.eqp_manage_id]
+                    });
+                    updateSelectTable();
                 }
             }
         },
@@ -124,18 +176,31 @@ $(function(){
         },
         onClickCell: function(field, value, row, $element) {
             if (!$element.hasClass("bs-checkbox")) {
-                if((field == 'eqp_manage_id' || field == 'eqp_name')){
-                    //rackDetail(row.eqp_manage_id)
+                if ((field == 'eqp_manage_id' || field == 'eqp_name')) {
+                    // 여기에 필요한 추가 기능을 작성할 수 있습니다. 예: rackDetail(row.eqp_manage_id)
                 }
                 else{
-                    let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
-                    if ($checkbox.length) {
-                        $checkbox.click();
+                    if (selectedEndRow) {
+                        $('#rackEndTable').bootstrapTable('uncheckBy', {
+                            field: 'eqp_manage_id',
+                            values: [selectedStartRow.eqp_manage_id]
+                        });
                     }
+                    selectedEndRow = row;
+                    $('#rackEndTable').bootstrapTable('checkBy', {
+                        field: 'eqp_manage_id',
+                        values: [selectedEndRow.eqp_manage_id]
+                    });
+                    updateSelectTable();
                 }
             }
         },
     });
+
+    $('#rackSelectTable').bootstrapTable({
+        columns: rackSelectColumn,
+        data: [{}],
+    })
 
 });
 
