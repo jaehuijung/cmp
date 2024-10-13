@@ -268,7 +268,12 @@ function qrSubmit(){
 
 // PDF 다운로드 버튼
 function QRPDFImg(){
-	let chkboxCnt = $("input:checkbox[name=chkbox]:checked")
+	let pdfSelection = $("#cableTable").bootstrapTable("getSelections");
+
+    if(pdfSelection.length === 0){
+        alert2('알림', 'pdf로 출력할 선번장을 선택해주세요.', 'info', '확인');
+        return false;
+    }
 
 	html = "";
 	html += "<!DOCTYPE HTML>"
@@ -290,40 +295,39 @@ function QRPDFImg(){
 	html += 	"</div>"	
 	html += 	"<hr id='sep' style='margin:20px 0px;'></header>"
 	html += 	"<div class='QRPrintWrap' id='QRPrintWrap'>";
-	for (let x=0; x<chkboxCnt.length; x++){
-		// 0 : 시작문자 1 : 끝문자 2 : 시작이미지 3 : 끝 이미지
-		let qrParams = chkboxCnt[x].value.split("&&");
-            html += "<div class='printWrap'>"
-            html += "		<div class='printLeftWrap'>"
-            html += "		    <div class='SElebel'>S</div>"
-            html += "			<div class='printLeftImgSrc'>"
-            html += "				<img src="+qrParams[2]+" alt='img' class='printImg'>"
-            html += "			</div>"
-            html += "			<div class='printLeftLabelSrc'>"
-            html += "				<div class='infoLabel' align=left>"+qrParams[0]+"</div>"
-            html += "				<div class='infoLabel' align=left>"+qrParams[1]+"</div>"
-            html += "			</div>"
-            html += "			<div class='printLeftLabelSrc'>"
-            html += "				<div class='infoLabel'><-></div><div>&nbsp;</div>"
-            html += "			</div>"
-            html += "		</div>"
-            html += "		<div class='printRightWrap'>"
-            html += "		  <div class='SElebel'>E</div>"
-            html += "			 <div class='printRightImgSrc'>"
-            html += "				<img src="+qrParams[3]+" alt='img' class='printImg'>"
-            html += "			</div>"
-            html += "			<div class='printLeftLabelSrc'>"
-            html += "				<div class='infoLabel'><-></div><div>&nbsp;</div>"
-            html += "			</div>"
-            html += "			<div class='printRightLabelSrc'>"
-            html += "				<div class='infoLabel' align=left>"+qrParams[1]+"</div>"
-            html += "				<div class='infoLabel' align=left>"+qrParams[0]+"</div>"
-            html += "			</div>"
-            html += "		</div>"
-            html += "	</div>"
-	}
+
+
+    pdfSelection.forEach(ele => {
+        html += "<div class='printWrap'>"
+        html += "		<div class='printLeftWrap'>"
+        html += "		    <div class='SElebel'>S</div>"
+        html += "			<div class='printLeftImgSrc'>"
+        html += "				<img src="+ele.qr_image_location+" alt='img' class='printImg'>"
+        html += "			</div>"
+        html += "			<div class='printLeftLabelSrc'>"
+        html += "				<div class='infoLabel' align=left>"+ele.cable_category+"</div>"
+        html += "				<div class='infoLabel' align=left>"+ele.cable_color+"</div>"
+        html += "			</div>"
+        html += "			<div class='printLeftLabelSrc'>"
+        html += "				<div class='infoLabel'><-></div><div>&nbsp;</div>"
+        html += "			</div>"
+        html += "		</div>"
+        html += "		<div class='printRightWrap'>"
+        html += "		  <div class='SElebel'>E</div>"
+        html += "			 <div class='printRightImgSrc'>"
+        html += "				<img src="+ele.qr_image_location+" alt='img' class='printImg'>"
+        html += "			</div>"
+        html += "			<div class='printLeftLabelSrc'>"
+        html += "				<div class='infoLabel'><-></div><div>&nbsp;</div>"
+        html += "			</div>"
+        html += "			<div class='printRightLabelSrc'>"
+        html += "				<div class='infoLabel' align=left>"+ele.cable_category+"</div>"
+        html += "				<div class='infoLabel' align=left>"+ele.cable_color+"</div>"
+        html += "			</div>"
+        html += "		</div>"
+        html += "	</div>"
+	})
 	html += 	"</div>"
-	html += 	"<script src='/js/cable/view.js'></script>"
 	html += "</body>"
 	html += "</html>";
 

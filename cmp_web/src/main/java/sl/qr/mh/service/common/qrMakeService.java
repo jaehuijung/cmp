@@ -20,28 +20,30 @@ import java.util.Map;
 public class qrMakeService {
 
     private final String sep = File.separator;
-    private final String staticPath = System.getProperty("user.dir") + sep + "src" + sep + "main" + sep + "resources" + sep + "static" + sep;
+    private final String staticPath = System.getProperty("user.dir") + sep + "src" + sep + "main" + sep + "resources" + sep + "static";
 
     /**
      * QR 이미지 생성
      * 요청받은 QR 일련번호에 대한 QR 이미지 생성
      *
-     * @param paramMap QR 일련번호
+     * @param target QR 일련번호
      */
-    public void QRMake(Map<String, Object> paramMap) throws Exception {
-        String target = paramMap.get("encryptedTarget").toString();
+    public String QRMake(String target) throws Exception {
+
+        SecretKey key = AESUtil.generateKey();
+        String encryptedTarget = AESUtil.encryptWithSafeFileName(target, key);
 
         String crunchifyFileType = "jpg";
-        String filePath = staticPath + "images" + sep + "qr" + sep + target + ".jpg";
+        String filePath = sep + "images" + sep + "qr" + sep + encryptedTarget + ".jpg";
 
-        File crunchifyFile = new File(filePath);
+        File crunchifyFile = new File(staticPath + filePath);
         Map<EncodeHintType, Object> crunchifyHintType = new EnumMap<>(EncodeHintType.class);
         crunchifyHintType.put(EncodeHintType.CHARACTER_SET, "UTF-8");
         crunchifyHintType.put(EncodeHintType.MARGIN, 1); /* default = 4 */
 
         int size = 256;
-        QRCodeWriter mYQRCodeWriter = new QRCodeWriter(); // throws com.google.zxing.WriterException
-        BitMatrix crunchifyBitMatrix = mYQRCodeWriter.encode(target, BarcodeFormat.QR_CODE, size, size,
+        QRCodeWriter mYQRCodeWriter = new QRCodeWriter();
+        BitMatrix crunchifyBitMatrix = mYQRCodeWriter.encode(encryptedTarget, BarcodeFormat.QR_CODE, size, size,
                 crunchifyHintType);
         int CrunchifyWidth = crunchifyBitMatrix.getWidth();
         int CrunchifyHeight = crunchifyBitMatrix.getWidth();
@@ -64,6 +66,7 @@ public class qrMakeService {
         }
 
         ImageIO.write(crunchifyImage, crunchifyFileType, crunchifyFile);
+        return filePath;
     }
 
 }

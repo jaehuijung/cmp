@@ -268,7 +268,7 @@
             #{rackStartPort},
             #{rackEndPort},
             #{cable_installation_year},
-            #{encryptedTarget},
+            #{qrImageLocation},
             NOW(),
             NULL,
             'N'
