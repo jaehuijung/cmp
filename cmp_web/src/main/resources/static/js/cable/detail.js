@@ -92,7 +92,7 @@ function updateData(){
 function deleteData(){
     Swal.fire({
         title: '선번장 목록 삭제',
-        html : '선택한 선반장을 삭제하시겠습니까? 삭제하면 복구할 수 없습니다.',
+        html : '선택한 선번장을 삭제하시겠습니까? 삭제하면 복구할 수 없습니다.',
         icon : 'error',
         focusConfirm: false,
         confirmButtonText: '삭제',

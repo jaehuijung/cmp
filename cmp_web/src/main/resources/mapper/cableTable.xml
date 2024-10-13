@@ -216,7 +216,7 @@
             선번장관리 > 선번장목록 > 추가 페이지 > 저장 > 선번장 관리번호 생성
         */
         SELECT
-            CONCAT(#{cableManageId}, '-', LPAD(IFNULL(MAX(CAST(SUBSTRING(cable_manage_id, -4) AS UNSIGNED)) + 1, 1), 4, '0')) AS next_id
+            CONCAT(#{cableManageId}, '-', LPAD(IFNULL(MAX(CAST(SUBSTRING(cable_manage_id, -5) AS UNSIGNED)) + 1, 1), 5, '0')) AS next_id
         FROM
             cable_basic
         WHERE
