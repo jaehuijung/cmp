@@ -2,6 +2,7 @@ package sl.qr.mh.service.cable;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -165,6 +166,33 @@ public class cableManageService {
 			returnMap.put("rows", cableMapper.getCableDetailTotalList(paramMap));
 			returnMap.put("errorCode", true);
 		}catch (Exception e){
+			log.error(e.getMessage());
+		}
+
+		return returnMap;
+	}
+
+	/**
+	 * 장비관리 > 장비목록 > 삭제 > 선택한 장비 정보 리스트 삭제 (기본정보, 세부정보, 연결정보)
+	 *
+	 * @param deleteList 삭제할 장비 데이터
+	 * @return 삭제 결과
+	 */
+	@Transactional
+	public Map<String, Object> deleteCableList(List<Map<String, Object>> deleteList) {
+
+		Map<String, Object> returnMap = new HashMap<>();
+		returnMap.put("errorCode",false);
+
+		try {
+			for(Map<String, Object> ele : deleteList){
+				String deleteCableTarget = ele.get("cable_manage_id").toString();
+				cableMapper.deleteCableList(deleteCableTarget);
+			}
+
+			returnMap.put("errorCode",true);
+
+		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
 

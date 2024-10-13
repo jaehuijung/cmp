@@ -80,6 +80,8 @@
         join
             cable_line clclr /* 회선색상 */
             on clclr.line_category = 3 and cb.cable_color = clclr.line_id
+        where
+            cb.is_deleted = 'N'
         ORDER BY cb.cable_manage_id desc
         LIMIT #{offset},#{limit};
     </select>
@@ -130,6 +132,8 @@
         join
             cable_line clclr /* 회선색상 */
             on clclr.line_category = 3 and cb.cable_color = clclr.line_id
+        where
+            cb.is_deleted = 'N'
     </select>
 
     <select id="getRackEquipmentList" parameterType="map" resultType="map">
@@ -164,6 +168,8 @@
             and eb.asset_id = ec.asset_id
             and eb.sub_id = ec.sub_id
             and eb.detail_id = ec.detail_id
+        where
+            eb.is_deleted = 'N'
         ORDER BY eb.eqp_manage_id desc, el.port
         LIMIT #{offset},#{limit};
     </select>
@@ -188,6 +194,8 @@
             and eb.asset_id = ec.asset_id
             and eb.sub_id = ec.sub_id
             and eb.detail_id = ec.detail_id
+        where
+            eb.is_deleted = 'N'
     </select>
 
     <select id="getRackLinkList" parameterType="map" resultType="map">
@@ -337,5 +345,14 @@
         where
             cable_manage_id = #{cable_manage_id}
     </select>
+
+    <update id="deleteCableList" parameterType="String">
+        update
+            cable_basic
+        set
+            is_deleted = 'Y'
+        where
+            cable_manage_id = #{deleteCableTarget}
+    </update>
 
 </mapper>

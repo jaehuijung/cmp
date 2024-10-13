@@ -154,6 +154,14 @@ public interface eqpMapper {
 
 	/**
 	 * 장비관리 > 장비목록 > 삭제 > 선택한 장비 정보 리스트 삭제
+	 * 삭제하기 전 선번장 목록에 포함되어 있는지 확인 ... 존재하면 장비는 삭제되면 안됨
+	 *
+	 * @param deleteEqpTarget 장비관리번호
+	 */
+	public int checkCableIsContainEqpList(String deleteEqpTarget);
+
+	/**
+	 * 장비관리 > 장비목록 > 삭제 > 선택한 장비 정보 리스트 삭제
 	 * 기본정보 is_deleted 컬럼 'Y'로 변경
 	 *
 	 * @param deleteEqpTarget 장비관리번호

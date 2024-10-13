@@ -732,11 +732,19 @@ public class eqpManageService {
         returnMap.put("errorCode",false);
 
         try {
+            List<String> errorTarget = new ArrayList<>();
             for(Map<String, Object> ele : deleteList){
                 String deleteEqpTarget = ele.get("eqp_manage_id").toString();
-                eqpMapper.deleteEqpList(deleteEqpTarget);
+                int isContain = eqpMapper.checkCableIsContainEqpList(deleteEqpTarget);
+                if(isContain == 0){
+                    eqpMapper.deleteEqpList(deleteEqpTarget);
+                }
+                else{
+                    errorTarget.add(deleteEqpTarget);
+                }
             }
 
+            returnMap.put("errorTarget", errorTarget);
             returnMap.put("errorCode",true);
 
         } catch (Exception e) {

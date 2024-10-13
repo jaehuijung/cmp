@@ -1,5 +1,12 @@
 
-// cable table column creation function
+
+/**
+ * 선번장 목록 테이블(cableTable)을 새로고침하는 함수
+ */
+function tableRefresh(){
+    $("#cableTable").bootstrapTable('refresh');
+}
+
 function createColumn(field, checkbox = false, title, type = 'default') {
     let column = {
         title: title,
@@ -143,6 +150,66 @@ function rackDetail(id){
     const url = `/cable/rack/detail/${id}`;
     window.location.href = url;
 }
+
+
+/**
+ * 선번장관리 > 선번장목록 > 삭제 버튼
+ * 선택된 하나 또는 여러 개의 장비를 삭제함
+*/
+function cableDelete() {
+    let data = $("#cableTable").bootstrapTable('getSelections');
+
+    if (data.length == 0){
+        alert2('알림', '삭제할 장비를 선택하세요.', 'info', '확인');
+    }
+
+    else{
+        Swal.fire({
+            title: '선번장 목록 삭제',
+            html : '선택한 선번장을 삭제하시겠습니까? 삭제하면 복구할 수 없습니다.',
+            icon : 'error',
+            focusConfirm: false,
+            confirmButtonText: '삭제',
+            cancelButtonText: '취소',
+            showCancelButton: true,
+            customClass: {
+                popup: 'custom-width'
+            },
+        }).then((result) => {
+            if (result.isConfirmed) {
+                alert3("load");
+                $.ajax({
+                    url : '/cable/rack/delete',
+                    type: 'post',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    dataType : 'JSON',
+                    success : function(res){
+                        alert3Close();
+                        let errorCode = res.errorCode;
+
+                        if(!errorCode){
+                            alert2('알림', '데이터를 삭제하는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+                        }
+                        else{
+                            alert2('알림', '삭제되었습니다.', 'info', '확인', tableRefresh());
+                        }
+                   }
+                });
+            }
+        });
+    }
+}
+
+/**
+ * 선번장관리 > 선번장목록 > 선번장 목록 다운로드 버튼
+ * 선택된 하나 또는 여러 개의 장비를 다운로드함
+*/
+function selectRackDownload(){
+    console.log("엑셀 다운로드")
+}
+
+
 
 
 // 엑셀 download

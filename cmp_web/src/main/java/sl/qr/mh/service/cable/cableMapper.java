@@ -34,4 +34,12 @@ public interface cableMapper {
 
 	// 선번장관리 > 선번장목록 > 수정/상세 > 선택된 선번장 구성 데이터 (출발지, 목적지)
 	public List<Map<String, Object>> getCableDetailTotalList(Map<String, Object> paramMap);
+
+	/**
+	 * 선번장관리 > 선번장목록 > 삭제 > 선택한 선번장 정보 리스트 삭제
+	 * 기본정보 is_deleted 컬럼 'Y'로 변경
+	 *
+	 * @param deleteCableTarget 장비관리번호
+	 */
+	public void deleteCableList(String deleteCableTarget);
 }

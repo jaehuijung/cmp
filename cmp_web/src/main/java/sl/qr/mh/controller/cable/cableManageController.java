@@ -120,4 +120,33 @@ public class cableManageController {
     public Map<String, Object> getCableDetailInfo(@RequestBody Map<String, Object> paramMap) {
         return cableManageService.getCableDetailInfo(paramMap);
     }
+
+    /**
+     * 선번장관리 > 선번장목록 > 수정
+     *
+     * @return 선번장 수정 뷰 페이지
+     */
+    @GetMapping("/update/{id}")
+    public String updateCablePage(@PathVariable("id") String cable_manage_id, Model model) {
+        Map<String, Object> result = cableManageService.getEquipmentDetailTotalList(cable_manage_id);
+        if((boolean) result.get("errorCode")){
+            model.addAttribute("cable", result.get("selectData"));
+            return "views/eqp/update";
+        }
+        else{
+            return "views/error/error";
+        }
+    }
+
+    /**
+     * 선번장관리 > 선번장목록 > 선번장 목록 삭제
+     *
+     * @param deleteList 삭제할 장비 목록
+     * @return 삭제 결과
+     */
+    @ResponseBody
+    @PostMapping("/delete")
+    public Map<String, Object> delete(@RequestBody List<Map<String, Object>> deleteList) {
+        return cableManageService.deleteCableList(deleteList);
+    }
 }
