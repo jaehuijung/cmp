@@ -111,13 +111,17 @@ public class cableManageService {
 		Map<String, Object> returnMap = new HashMap<>();
 		returnMap.put("errorCode", false);
 		try{
-			String cableManageId = paramMap.get("cable_installation_year").toString();
-			paramMap.put("cableManageId", cableManageId.replaceAll("-", ""));
+			int isContain = cableMapper.checkInsertListToContainCable(paramMap);
+			if (isContain == 0) {
+				String cableManageId = paramMap.get("cable_installation_year").toString();
+				paramMap.put("cableManageId", cableManageId.replaceAll("-", ""));
 
-			cableManageId = cableMapper.generateCableManageId(paramMap);
-			paramMap.put("cableManageId", cableManageId);
+				cableManageId = cableMapper.generateCableManageId(paramMap);
+				paramMap.put("cableManageId", cableManageId);
 
-			cableMapper.saveCableInfo(paramMap);
+				cableMapper.saveCableInfo(paramMap);
+			}
+			returnMap.put("isContain", isContain);
 			returnMap.put("errorCode", true);
 		} catch (Exception e){
 			log.error(e.getMessage());

@@ -211,6 +211,18 @@
             line_id
     </select>
 
+    <select id="checkInsertListToContainCable" parameterType="map" resultType="int">
+        select
+            count(cable_manage_id)
+        from
+            cable_basic
+        where
+            1=1
+            and is_deleted = 'N'
+            and (start_eqp_id = #{rackStartId} and start_eqp_port = #{rackStartPort})
+            and (end_eqp_id = #{rackEndId} and end_eqp_port = #{rackEndPort})
+    </select>
+
     <select id="generateCableManageId" parameterType="map" resultType="String">
         /* generateCableManageId...
             선번장관리 > 선번장목록 > 추가 페이지 > 저장 > 선번장 관리번호 생성

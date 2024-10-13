@@ -284,7 +284,7 @@ function eqpDelete() {
                         else{
                         alert2('알림', '삭제되었습니다.', 'info', '확인', tableRefresh());
                             let errorTarget = res.errorTarget;
-                            if(res.errorTarget.length == 0){
+                            if(errorTarget.length == 0){
                                 alert2('알림', '삭제되었습니다.', 'info', '확인', tableRefresh());
                             }
                             else{

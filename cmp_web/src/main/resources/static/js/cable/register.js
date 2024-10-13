@@ -251,12 +251,12 @@ function saveData() {
     const rackEndData   = $("#rackSelectTable").bootstrapTable("getData")[0];
     const rack_end_id    = rackEndData.e_eqp_manage_id;
 
-    if(rack_start_id === ""){
+    if(rack_start_id === undefined || rack_start_id === ""){
         errorMessage += `출발지 장비를 한 개 이상 선택해야 합니다.</br>`;
         isValid = false;
     }
 
-    if(rack_end_id === ""){
+    if(rack_end_id === undefined || rack_end_id === ""){
         errorMessage += `목적지 장비를 한 개 이상 선택해야 합니다.</br>`;
         isValid = false;
     }
@@ -272,6 +272,7 @@ function saveData() {
     if ((rack_start_id === rack_end_id) && (rack_start_port == rack_end_port)){
         errorMessage += `출발지와 목적지 장비는 같을 수 없습니다.</br>`;
         alert2('알림', errorMessage, 'error', '확인');
+        return;
     }
 
     // 회선
@@ -314,7 +315,13 @@ function saveData() {
                         alert2("알림", "저장 중 오류가 발생했습니다. <br>관리자에게 문의하세요", "error", "확인");
                     }
                     else{
-                        alert2("알림", "저장되었습니다.", "info", "확인", back);
+                        let isContain = res.isContain;
+                        if(isContain == 0){
+                            alert2("알림", "저장되었습니다.", "info", "확인", back);
+                        }
+                        else{
+                            alert2("알림", "이미 등록된 선번장입니다.", "error", "확인");
+                        }
                     }
 
                 },
