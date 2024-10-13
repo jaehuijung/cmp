@@ -252,6 +252,7 @@
             start_eqp_port,
             end_eqp_port,
             installation_year,
+            qrImageLocation,
             created_at,
             updated_at,
             is_deleted
@@ -266,6 +267,7 @@
             #{rackStartPort},
             #{rackEndPort},
             #{cable_installation_year},
+            #{encryptedTarget},
             NOW(),
             NULL,
             'N'

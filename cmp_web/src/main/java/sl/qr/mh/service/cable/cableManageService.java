@@ -3,8 +3,10 @@ package sl.qr.mh.service.cable;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sl.qr.mh.service.common.AESUtil;
+import sl.qr.mh.service.common.qrMakeService;
 
-import java.util.ArrayList;
+import javax.crypto.SecretKey;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,11 +15,12 @@ import java.util.Map;
 @Service
 public class cableManageService {
 
-
 	private final cableMapper cableMapper;
+	private final qrMakeService qrMakeService;
 
-	public cableManageService(cableMapper cableMapper) {
+	public cableManageService(cableMapper cableMapper, qrMakeService qrMakeService) {
 		this.cableMapper = cableMapper;
+		this.qrMakeService = qrMakeService;
 	}
 
 	/**
@@ -119,7 +122,13 @@ public class cableManageService {
 				cableManageId = cableMapper.generateCableManageId(paramMap);
 				paramMap.put("cableManageId", cableManageId);
 
+				SecretKey key = AESUtil.generateKey();
+				String encryptedTarget = AESUtil.encrypt(cableManageId, key);
+				paramMap.put("encryptedTarget", encryptedTarget);
+
+				qrMakeService.QRMake(paramMap);
 				cableMapper.saveCableInfo(paramMap);
+
 			}
 			returnMap.put("isContain", isContain);
 			returnMap.put("errorCode", true);
