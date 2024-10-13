@@ -38,31 +38,31 @@ let columns = [
     ],
     [
         // 구분
-        createColumn('cable_manage_id', false, '케이블 관리번호', "visible"),
         createColumn('', true, ''),
         createColumn('no', false, 'no', 'formatter'),
+        createColumn('cable_manage_id', false, '케이블 관리번호', 'underline'),
 
         // 출발지
+        createColumn('s_eqp_manage_id',               false, '관리번호'),
+        createColumn('s_eqp_name',                    false, '구성자원명'),
+        createColumn('s_port',                        false, '포트번호'),
         createColumn('s_asset_category',              false, '자산분류'),
         createColumn('s_installation_coordinates',    false, '설치좌표'),
-        createColumn('s_eqp_manage_id',               false, '관리 id', 'underline'),
-        createColumn('s_eqp_name',                    false, '구성자원명', 'underline'),
         createColumn('s_model_name',                  false, '모델명'),
         createColumn('s_host_name',                   false, '호스트명'),
         createColumn('s_m_company',                   false, '제조사'),
-        createColumn('s_port',                        false, '포트번호'),
         createColumn('s_primary_operator',            false, '운영담당자'),
         createColumn('s_primary_outsourced_operator', false, '위탁운영담당자'),
 
         // 목적지
+        createColumn('e_eqp_manage_id',               false, '관리번호'),
+        createColumn('e_eqp_name',                    false, '구성자원명'),
+        createColumn('e_port',                        false, '포트번호'),
         createColumn('e_asset_category',              false, '자산분류'),
         createColumn('e_installation_coordinates',    false, '설치좌표'),
-        createColumn('e_eqp_manage_id',               false, '관리 id', 'underline'),
-        createColumn('e_eqp_name',                    false, '구성자원명', 'underline'),
         createColumn('e_model_name',                  false, '모델명'),
         createColumn('e_host_name',                   false, '호스트명'),
         createColumn('e_m_company',                   false, '제조사'),
-        createColumn('e_port',                        false, '포트번호'),
         createColumn('e_primary_operator',            false, '운영담당자'),
         createColumn('e_primary_outsourced_operator', false, '위탁운영담당자'),
 
@@ -112,8 +112,8 @@ $(function() {
         },
         onClickCell: function(field, value, row, $element) {
             if (!$element.hasClass("bs-checkbox")) {
-                if((field == 's_eqp_manage_id' || field == 's_eqp_name' || field == 'e_eqp_manage_id' || field == 'e_eqp_name')){
-                    rackDetail(row.eqp_manage_id)
+                if(field == 'cable_manage_id'){
+                    rackDetail(row.cable_manage_id)
                 }
                 else{
                     let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
@@ -132,8 +132,15 @@ $(function() {
     });
 });
 
+// 선번장관리 > 선번장목록 > 선번장추가 페이지 이동
 function cableCreate(){
     const url = "/cable/rack/create";
+    window.location.href = url;
+}
+
+// 선번장관리 > 선번장목록 > 선번장상세 페이지 이동
+function rackDetail(id){
+    const url = `/cable/rack/create`;
     window.location.href = url;
 }
 

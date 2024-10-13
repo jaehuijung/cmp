@@ -17,41 +17,55 @@
 
     <main class="main" id="rack">
         <div class="contentCard">
-            <!-- 출발지정보 -->
-            <div id="section-rack-start-info">
-                <div class="section-rack-title">
-                    <h2>출발지</h2>
-                    <p id="rackStartTotalCnt" style="margin:10px 0px 10px 0px;font-size:14px;padding:3px 8px;">65건</p>
-                </div>
-                <div class="searchSearchWrap">
-                    <div class="searchTitle1">검색어</div>
-                    <div class="searchSearchInput">
-                        <input type="text" id="searchInput1" placeholder="검색어를 입력하세요"/>
-                        <button type="button"  onclick="searchEqpList();">검색</button>
+            <div class="rackEquipmentWrap" style="display: flex;">
+                <!-- 출발지정보 -->
+                <div id="section-rack-start-info" style="width: 600px;">
+                    <div class="section-rack-title">
+                        <h2>출발지</h2>
+                        <p id="rackStartTotalCnt" style="margin:10px 0px 10px 0px;font-size:14px;padding:3px 8px;">65건</p>
+                    </div>
+                    <div class="searchSearchWrap">
+                        <div class="searchTitle1">검색어</div>
+                        <div class="searchSearchInput">
+                            <input type="text" id="searchInput1" placeholder="검색어를 입력하세요"/>
+                            <button type="button"  onclick="searchEqpList();">검색</button>
+                        </div>
+                    </div>
+                    <div class="tbl-bootstrap-wrap">
+                        <table id="rackStartTable"></table>
                     </div>
                 </div>
-                <div class="tbl-bootstrap-wrap">
-                    <table id="rackStartTable"></table>
+
+                <!-- 목적지정보 -->
+                <div id="section-rack-end-info" style="width: 600px; margin-left: 20px;">
+                    <div class="section-rack-title">
+                        <h2>목적지</h2>
+                        <p id="rackEndTotalCnt" style="margin:10px 0px 10px 0px;font-size:14px;padding:3px 8px;">65건</p>
+                    </div>
+                    <div class="searchSearchWrap">
+                        <div class="searchTitle1">검색어</div>
+                        <div class="searchSearchInput">
+                            <input type="text" id="searchInput2" placeholder="검색어를 입력하세요"/>
+                            <button type="button"  onclick="searchEqpList();">검색</button>
+                        </div>
+                    </div>
+                    <div style='display: flex; justify-content: space-between;'>
+                    </div>
+                    <div class="tbl-bootstrap-wrap">
+                        <table id="rackEndTable"></table>
+                    </div>
                 </div>
             </div>
 
-            <!-- 목적지정보 -->
-            <div id="section-rack-end-info">
+            <!-- 선택된 출발지, 목적지 테이블 -->
+            <div id="section-rack-info">
                 <div class="section-rack-title">
-                    <h2>목적지</h2>
-                    <p id="rackEndTotalCnt" style="margin:10px 0px 10px 0px;font-size:14px;padding:3px 8px;">65건</p>
-                </div>
-                <div class="searchSearchWrap">
-                    <div class="searchTitle1">검색어</div>
-                    <div class="searchSearchInput">
-                        <input type="text" id="searchInput2" placeholder="검색어를 입력하세요"/>
-                        <button type="button"  onclick="searchEqpList();">검색</button>
-                    </div>
-                </div>
-                <div style='display: flex; justify-content: space-between;'>
+                    <h2>선번장 구성</h2>
                 </div>
                 <div class="tbl-bootstrap-wrap">
-                    <table id="rackEndTable"></table>
+                    <div class="tbl-bootstrap-wrap">
+                        <table id="rackTable"></table>
+                    </div>
                 </div>
             </div>
 

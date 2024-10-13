@@ -28,30 +28,30 @@ function createColumn(field, checkbox = false, title, type = 'default', formatte
 
 let rackStartColumn = [
     createColumn('',                              true,  ''),
-    createColumn('eqp_manage_id',               false, '관리 id', 'underline'),
+    createColumn('eqp_manage_id',               false, '관리번호', 'underline'),
     createColumn('eqp_name',                    false, '구성자원명', 'underline'),
     createColumn('port',                        false, '포트번호'),
     createColumn('asset_category',              false, '자산분류'),
     createColumn('installation_coordinates',    false, '설치좌표'),
     createColumn('model_name',                  false, '모델명'),
-    createColumn('host_name',                   false, '호스트명'),
-    createColumn('m_company',                   false, '제조사'),
-    createColumn('primary_operator',            false, '운영담당자'),
-    createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
+    // createColumn('host_name',                   false, '호스트명'),
+    // createColumn('m_company',                   false, '제조사'),
+    // createColumn('primary_operator',            false, '운영담당자'),
+    // createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
 ];
 
 let rackEndColumn = [
     createColumn('',                              true,  ''),
-    createColumn('eqp_manage_id',               false, '관리 id', 'underline'),
+    createColumn('eqp_manage_id',               false, '관리번호', 'underline'),
     createColumn('eqp_name',                    false, '구성자원명', 'underline'),
     createColumn('port',                        false, '포트번호'),
     createColumn('asset_category',              false, '자산분류'),
     createColumn('installation_coordinates',    false, '설치좌표'),
     createColumn('model_name',                  false, '모델명'),
-    createColumn('host_name',                   false, '호스트명'),
-    createColumn('m_company',                   false, '제조사'),
-    createColumn('primary_operator',            false, '운영담당자'),
-    createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
+    // createColumn('host_name',                   false, '호스트명'),
+    // createColumn('m_company',                   false, '제조사'),
+    // createColumn('primary_operator',            false, '운영담당자'),
+    // createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
 ];
 
 $(function(){

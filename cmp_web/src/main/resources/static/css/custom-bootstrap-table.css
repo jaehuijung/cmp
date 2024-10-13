@@ -37,3 +37,9 @@ tr:hover {
 .underline:active { /* 마우스 클릭 */
     color: red;
 }
+
+.selected-row {
+    background-color: #CCE5FF;
+}
+
+
