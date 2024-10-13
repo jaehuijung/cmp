@@ -276,7 +276,7 @@ function QRPDFImg(){
 	html += "<head>"
 	html += 	"<meta charset='utf-8'>"
 	html += 	"<title>QR Print</title>"
-	html += 	"<link rel='stylesheet' href='/css/printQR2.css' />"
+	// html += 	"<link rel='stylesheet' href='/css/printQR2.css' />"
 	html += "</head>"
 	html += "<body><header>"
 	html += 	"<hr id='sep'>"	
@@ -323,7 +323,7 @@ function QRPDFImg(){
             html += "	</div>"
 	}
 	html += 	"</div>"
-	html += 	"<script src='/js/function.js'></script>"
+	html += 	"<script src='/js/cable/view.js'></script>"
 	html += "</body>"
 	html += "</html>";
 

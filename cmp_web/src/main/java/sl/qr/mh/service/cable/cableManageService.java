@@ -122,9 +122,16 @@ public class cableManageService {
 				cableManageId = cableMapper.generateCableManageId(paramMap);
 				paramMap.put("cableManageId", cableManageId);
 
+				System.out.println("cableManageId:" + cableManageId);
+
 				SecretKey key = AESUtil.generateKey();
-				String encryptedTarget = AESUtil.encrypt(cableManageId, key);
+				String encryptedTarget = AESUtil.encryptWithSafeFileName(cableManageId, key);
 				paramMap.put("encryptedTarget", encryptedTarget);
+
+				System.out.println("encryptedTarget:" + encryptedTarget);
+
+				String decryptTest = AESUtil.decryptFromSafeFileName(encryptedTarget, key);
+				System.out.println("decryptTest:" + decryptTest);
 
 				qrMakeService.QRMake(paramMap);
 				cableMapper.saveCableInfo(paramMap);

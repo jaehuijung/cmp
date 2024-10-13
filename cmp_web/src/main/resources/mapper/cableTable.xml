@@ -11,6 +11,7 @@
             선번장관리 > 선번장목록 > 리스트 목록 */
         select
             cb.cable_manage_id, /* 선번장 관리번호 */
+            cb.qr_image_location, /* 선번장 이미지 */
             /* 출발지 */
             seb.asset_id s_asset_id,                                        /* 자산분류 */
             sec.asset_category s_asset_category  ,                          /* 출발지 자산 카테고리 */
@@ -252,7 +253,7 @@
             start_eqp_port,
             end_eqp_port,
             installation_year,
-            qrImageLocation,
+            qr_image_location,
             created_at,
             updated_at,
             is_deleted
