@@ -299,6 +299,7 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    min-width: fit-content;
 }
 
 .side-menu.toggled + header {
