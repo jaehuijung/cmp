@@ -27,7 +27,7 @@ function createColumn(field, checkbox = false, title, type = 'default', formatte
 }
 
 let rackStartColumn = [
-    createColumn('',                              true,  ''),
+    // createColumn('',                              true,  ''),
     createColumn('eqp_manage_id',               false, '관리번호', 'underline'),
     createColumn('eqp_name',                    false, '구성자원명', 'underline'),
     createColumn('port',                        false, '포트번호'),
@@ -41,7 +41,7 @@ let rackStartColumn = [
 ];
 
 let rackEndColumn = [
-    createColumn('',                              true,  ''),
+    // createColumn('',                              true,  ''),
     createColumn('eqp_manage_id',               false, '관리번호', 'underline'),
     createColumn('eqp_name',                    false, '구성자원명', 'underline'),
     createColumn('port',                        false, '포트번호'),
