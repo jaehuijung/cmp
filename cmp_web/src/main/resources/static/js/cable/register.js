@@ -1,6 +1,6 @@
 
 // cable table column creation function
-function createColumn(field, checkbox = false, title, type = 'default', formatter = null, visible = true) {
+function createColumn(field, checkbox = false, title, type = 'default') {
     let column = {
         title: title,
         field: field,
@@ -9,18 +9,10 @@ function createColumn(field, checkbox = false, title, type = 'default', formatte
         checkbox: checkbox
     };
 
-    if (formatter) {
-        column.formatter = formatter;
-    }
-
     if (type === 'underline') {
         column.class = 'nowrap underline';
     } else {
         column.class = 'nowrap';
-    }
-
-    if (!visible) {
-        column.visible = visible;
     }
 
     return column;
