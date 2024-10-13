@@ -212,6 +212,9 @@
     </select>
 
     <select id="checkInsertListToContainCable" parameterType="map" resultType="int">
+        /* checkInsertListToContainCable...
+            선번장관리 > 선번장목록 > 추가 페이지 > 저장 > 선번장 목록 저장하기 전 이미 존재하는지 검증
+        */
         select
             count(cable_manage_id)
         from
@@ -270,11 +273,15 @@
     </insert>
 
     <select id="getCableDetailLinkList" parameterType="String" resultType="map">
-        /* getCableDetailTotalList...
+        /* getCableDetailLinkList...
             선번장관리 > 선번장목록 > 수정 / 상세 페이지 > 선번장 정보 (포설년도, 회선정보)
         */
         select
             cb.cable_manage_id,
+            cb.start_eqp_id,
+            cb.end_eqp_id,
+            cb.start_eqp_port,
+            cb.end_eqp_port,
             cb.installation_year cable_installation_year,
             clctg.line_value cable_category,
             clspd.line_value cable_speed,
@@ -296,7 +303,7 @@
 
     <select id="getCableDetailTotalList" parameterType="String" resultType="map">
         /* getCableDetailTotalList...
-        선번장관리 > 선번장목록 > 수정 / 상세 페이지 > 선번장 정보 (포설년도, 회선정보)
+            선번장관리 > 선번장목록 > 수정/상세 페이지 > 선번장 정보 (출발지, 목적지)
         */
         select
             cb.cable_manage_id, /* 선번장 관리번호 */
@@ -358,7 +365,50 @@
             cable_manage_id = #{cable_manage_id}
     </select>
 
+    <select id="getSelectLinkCategory" resultType="map">
+        /* getSelectLinkCategory...
+            선번장관리 > 선번장목록 > 수정 페이지 > 회선정보 : 구성
+        */
+        select
+            line_id id,
+            line_value name
+        from
+            cable_line
+        where
+            line_category = 1
+    </select>
+
+    <select id="getSelectLinkSpeed" resultType="map">
+        /* getSelectLinkSpeed...
+            선번장관리 > 선번장목록 > 수정 페이지 > 회선정보 : 속도
+        */
+        select
+            line_id id,
+            line_value name
+        from
+            cable_line
+        where
+            line_category = 2
+    </select>
+
+    <select id="getSelectLinkColor" resultType="map">
+        /* getSelectLinkColor...
+            선번장관리 > 선번장목록 > 수정 페이지 > 회선정보 : 색상
+        */
+        select
+            line_id id,
+            line_value name
+        from
+            cable_line
+        where
+            line_category = 3
+    </select>
+
     <update id="deleteCableList" parameterType="String">
+        /* deleteCableList...
+            선번장관리 > 선번장목록 > 삭제
+            선번장관리 > 선번장목록 > 상세 페이지 > 삭제
+        */
         update
             cable_basic
         set

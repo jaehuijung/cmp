@@ -35,6 +35,13 @@ public interface cableMapper {
 	// 선번장관리 > 선번장목록 > 수정/상세 > 선번장 상세 정보 (포설년도, 회선정보)
 	public Map<String, Object> getCableDetailLinkList(String cableManageId);
 
+	// 선번장관리 > 선번장목록 > 수정/상세 > 선택박스 : 회선구분
+	public List<Map<String, Object>> getSelectLinkCategory();
+	// 선번장관리 > 선번장목록 > 수정/상세 > 선택박스 : 회선속도
+	public List<Map<String, Object>> getSelectLinkSpeed();
+	// 선번장관리 > 선번장목록 > 수정/상세 > 선택박스 : 회선색상
+	public List<Map<String, Object>> getSelectLinkColor();
+
 	// 선번장관리 > 선번장목록 > 수정/상세 > 선택된 선번장 구성 데이터 (출발지, 목적지)
 	public List<Map<String, Object>> getCableDetailTotalList(Map<String, Object> paramMap);
 

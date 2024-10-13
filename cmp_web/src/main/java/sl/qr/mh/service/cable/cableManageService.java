@@ -153,6 +153,35 @@ public class cableManageService {
 	}
 
 	/**
+	 * 선번장관리 > 선번장목록 > 수정 > 선택한 선번장 정보 (포설년도, 회선정보)
+	 *
+	 * @param cableManageId 선번장 관리번호
+	 * @return 선번장 정보
+	 */
+	public Map<String, Object> getEquipmentUpdateTotalList(String cableManageId){
+		Map<String, Object> returnMap = new HashMap<>();
+		returnMap.put("errorCode", false);
+
+		try{
+			Map<String, Object> rackMap = cableMapper.getCableDetailLinkList(cableManageId); // 선택된 출발지, 목적지
+			List<Map<String, Object>> link_category = cableMapper.getSelectLinkCategory();   // 회선구분
+			List<Map<String, Object>> link_speed    = cableMapper.getSelectLinkSpeed();      // 회선속도
+			List<Map<String, Object>> link_color    = cableMapper.getSelectLinkColor();      // 회선색상
+
+			returnMap.put("selectData", rackMap);
+			returnMap.put("link_category", link_category);
+			returnMap.put("link_speed", link_speed);
+			returnMap.put("link_color", link_color);
+
+			returnMap.put("errorCode", true);
+		}catch (Exception e){
+			log.error(e.getMessage());
+		}
+
+		return returnMap;
+	}
+
+	/**
 	 * 선번장관리 > 선번장목록 > 수정/상세 > 선택된 선번장 구성 데이터 (출발지, 목적지)
 	 *
 	 * @return 선번장 구성 데이터

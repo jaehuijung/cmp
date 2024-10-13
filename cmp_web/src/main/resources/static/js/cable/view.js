@@ -140,7 +140,7 @@ $(function() {
 });
 
 // 선번장관리 > 선번장목록 > 선번장추가 페이지 이동
-function cableCreate(){
+function rackCreate(){
     const url = "/cable/rack/create";
     window.location.href = url;
 }
@@ -151,12 +151,28 @@ function rackDetail(id){
     window.location.href = url;
 }
 
+// 선번장관리 > 선번장목록 > 선번장수정 페이지 이동
+function rackUpdate(){
+    let data = $("#cableTable").bootstrapTable('getSelections');
+
+    if (data.length == 0){
+        alert2('알림', '수정할 선번장을 선택하세요.', 'info', '확인');
+    }
+    else if (data.length > 1){
+        alert2('알림', '하나의 선반장만 수정할 수 있습니다.', 'info', '확인');
+    }
+    else{
+        let id = data[0].cable_manage_id;
+        const url = `/cable/rack/update/${id}`;
+        window.location.href = url;
+    }
+}
 
 /**
  * 선번장관리 > 선번장목록 > 삭제 버튼
  * 선택된 하나 또는 여러 개의 장비를 삭제함
 */
-function cableDelete() {
+function rackDelete() {
     let data = $("#cableTable").bootstrapTable('getSelections');
 
     if (data.length == 0){

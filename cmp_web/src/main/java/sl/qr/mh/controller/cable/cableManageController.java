@@ -128,10 +128,14 @@ public class cableManageController {
      */
     @GetMapping("/update/{id}")
     public String updateCablePage(@PathVariable("id") String cable_manage_id, Model model) {
-        Map<String, Object> result = cableManageService.getEquipmentDetailTotalList(cable_manage_id);
+        Map<String, Object> result = cableManageService.getEquipmentUpdateTotalList(cable_manage_id);
         if((boolean) result.get("errorCode")){
             model.addAttribute("cable", result.get("selectData"));
-            return "views/eqp/update";
+            model.addAttribute("link_category", result.get("link_category"));
+            model.addAttribute("link_speed",    result.get("link_speed"));
+            model.addAttribute("link_color",    result.get("link_color"));
+
+            return "views/cable/update";
         }
         else{
             return "views/error/error";
