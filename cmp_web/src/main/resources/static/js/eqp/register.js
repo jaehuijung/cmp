@@ -190,21 +190,21 @@ function saveData() {
             if (!eqpLinkValid) {
                 eqpLinkErrorMessage = msg;
             }
+
+            let ip_address_arr = item.ip_address.split(".");
+            ip_address_arr = ip_address_arr.map(ele => {
+                if (ele.length >= 2 && ele.startsWith("0")) {
+                    return ele.substring(1);
+                }
+                return ele;
+            });
+            item.ip_address = ip_address_arr.join(".");
         });
 
         if (!eqpLinkValid) {
             alert2("알림", eqpLinkErrorMessage, "error", "확인");
             return false;
         }
-
-        let ip_address_arr = item.ip_address.split(".");
-        ip_address_arr = ip_address_arr.map(ele => {
-            if (ele.length >= 2 && ele.startsWith("0")) {
-                return ele.substring(1);
-            }
-            return ele;
-        });
-        item.ip_address = ip_address_arr.join(".");
 
         data["eqpLink"] = eqpLinkData;
     }

@@ -264,7 +264,7 @@ function inputEqpLinkFormatter(value, row, index, field) {
                 <input type="text" class="form-control d-inline-block" id="ip_block_${index}_4" maxlength="3" size="3" value="${ipBlocks[3]}" oninput="updateEqpLinkInputData(this, ${index}, '${field}')" />
             </div>`;
     } else if (field === 'port') {
-        return `<input type="text" class="form-control" name="${field}" value="${value}" maxlength="5" size="5" oninput="updateEqpLinkInputData(this, ${index}, '${field}')">`;
+        return `<input type="text" class="form-control" name="${field}" value="${value}" maxlength="10" size="10" oninput="updateEqpLinkInputData(this, ${index}, '${field}')">`;
     } else {
         return `<input type="text" class="form-control" name="${field}" value="${value}" oninput="updateEqpLinkInputData(this, ${index}, '${field}')">`;
     }
@@ -313,10 +313,11 @@ function updateEqpLinkInputData(input, index, field) {
         data[index][field] = ipBlocks.join('.');
     } else {
         if(field === 'port'){
-            if (!/^\d+$/.test(input.value)) {
-                alert2("알림", "port는 숫자로만 구성되어야 합니다.", "info", "확인");
-                input.value = '';
-            }
+            // 숫자 검증로직 제거
+            // if (!/^\d+$/.test(input.value)) {
+            //     alert2("알림", "port는 숫자로만 구성되어야 합니다.", "info", "확인");
+            //     input.value = '';
+            // }
         }
 
         data[index][field] = input.value;
