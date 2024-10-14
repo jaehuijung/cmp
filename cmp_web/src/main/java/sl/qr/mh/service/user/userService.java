@@ -3,7 +3,9 @@ package sl.qr.mh.service.user;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +42,7 @@ public class userService {
     }
 
     // 사용자 정보 등록
+    @Transactional
     public Map<String, Object> saveUserInfo(Map<String, Object> paramMap){
         Map<String, Object> returnMap = new HashMap<>();
         returnMap.put("errorCode", false);
@@ -79,6 +82,7 @@ public class userService {
 
 
     // 사용자 정보 수정
+    @Transactional
     public Map<String, Object> updateUserInfo(Map<String, Object> paramMap){
         Map<String, Object> returnMap = new HashMap<>();
         returnMap.put("errorCode", false);
@@ -93,11 +97,17 @@ public class userService {
     }
 
     // 사용자 정보 삭제
-    public Map<String, Object> deleteUserInfo(Map<String, Object> paramMap){
+    @Transactional
+    public Map<String, Object> deleteUserInfo(List<Map<String, Object>> deleteList){
         Map<String, Object> returnMap = new HashMap<>();
         returnMap.put("errorCode", false);
 
         try{
+            for(Map<String, Object> ele : deleteList){
+                String idx = ele.get("idx").toString();
+                userMapper.deleteUserInfo(idx);
+            }
+
             returnMap.put("errorCode", true);
         }catch (Exception e){
             log.error(e.getMessage());

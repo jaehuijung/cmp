@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import sl.qr.mh.service.user.userService;
 
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -87,8 +88,8 @@ public class userController {
      */
     @ResponseBody
     @PostMapping("/delete")
-    public Map<String, Object> deleteUserInfo(@RequestBody Map<String, Object> paramMap) {
-        return userService.deleteUserInfo(paramMap);
+    public Map<String, Object> deleteUserInfo(@RequestBody List<Map<String, Object>> deleteList) {
+        return userService.deleteUserInfo(deleteList);
     }
 
     @ResponseBody

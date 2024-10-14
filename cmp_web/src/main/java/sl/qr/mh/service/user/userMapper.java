@@ -27,5 +27,8 @@ public interface userMapper {
 
     // 사용자 그룹 리스트
     public List<Map<String, Object>> getUserGroupList();
+
+    // 사용자 정보 삭제
+    public void deleteUserInfo(String idx);
     
 }

@@ -153,4 +153,12 @@
             `group`
     </select>
 
+    <update id="deleteUserInfo" parameterType="String">
+        update
+            user
+        set
+            is_deleted = 'Y'
+        where
+            idx = #{idx}
+    </update>
 </mapper>
