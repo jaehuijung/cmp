@@ -7,29 +7,124 @@
 <mapper namespace="sl.qr.mh.service.user.userMapper">
 
     <select id="getAllUserList" parameterType="map" resultType="map">
+        /**
+        getAllUserList...
+        사용자 정보 리스트
+        */
         SELECT
             idx,
             id,
             name,
             email,
             phone,
-            position,
-            group_idx,
+            d.department_name `department`,
+            p.position_name `position`,
+            g.group_name `group`,
             created_at,
             updated_at,
             is_deleted
         FROM
-            user
+            user u
+        join
+            `department` d
+            on u.`department` = d.department_idx
+        join
+            `position` p
+            on u.`position` = p.position_idx
+        join
+            `group` g
+            on u.`group` = g.group_idx
         WHERE
             is_deleted = 'N'
     </select>
 
     <select id="getAllUserListCnt" parameterType="map" resultType="int">
+        /**
+        getAllUserListCnt...
+        사용자 정보 리스트 개수
+        */
         SELECT
             count(idx)
         FROM
-            user
+            user u
+        join
+            `department` d
+            on u.`department` = d.department_idx
+        join
+            `position` p
+            on u.`position` = p.position_idx
+        join
+            `group` g
+            on u.`group` = g.group_idx
         WHERE
             is_deleted = 'N'
     </select>
+
+    <insert id="saveUserInfo" parameterType="map">
+        /**
+        saveUserInfo...
+        사용자 정보 저장
+        */
+        insert into user(
+            id,
+            password,
+            name,
+            email,
+            phone,
+            `department`,
+            `position`,
+            `group`,
+            created_at,
+            updated_at,
+            is_deleted
+        )
+        values(
+            #{id},
+            #{password},
+            #{name},
+            #{email},
+            #{phone},
+            #{department},
+            #{position},
+            #{group},
+            now(),
+            null,
+            'N'
+        )
+    </insert>
+
+        <select id="getUserDepartmentList" resultType="map">
+        /**
+        getUserDepartmentList...
+        사용자 부서 리스트
+        */
+        select
+            department_idx, department_name
+        from
+            `department`
+    </select>
+
+
+    <select id="getUserPositionList" resultType="map">
+        /**
+        getUserPositionList...
+        사용자 직책 리스트
+        */
+        select
+            position_idx, position_name
+        from
+            `position`
+    </select>
+
+    <select id="getUserGroupList" resultType="map">
+        /**
+        getUserPositionList...
+        사용자 그룹 리스트
+        */
+        select
+            group_idx, group_name
+        from
+            `group`
+    </select>
+
 </mapper>

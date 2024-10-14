@@ -1,6 +1,7 @@
 package sl.qr.mh.service.user;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -11,9 +12,11 @@ import java.util.Map;
 @Service
 public class userService {
 
+    private final PasswordEncoder passwordEncoder;
     private final userMapper userMapper;
 
-    public userService(userMapper userMapper){
+    public userService(PasswordEncoder passwordEncoder, userMapper userMapper) {
+        this.passwordEncoder = passwordEncoder;
         this.userMapper = userMapper;
     }
 
@@ -42,6 +45,14 @@ public class userService {
         returnMap.put("errorCode", false);
 
         try{
+            // 비밀번호 인코딩
+            String rawPassword = (String) paramMap.get("password");
+            String encodedPassword = passwordEncoder.encode(rawPassword);
+            paramMap.put("password", encodedPassword);
+
+            // 사용자 정보 저장
+            userMapper.saveUserInfo(paramMap);
+
             returnMap.put("errorCode", true);
         }catch (Exception e){
             log.error(e.getMessage());
@@ -85,6 +96,28 @@ public class userService {
         returnMap.put("errorCode", false);
 
         try{
+            returnMap.put("errorCode", true);
+        }catch (Exception e){
+            log.error(e.getMessage());
+        }
+
+        return returnMap;
+    }
+
+
+    // 사용자 부서, 직책, 그룹 리스트
+    public Map<String, Object> getUserGroupList(){
+        Map<String, Object> returnMap = new HashMap<>();
+        returnMap.put("errorCode", false);
+
+        try{
+            List<Map<String, Object>> userGroupList = userMapper.getUserGroupList();
+            List<Map<String, Object>> userPositionList = userMapper.getUserPositionList();
+            List<Map<String, Object>> getUserDepartmentList = userMapper.getUserDepartmentList();
+
+            returnMap.put("userGroupList", userGroupList);
+            returnMap.put("userPositionList", userPositionList);
+            returnMap.put("getUserDepartmentList", getUserDepartmentList);
             returnMap.put("errorCode", true);
         }catch (Exception e){
             log.error(e.getMessage());

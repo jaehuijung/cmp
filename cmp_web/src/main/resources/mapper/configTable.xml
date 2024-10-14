@@ -13,8 +13,8 @@
             name,
             email,
             phone,
-            position,
-            group_idx groupIdx
+            `position`,
+            `group` groupIdx
         from
             user
         where

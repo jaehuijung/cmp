@@ -47,15 +47,16 @@ function createColumn(field, checkbox = false, title, type = 'default') {
  * userTable에서 사용할 컬럼 리스트
  */
 var userColumns = [
-    createColumn('',              true,  ''                         ),
-    createColumn('idx',           false, 'idx',        'visible'  ),
-    createColumn('no',            false, 'no',         'formatter'  ),
+    createColumn('',              true,  ''                        ),
+    createColumn('idx',           false, 'idx',        'visible'   ),
+    createColumn('no',            false, 'no',         'formatter' ),
     createColumn('id',            false, '사용자 ID',  'underline'  ),
     createColumn('name',          false, '사용자명',   'underline'  ),
-    createColumn('email',         false, '사용자이메일'             ),
-    createColumn('phone',         false, '사용자연락처'             ),
-    createColumn('position',      false, '사용자 직위'              ),
-    createColumn('group_idx',     false, '사용자 그룹'              ),
+    createColumn('email',         false, '사용자이메일'              ),
+    createColumn('phone',         false, '사용자연락처'              ),
+    createColumn('department',    false, '사용자 부서'               ),
+    createColumn('position',      false, '사용자 직위'               ),
+    createColumn('group',         false, '사용자 그룹'               ),
 ];
 
 $(function(){
@@ -113,7 +114,7 @@ $(function(){
 
 function userCreate(){
     Swal.fire({
-        title: '사용자 등록',
+        title: '사용자 정보 등록',
         html: generateAssetInfoHTML(""),
         focusConfirm: false,
         confirmButtonText: '등록',
@@ -124,9 +125,11 @@ function userCreate(){
         },
         preConfirm: () => {
             const id = Swal.getPopup().querySelector('#user_id').value;
+            const password = Swal.getPopup().querySelector('#user_password').value;
             const name = Swal.getPopup().querySelector('#user_name').value;
             const email = Swal.getPopup().querySelector('#user_email').value;
             const phone = Swal.getPopup().querySelector('#user_phone').value;
+            const department = Swal.getPopup().querySelector('#user_department').value;
             const position = Swal.getPopup().querySelector('#user_position').value;
             const group = Swal.getPopup().querySelector('#user_group').value;
 
@@ -142,9 +145,11 @@ function userCreate(){
 
             return {
                 id: id,
+                password: password,
                 name: name,
                 email: email,
                 phone: phone,
+                department: department,
                 position: position,
                 group: group
             };
@@ -156,7 +161,8 @@ function userCreate(){
             $.ajax({
                 url : '/settings/user/save',
                 type: 'post',
-                data : data,
+                contentType: 'application/json',
+                data : JSON.stringify(data),
                 dataType : 'JSON',
                 success : function(res){
                     if (!res.errorCode){
@@ -186,7 +192,7 @@ $.ajax({
                 let detailRow = res.rows;
 
                 Swal.fire({
-                    title: '장비 상세',
+                    title: '사용자 정보 상세',
                     html: generateAssetInfoHTML(detailRow),
                     focusConfirm: false,
                     confirmButtonText: '수정',
@@ -224,7 +230,7 @@ $.ajax({
 
 function userUpdate(id){
     Swal.fire({
-        title: '사용자 등록',
+        title: '사용자 정보 수정',
         html: generateAssetInfoHTML(""),
         focusConfirm: false,
         confirmButtonText: '등록',
@@ -322,6 +328,10 @@ function generateAssetInfoHTML(detailRow) {
                         <td><input type="text" id="user_id" value="${detailRow.id || ''}"/></td>
                     </tr>
                     <tr>
+                        <th>PASSWORD</th>
+                        <td><input type="text" id="user_password" value="${detailRow.password || ''}"/></td>
+                    </tr>
+                    <tr>
                         <th>이름</th>
                         <td><input type="text" id="user_name" value="${detailRow.name || ''}"/></td>
                     </tr>
@@ -332,6 +342,10 @@ function generateAssetInfoHTML(detailRow) {
                     <tr>
                         <th>연락처</th>
                         <td><input type="text" id="user_phone" value="${detailRow.phone || ''}"/></td>
+                    </tr>
+                    <tr>
+                        <th>부서</th>
+                        <td><input type="text" id="user_department" value="${detailRow.department || ''}"/></td>
                     </tr>
                     <tr>
                         <th>직위</th>
