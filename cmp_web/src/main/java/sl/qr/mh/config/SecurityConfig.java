@@ -110,11 +110,4 @@ public class SecurityConfig {
                 .build();
     }
 
-
-
-    // @Bean
-    // public WebSecurityCustomizer webSecurityCustomizer() {
-    //     return (web) -> web.ignoring().requestMatchers(NOT_SECURED);
-    // }
-
 }

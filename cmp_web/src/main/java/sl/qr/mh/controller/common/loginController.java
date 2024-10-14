@@ -11,12 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class loginController {
 
-	// bcrypt
-	private BCryptPasswordEncoder bcrypt;
-
-	public loginController(
-			BCryptPasswordEncoder bcrypt) {
-		this.bcrypt = bcrypt;
+	public loginController() {
 	}
 
 	/**
@@ -30,14 +25,4 @@ public class loginController {
 		return "views/login";
 	}
 
-	/**
-	 * @brief 로그인 페이지 이동
-	 * @details 로그아웃 후 로그인 페이지로 이동한다.
-	 * @return String
-	 */
-	@PostMapping("/logout")
-	public String userLogout() {
-
-		return "redirect:/login";
-	}
 }
