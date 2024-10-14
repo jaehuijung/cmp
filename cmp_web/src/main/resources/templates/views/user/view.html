@@ -10,50 +10,52 @@
 
 <div layout:fragment="content">
 
-
-
-
 	<main id="main" class="main">
 
+		<div class="contentCard">
 
-		<section class="section">
-			<div class="card">
-			<div class="card-body">
-				<form name='updateForm' id='updateForm' method='POST' action='/usr/updateform'>
-							<input type='hidden' id='update_usr_id' name='id' value=''/>
-				</form>
-				<form name='deleteForm' id='deleteForm' method='POST' action='/usr/delete'>
-							<input type='hidden' id='del_usr_id' name='id' value=''/>
-				</form>
-			<div class="userDiv"></div>
+			<div class="searchSearchWrap">
+				<div class="searchTitle1">검색어</div>
+				<div class="searchSearchInput">
+					<input type="text" id="searchInput" placeholder="검색어를 입력하세요"/>
+					<button type="button"  onclick="searchUserList();">검색</button>
+				</div>
 			</div>
-		</section>
+
+			<div class="contentCard">
+				<div style='display: flex; justify-content: space-between;'>
+					<div>
+						<p id="userTotalCnt" style="margin:10px 0px 10px 0px;font-size:14px;padding:3px 8px;"></p>
+					</div>
+					<div>
+						<button type='button' class='btn btn-outline-secondary'
+								style='margin:10px 0px 10px 5px;font-size:13px;padding:3px 8px;'
+								onclick="userCreate()">추가
+						</button>
+						<button type='button' class='btn btn-outline-secondary'
+								style='margin:10px 0px 10px 5px;font-size:13px;padding:3px 8px;'
+								onclick="userUpdate()">수정
+						</button>
+						<button type='button' class='btn btn-outline-secondary'
+								style='margin:10px 0px 10px 5px;font-size:13px;padding:3px 8px;'
+								onclick="userDelete()">삭제
+						</button>
+					</div>
+				</div>
+
+				<div class="tbl-bootstrap-wrap">
+					<table id="userTable"></table>
+				</div>
+			</div>
+		</div>
+
 	</main>
 	<th:block layout:fragment="script">
 		<script th:src="@{/assets/vendor/axios/axios.min.js}"></script>
 		<script th:src="@{/js/user/view.js}"></script>
 
 		<script>userInfo();</script>
-		<script>
-		
-		function usr_update(id) {
-			let fchk = document.getElementById("updateForm");
-			$('#update_usr_id').val(id);
-			//alert(id);
-			fchk.submit();
-			
-		};
-		
-		function usr_delete(id) {
-			let fchk = document.getElementById("deleteForm");
-			$('#del_usr_id').val(id);
-			fchk.submit();
-			
-		}
-		
-	
-		</script>
-		
+
 	</th:block>
 </div>
 

@@ -481,7 +481,8 @@ header {
     중앙 콘텐츠 > 장비관리 > 추가 / 수정 / 상세 페이지
 */
 #main.rack,
-#main.equipment {
+#main.equipment
+#main.user {
    display: flex;
    flex-direction: column;
 }
