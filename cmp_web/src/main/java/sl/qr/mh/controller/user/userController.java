@@ -43,43 +43,29 @@ public class userController {
     }
 
     /**
-     * 사용자관리 > 사용자목록 > 상세
-     *
-     * @return 사용자 상세 뷰 페이지
-     */
-    @GetMapping("/detail/{id}")
-    public String detailUserPage(@PathVariable("id") String eqp_manage_id, Model model) {
-        Map<String, Object> result = userService.getUserDetailTotalList(eqp_manage_id);
-        if((boolean) result.get("errorCode")){
-            model.addAttribute("user", result.get("selectData"));
-            return "views/eqp/detail";
-        }
-        else{
-            return "views/error/error";
-        }
-    }
-
-    /**
-     * 사용자관리 > 사용자목록 > 추가
-     *
-     * @return 사용자 추가 뷰 페이지
-     */
-    @GetMapping("/create")
-    public String createUserPage() {
-        return "views/user/create";
-    }
-
-    /**
      * 사용자 정보 등록
      * 시스템에 사용자 정보를 등록한다.
      *
      * @return 사용자 정보 등록 결과
      */
     @ResponseBody
-    @PostMapping("/saveUserInfo")
+    @PostMapping("/save")
     public Map<String, Object> saveUserInfo(@RequestBody Map<String, Object> paramMap) {
         return userService.saveUserInfo(paramMap);
     }
+
+    /**
+     * 사용자 정보 조회
+     * 시스템에 등록된 사용자 정보를 조회한다.
+     *
+     * @return 사용자 정보 리스트
+     */
+    @ResponseBody
+    @PostMapping("/detail")
+    public Map<String, Object> detailUserInfo(@RequestBody Map<String, Object> paramMap) {
+        return userService.detailUserInfo(paramMap);
+    }
+
 
     /**
      * 사용자 정보 수정
@@ -88,9 +74,9 @@ public class userController {
      * @return 사용자 정보 수정 결과
      */
     @ResponseBody
-    @PostMapping("/list")
-    public Map<String, Object> update(@RequestBody Map<String, Object> paramMap) {
-        return userService.getAllUserList(paramMap);
+    @PostMapping("/update")
+    public Map<String, Object> updateUserInfo(@RequestBody Map<String, Object> paramMap) {
+        return userService.updateUserInfo(paramMap);
     }
 
     /**
@@ -100,9 +86,9 @@ public class userController {
      * @return 사용자 정보 삭제 결과
      */
     @ResponseBody
-    @PostMapping("/list")
-    public Map<String, Object> delete(@RequestBody Map<String, Object> paramMap) {
-        return userService.getAllUserList(paramMap);
+    @PostMapping("/delete")
+    public Map<String, Object> deleteUserInfo(@RequestBody Map<String, Object> paramMap) {
+        return userService.deleteUserInfo(paramMap);
     }
 
 }

@@ -17,6 +17,7 @@ public class userService {
         this.userMapper = userMapper;
     }
 
+    // 사용자 정보 리스트
     public Map<String, Object> getAllUserList(Map<String, Object> paramMap){
         Map<String, Object> returnMap = new HashMap<>();
         returnMap.put("errorCode", false);
@@ -27,6 +28,63 @@ public class userService {
 
             returnMap.put("rows", rows);
             returnMap.put("total", total);
+            returnMap.put("errorCode", true);
+        }catch (Exception e){
+            log.error(e.getMessage());
+        }
+
+        return returnMap;
+    }
+
+    // 사용자 정보 등록
+    public Map<String, Object> saveUserInfo(Map<String, Object> paramMap){
+        Map<String, Object> returnMap = new HashMap<>();
+        returnMap.put("errorCode", false);
+
+        try{
+            returnMap.put("errorCode", true);
+        }catch (Exception e){
+            log.error(e.getMessage());
+        }
+
+        return returnMap;
+    }
+
+    // 사용자 상세 정보 리스트
+    public Map<String, Object> detailUserInfo(Map<String, Object> paramMap){
+        Map<String, Object> returnMap = new HashMap<>();
+        returnMap.put("errorCode", false);
+
+        try{
+            returnMap.put("errorCode", true);
+        }catch (Exception e){
+            log.error(e.getMessage());
+        }
+
+        return returnMap;
+    }
+
+
+    // 사용자 정보 수정
+    public Map<String, Object> updateUserInfo(Map<String, Object> paramMap){
+        Map<String, Object> returnMap = new HashMap<>();
+        returnMap.put("errorCode", false);
+
+        try{
+            returnMap.put("errorCode", true);
+        }catch (Exception e){
+            log.error(e.getMessage());
+        }
+
+        return returnMap;
+    }
+
+    // 사용자 정보 삭제
+    public Map<String, Object> deleteUserInfo(Map<String, Object> paramMap){
+        Map<String, Object> returnMap = new HashMap<>();
+        returnMap.put("errorCode", false);
+
+        try{
             returnMap.put("errorCode", true);
         }catch (Exception e){
             log.error(e.getMessage());
