@@ -164,50 +164,52 @@ function saveData() {
 
     // 장비연결정보 추가
     const eqpLinkData = $("#eqpLinkTable").bootstrapTable('getData');
-    if (eqpLinkData.length > 0) {
+    if(eqpLinkData.length == 0){
+        alert2("알림", "장비연결정보는 한 개 이상 등록되어야 합니다.", "error", "확인");
+        return false;
+    }
 
-        let eqpLinkValid = true;
-        let eqpLinkErrorMessage = "";
+    let eqpLinkValid = true;
+    let eqpLinkErrorMessage = "";
 
-        eqpLinkData.forEach((item, index) => {
-            let { host, ip_address, port } = item;
+    eqpLinkData.forEach((item, index) => {
+        let { host, ip_address, port } = item;
 
-            let msg = `장비연결정보${index + 1} [`
-            if (!host) {
-                msg += ` host `;
-                eqpLinkValid = false;
-            }
-            if (!ip_address) {
-                item.ip_address = '0.0.0.0';
-            }
-            if (!port) {
-                msg += ` Port `;
-                eqpLinkValid = false;
-            }
-
-            msg += `] 가 비어있습니다.</br>`
-
-            if (!eqpLinkValid) {
-                eqpLinkErrorMessage = msg;
-            }
-
-            let ip_address_arr = item.ip_address.split(".");
-            ip_address_arr = ip_address_arr.map(ele => {
-                if (ele.length >= 2 && ele.startsWith("0")) {
-                    return ele.substring(1);
-                }
-                return ele;
-            });
-            item.ip_address = ip_address_arr.join(".");
-        });
-
-        if (!eqpLinkValid) {
-            alert2("알림", eqpLinkErrorMessage, "error", "확인");
-            return false;
+        let msg = `장비연결정보${index + 1} [`
+        if (!host) {
+            msg += ` host `;
+            eqpLinkValid = false;
+        }
+        if (!ip_address) {
+            item.ip_address = '0.0.0.0';
+        }
+        if (!port) {
+            msg += ` Port `;
+            eqpLinkValid = false;
         }
 
-        data["eqpLink"] = eqpLinkData;
+        msg += `] 가 비어있습니다.</br>`
+
+        if (!eqpLinkValid) {
+            eqpLinkErrorMessage = msg;
+        }
+
+        let ip_address_arr = item.ip_address.split(".");
+        ip_address_arr = ip_address_arr.map(ele => {
+            if (ele.length >= 2 && ele.startsWith("0")) {
+                return ele.substring(1);
+            }
+            return ele;
+        });
+        item.ip_address = ip_address_arr.join(".");
+    });
+
+    if (!eqpLinkValid) {
+        alert2("알림", eqpLinkErrorMessage, "error", "확인");
+        return false;
     }
+
+    data["eqpLink"] = eqpLinkData;
 
     Swal.fire({
         title: '알림',

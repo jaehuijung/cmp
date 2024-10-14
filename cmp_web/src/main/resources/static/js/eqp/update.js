@@ -173,6 +173,10 @@ function saveData() {
 
     // 장비연결정보 추가
     const eqpLinkData = $("#eqpLinkTable").bootstrapTable('getData');
+    if(eqpLinkData.length == 0){
+        alert2("알림", "장비연결정보는 한 개 이상 등록되어야 합니다.", "error", "확인");
+        return false;
+    }
 
     let eqpLinkValid = true;
     let eqpLinkErrorMessage = "";
