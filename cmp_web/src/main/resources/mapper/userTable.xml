@@ -86,6 +86,16 @@
             and idx = #{idx}
     </select>
 
+    <select id="checkExistUser" parameterType="map" resultType="int">
+        select
+            count(idx)
+        from
+            user
+        where
+            is_deleted = 'N'
+            and id = #{id}
+    </select>
+
     <insert id="saveUserInfo" parameterType="map">
         /**
         saveUserInfo...

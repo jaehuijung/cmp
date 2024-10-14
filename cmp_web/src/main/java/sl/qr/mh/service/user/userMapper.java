@@ -16,6 +16,8 @@ public interface userMapper {
     // 선택된 사용자 정보 리스트
     public Map<String, Object> getSelectUserList(Map<String, Object> paramMap);
 
+    // 사용자 정보 저장하기 전에 등록하려는 사용자가 존재하는 지 검증
+    public int checkExistUser(Map<String, Object> paramMap);
     // 사용자 정보 저장
     public void saveUserInfo(Map<String, Object> paramMap);
 

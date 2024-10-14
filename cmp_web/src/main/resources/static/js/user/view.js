@@ -160,12 +160,9 @@ function userCreate(){
                 Swal.showValidationMessage(`id를 입력해주세요.`);
                 return false;
             }
-            if (!name) {
-                Swal.showValidationMessage(`이름을 입력해주세요.`);
-                return false;
-            }
-            if (!group) {
-                Swal.showValidationMessage(`그룹을 선택해주세요.`);
+
+            if (!password) {
+                Swal.showValidationMessage(`비밀번호를 입력해주세요.`);
                 return false;
             }
 
@@ -194,6 +191,11 @@ function userCreate(){
                     if (!res.errorCode){
                         alert2('알림', '사용자를 등록하는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
                         return false;
+                    }
+
+                    if(res.isContain != 0){
+                        alert2('알림', '이미 등록된 사용자입니다.', 'error', '확인', userCreate());
+
                     }
 
                     alert2('알림', '저장되었습니다.', 'info', '확인', tableRefresh());

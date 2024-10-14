@@ -48,14 +48,18 @@ public class userService {
         returnMap.put("errorCode", false);
 
         try{
-            // 비밀번호 인코딩
-            String rawPassword = (String) paramMap.get("password");
-            String encodedPassword = passwordEncoder.encode(rawPassword);
-            paramMap.put("password", encodedPassword);
+            int isContain = userMapper.checkExistUser(paramMap);
+            if (isContain == 0) {
+                // 비밀번호 인코딩
+                String rawPassword = (String) paramMap.get("password");
+                String encodedPassword = passwordEncoder.encode(rawPassword);
+                paramMap.put("password", encodedPassword);
 
-            // 사용자 정보 저장
-            userMapper.saveUserInfo(paramMap);
+                // 사용자 정보 저장
+                userMapper.saveUserInfo(paramMap);
+            }
 
+            returnMap.put("isContain", isContain);
             returnMap.put("errorCode", true);
         }catch (Exception e){
             log.error(e.getMessage());
