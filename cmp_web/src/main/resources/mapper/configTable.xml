@@ -18,9 +18,8 @@
         from
             user
         where
-            id = #{id}
+            BINARY id = #{id}
             and is_deleted = 'N'
-
     </select>
 
     <select id="getSecurityUserAuthList" parameterType="map" resultType="map">
