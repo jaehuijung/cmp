@@ -55,14 +55,14 @@ public class userController {
     }
 
     /**
-     * 사용자 정보 조회
+     * 선택된 사용자 정보 조회
      * 시스템에 등록된 사용자 정보를 조회한다.
      *
      * @return 사용자 정보 리스트
      */
     @ResponseBody
-    @PostMapping("/detail")
-    public Map<String, Object> detailUserInfo(@RequestBody Map<String, Object> paramMap) {
+    @PostMapping("/selectUserInfo")
+    public Map<String, Object> selectUserInfo(@RequestBody Map<String, Object> paramMap) {
         return userService.detailUserInfo(paramMap);
     }
 
@@ -89,6 +89,12 @@ public class userController {
     @PostMapping("/delete")
     public Map<String, Object> deleteUserInfo(@RequestBody Map<String, Object> paramMap) {
         return userService.deleteUserInfo(paramMap);
+    }
+
+    @ResponseBody
+    @PostMapping("/selectList")
+    public Map<String, Object> getUserSelectList(){
+        return userService.getUserSelectList();
     }
 
 }

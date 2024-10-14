@@ -6,9 +6,9 @@
 
 <mapper namespace="sl.qr.mh.service.user.userMapper">
 
-    <select id="getAllUserList" parameterType="map" resultType="map">
+    <select id="getUserList" parameterType="map" resultType="map">
         /**
-        getAllUserList...
+        getUserList...
         사용자 정보 리스트
         */
         SELECT
@@ -36,11 +36,13 @@
             on u.`group` = g.group_idx
         WHERE
             is_deleted = 'N'
+        order by idx desc
+        LIMIT #{offset},#{limit}
     </select>
 
-    <select id="getAllUserListCnt" parameterType="map" resultType="int">
+    <select id="getUserListCnt" parameterType="map" resultType="int">
         /**
-        getAllUserListCnt...
+        getUserListCnt...
         사용자 정보 리스트 개수
         */
         SELECT
@@ -58,6 +60,30 @@
             on u.`group` = g.group_idx
         WHERE
             is_deleted = 'N'
+    </select>
+
+    <select id="getSelectUserList" parameterType="map" resultType="map">
+        /**
+        getSelectUserList...
+        선택된 사용자 정보 리스트
+        */
+        SELECT
+            idx,
+            id,
+            name,
+            email,
+            phone,
+            `department`,
+            `position`,
+            `group`,
+            created_at,
+            updated_at,
+            is_deleted
+        FROM
+            user u
+        WHERE
+            is_deleted = 'N'
+            and idx = #{idx}
     </select>
 
     <insert id="saveUserInfo" parameterType="map">
@@ -93,7 +119,7 @@
         )
     </insert>
 
-        <select id="getUserDepartmentList" resultType="map">
+    <select id="getUserDepartmentList" resultType="map">
         /**
         getUserDepartmentList...
         사용자 부서 리스트

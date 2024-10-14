@@ -46,7 +46,7 @@ function createColumn(field, checkbox = false, title, type = 'default') {
 /**
  * userTable에서 사용할 컬럼 리스트
  */
-var userColumns = [
+let userColumns = [
     createColumn('',              true,  ''                        ),
     createColumn('idx',           false, 'idx',        'visible'   ),
     createColumn('no',            false, 'no',         'formatter' ),
@@ -58,6 +58,10 @@ var userColumns = [
     createColumn('position',      false, '사용자 직위'               ),
     createColumn('group',         false, '사용자 그룹'               ),
 ];
+
+let userGroupList = null;
+let userPositionList = null;
+let userDepartmentList = null;
 
 $(function(){
 
@@ -108,6 +112,25 @@ $(function(){
         if(e.which == 13){
             tableRefresh();
         }
+    });
+
+
+    $.ajax({
+        url : '/settings/user/selectList',
+        type: 'post',
+        dataType : 'JSON',
+        success : function(res){
+            let errorCode = res.errorCode;
+
+            if(!errorCode){
+                alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+                return false;
+            }
+
+            userGroupList = res.userGroupList;
+            userPositionList = res.userPositionList;
+            userDepartmentList = res.userDepartmentList;
+        }
     })
 
 });
@@ -135,12 +158,15 @@ function userCreate(){
 
             if (!id) {
                 Swal.showValidationMessage(`id를 입력해주세요.`);
+                return false;
             }
             if (!name) {
                 Swal.showValidationMessage(`이름을 입력해주세요.`);
+                return false;
             }
             if (!group) {
                 Swal.showValidationMessage(`그룹을 선택해주세요.`);
+                return false;
             }
 
             return {
@@ -167,10 +193,10 @@ function userCreate(){
                 success : function(res){
                     if (!res.errorCode){
                         alert2('알림', '사용자를 등록하는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+                        return false;
                     }
-                    else{
-                        alert2('알림', '저장되었습니다.', 'info', '확인', tableRefresh());
-                    }
+
+                    alert2('알림', '저장되었습니다.', 'info', '확인', tableRefresh());
                 }
             })
         }
@@ -178,101 +204,144 @@ function userCreate(){
 }
 
 function userDetail(id){
-$.ajax({
-        url : '/cable/eqp/update?eqp_id='+id,
-        type: 'get',
+    $.ajax({
+        url : '/settings/user/selectUserInfo',
+        type: 'post',
+        contentType: 'application/json',
+        data : JSON.stringify({idx:id}),
         dataType : 'JSON',
         success : function(res){
             let errorCode = res.errorCode;
 
             if(!errorCode){
-                alert2('알림', '데이터를 저장하는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+                alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+                return false;
             }
-            else{
-                let detailRow = res.rows;
 
-                Swal.fire({
-                    title: '사용자 정보 상세',
-                    html: generateAssetInfoHTML(detailRow),
-                    focusConfirm: false,
-                    confirmButtonText: '수정',
-                    cancelButtonText: '취소',
-                    showCancelButton: true,
-                    customClass: {
-                        popup: 'custom-width'
-                    },
-                    didOpen: () => {
-                        let inputs = document.querySelectorAll(".modalWrap input")
-                        inputs.forEach(input =>{
-                            input.readOnly = true;
-                        })
-                    },
-                    preConfirm: () => {
-                        //const user_name = Swal.getPopup().querySelector('#user_name').value; // 장비명
-                        //if (!eqp_name) {
-                        //    Swal.showValidationMessage(`장비명은 필수 항목입니다.`);
-                        //}
+            let row = res.rows;
 
-                        //return {
-                        //    user_name : user_name
-                        //};
-                    }
-                }).then((result) => {
-                    // 수정 버튼 클릭 시 띄워줄 수정 팝업
-                    if (result.isConfirmed) {
-                        eqp_update_popup(id);
-                    }
-                });
-            }
+            Swal.fire({
+                title: '사용자 정보 상세',
+                html: generateAssetInfoHTML(row),
+                focusConfirm: false,
+                confirmButtonText: '수정',
+                cancelButtonText: '취소',
+                showCancelButton: true,
+                customClass: {
+                    popup: 'custom-width'
+                },
+                didOpen: () => {
+                    let inputs = document.querySelectorAll(".modalWrap input")
+                    inputs.forEach(input =>{
+                        input.readOnly = true;
+                    })
+                },
+            }).then((result) => {
+                // 수정 버튼 클릭 시 띄워줄 수정 팝업
+                if (result.isConfirmed) {
+                    userUpdate_(row.idx);
+                }
+            });
         }
     })
 }
 
 function userUpdate(id){
-    Swal.fire({
-        title: '사용자 정보 수정',
-        html: generateAssetInfoHTML(""),
-        focusConfirm: false,
-        confirmButtonText: '등록',
-        cancelButtonText: '취소',
-        showCancelButton: true,
-        customClass: {
-            popup: 'custom-width'
-        },
-        preConfirm: () => {
-            //const user_name = Swal.getPopup().querySelector('#user_name').value; // 장비명
-            //if (!eqp_name) {
-            //    Swal.showValidationMessage(`장비명은 필수 항목입니다.`);
-            //}
+    let selectUser = $("#userTable").bootstrapTable("getSelections");
+    if (selectUser.length == 0){
+        alert2('알림', '사용자를 선택해주세요.', 'info', '확인');
+        return false;
+    }
+    if (selectUser.length > 1){
+        alert2('알림', '사용자 정보는 한 건씩 수정할 수 있습니다.', 'info', '확인');
+        return false;
+    }
 
-            return {
-                // user_name: user_name
-             };
-        }
-    }).then((result) => {
-        // 등록 버튼 클릭 후 발생할 이벤트
-        if (result.isConfirmed) {
-            let data = result.value;
-            $.ajax({
-                url : '/settings/user/save',
-                type: 'post',
-                data : data,
-                dataType : 'JSON',
-                success : function(res){
-                    if (!res.errorCode){
-                        alert2('알림', '사용자를 등록하는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+    userUpdate_(selectUser[0].idx);
+}
+function userUpdate_(id){
+    $.ajax({
+        url : '/settings/user/selectUserInfo',
+        type: 'post',
+        contentType: 'application/json',
+        data : JSON.stringify({idx:id}),
+        dataType : 'JSON',
+        success : function(res){
+            let errorCode = res.errorCode;
+
+            if(!errorCode){
+                alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+                return false;
+            }
+
+            let row = res.rows;
+
+            Swal.fire({
+                title: '사용자 정보 수정',
+                html: generateAssetInfoHTML(row),
+                focusConfirm: false,
+                confirmButtonText: '저장',
+                cancelButtonText: '취소',
+                showCancelButton: true,
+                customClass: {
+                popup: 'custom-width'
+                },
+                preConfirm: () => {
+                    const id = Swal.getPopup().querySelector('#user_id').value;
+                    const password = Swal.getPopup().querySelector('#user_password').value;
+                    const name = Swal.getPopup().querySelector('#user_name').value;
+                    const email = Swal.getPopup().querySelector('#user_email').value;
+                    const phone = Swal.getPopup().querySelector('#user_phone').value;
+                    const department = Swal.getPopup().querySelector('#user_department').value;
+                    const position = Swal.getPopup().querySelector('#user_position').value;
+                    const group = Swal.getPopup().querySelector('#user_group').value;
+
+                    if (!id) {
+                        Swal.showValidationMessage(`id를 입력해주세요.`);
+                        return false;
                     }
-                    else{
-                        alert2('알림', '저장되었습니다.', 'info', '확인', tableRefresh());
+                    if (!password) {
+                        Swal.showValidationMessage(`비밀번호를 입력해주세요.`);
+                        return false;
                     }
+
+                    return {
+                        id: id,
+                        password: password,
+                        name: name,
+                        email: email,
+                        phone: phone,
+                        department: department,
+                        position: position,
+                        group: group
+                    };
                 }
-            })
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let data = result.value;
+                    $.ajax({
+                        url : '/settings/user/save',
+                        type: 'post',
+                        contentType: 'application/json',
+                        data : JSON.stringify(data),
+                        dataType : 'JSON',
+                        success : function(res){
+                            if (!res.errorCode){
+                                alert2('알림', '사용자 정보를 수정하는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+                                return false;
+                            }
+
+                            alert2('알림', '저장되었습니다.', 'info', '확인', tableRefresh());
+                        }
+                    })
+                }
+            });
         }
     });
 }
 
 function userDelete(){
-let data = $("#userTable").bootstrapTable('getSelections');
+    let data = $("#userTable").bootstrapTable('getSelections');
 
     if (data.length == 0){
         alert2('알림', '삭제할 사용자를 선택하세요.', 'info', '확인');
@@ -317,7 +386,22 @@ let data = $("#userTable").bootstrapTable('getSelections');
 }
 
 // 사용자 등록, 수정, 상세 모달 생성 html
-function generateAssetInfoHTML(detailRow) {
+function generateAssetInfoHTML(row) {
+    const groupOptions = `
+        ${userGroupList.map(group =>
+            `<option value="${group.group_idx}" ${row.group === group.group_idx ? 'selected' : ''}>${group.group_name}</option>`
+        ).join('')}`;
+
+    const positionOptions = `
+        ${userPositionList.map(position =>
+            `<option value="${position.position_idx}" ${row.position === position.position_idx ? 'selected' : ''}>${position.position_name}</option>`
+        ).join('')}`;
+
+    const departmentOptions = `
+        ${userDepartmentList.map(department =>
+            `<option value="${department.department_idx}" ${row.department === department.department_idx ? 'selected' : ''}>${department.department_name}</option>`
+        ).join('')}`;
+
     return `
         <p style="font-size: 25px; font-weight: bold; margin-top: 20px; text-align: left;">사용자정보</p>
         <div class="modalWrap" style="display: flex;">
@@ -325,35 +409,47 @@ function generateAssetInfoHTML(detailRow) {
                 <table class="swal2-table">
                     <tr>
                         <th>ID</th>
-                        <td><input type="text" id="user_id" value="${detailRow.id || ''}"/></td>
+                        <td><input type="text" id="user_id" value="${row.id || ''}"/></td>
                     </tr>
                     <tr>
                         <th>PASSWORD</th>
-                        <td><input type="text" id="user_password" value="${detailRow.password || ''}"/></td>
+                        <td><input type="text" id="user_password" value="${row.password || ''}"/></td>
                     </tr>
                     <tr>
                         <th>이름</th>
-                        <td><input type="text" id="user_name" value="${detailRow.name || ''}"/></td>
+                        <td><input type="text" id="user_name" value="${row.name || ''}"/></td>
                     </tr>
                     <tr>
                         <th>이메일</th>
-                        <td><input type="email" id="user_email" value="${detailRow.email || ''}"/></td>
+                        <td><input type="email" id="user_email" value="${row.email || ''}"/></td>
                     </tr>
                     <tr>
                         <th>연락처</th>
-                        <td><input type="text" id="user_phone" value="${detailRow.phone || ''}"/></td>
-                    </tr>
-                    <tr>
-                        <th>부서</th>
-                        <td><input type="text" id="user_department" value="${detailRow.department || ''}"/></td>
+                        <td><input type="text" id="user_phone" value="${row.phone || ''}"/></td>
                     </tr>
                     <tr>
                         <th>직위</th>
-                        <td><input type="text" id="user_position" value="${detailRow.position || ''}"/></td>
+                        <td>
+                            <select id="user_position">
+                                ${positionOptions}
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <th>그룹</th>
-                        <td><input type="text" id="user_group" value="${detailRow.group || ''}"/></td>
+                        <td>
+                            <select id="user_group">
+                                ${groupOptions}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>부서</th>
+                        <td>
+                            <select id="user_department">
+                                ${departmentOptions}
+                            </select>
+                        </td>
                     </tr>
                 </table>
             </div>

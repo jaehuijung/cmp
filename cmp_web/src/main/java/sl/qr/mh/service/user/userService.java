@@ -26,8 +26,8 @@ public class userService {
         returnMap.put("errorCode", false);
 
         try{
-            List<Map<String, Object>> rows = userMapper.getAllUserList(paramMap);
-            int total = userMapper.getAllUserListCnt(paramMap);
+            List<Map<String, Object>> rows = userMapper.getUserList(paramMap);
+            int total = userMapper.getUserListCnt(paramMap);
 
             returnMap.put("rows", rows);
             returnMap.put("total", total);
@@ -61,12 +61,14 @@ public class userService {
         return returnMap;
     }
 
-    // 사용자 상세 정보 리스트
+    // 선택된 사용자 정보 리스트
     public Map<String, Object> detailUserInfo(Map<String, Object> paramMap){
         Map<String, Object> returnMap = new HashMap<>();
         returnMap.put("errorCode", false);
 
         try{
+            Map<String, Object> rows = userMapper.getSelectUserList(paramMap);
+            returnMap.put("rows", rows);
             returnMap.put("errorCode", true);
         }catch (Exception e){
             log.error(e.getMessage());
@@ -105,19 +107,19 @@ public class userService {
     }
 
 
-    // 사용자 부서, 직책, 그룹 리스트
-    public Map<String, Object> getUserGroupList(){
+    // 선택박스에서 사용할 사용자 부서, 직책, 그룹 리스트
+    public Map<String, Object> getUserSelectList(){
         Map<String, Object> returnMap = new HashMap<>();
         returnMap.put("errorCode", false);
 
         try{
             List<Map<String, Object>> userGroupList = userMapper.getUserGroupList();
             List<Map<String, Object>> userPositionList = userMapper.getUserPositionList();
-            List<Map<String, Object>> getUserDepartmentList = userMapper.getUserDepartmentList();
+            List<Map<String, Object>> userDepartmentList = userMapper.getUserDepartmentList();
 
             returnMap.put("userGroupList", userGroupList);
             returnMap.put("userPositionList", userPositionList);
-            returnMap.put("getUserDepartmentList", getUserDepartmentList);
+            returnMap.put("userDepartmentList", userDepartmentList);
             returnMap.put("errorCode", true);
         }catch (Exception e){
             log.error(e.getMessage());
