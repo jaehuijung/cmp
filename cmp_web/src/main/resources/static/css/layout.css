@@ -70,7 +70,6 @@ header {
     color: #959AA6;
     display: flex;
     align-items: center;
-    padding: 0 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin-left: 300px;
     transition: margin-left 0.3s, width 0.3s;
@@ -83,6 +82,7 @@ header {
     display: flex;
     align-items: center;
     flex-grow: 1;
+    margin-left: -25px;
 }
 
 /* 상단바 > 왼쪽 영역 > 사이드바 접는 버튼 */
@@ -205,7 +205,7 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    z-index: 1; /* 사이드 메뉴를 content 위로 오게 하기 위한 설정 */
+    z-index: -1; /* 사이드 메뉴를 content 위로 오게 하기 위한 설정 */
     transition: margin-left 0.3s, width 0.3s;
 }
 
