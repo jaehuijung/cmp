@@ -5,6 +5,10 @@
 
     <header>
         <div class="left-section">
+            <div id="left-logo">
+                <img id="left-logo-img"        src="/images/logo/technopark.png" alt="logo" onclick="location.href='/cable/rack/view'" />
+                <img id="left-logo-toggle-img" src="/images/icon/home.png"       alt="logo" onclick="location.href='/cable/rack/view'" />
+            </div>
             <!-- 왼쪽 사이드바 접는 버튼 -->
             <button id="sidebarToggle" class="btn">
                 <img src="/images/icon/folder.png" alt="Toggle Sidebar" class="sidebar-toggle-img">
@@ -40,10 +44,6 @@
 
     <div class="side-menu" th:fragment="asideFragment">
         <div class="menu-section">
-<!--            <input id="menu-search" type="text" placeholder="Search..." />-->
-            <div id="menu-logo">
-                <img id="menu-logo-img" src="/images/logo/technopark.png" alt="logo" onclick="location.href='/cable/rack/view'" />
-            </div>
 
             <!-- 사이드바 메뉴 항목 menu.js 에서 동적생성 -->
             <div id="menu-items" class="items-section"> </div>

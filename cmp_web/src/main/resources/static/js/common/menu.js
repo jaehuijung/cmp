@@ -7,10 +7,14 @@ $(function(){
     $('#sidebarToggle').on('click', function () {
         $('.side-menu').toggleClass('toggled');
         if ($('.side-menu').hasClass('toggled')) {
-            $('header').css('margin-left', '0');
-            $('.content').css('margin-left', '0');
+            $('#left-logo').css('width', '100px');
+            $('#left-logo-img').css('display', 'none');
+            $('#left-logo-toggle-img').css('display', 'flex');
+            $('.content').css('margin-left', '100px');
         } else {
-            $('header').css('margin-left', '300px');
+            $('#left-logo').css('width', '300px');
+            $('#left-logo-img').css('display', 'flex');
+            $('#left-logo-toggle-img').css('display', 'none');
             $('.content').css('margin-left', '300px');
         }
     });
