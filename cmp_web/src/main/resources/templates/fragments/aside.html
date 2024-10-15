@@ -11,14 +11,13 @@
             </div>
             <!-- 왼쪽 사이드바 접는 버튼 -->
             <button id="sidebarToggle" class="btn">
-                <img src="/images/icon/folder.png" alt="Toggle Sidebar" class="sidebar-toggle-img">
+                <img src="/images/icon/before_toggle.png" alt="Toggle Sidebar" id="sidebarToggleIcon">
             </button>
             <!-- 상단 메뉴 항목 -->
             <nav id="top-menu" class="top-menu" th:fragment="topMenuFragment"></nav>
         </div>
 
         <div class="right-section">
-            <!-- 사용자 정보 표시 -->
             <a class="nav-link align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                <span class="dropdown-toggle ps-2" th:text="${accountData.name}+'님'"></span>
             </a>
@@ -37,16 +36,15 @@
                 </li>
             </ul>
 
-<!--            <form name='logoutform' id='logoutform' method='POST' action='/sl/user/logout'></form>-->
             <form name='logoutform' id='logoutform' method='POST' action='/logout'></form>
         </div>
     </header>
 
     <div class="side-menu" th:fragment="asideFragment">
         <div class="menu-section">
-
             <!-- 사이드바 메뉴 항목 menu.js 에서 동적생성 -->
             <div id="menu-items" class="items-section"> </div>
+            <div id="menu-toggle-items" class="items-section"> </div>
         </div>
         <div class="bottom-section">
             <p class="bottom-text-title">Smart CMS</p>

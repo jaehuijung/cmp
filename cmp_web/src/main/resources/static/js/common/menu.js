@@ -5,17 +5,27 @@ $(function(){
 
     // 왼쪽 사이드바 펼치고 접기 이벤트 핸들러
     $('#sidebarToggle').on('click', function () {
+        const icon = document.getElementById('sidebarToggleIcon');
+
         $('.side-menu').toggleClass('toggled');
         if ($('.side-menu').hasClass('toggled')) {
             $('#left-logo').css('width', '100px');
             $('#left-logo-img').css('display', 'none');
             $('#left-logo-toggle-img').css('display', 'flex');
+            $('#menu-items').css('display', 'none');
+            $('#menu-toggle-items').css('display', 'flex');
             $('.content').css('margin-left', '100px');
+            $('.bottom-section').css('display', 'none');
+            icon.src = '/images/icon/after_toggle.png';
         } else {
             $('#left-logo').css('width', '300px');
             $('#left-logo-img').css('display', 'flex');
             $('#left-logo-toggle-img').css('display', 'none');
+            $('#menu-items').css('display', 'flex');
+            $('#menu-toggle-items').css('display', 'none');
             $('.content').css('margin-left', '300px');
+            $('.bottom-section').css('display', 'block');
+            icon.src = '/images/icon/before_toggle.png';
         }
     });
 });
@@ -75,6 +85,7 @@ function buildSideMenu(menuData, currentUrl) {
     }
 
     const sideMenuContainer = $('#menu-items');
+    const sideMenuToggleContainer = $('#menu-toggle-items');
     const filteredMenu = menuData.filter(menu => menu.parent_menu_id == currentMenu.parent_menu_id);
 
     const sideMenuHtml = filteredMenu
@@ -84,8 +95,19 @@ function buildSideMenu(menuData, currentUrl) {
         })
         .join('');
 
+    const sideToggleMenuHtml = filteredMenu
+        .map(menu => {
+            const isActive = menu.menu_id === currentMenu.menu_id ? ' active' : '';
+            return `<a href="${menu.url}" class="side-menu-item${isActive}"><img src="/images/icon/folder.png" alt="icon" class="menu-icon" /></a>`;
+        })
+        .join('');
+
     if (sideMenuContainer.length > 0) {
         sideMenuContainer.html(sideMenuHtml);
+    }
+
+    if (sideMenuToggleContainer.length > 0) {
+        sideMenuToggleContainer.html(sideToggleMenuHtml);
     }
 }
 

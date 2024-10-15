@@ -65,7 +65,7 @@ body {
 
 /* 상단 바 */
 header {
-    height: 100px;
+    height: 90px;
     background: #fff;
     color: #959AA6;
     display: flex;
@@ -88,14 +88,14 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100px;
+    height: 90px;
     background-color: #EBECF1;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: margin-left 0.3s, width 0.3s;
 }
 
 #left-logo-img {
-    width: 100px;
+    width: 125px;
 }
 
 #left-logo-toggle-img {
@@ -104,7 +104,23 @@ header {
 }
 
 /* 상단바 > 왼쪽 영역 > 사이드바 접는 버튼 */
-.sidebar-toggle-img {
+#sidebarToggle{
+    margin-left: -15px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    outline: none;
+}
+
+#sidebarToggleIcon {
     width: 24px;
     height: 24px;
 }
@@ -212,19 +228,18 @@ header {
 /* 왼쪽 바 */
 .side-menu {
     width: 300px;
-    margin-top: 100px;
+    margin-top: 90px;
     background: #243C93;
     color: #fff;
     overflow-y: auto;
     position: fixed;
     top: 0;
     bottom: 0;
-    height: cacl(100% - 100px);
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    z-index: 1; /* 사이드 메뉴를 content 위로 오게 하기 위한 설정 */
+    z-index: 1;
     transition: margin-left 0.3s, width 0.3s;
 }
 
@@ -237,6 +252,7 @@ header {
 .menu-section {
     display: flex;
     flex-direction: column;
+    padding: 20px 20px 0 20px;
 }
 
 /* 왼쪽 바 > 상단 영역 > 메뉴 항목 */
@@ -245,9 +261,15 @@ header {
     flex-direction: column;
 }
 
-.items-section {
+#menu-items {
     display: flex;
     flex-direction: column;
+}
+
+#menu-toggle-items {
+    display: none;
+    align-items: end;
+    width: 100%;
 }
 
 .side-menu a {
@@ -264,7 +286,6 @@ header {
 
 .side-menu .menu-icon{
     width: 30px;
-    margin-right: 20px;
 }
 
 /* 왼쪽 선택된 메뉴 하이라이트 */
