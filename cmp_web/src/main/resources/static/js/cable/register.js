@@ -19,52 +19,58 @@ function createColumn(field, checkbox = false, title, type = 'default') {
 }
 
 let rackStartColumn = [
-    // createColumn('',                              true,  ''),
-    createColumn('eqp_manage_id',               false, '관리번호', 'underline'),
-    createColumn('eqp_name',                    false, '구성자원명', 'underline'),
-    createColumn('port',                        false, '포트번호'),
     createColumn('asset_category',              false, '자산분류'),
     createColumn('installation_coordinates',    false, '설치좌표'),
+    createColumn('eqp_manage_id',               false, '관리ID'),
+    createColumn('m_company',                   false, '제조사'),
     createColumn('model_name',                  false, '모델명'),
-    // createColumn('host_name',                   false, '호스트명'),
-    // createColumn('m_company',                   false, '제조사'),
-    // createColumn('primary_operator',            false, '운영담당자'),
-    // createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
+    createColumn('host_name',                   false, '호스트명'),
+    createColumn('eqp_name',                    false, '구성자원명'),
+    createColumn('port',                        false, '포트번호'),
+    createColumn('primary_operator',            false, '운영담당자'),
+    createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
 ];
 
 let rackEndColumn = [
-    // createColumn('',                              true,  ''),
-    createColumn('eqp_manage_id',               false, '관리번호', 'underline'),
-    createColumn('eqp_name',                    false, '구성자원명', 'underline'),
-    createColumn('port',                        false, '포트번호'),
     createColumn('asset_category',              false, '자산분류'),
     createColumn('installation_coordinates',    false, '설치좌표'),
+    createColumn('eqp_manage_id',               false, '관리ID'),
+    createColumn('m_company',                   false, '제조사'),
     createColumn('model_name',                  false, '모델명'),
-    // createColumn('host_name',                   false, '호스트명'),
-    // createColumn('m_company',                   false, '제조사'),
-    // createColumn('primary_operator',            false, '운영담당자'),
-    // createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
+    createColumn('host_name',                   false, '호스트명'),
+    createColumn('eqp_name',                    false, '구성자원명'),
+    createColumn('port',                        false, '포트번호'),
+    createColumn('primary_operator',            false, '운영담당자'),
+    createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
 ];
 
 let rackSelectColumn = [
     [
-        { title: '출발지', align: 'center', valign: 'middle', colspan: 6 },
-        { title: '목적지', align: 'center', valign: 'middle', colspan: 6 },
+        { title: '출발지', align: 'center', valign: 'middle', colspan: 10 },
+        { title: '목적지', align: 'center', valign: 'middle', colspan: 10 },
     ],
     [
-        createColumn('s_eqp_manage_id', false, '관리번호'),
-        createColumn('s_eqp_name', false, '구성자원명'),
-        createColumn('s_port', false, '포트번호'),
-        createColumn('s_asset_category', false, '자산분류'),
-        createColumn('s_installation_coordinates', false, '설치좌표'),
-        createColumn('s_model_name', false, '모델명'),
+        createColumn('s_asset_category',              false, '자산분류'),
+        createColumn('s_installation_coordinates',    false, '설치좌표'),
+        createColumn('s_eqp_manage_id',               false, '관리번호'),
+        createColumn('s_m_company',                   false, '제조사'),
+        createColumn('s_model_name',                  false, '모델명'),
+        createColumn('s_host_name',                   false, '호스트명'),
+        createColumn('s_eqp_name',                    false, '구성자원명'),
+        createColumn('s_port',                        false, '포트번호'),
+        createColumn('s_primary_operator',            false, '운영담당자'),
+        createColumn('s_primary_outsourced_operator', false, '위탁운영담당자'),
 
-        createColumn('e_eqp_manage_id', false, '관리번호'),
-        createColumn('e_eqp_name', false, '구성자원명'),
-        createColumn('e_port', false, '포트번호'),
-        createColumn('e_asset_category', false, '자산분류'),
-        createColumn('e_installation_coordinates', false, '설치좌표'),
-        createColumn('e_model_name', false, '모델명'),
+        createColumn('e_asset_category',              false, '자산분류'),
+        createColumn('e_installation_coordinates',    false, '설치좌표'),
+        createColumn('e_eqp_manage_id',               false, '관리번호'),
+        createColumn('e_m_company',                   false, '제조사'),
+        createColumn('e_model_name',                  false, '모델명'),
+        createColumn('e_host_name',                   false, '호스트명'),
+        createColumn('e_eqp_name',                    false, '구성자원명'),
+        createColumn('e_port',                        false, '포트번호'),
+        createColumn('e_primary_operator',            false, '운영담당자'),
+        createColumn('e_primary_outsourced_operator', false, '위탁운영담당자'),
     ]
 ];
 
@@ -73,18 +79,27 @@ let selectedEndRow = null;
 
 function updateSelectTable() {
     let data = [{
-        s_eqp_manage_id: selectedStartRow ? selectedStartRow.eqp_manage_id : "",
-        s_eqp_name: selectedStartRow ? selectedStartRow.eqp_name : "",
-        s_port: selectedStartRow ? selectedStartRow.port : "",
         s_asset_category: selectedStartRow ? selectedStartRow.asset_category : "",
         s_installation_coordinates: selectedStartRow ? selectedStartRow.installation_coordinates : "",
+        s_eqp_manage_id: selectedStartRow ? selectedStartRow.eqp_manage_id : "",
+        s_m_company: selectedStartRow ? selectedStartRow.m_company : "",
         s_model_name: selectedStartRow ? selectedStartRow.model_name : "",
-        e_eqp_manage_id: selectedEndRow ? selectedEndRow.eqp_manage_id : "",
-        e_eqp_name: selectedEndRow ? selectedEndRow.eqp_name : "",
-        e_port: selectedEndRow ? selectedEndRow.port : "",
+        s_host_name: selectedStartRow ? selectedStartRow.host_name : "",
+        s_eqp_name: selectedStartRow ? selectedStartRow.eqp_name : "",
+        s_port: selectedStartRow ? selectedStartRow.port : "",
+        s_primary_operator: selectedStartRow ? selectedStartRow.primary_operator : "",
+        s_primary_outsourced_operator: selectedStartRow ? selectedStartRow.primary_outsourced_operator : "",
+
         e_asset_category: selectedEndRow ? selectedEndRow.asset_category : "",
         e_installation_coordinates: selectedEndRow ? selectedEndRow.installation_coordinates : "",
-        e_model_name: selectedEndRow ? selectedEndRow.model_name : ""
+        e_eqp_manage_id: selectedEndRow ? selectedEndRow.eqp_manage_id : "",
+        e_m_company: selectedEndRow ? selectedEndRow.m_company : "",
+        e_model_name: selectedEndRow ? selectedEndRow.model_name : "",
+        e_host_name: selectedEndRow ? selectedEndRow.host_name : "",
+        e_eqp_name: selectedEndRow ? selectedEndRow.eqp_name : "",
+        e_port: selectedEndRow ? selectedEndRow.port : "",
+        e_primary_operator: selectedEndRow ? selectedEndRow.primary_operator : "",
+        e_primary_outsourced_operator: selectedEndRow ? selectedEndRow.primary_outsourced_operator : "",
     }];
 
     $('#rackSelectTable').bootstrapTable('load', data);
@@ -125,31 +140,26 @@ $(function(){
         },
         onClickCell: function(field, value, row, $element) {
             if (!$element.hasClass("bs-checkbox")) {
-                if ((field == 'eqp_manage_id' || field == 'eqp_name')) {
-                    // 여기에 필요한 추가 기능을 작성할 수 있습니다. 예: rackDetail(row.eqp_manage_id)
-                }
-                else{
-                    if (selectedStartRow) {
-                        $('#rackStartTable').bootstrapTable('uncheckBy', {
-                            field: 'eqp_manage_id',
-                            values: [selectedStartRow.eqp_manage_id]
-                        });
-
-
-                        // 기존 선택된 행의 클래스 제거
-                        $('#rackStartTable').find('tr[data-index="' + $('#rackStartTable').bootstrapTable('getData').indexOf(selectedStartRow) + '"]').removeClass('selected-row');
-                    }
-                    selectedStartRow = row;
-                    $('#rackStartTable').bootstrapTable('checkBy', {
+                if (selectedStartRow) {
+                    $('#rackStartTable').bootstrapTable('uncheckBy', {
                         field: 'eqp_manage_id',
                         values: [selectedStartRow.eqp_manage_id]
                     });
 
-                    // 새로운 선택된 행에 클래스 추가
-                    $('#rackStartTable').find('tr[data-index="' + $('#rackStartTable').bootstrapTable('getData').indexOf(selectedStartRow) + '"]').addClass('selected-row');
 
-                    updateSelectTable();
+                    // 기존 선택된 행의 클래스 제거
+                    $('#rackStartTable').find('tr[data-index="' + $('#rackStartTable').bootstrapTable('getData').indexOf(selectedStartRow) + '"]').removeClass('selected-row');
                 }
+                selectedStartRow = row;
+                $('#rackStartTable').bootstrapTable('checkBy', {
+                    field: 'eqp_manage_id',
+                    values: [selectedStartRow.eqp_manage_id]
+                });
+
+                // 새로운 선택된 행에 클래스 추가
+                $('#rackStartTable').find('tr[data-index="' + $('#rackStartTable').bootstrapTable('getData').indexOf(selectedStartRow) + '"]').addClass('selected-row');
+
+                updateSelectTable();
             }
         },
     });
@@ -184,30 +194,25 @@ $(function(){
         },
         onClickCell: function(field, value, row, $element) {
             if (!$element.hasClass("bs-checkbox")) {
-                if ((field == 'eqp_manage_id' || field == 'eqp_name')) {
-                    // 여기에 필요한 추가 기능을 작성할 수 있습니다. 예: rackDetail(row.eqp_manage_id)
-                }
-                else{
-                    if (selectedEndRow) {
-                        $('#rackEndTable').bootstrapTable('uncheckBy', {
-                            field: 'eqp_manage_id',
-                            values: [selectedEndRow.eqp_manage_id]
-                        });
-
-                        // 기존 선택된 행의 클래스 제거
-                        $('#rackEndTable').find('tr[data-index="' + $('#rackEndTable').bootstrapTable('getData').indexOf(selectedEndRow) + '"]').removeClass('selected-row');
-                    }
-                    selectedEndRow = row;
-                    $('#rackEndTable').bootstrapTable('checkBy', {
+                if (selectedEndRow) {
+                    $('#rackEndTable').bootstrapTable('uncheckBy', {
                         field: 'eqp_manage_id',
                         values: [selectedEndRow.eqp_manage_id]
                     });
 
-                    // 새로운 선택된 행에 클래스 추가
-                    $('#rackEndTable').find('tr[data-index="' + $('#rackEndTable').bootstrapTable('getData').indexOf(selectedEndRow) + '"]').addClass('selected-row');
-
-                    updateSelectTable();
+                    // 기존 선택된 행의 클래스 제거
+                    $('#rackEndTable').find('tr[data-index="' + $('#rackEndTable').bootstrapTable('getData').indexOf(selectedEndRow) + '"]').removeClass('selected-row');
                 }
+                selectedEndRow = row;
+                $('#rackEndTable').bootstrapTable('checkBy', {
+                    field: 'eqp_manage_id',
+                    values: [selectedEndRow.eqp_manage_id]
+                });
+
+                // 새로운 선택된 행에 클래스 추가
+                $('#rackEndTable').find('tr[data-index="' + $('#rackEndTable').bootstrapTable('getData').indexOf(selectedEndRow) + '"]').addClass('selected-row');
+
+                updateSelectTable();
             }
         },
     });

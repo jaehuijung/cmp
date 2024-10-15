@@ -497,7 +497,7 @@ header {
 }
 
 /* 중앙 콘텐츠 카드영역 */
-.contentCard{
+.contentCard {
     background-color: #ffffff;
     border: 1px solid rgba(0, 0, 0, 0.1);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -510,9 +510,9 @@ header {
     중앙 콘텐츠 > 선번장관리 > 추가 / 수정 / 상세 페이지
     중앙 콘텐츠 > 장비관리 > 추가 / 수정 / 상세 페이지
 */
-#main.rack,
-#main.equipment
-#main.user {
+#main-rack,
+#main .equipment,
+#main .user {
    display: flex;
    flex-direction: column;
 }
