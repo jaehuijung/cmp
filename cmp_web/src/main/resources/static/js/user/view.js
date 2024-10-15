@@ -195,7 +195,7 @@ function userCreate(){
 
                     if(res.isContain != 0){
                         alert2('알림', '이미 등록된 사용자입니다.', 'error', '확인', userCreate());
-
+                        return false;
                     }
 
                     alert2('알림', '저장되었습니다.', 'info', '확인', tableRefresh());
