@@ -40,8 +40,10 @@
 
     <div class="side-menu" th:fragment="asideFragment">
         <div class="menu-section">
-            <input id="menu-search" type="text" placeholder="Search..." />
-<!--            <img id="menu-search" src="/images/logo/technopark.png" alt="Search" onclick="location.href='/cable/rack/view'" />-->
+<!--            <input id="menu-search" type="text" placeholder="Search..." />-->
+            <div id="menu-logo">
+                <img id="menu-logo-img" src="/images/logo/technopark.png" alt="logo" onclick="location.href='/cable/rack/view'" />
+            </div>
 
             <!-- 사이드바 메뉴 항목 menu.js 에서 동적생성 -->
             <div id="menu-items" class="items-section"> </div>
