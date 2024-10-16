@@ -138,92 +138,80 @@ $(function() {
 /**
  * 컬럼 활성화/비활성화를 처리하는 함수
  *
- * @param {string} type - 선택박스 타입 (all 등)
+ * @param {string} btn - 선택박스의 구분 ('s' 또는 'e')
+ * @param {string} type - 선택박스 타입 ('all' 또는 개별 컬럼명 예: 's_asset_category')
  * @param {boolean} isChecked - 체크 여부
  */
-function searchState(btn, type, isChecked){
-    let originalColumns = JSON.parse(JSON.stringify(columns));
-    let querySelector = "";
-    let querySelectorAll = "";
-    let columnIdx = ""
+function searchState(btn, type, isChecked) {
+    let startColumns = [
+        's_asset_category',
+        's_installation_coordinates',
+        'eqp_manage_id',
+        's_m_company',
+        's_model_name',
+        's_host_name',
+        's_eqp_name',
+        's_port',
+        's_primary_operator',
+        's_primary_outsourced_operator'
+    ];
 
-    if(btn === 's') {
-        originalColumns = columns[1].filter(column =>
-            [
-                's_asset_category', 's_installation_coordinates',
-                's_m_company', 's_model_name', 's_host_name', 's_eqp_name', 's_port',
-                's_primary_operator', 's_primary_outsourced_operator'
-            ].indexOf(column.field) === -1
-        );
+    let endColumns = [
+        'e_asset_category',
+        'e_installation_coordinates',
+        'eqp_manage_id',
+        'e_m_company',
+        'e_model_name',
+        'e_host_name',
+        'e_eqp_name',
+        'e_port',
+        'e_primary_operator',
+        'e_primary_outsourced_operator'
+    ];
 
+    let querySelector = "", querySelectorAll = "", columnIdx = "", columnsToToggle = [];
+
+    if (btn === 's') {
         querySelector = "#start .selectStateChk";
         querySelectorAll = "#start .selectStateChkAll";
-        columnIdx = 1;
-    }
-    else if(btn === 'e') {
-        originalColumns = columns[1].filter(column =>
-            [
-                'e_asset_category', 'e_installation_coordinates',
-                'e_m_company', 'e_model_name', 'e_host_name', 'e_eqp_name', 'e_port',
-                'e_primary_operator', 'e_primary_outsourced_operator'
-            ].indexOf(column.field) === -1
-        );
-
+        columnIdx = 3;
+        columnsToToggle = startColumns;
+    } else if (btn === 'e') {
         querySelector = "#end .selectStateChk";
         querySelectorAll = "#end .selectStateChkAll";
-        columnIdx = 2;
+        columnIdx = 13;
+        columnsToToggle = endColumns;
     }
 
-    if (isChecked) {
-        if (type === "all") {
-            originalColumns.splice(3,   0, createColumn('s_asset_category',             false, '자산분류'));
-            originalColumns.splice(4,   0, createColumn('s_installation_coordinates',   false, '설치좌표'));
-            originalColumns.splice(6,   0, createColumn('s_m_company',                  false, '제조사'));
-            originalColumns.splice(7,   0, createColumn('s_model_name',                 false, '모델명'));
-            originalColumns.splice(8,   0, createColumn('s_host_name',                  false, '호스트명'));
-            originalColumns.splice(9,   0, createColumn('s_eqp_name',                   false, '구성자원명'));
-            originalColumns.splice(10,  0, createColumn('s_port',                       false, '포트번호'));
-            originalColumns.splice(11,  0, createColumn('s_primary_operator',           false, '운영담당자'));
-            originalColumns.splice(12,  0, createColumn('s_primary_outsourced_operator',false, '위탁운영담당자'));
-
-            document.querySelectorAll(querySelector).forEach(ele => {
-                ele.checked = true;
-            });
-
-            columns[0][columnIdx].colspan = 10;
-        } else {
-            switch (type) {
-                case "s_asset_category":
-                    originalColumns.splice(3, 0, createColumn('s_asset_category', false, '호스트명'));
-                    break;
-                case "s_installation_coordinates":
-                    originalColumns.splice(4, 0, createColumn('s_installation_coordinates', false, '모델명'));
-                    break;
+    if (type === "all") {
+        columnsToToggle.forEach((field, index) => {
+            if(field != 'eqp_manage_id'){
+                columns[1][columnIdx + index].visible = isChecked;
             }
+        });
 
+        document.querySelectorAll(querySelector).forEach(ele => ele.checked = isChecked);
+        document.querySelector(querySelectorAll).checked = isChecked;
+    } else {
+        let columnIndex = columnsToToggle.indexOf(type);
+        if (columnIndex !== -1) {
+            columns[1][columnIdx + columnIndex].visible = isChecked;
+        }
+
+        if(isChecked){
             let allChecked = Array.from(document.querySelectorAll(querySelector)).every(ele => ele.checked);
             if (allChecked) {
                 document.querySelector(querySelectorAll).checked = true;
             }
         }
-    }
-    else {
-        if (type === "all") {
-            document.querySelectorAll(querySelector).forEach(ele => {
-                ele.checked = false;
-            });
-
-            columns[0][columnIdx].colspan = 1;
-        } else {
-            originalColumns = columns[1].filter(column => column.field !== type);
-            document.querySelector(querySelectorAll).checked = false;
-
-            let colSub = columns[1].length - originalColumns.length;
-            columns[0][columnIdx].colspan = columns[0][columnIdx].colspan - colSub;
+        else{
+            let someUnchecked = Array.from(document.querySelectorAll(querySelector)).some(ele => !ele.checked);
+            if (someUnchecked) {
+                document.querySelector(querySelectorAll).checked = false;
+            }
         }
     }
 
-    columns[1] = originalColumns;
     $('#cableTable').bootstrapTable('refreshOptions', { columns: columns });
 }
 
