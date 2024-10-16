@@ -557,11 +557,11 @@
             eb.secondary_operator,
             eb.primary_outsourced_operator,
             eb.secondary_outsourced_operator,
-            ed.CPU,
-            ed.MEMORY,
-            ed.DISK,
+            ed.CPU cpu,
+            ed.MEMORY mem,
+            ed.DISK disk,
             ed.ip_address,
-            ed.OS,
+            ed.OS os_version,
             ed.acquisition_cost,
             ed.installation_coordinates,
             ed.installation_units,
@@ -584,6 +584,8 @@
             AND eb.asset_id = ec.asset_id
             AND eb.sub_id = ec.sub_id
             AND eb.detail_id =ec.detail_id
+        where
+            eb.is_deleted = 'N'
         ORDER BY
             eqp_manage_id
     </select>
@@ -593,11 +595,19 @@
             장비관리 > 장비목록 > 장비목록 다운로드 > 장비 정보 (연결정보)
         */
         SELECT
-            eqp_manage_id , host, ip_address , port
+            el.eqp_manage_id,
+            el.host,
+            el.ip_address ,
+            el.port
         FROM
-            equipment_link
+            equipment_basic eb
+        join
+            equipment_link el
+            on eb.eqp_manage_id = el.eqp_manage_id
+        where
+            eb.is_deleted = 'N'
         ORDER BY
-            eqp_manage_id
+            el.eqp_manage_id
     </select>
 
 </mapper>
