@@ -21,7 +21,7 @@ function createColumn(field, checkbox = false, title, type = 'default') {
 let rackStartColumn = [
     createColumn('asset_category',              false, '자산분류'),
     createColumn('installation_coordinates',    false, '설치좌표'),
-    createColumn('eqp_manage_id',               false, '관리ID'),
+    createColumn('eqp_manage_id',               false, '관리번호'),
     createColumn('m_company',                   false, '제조사'),
     createColumn('model_name',                  false, '모델명'),
     createColumn('host_name',                   false, '호스트명'),
@@ -34,7 +34,7 @@ let rackStartColumn = [
 let rackEndColumn = [
     createColumn('asset_category',              false, '자산분류'),
     createColumn('installation_coordinates',    false, '설치좌표'),
-    createColumn('eqp_manage_id',               false, '관리ID'),
+    createColumn('eqp_manage_id',               false, '관리번호'),
     createColumn('m_company',                   false, '제조사'),
     createColumn('model_name',                  false, '모델명'),
     createColumn('host_name',                   false, '호스트명'),
