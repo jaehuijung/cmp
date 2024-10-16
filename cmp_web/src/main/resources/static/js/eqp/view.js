@@ -123,90 +123,50 @@ $(function(){
  * @param {boolean} isChecked - 체크 여부
  */
 function searchState(type, isChecked){
-    // 체크되었을 때
-    if (isChecked) {
-        if (type === "all") {
-            // 전체 컬럼 필터링
-            equColumns = equColumns.filter(column =>
-                [
-                    'host_name', 'model_name', 'm_company', 'operating_status', 'operating_department',
-                    'primary_operator', 'secondary_operator','primary_outsourced_operator', 'secondary_outsourced_operator'
-                ].indexOf(column.field) === -1
-            );
+    let columnsToToggle = [
+        'eqp_manage_id',
+        'eqp_name',
+        'host_name',
+        'model_name',
+        'm_company',
+        'operating_status',
+        'operating_department',
+        'primary_operator',
+        'secondary_operator',
+        'primary_outsourced_operator',
+        'secondary_outsourced_operator'
+    ];
 
-            // 다시 순서대로 열 추가
-            equColumns.splice(3,  0, createColumn('host_name',                     false, '호스트명'));
-            equColumns.splice(4,  0, createColumn('model_name',                    false, '모델명'));
-            equColumns.splice(5,  0, createColumn('m_company',                     false, '제조사'));
-            equColumns.splice(6,  0, createColumn('operating_status',              false, '운영상태', 'formatted'));
-            equColumns.splice(7,  0, createColumn('operating_department',          false, '운영부서'));
-            equColumns.splice(8,  0, createColumn('primary_operator',              false, '운영담당자(정)'));
-            equColumns.splice(9,  0, createColumn('secondary_operator',            false, '운영담당자(부)'));
-            equColumns.splice(10, 0, createColumn('primary_outsourced_operator',   false, '위탁운영사용자(정)'));
-            equColumns.splice(11, 0, createColumn('secondary_outsourced_operator', false, '위탁운영사용자(부)'));
-
-            // 모든 단일 선택박스 체크
-            document.querySelectorAll(".selectStateChk").forEach(ele => {
-                ele.checked = true;
+    if (type === "all") {
+        columnsToToggle.forEach((field) => {
+            equColumns.forEach(column => {
+                if (column.field === field) {
+                    if((field != 'eqp_manage_id') && (field != 'eqp_name')){
+                        column.visible = isChecked;
+                    }
+                }
             });
-        } else {
-            // 특정 유형 컬럼 추가
-            switch (type) {
-                case "host_name":
-                    equColumns.splice(3, 0, createColumn('host_name', false, '호스트명'));
-                    break;
-                case "model_name":
-                    equColumns.splice(4, 0, createColumn('model_name', false, '모델명'));
-                    break;
-                case "m_company":
-                    equColumns.splice(5, 0, createColumn('m_company', false, '제조사'));
-                    break;
-                case "operating_status":
-                    equColumns.splice(6, 0, createColumn('operating_status', false, '운영상태', 'formatted'));
-                    break;
-                case "operating_department":
-                    equColumns.splice(7, 0, createColumn('operating_department', false, '운영부서'));
-                    break;
-                case "primary_operator":
-                    equColumns.splice(8, 0, createColumn('primary_operator', false, '운영담당자(정)'));
-                    break;
-                case "secondary_operator":
-                    equColumns.splice(9, 0, createColumn('secondary_operator', false, '운영담당자(부)'));
-                    break;
-                case "primary_outsourced_operator":
-                    equColumns.splice(10, 0, createColumn('primary_outsourced_operator', false, '위탁운영사용자(정)'));
-                    break;
-                case "secondary_outsourced_operator":
-                    equColumns.splice(11, 0, createColumn('secondary_outsourced_operator', false, '위탁운영사용자(부)'));
-                    break;
+        });
+
+        document.querySelectorAll(".selectStateChk").forEach(ele => ele.checked = isChecked);
+        document.querySelector(".selectStateChkAll").checked = isChecked;
+    } else {
+        equColumns.forEach(column => {
+            if (column.field === type) {
+                column.visible = isChecked;
             }
-            // 모든 하위 선택박스가 체크되었는지 확인하여 전체 선택박스 체크
+        });
+
+        if (isChecked) {
             let allChecked = Array.from(document.querySelectorAll('.selectStateChk')).every(ele => ele.checked);
             if (allChecked) {
                 document.querySelector(".selectStateChkAll").checked = true;
             }
-        }
-    }
-    // 체크 해제되었을 때
-    else {
-        if (type === "all") {
-            // 전체 컬럼 필터링
-            equColumns = equColumns.filter(column =>
-                [
-                    'host_name', 'model_name', 'm_company', 'operating_status', 'operating_department',
-                    'primary_operator', 'secondary_operator', 'primary_outsourced_operator', 'secondary_outsourced_operator'
-                ].indexOf(column.field) === -1
-            );
-
-            // 모든 단일 선택박스 해제
-            document.querySelectorAll(".selectStateChk").forEach(ele => {
-                ele.checked = false;
-            });
         } else {
-            // 특정 컬럼 제거
-            equColumns = equColumns.filter(column => column.field !== type);
-            // 전체 선택박스 해제
-            document.querySelector(".selectStateChkAll").checked = false;
+            let someUnchecked = Array.from(document.querySelectorAll('.selectStateChk')).some(ele => !ele.checked);
+            if (someUnchecked) {
+                document.querySelector(".selectStateChkAll").checked = false;
+            }
         }
     }
 
