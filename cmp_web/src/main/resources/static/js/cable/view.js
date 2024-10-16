@@ -19,9 +19,6 @@ function createColumn(field, checkbox = false, title, type = 'default') {
     if (type === 'underline') {
         column.class = 'nowrap underline';
     }
-    else if (type === 'visible') {
-        column.visible = false;
-    }
     else if(type === 'formatter'){
         column.formatter = function(value, row, index) {
             let tableOptions = $('#cableTable').bootstrapTable('getOptions');
@@ -35,10 +32,9 @@ function createColumn(field, checkbox = false, title, type = 'default') {
     return column;
 }
 
-// Define columns for cableTable
 let columns = [
     [
-        { title: '구분',   align: 'center', valign: 'middle', colspan: 3 },
+        { title: '구분1',   align: 'center', valign: 'middle', colspan: 3 },
         { title: '출발지', align: 'center', valign: 'middle', colspan: 10 },
         { title: '목적지', align: 'center', valign: 'middle', colspan: 10 },
         { title: '회선',   align: 'center', valign: 'middle', colspan: 3 }
@@ -138,6 +134,98 @@ $(function() {
         }
     });
 });
+
+/**
+ * 컬럼 활성화/비활성화를 처리하는 함수
+ *
+ * @param {string} type - 선택박스 타입 (all 등)
+ * @param {boolean} isChecked - 체크 여부
+ */
+function searchState(btn, type, isChecked){
+    let originalColumns = JSON.parse(JSON.stringify(columns));
+    let querySelector = "";
+    let querySelectorAll = "";
+    let columnIdx = ""
+
+    if(btn === 's') {
+        originalColumns = columns[1].filter(column =>
+            [
+                's_asset_category', 's_installation_coordinates',
+                's_m_company', 's_model_name', 's_host_name', 's_eqp_name', 's_port',
+                's_primary_operator', 's_primary_outsourced_operator'
+            ].indexOf(column.field) === -1
+        );
+
+        querySelector = "#start .selectStateChk";
+        querySelectorAll = "#start .selectStateChkAll";
+        columnIdx = 1;
+    }
+    else if(btn === 'e') {
+        originalColumns = columns[1].filter(column =>
+            [
+                'e_asset_category', 'e_installation_coordinates',
+                'e_m_company', 'e_model_name', 'e_host_name', 'e_eqp_name', 'e_port',
+                'e_primary_operator', 'e_primary_outsourced_operator'
+            ].indexOf(column.field) === -1
+        );
+
+        querySelector = "#end .selectStateChk";
+        querySelectorAll = "#end .selectStateChkAll";
+        columnIdx = 2;
+    }
+
+    if (isChecked) {
+        if (type === "all") {
+            originalColumns.splice(3,   0, createColumn('s_asset_category',             false, '자산분류'));
+            originalColumns.splice(4,   0, createColumn('s_installation_coordinates',   false, '설치좌표'));
+            originalColumns.splice(6,   0, createColumn('s_m_company',                  false, '제조사'));
+            originalColumns.splice(7,   0, createColumn('s_model_name',                 false, '모델명'));
+            originalColumns.splice(8,   0, createColumn('s_host_name',                  false, '호스트명'));
+            originalColumns.splice(9,   0, createColumn('s_eqp_name',                   false, '구성자원명'));
+            originalColumns.splice(10,  0, createColumn('s_port',                       false, '포트번호'));
+            originalColumns.splice(11,  0, createColumn('s_primary_operator',           false, '운영담당자'));
+            originalColumns.splice(12,  0, createColumn('s_primary_outsourced_operator',false, '위탁운영담당자'));
+
+            document.querySelectorAll(querySelector).forEach(ele => {
+                ele.checked = true;
+            });
+
+            columns[0][columnIdx].colspan = 10;
+        } else {
+            switch (type) {
+                case "s_asset_category":
+                    originalColumns.splice(3, 0, createColumn('s_asset_category', false, '호스트명'));
+                    break;
+                case "s_installation_coordinates":
+                    originalColumns.splice(4, 0, createColumn('s_installation_coordinates', false, '모델명'));
+                    break;
+            }
+
+            let allChecked = Array.from(document.querySelectorAll(querySelector)).every(ele => ele.checked);
+            if (allChecked) {
+                document.querySelector(querySelectorAll).checked = true;
+            }
+        }
+    }
+    else {
+        if (type === "all") {
+            document.querySelectorAll(querySelector).forEach(ele => {
+                ele.checked = false;
+            });
+
+            columns[0][columnIdx].colspan = 1;
+        } else {
+            originalColumns = columns[1].filter(column => column.field !== type);
+            document.querySelector(querySelectorAll).checked = false;
+
+            let colSub = columns[1].length - originalColumns.length;
+            columns[0][columnIdx].colspan = columns[0][columnIdx].colspan - colSub;
+        }
+    }
+
+    columns[1] = originalColumns;
+    $('#cableTable').bootstrapTable('refreshOptions', { columns: columns });
+}
 
 // 선번장관리 > 선번장목록 > 선번장추가 페이지 이동
 function rackCreate(){
