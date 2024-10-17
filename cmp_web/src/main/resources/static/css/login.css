@@ -1,224 +1,174 @@
 @font-face {
-  font-family: "Pretendard";
-  src: url("../../font/Pretendard/Pretendard-Black.otf") format("otf");
-  font-weight: 900;
+    font-family: "Pretendard";
+    src: url("../../font/Pretendard/Pretendard-Black.otf") format("otf");
+    font-weight: 900;
 }
 
 @font-face {
-  font-family: "Pretendard";
-  src: url("../../font/Pretendard/Pretendard-Thin.otf") format("otf");
-  font-weight: 100;
+    font-family: "Pretendard";
+    src: url("../../font/Pretendard/Pretendard-Thin.otf") format("otf");
+    font-weight: 100;
 }
 
 @font-face {
-  font-family: "Pretendard";
-  src: url("../../font/Pretendard/Pretendard-SemiBold.otf") format("otf");
-  font-weight: 600;
+    font-family: "Pretendard";
+    src: url("../../font/Pretendard/Pretendard-SemiBold.otf") format("otf");
+    font-weight: 600;
 }
 
 @font-face {
-  font-family: "Pretendard";
-  src: url("../../font/Pretendard/Pretendard-Regular.otf") format("otf");
-  font-weight: 400;
+    font-family: "Pretendard";
+    src: url("../../font/Pretendard/Pretendard-Regular.otf") format("otf");
+    font-weight: 400;
 }
 
 @font-face {
-  font-family: "Pretendard";
-  src: url("../../font/Pretendard/Pretendard-Medium.otf") format("otf");
-  font-weight: 500;
+    font-family: "Pretendard";
+    src: url("../../font/Pretendard/Pretendard-Medium.otf") format("otf");
+    font-weight: 500;
 }
 
 @font-face {
-  font-family: "Pretendard";
-  src: url("../../font/Pretendard/Pretendard-Light.otf") format("otf");
-  font-weight: 300;
+    font-family: "Pretendard";
+    src: url("../../font/Pretendard/Pretendard-Light.otf") format("otf");
+    font-weight: 300;
 }
 
 @font-face {
-  font-family: "Pretendard";
-  src: url("../../font/Pretendard/Pretendard-ExtraLight.otf") format("otf");
-  font-weight: 200;
+    font-family: "Pretendard";
+    src: url("../../font/Pretendard/Pretendard-ExtraLight.otf") format("otf");
+    font-weight: 200;
 }
 
 @font-face {
-  font-family: "Pretendard";
-  src: url("../../font/Pretendard/Pretendard-ExtraBold.otf") format("otf");
-  font-weight: 800;
+    font-family: "Pretendard";
+    src: url("../../font/Pretendard/Pretendard-ExtraBold.otf") format("otf");
+    font-weight: 800;
 }
 
 @font-face {
-  font-family: "Pretendard";
-  src: url("../../font/Pretendard/Pretendard-Bold.otf") format("otf");
-  font-weight: 700;
+    font-family: "Pretendard";
+    src: url("../../font/Pretendard/Pretendard-Bold.otf") format("otf");
+    font-weight: 700;
 }
 
 * {
-  box-sizing: border-box;
-  font-family: "Pretendard", sans-serif;
+    box-sizing: border-box;
+    font-family: "Pretendard", sans-serif;
 }
 
 html, body, div, span {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font: inherit;
-  font-family: "Pretendard", sans-serif;
-  font-weight: 300;
-  line-height: 1.2;
-  vertical-align: baseline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    font-family: "Pretendard", sans-serif;
+    font-weight: 300;
+    line-height: 1.2;
+    vertical-align: baseline;
 }
 
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-  background: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background: #f0f0f0;
 }
-
-
 
 
 /* 이미지 배경 스타일 */
 .image-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index: -1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
 }
 
 .image-background img {
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  object-fit: cover;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
 }
-
-/* 이미지 오버레이 스타일 */
-.image-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1;
-}
-
-
-// /* 비디오 배경 스타일 */
-// .video-background {
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 100%;
-//   overflow: hidden;
-//   z-index: -1;
-// }
-//
-// .video-background video {
-//   min-width: 100%;
-//   min-height: 100%;
-//   width: auto;
-//   height: auto;
-//   position: absolute;
-//   top: 50%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-//   object-fit: cover;
-// }
-//
-// /* 비디오 오버레이 스타일 */
-// .video-overlay {
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 100%;
-//   background-color: rgba(0, 0, 0, 0.5);
-//   z-index: 1;
-// }
-
-
 
 /* 로그인 폼 스타일 */
 .login-form {
-  z-index: 2;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0); /* 투명 배경 */
-  border-radius: 10px;
-  display: flex;
-  justify-content: space-between;
-  position: relative;
-  gap: 100px;
+    z-index: 2;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0); /* 투명 배경 */
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    gap: 100px;
 }
 
 /* 왼쪽 소개 영역 스타일 */
 .left-content {
-  flex: 1;
-  margin: 0px 50px 0px 0px;
-  background: rgba(255, 255, 255, 0); /* 투명 배경 */
+    flex: 1;
+    margin: 0px 50px 0px 0px;
+    background: rgba(255, 255, 255, 0); /* 투명 배경 */
 }
 
 .left-content .introduce-title {
-  margin: 0px;
-  padding: 80px 0px 100px 0px;
+    margin: 0px;
+    padding: 80px 0px 100px 0px;
 }
 
 .left-content .company-logo {
-  margin: 0px;
+    margin: 0px;
 }
 
 .left-content .company-logo img{
-  width: 250px;
+    width: 250px;
 }
 
 /* Smart CMS 텍스트 스타일 */
 .left-content .introduce-title .smart-cms {
-  font-size: 100px;
-  font-weight: 700;
-  letter-spacing: -2px;
-  color: #fff;
-  width: max-content;
-  margin: 0px; /* 세로 여백 줄이기 */
+    font-size: 100px;
+    font-weight: 700;
+    letter-spacing: -2px;
+    color: #fff;
+    width: max-content;
+    margin: 0px;
 }
 
 /* CABLE MANAGEMENT SYSTEM 텍스트 스타일 */
 .left-content .introduce-title .cable-management {
-  font-size: 37.3px;
-  font-weight: 400;
-  color: #82CFFF;
-  width: max-content;
-  margin: 0;   /* 세로 여백 줄이기 */
+    font-size: 37.3px;
+    font-weight: 400;
+    color: #82CFFF;
+    width: max-content;
+    margin: 0;
 }
 
 /* 오른쪽 로그인 영역 스타일 */
 .right-content {
-  width: 500px;
-  height: 500px;
-  margin: 10px;
-  background: white;
-  border-radius: 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+    width: 500px;
+    height: 500px;
+    margin: 10px;
+    background: white;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 /* 로고 섹션 스타일 */
 .logo-section {
-  text-align: center;
-  padding: 50px 0px 10px 0px;
+    text-align: center;
+    padding: 50px 0px 10px 0px;
 }
 
 .logo-section img {
@@ -254,61 +204,55 @@ body {
 }
 
 
-
 /* 로그인 입력 필드 스타일 */
 .login-inputs {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 20px;
-  padding: 0px 40px 10px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0px 40px 10px 40px;
 }
 
 .login-inputs div {
-  width: 100%;
-  margin-bottom: 10px; /* 각 입력 필드 사이에 여백 추가 */
+    width: 100%;
+    margin-bottom: 10px;
 }
-
-.login-input-id {
-  // margin-top: 20px;
-}
-
 
 .login-inputs input[type="text"],
 .login-inputs input[type="password"] {
-  width: 100%;
-  height: 50px;
-  padding: 10px 20px;
-  margin: 5px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 18px;
-  box-sizing: border-box; /* 패딩 및 보더를 포함한 크기 계산 */
+    width: 100%;
+    height: 50px;
+    padding: 10px 20px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 18px;
+    box-sizing: border-box;
 }
 
 /* 아이디 입력 필드에 이미지 삽입을 위한 스타일 */
 .login-inputs input[type="text"] {
-  background: url('/images/icon/login_id.png') no-repeat scroll 10px center;
-  background-size: 20px 20px;
-  padding-left: 40px;
+    background: url('/images/icon/login_id.png') no-repeat scroll 10px center;
+    background-size: 20px 20px;
+    padding-left: 40px;
 }
 
 /* 비밀번호 입력 필드에 이미지 삽입을 위한 스타일 */
 .login-inputs input[type="password"] {
-  background: url('/images/icon/login_password.png') no-repeat scroll 10px center;
-  background-size: 20px 20px;
-  padding-left: 40px;
+    background: url('/images/icon/login_password.png') no-repeat scroll 10px center;
+    background-size: 20px 20px;
+    padding-left: 40px;
 }
 
 .login-inputs input::placeholder {
-  color: #999;
+    color: #999;
 }
 
 .login-inputs .input[type="text"]:focus,
 .login-inputs input[type="password"]:focus {
-  border-color: #333;
-  outline: none;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border-color: #333;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 /* 로그인 버튼 스타일 */
@@ -349,8 +293,3 @@ body {
     display: flex;
     justify-content: center;
 }
-
-
-
-
-
