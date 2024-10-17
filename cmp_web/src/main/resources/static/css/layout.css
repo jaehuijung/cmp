@@ -480,7 +480,7 @@ header {
     margin: 10px;
 }
 
-.searchWordInput{
+.searchWordInput {
     display: flex;
     align-items: center;
 }
@@ -488,6 +488,7 @@ header {
 .searchSelect {
     display: flex;
     flex-direction: row;
+    margin-right: 20px;
 }
 
 .searchTitle2 {
@@ -495,7 +496,17 @@ header {
     font-size: 18px;
     font-weight: 500;
     margin-right: 20px;
+    align-content: center;
 }
+
+.searchSelect select {
+    width: 200px;
+    height: 36px;
+    border: 1px solid #DADADA;
+    padding-left: 10px;
+    border-radius: 5px 0 0 5px;
+}
+
 
 #searchInput {
     width: 500px;
