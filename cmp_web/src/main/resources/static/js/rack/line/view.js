@@ -34,7 +34,7 @@ function createColumn(field, checkbox = false, title, type = 'default') {
 
 let columns = [
     [
-        { title: '구분1',   align: 'center', valign: 'middle', colspan: 3 },
+        { title: '구분',   align: 'center', valign: 'middle', colspan: 3 },
         { title: '출발지', align: 'center', valign: 'middle', colspan: 10 },
         { title: '목적지', align: 'center', valign: 'middle', colspan: 10 },
         { title: '회선',   align: 'center', valign: 'middle', colspan: 3 }

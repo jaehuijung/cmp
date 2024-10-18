@@ -42,4 +42,8 @@ tr:hover {
     background-color: #FAE9A4 !important;
 }
 
-
+.totalCnt {
+    font-size: 14px;
+    margin: 0px 0px 10px 0px;
+    padding: 3px 8px;
+}

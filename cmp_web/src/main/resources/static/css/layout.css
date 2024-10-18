@@ -678,6 +678,28 @@ header {
 }
 
 /* 버튼 스타일 */
+.custom-normal-btn {
+    font-size: 14px;
+    font-weight: 500;
+    color: #014188;
+    border: 1px solid #014188;
+    border-radius: 5px;
+    margin: 0px 0px 10px 5px;
+    padding: 3px 8px;
+}
+
+.custom-blue-btn {
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    background-color: #014188;
+    border: 1px solid #014188;
+    border-radius: 5px;
+    margin: 0px 0px 10px 5px;
+    padding: 3px 8px;
+}
+
+/*
 button {
     background-color: #014188;
     color: white;
@@ -692,6 +714,7 @@ button {
 button:hover {
     background-color: #01307a;
 }
+*/
 
 
 /* 중앙 콘텐츠 > 화면 하단 copyright */

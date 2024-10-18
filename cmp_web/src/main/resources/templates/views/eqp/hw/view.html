@@ -74,49 +74,27 @@
                         <button type="button"  onclick="searchEqpList();">검색</button>
                     </div>
                 </div>
-
-
-                <div class="searchSelectWrap">
-                    <!--
-                    연도 선택박스(도입년도 등), 그룹(유닛번호 등) 선택박스 영역
-                    필요없다고 하면 지우기
-
-                    <label class="searchSelect">
-                        <div class="searchTitle3" style="margin-left: 10px;">도입년도</div>
-                        <input type="text" class="searchEqpSelectInput" />
-                    </label>
-                    <label class="searchSelect">
-                        <div class="searchTitle3" style="margin-left: 10px;">유닛번호</div>
-                        <input type="text" class="searchEqpSelectInput" />
-                    </label>
-                    -->
-                </div>
             </div>
 
             <div class="contentCard">
                 <div style='display: flex; justify-content: space-between;'>
                     <div>
-                        <p id="eqpTotalCnt" style="margin:10px 0px 10px 0px;font-size:14px;padding:3px 8px;"></p>
+                        <p class="totalCnt" id="eqpTotalCnt"></p>
                     </div>
                     <div>
-                        <button type='button' class='btn btn-outline-secondary'
-                                style='margin:10px 0px 10px 5px;font-size:13px;padding:3px 8px;'
+                        <button type='button' class="btn btn-outline-secondary custom-normal-btn"
                                 onclick="eqpCreate()">추가
                         </button>
-                        <button type='button' class='btn btn-outline-secondary'
-                                style='margin:10px 0px 10px 5px;font-size:13px;padding:3px 8px;'
+                        <button type='button' class="btn btn-outline-secondary custom-normal-btn"
                                 onclick="eqpUpdate()">수정
                         </button>
-                        <button type='button' class='btn btn-outline-secondary'
-                                style='margin:10px 0px 10px 5px;font-size:13px;padding:3px 8px;'
+                        <button type='button' class="btn btn-outline-secondary custom-normal-btn"
                                 onclick="eqpDelete()">삭제
                         </button>
-                        <button type='button' class='btn btn-outline-secondary'
-                                style='margin:10px 0px 10px 5px;font-size:13px;padding:3px 8px;'
+                        <button type='button' class="btn btn-outline-secondary custom-blue-btn"
                                 onclick="excelUpload()">장비 목록 업로드
                         </button>
-                        <button type='button' class='btn btn-outline-secondary'
-                                style='margin:10px 0px 10px 5px;font-size:13px;padding:3px 8px;'
+                        <button type='button' class="btn btn-outline-secondary custom-blue-btn"
                                 onclick="selectEquipmentDownload()">장비 목록 다운로드
                         </button>
                     </div>
