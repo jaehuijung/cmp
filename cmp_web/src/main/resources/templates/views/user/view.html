@@ -13,39 +13,60 @@
 	<main id="main" class="main">
 
 		<div class="contentCard">
+			<div class="searchWrap">
+				<div class="searchSelectWrap">
+					<label class="searchSelect">
+						<label class="searchTitle" for="asset_category">부서</label>
+						<select id="asset_category" name="asset_category">
+							<option value="1">단일</option>
+							<option value="2">이중화</option>
+						</select>
+					</label>
+					<label class="searchSelect">
+						<label class="searchTitle" for="asset_category">직위</label>
+						<select id="asset_category" name="asset_category">
+							<option value="1">단일</option>
+							<option value="2">이중화</option>
+						</select>
+					</label>
+					<label class="searchSelect">
+						<label class="searchTitle" for="asset_category">그룹</label>
+						<select id="asset_category" name="asset_category">
+							<option value="1">단일</option>
+							<option value="2">이중화</option>
+						</select>
+					</label>
+				</div>
+				<div class="searchWordWrap">
+					<div class="searchTitle">검색어</div>
+					<div class="searchWordInput">
+						<input type="text" id="searchInput" placeholder="검색어를 입력하세요"/>
+						<button type="button"  onclick="searchUserList();">검색</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
-			<div class="searchSearchWrap">
-				<div class="searchTitle1">검색어</div>
-				<div class="searchSearchInput">
-					<input type="text" id="searchInput" placeholder="검색어를 입력하세요"/>
-					<button type="button"  onclick="searchUserList();">검색</button>
+		<div class="contentCard">
+			<div style='display: flex; justify-content: space-between;'>
+				<div>
+					<p class="totalCnt" id="userTotalCnt"></p>
+				</div>
+				<div>
+					<button type='button' class="btn btn-outline-secondary custom-normal-btn"
+							onclick="userCreate()">추가
+					</button>
+					<button type='button' class="btn btn-outline-secondary custom-normal-btn"
+							onclick="userUpdate()">수정
+					</button>
+					<button type='button' class="btn btn-outline-secondary custom-normal-btn"
+							onclick="userDelete()">삭제
+					</button>
 				</div>
 			</div>
 
-			<div class="contentCard">
-				<div style='display: flex; justify-content: space-between;'>
-					<div>
-						<p id="userTotalCnt" style="margin:10px 0px 10px 0px;font-size:14px;padding:3px 8px;"></p>
-					</div>
-					<div>
-						<button type='button' class='btn btn-outline-secondary'
-								style='margin:10px 0px 10px 5px;font-size:13px;padding:3px 8px;'
-								onclick="userCreate()">추가
-						</button>
-						<button type='button' class='btn btn-outline-secondary'
-								style='margin:10px 0px 10px 5px;font-size:13px;padding:3px 8px;'
-								onclick="userUpdate()">수정
-						</button>
-						<button type='button' class='btn btn-outline-secondary'
-								style='margin:10px 0px 10px 5px;font-size:13px;padding:3px 8px;'
-								onclick="userDelete()">삭제
-						</button>
-					</div>
-				</div>
-
-				<div class="tbl-bootstrap-wrap">
-					<table id="userTable"></table>
-				</div>
+			<div class="tbl-bootstrap-wrap">
+				<table id="userTable"></table>
 			</div>
 		</div>
 

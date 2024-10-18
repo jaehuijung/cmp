@@ -67,11 +67,36 @@
                     </div>
                 </div>
 
-                <div class="searchWordWrap">
-                    <div class="searchTitle">검색어</div>
-                    <div class="searchWordInput">
-                        <input type="text" id="searchInput" placeholder="검색어를 입력하세요"/>
-                        <button type="button"  onclick="searchEqpList();">검색</button>
+                <div class="searchWrap">
+                    <div class="searchSelectWrap">
+                        <label class="searchSelect">
+                            <label class="searchTitle" for="asset_category">자산분류</label>
+                            <select id="asset_category" name="asset_category">
+                                <option value="1">단일</option>
+                                <option value="2">이중화</option>
+                            </select>
+                        </label>
+                        <label class="searchSelect">
+                            <label class="searchTitle" for="line_speed">운영상태</label>
+                            <select id="line_speed" name="line_speed">
+                                <option value="1">단일</option>
+                                <option value="2">이중화</option>
+                            </select>
+                        </label>
+                        <label class="searchSelect">
+                            <label class="searchTitle" for="line_category">이중화구성여부</label>
+                            <select id="line_category" name="line_category">
+                                <option value="1">단일</option>
+                                <option value="2">이중화</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="searchWordWrap">
+                        <div class="searchTitle">검색어</div>
+                        <div class="searchWordInput">
+                            <input type="text" id="searchInput" placeholder="검색어를 입력하세요"/>
+                            <button type="button"  onclick="searchEqpList();">검색</button>
+                        </div>
                     </div>
                 </div>
             </div>
