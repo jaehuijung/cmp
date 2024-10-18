@@ -400,10 +400,17 @@ header {
 }
 
 .searchTitle {
-    min-width: 100px;
+    min-width: max-content;
     font-size: 18px;
     font-weight: 500;
     margin-right: 20px;
+}
+
+.searchChkTitle {
+    font-size: 18px;
+    font-weight: 500;
+    margin-right: 20px;
+    align-content: center;
 }
 
 .highlight-start {
@@ -428,7 +435,7 @@ header {
 .searchChkLabels .searchChk {
     display: flex;
     align-items: center;
-    margin: 0px 0px 0px 15px;
+    // margin: 0px 0px 0px 10px;
 }
 
 .searchChk input[type="checkbox"] {
@@ -489,14 +496,6 @@ header {
     display: flex;
     flex-direction: row;
     margin-right: 20px;
-}
-
-.searchTitle2 {
-    width: 70px;
-    font-size: 18px;
-    font-weight: 500;
-    margin-right: 20px;
-    align-content: center;
 }
 
 .searchSelect select {
