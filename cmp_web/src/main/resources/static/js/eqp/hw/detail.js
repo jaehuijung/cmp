@@ -9,7 +9,7 @@ $(function(){
     addComma(document.getElementById("acquisition_cost")); // 도입금액 콤마처리
 
     $('#eqpLinkTable').bootstrapTable({
-        url: '/cable/eqp/selectEqpLinkList',
+        url: '/eqp/hw/selectEqpLinkList',
         method: 'post',
         queryParams: function(params) {
             let eqp_manage_id = $("#eqp_manage_id").val();
