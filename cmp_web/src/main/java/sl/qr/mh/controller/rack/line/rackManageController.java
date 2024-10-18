@@ -1,4 +1,4 @@
-package sl.qr.mh.controller.cable;
+package sl.qr.mh.controller.rack.line;
 
 
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +14,7 @@ import java.util.Map;
 @Slf4j
 @CrossOrigin(origins = "*", allowedHeaders = "*") /* CORS 어노테이션 */
 @Controller
-@RequestMapping(value = "/rack")
+@RequestMapping(value = "/rack/line")
 public class rackManageController {
 
     private final cableManageService cableManageService;
@@ -30,7 +30,7 @@ public class rackManageController {
      */
     @GetMapping("/view")
     public String view(Authentication authentication) {
-        return "views/cable/view";
+        return "views/rack/line/view";
     }
     
     /**
@@ -52,7 +52,7 @@ public class rackManageController {
      */
     @GetMapping("/create")
     public String createCablePage() {
-        return "views/cable/register";
+        return "views/rack/line/register";
     }
 
     /**
@@ -99,7 +99,7 @@ public class rackManageController {
         Map<String, Object> result = cableManageService.getEquipmentDetailTotalList(cable_manage_id);
         if((boolean) result.get("errorCode")){
             model.addAttribute("cable", result.get("selectData"));
-            return "views/cable/detail";
+            return "views/rack/line/detail";
         }
         else{
             return "views/error/error";
@@ -131,7 +131,7 @@ public class rackManageController {
             model.addAttribute("link_speed",    result.get("link_speed"));
             model.addAttribute("link_color",    result.get("link_color"));
 
-            return "views/cable/update";
+            return "views/rack/line/update";
         }
         else{
             return "views/error/error";

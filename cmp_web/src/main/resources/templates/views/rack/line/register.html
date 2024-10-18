@@ -13,15 +13,10 @@
 </head>
 
 <div layout:fragment="content">
-    <main class="main" id="rack">
 
+
+    <main class="main" id="main-rack">
         <div class="contentCard">
-            <input type="hidden" id="cable_manage_id" name="cable_manage_id" th:value="${cable.cable_manage_id}"/>
-            <input type="hidden" id="start_eqp_id" name="start_eqp_id" th:value="${cable.start_eqp_id}"/>
-            <input type="hidden" id="start_eqp_port" name="start_eqp_port" th:value="${cable.start_eqp_port}"/>
-            <input type="hidden" id="end_eqp_id" name="end_eqp_id" th:value="${cable.end_eqp_id}"/>
-            <input type="hidden" id="end_eqp_port" name="end_eqp_port" th:value="${cable.end_eqp_port}"/>
-
             <div class="rackEquipmentWrap" style="display: flex; width: 100%; justify-content: space-around;">
                 <!-- 출발지정보 -->
                 <div id="section-rack-start-info" style="width: 49%">
@@ -85,33 +80,21 @@
                         <tr>
                             <td><label for="cable_installation_year">포설년도</label></td>
                             <td>
-                                <input type="date" id="cable_installation_year" name="cable_installation_year" th:value="${cable.cable_installation_year}"/>
+                                <input type="date" id="cable_installation_year" name="cable_installation_year"/>
                             </td>
                             <td><label for="cable_category">구분</label></td>
                             <td>
                                 <select id="cable_category" name="cable_category" class="form-control">
-                                    <option th:each="category : ${link_category}"
-                                            th:value="${category['id']}"
-                                            th:text="${category['name']}"
-                                            th:selected="${category['name'] == cable.cable_category}"></option>
                                 </select>
                             </td>
                             <td><label for="cable_speed">속도</label></td>
                             <td>
                                 <select id="cable_speed" name="cable_speed" class="form-control">
-                                    <option th:each="category : ${link_speed}"
-                                            th:value="${category['id']}"
-                                            th:text="${category['name']}"
-                                            th:selected="${category['name'] == cable.cable_speed}"></option>
                                 </select>
                             </td>
                             <td><label for="cable_color">색상</label></td>
                             <td>
                                 <select id="cable_color" name="cable_color" class="form-control">
-                                    <option th:each="category : ${link_color}"
-                                            th:value="${category['id']}"
-                                            th:text="${category['name']}"
-                                            th:selected="${category['name'] == cable.cable_color}"></option>
                                 </select>
                             </td>
                         </tr>
@@ -131,8 +114,9 @@
 
 
     <th:block layout:fragment="script">
-        <script th:src="@{/js/cable/update.js}"></script>
+        <script th:src="@{/js/rack/line/register.js}"></script>
     </th:block>
 </div>
+
 
 </html>

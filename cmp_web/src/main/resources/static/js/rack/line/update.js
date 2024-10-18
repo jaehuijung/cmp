@@ -101,7 +101,7 @@ function updateSelectTable() {
 $(function(){
 
     $('#rackStartTable').bootstrapTable({
-        url: '/cable/rack/rackEquipmentList',
+        url: '/rack/line/rackEquipmentList',
         method: 'post',
         queryParams: function(params) {
             let eqp_manage_id = $("#searchInput").val();
@@ -172,7 +172,7 @@ $(function(){
     });
 
     $('#rackEndTable').bootstrapTable({
-        url: '/cable/rack/rackEquipmentList',
+        url: '/rack/line/rackEquipmentList',
         method: 'post',
         queryParams: function(params) {
             let eqp_manage_id = $("#searchInput").val();
@@ -242,7 +242,7 @@ $(function(){
     });
 
     $('#rackSelectTable').bootstrapTable({
-        url: '/cable/rack/getCableDetailInfo',
+        url: '/rack/line/getCableDetailInfo',
         method: 'post',
         queryParams: function(params) {
             let cable_manage_id = $("#cable_manage_id").val();
@@ -346,7 +346,7 @@ function saveData() {
 
             $.ajax({
                 type: "POST",
-                url: "/cable/rack/saveCableInfo",
+                url: "/rack/line/saveCableInfo",
                 data: JSON.stringify(data),
                 contentType: "application/json",
                 success: function(res) {

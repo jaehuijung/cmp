@@ -78,7 +78,7 @@ let columns = [
 
 $(function() {
     $('#cableTable').bootstrapTable({
-        url: '/cable/rack/list',
+        url: '/rack/line/list',
         method: 'post',
         queryParams: function(params) {
             let searchInput = $("#searchInput").val().trim();
@@ -217,13 +217,13 @@ function searchState(btn, type, isChecked) {
 
 // 선번장관리 > 선번장목록 > 선번장추가 페이지 이동
 function rackCreate(){
-    const url = "/cable/rack/create";
+    const url = "/rack/line/create";
     window.location.href = url;
 }
 
 // 선번장관리 > 선번장목록 > 선번장상세 페이지 이동
 function rackDetail(id){
-    const url = `/cable/rack/detail/${id}`;
+    const url = `/rack/line/detail/${id}`;
     window.location.href = url;
 }
 
@@ -239,7 +239,7 @@ function rackUpdate(){
     }
     else{
         let id = data[0].cable_manage_id;
-        const url = `/cable/rack/update/${id}`;
+        const url = `/rack/line/update/${id}`;
         window.location.href = url;
     }
 }
@@ -271,7 +271,7 @@ function rackDelete() {
             if (result.isConfirmed) {
                 alert3("load");
                 $.ajax({
-                    url : '/cable/rack/delete',
+                    url : '/rack/line/delete',
                     type: 'post',
                     contentType: 'application/json',
                     data: JSON.stringify(data),

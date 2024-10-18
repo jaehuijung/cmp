@@ -88,7 +88,7 @@ $(function(){
  */
 function updateData(){
     let id = $("#cable_manage_id").val();
-    const url = `/cable/rack/update/${id}`;
+    const url = `/rack/line/update/${id}`;
     window.location.href = url;
 }
 
@@ -114,7 +114,7 @@ function deleteData(){
             alert3("delete");
             let data = [{"cable_manage_id": $("#cable_manage_id").val()}];
             $.ajax({
-                url : '/cable/rack/delete',
+                url : '/rack/line/delete',
                 type: 'post',
                 contentType: 'application/json',
                 data: JSON.stringify(data),

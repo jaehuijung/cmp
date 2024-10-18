@@ -1,4 +1,4 @@
-package sl.qr.mh.controller.eqp;
+package sl.qr.mh.controller.eqp.hw;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -16,12 +16,12 @@ import java.util.Map;
 @Slf4j
 @CrossOrigin(origins = "*", allowedHeaders = "*") /* CORS 어노테이션 */
 @Controller
-@RequestMapping("/cable/eqp")
-public class eqpManageController {
+@RequestMapping("/eqp/hw")
+public class hwManageController {
 
     private final eqpManageService eqpManageService;
 
-    public eqpManageController(eqpManageService eqpManageService) {
+    public hwManageController(eqpManageService eqpManageService) {
         this.eqpManageService = eqpManageService;
     }
 
@@ -32,7 +32,7 @@ public class eqpManageController {
      */
     @GetMapping("/view")
     public String view() {
-        return "views/eqp/view";
+        return "views/eqp/hw/view";
     }
 
 
@@ -162,7 +162,7 @@ public class eqpManageController {
      */
     @GetMapping("/create")
     public String createEquipmentPage() {
-        return "views/eqp/register";
+        return "views/eqp/hw/register";
     }
 
     /**
@@ -232,7 +232,7 @@ public class eqpManageController {
         Map<String, Object> result = eqpManageService.getEquipmentDetailTotalList(eqp_manage_id);
         if((boolean) result.get("errorCode")){
             model.addAttribute("equipment", result.get("selectData"));
-            return "views/eqp/detail";
+            return "views/eqp/hw/detail";
         }
         else{
             return "views/error/error";
@@ -266,7 +266,7 @@ public class eqpManageController {
             model.addAttribute("sub_category",    result.get("sub_category"));
             model.addAttribute("detail_category", result.get("detail_category"));
 
-            return "views/eqp/update";
+            return "views/eqp/hw/update";
         }
         else{
             return "views/error/error";

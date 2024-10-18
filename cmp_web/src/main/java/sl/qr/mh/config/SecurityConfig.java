@@ -36,7 +36,7 @@ import org.springframework.security.web.firewall.HttpFirewall;
     6.1 생성된 인증 토큰은 인증된 사용자 정보를 포함함
     6.2 생성된 Authentication 객체가 SecurityContextHolder에 저장되어 인증이 완료됨
 7. 로그인 성공/실패 처리:
-    7.1 인증 과정이 성공하면 SecurityConfig 클래스에서 정의된 defaultSuccessUrl("/cable/rack/view", true)에 따라 "/cable/rack/view"로 리다이렉트됨
+    7.1 인증 과정이 성공하면 SecurityConfig 클래스에서 정의된 defaultSuccessUrl("/rack/line/view", true)에 따라 "/rack/line/view"로 리다이렉트됨
     7.2 인증 과정이 실패하면 failureUrl("/login?error=true")에 따라 로그인 페이지로 이동되면서 실패 메시지가 표시됨
 */
 @Slf4j
@@ -77,7 +77,7 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/login")  // 사용자 정의 로그인 페이지 경로
                         .loginProcessingUrl("/perform_login")  // 로그인 폼 액션 URL
-                        .defaultSuccessUrl("/cable/rack/view", true)  // 로그인 성공 후 이동할 기본 URL
+                        .defaultSuccessUrl("/rack/line/view", true)  // 로그인 성공 후 이동할 기본 URL
                         .failureHandler(customAuthenticationFailureHandler())
                         .permitAll())  // 로그인 페이지는 누구나 접근 가능
                 .logout(logout -> logout
