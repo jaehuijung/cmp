@@ -2,13 +2,15 @@ package sl.qr.mh.controller.user;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import sl.qr.mh.service.user.userService;
 
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 환경설정 > 사용자관리
+ */
 @Slf4j
 @CrossOrigin(origins = "*", allowedHeaders = "*") /* CORS 어노테이션 */
 @Controller
@@ -27,7 +29,7 @@ public class userController {
      * @return 사용자 목록 뷰 페이지
      */
     @GetMapping("/view")
-    public String getusrList() {
+    public String view() {
         return "views/user/view";
     }
 

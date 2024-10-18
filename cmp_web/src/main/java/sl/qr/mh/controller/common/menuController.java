@@ -1,10 +1,10 @@
-package sl.qr.mh.controller.menu;
+package sl.qr.mh.controller.common;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import sl.qr.mh.service.menu.menuService;
+import sl.qr.mh.service.common.menuService;
 
 import java.util.Map;
 

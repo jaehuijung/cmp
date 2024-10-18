@@ -11,6 +11,9 @@ import sl.qr.mh.service.rack.rackManageService;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 선번장관리 > 선번장관리
+ */
 @Slf4j
 @CrossOrigin(origins = "*", allowedHeaders = "*") /* CORS 어노테이션 */
 @Controller

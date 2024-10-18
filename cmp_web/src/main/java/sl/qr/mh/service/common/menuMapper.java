@@ -1,4 +1,4 @@
-package sl.qr.mh.service.menu;
+package sl.qr.mh.service.common;
 
 import org.apache.ibatis.annotations.Mapper;
 

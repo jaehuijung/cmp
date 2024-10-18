@@ -1,10 +1,8 @@
 package sl.qr.mh.controller.common;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 
 @CrossOrigin(origins = "*", allowedHeaders = "*") /* CORS 어노테이션 */

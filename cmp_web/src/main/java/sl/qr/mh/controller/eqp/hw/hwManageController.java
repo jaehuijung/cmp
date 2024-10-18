@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+/**
+ *  장비관리 > H/W 관리
+ */
 @Slf4j
 @CrossOrigin(origins = "*", allowedHeaders = "*") /* CORS 어노테이션 */
 @Controller
