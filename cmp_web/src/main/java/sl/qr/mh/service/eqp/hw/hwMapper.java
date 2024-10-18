@@ -10,7 +10,7 @@ import java.util.Map;
  * 장비관리 > 장비목록 메뉴에서 사용될 매퍼
  */
 @Mapper
-public interface eqpMapper {
+public interface hwMapper {
 
 	/**
 	 * 장비관리 > 장비목록 > 장비 목록 데이터 가져오기
@@ -27,18 +27,6 @@ public interface eqpMapper {
 	 */
 	public int getEquipmentTotalListCnt(Map<String, Object> paramMap);
 
-	/**
-	 * 장비관리 > 장비목록 > 엑셀 다운로드 데이터 가져오기 : 기본정보, 상세정보
-	 *
-	 * @return 장비 목록 데이터
-	 */
-	public List<Map<String, Object>> getExcelEquipmentTotalList();
-	/**
-	 * 장비관리 > 장비목록 > 엑셀 다운로드 데이터 가져오기 : 연결정보
-	 *
-	 * @return 장비 목록 데이터
-	 */
-	public List<Map<String, Object>> getExcelEquipmentLinkList();
 
 	/**
 	 * 장비관리 > 장비목록 > 추가/수정/상세 > 장비분류 선택박스 : 구성분류 데이터 가져오기
@@ -165,5 +153,21 @@ public interface eqpMapper {
 	 * @param deleteEqpTarget 장비관리번호
 	 */
 	public void deleteEqpList(String deleteEqpTarget);
+
+
+
+	/**
+	 * 장비관리 > 장비목록 > 엑셀 다운로드 데이터 가져오기 : 기본정보, 상세정보
+	 *
+	 * @return 장비 목록 데이터
+	 */
+	public List<Map<String, Object>> getExcelEquipmentTotalList();
+	/**
+	 * 장비관리 > 장비목록 > 엑셀 다운로드 데이터 가져오기 : 연결정보
+	 *
+	 * @return 장비 목록 데이터
+	 */
+	public List<Map<String, Object>> getExcelEquipmentLinkList();
+
 
 }

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import sl.qr.mh.service.eqp.hw.eqpManageService;
+import sl.qr.mh.service.eqp.hw.hwManageService;
 
 import java.io.IOException;
 import java.util.List;
@@ -22,10 +22,10 @@ import java.util.Map;
 @RequestMapping("/eqp/hw")
 public class hwManageController {
 
-    private final eqpManageService eqpManageService;
+    private final hwManageService hwManageService;
 
-    public hwManageController(eqpManageService eqpManageService) {
-        this.eqpManageService = eqpManageService;
+    public hwManageController(hwManageService hwManageService) {
+        this.hwManageService = hwManageService;
     }
 
     /**
@@ -49,7 +49,7 @@ public class hwManageController {
     @ResponseBody
     @PostMapping("/list")
     public Map<String, Object> list(@RequestBody Map<String, Object> paramMap) {
-        return eqpManageService.getEquipmentTotalList(paramMap);
+        return hwManageService.getEquipmentTotalList(paramMap);
     }
 
 
@@ -63,99 +63,7 @@ public class hwManageController {
     @ResponseBody
     @PostMapping("/delete")
     public Map<String, Object> delete(@RequestBody List<Map<String, Object>> deleteList) {
-        return eqpManageService.deleteEqpList(deleteList);
-    }
-
-
-    /**
-     * 장비관리 > 장비목록
-     * 모든 장비 목록 다운로드
-     *
-     */
-    @ResponseBody
-    @PostMapping("/excelDownload")
-    public void excelDownloadEquipmentList(HttpServletResponse response) throws IOException {
-        Workbook wb = eqpManageService.excelDownloadEquipmentList();
-        response.setContentType("ms-vnd/excel");
-        response.setHeader("Content-Disposition", "attachment;filename=equipmentListTemplate.xlsx");
-
-        wb.write(response.getOutputStream());
-        wb.close();
-    }
-
-
-    /**
-     * 장비관리 > 장비목록 > 장비 업로드
-     * 업로드 양식 엑셀 파일 다운로드
-     *
-     * @param response HTTP 응답 객체
-     * @throws NumberFormatException 숫자 형식 오류
-     * @throws IOException 입력/출력 예외
-     */
-    @ResponseBody
-    @PostMapping("/excelTemplate")
-    public void excelTemplate(HttpServletResponse response) throws IOException {
-        Workbook wb = eqpManageService.excelTemplate();
-        response.setContentType("ms-vnd/excel");
-        response.setHeader("Content-Disposition", "attachment;filename=equipmentUploadTemplate.xlsx");
-
-        wb.write(response.getOutputStream());
-        wb.close();
-    }
-
-
-    /**
-     * 장비관리 > 장비목록 > 장비 업로드
-     * 업로드된 엑셀 파일의 유효성을 검사하고 결과 반환
-     *
-     * @param file 업로드된 엑셀 파일
-     * @param response HTTP 응답 객체
-     * @throws IOException 입력/출력 예외
-     */
-    @ResponseBody
-    @PostMapping("/excelValid")
-    public void excelValid(@RequestParam("file") MultipartFile file, HttpServletResponse response) throws IOException {
-        Workbook wb = eqpManageService.excelValidation(file);
-        response.setContentType("ms-vnd/excel");
-        response.setHeader("Content-Disposition", "attachment;filename=validEquipmentUploadTemplate.xlsx");
-
-        wb.write(response.getOutputStream());
-        wb.close();
-    }
-
-
-    /**
-     * 장비관리 > 장비목록 > 장비 업로드
-     * 업로드된 엑셀 파일 데이터 DB 저장
-     *
-     * @param file 업로드된 엑셀 파일
-     * @return 삽입 결과
-     * @throws IOException 입력/출력 예외
-     */
-    @ResponseBody
-    @PostMapping("/excelInsert")
-    public Map<String, Object> excelInsert(@RequestParam("file") MultipartFile file) throws IOException {
-        return eqpManageService.insertExcelList(file);
-    }
-
-
-    /**
-     * 장비관리 > 장비목록 > 장비 업로드
-     * 저장 결과를 엑셀 파일로 생성하여 반환.
-     *
-     * @param paramMap 저장결과 파라미터 맵
-     * @param response HTTP 응답 객체
-     * @throws IOException 입력/출력 예외
-     */
-    @ResponseBody
-    @PostMapping("/excelResponse")
-    public void excelResponse(@RequestBody Map<String, Object> paramMap, HttpServletResponse response) throws IOException {
-        Workbook wb = eqpManageService.saveResultEquipment(paramMap);
-        response.setContentType("ms-vnd/excel");
-        response.setHeader("Content-Disposition", "attachment;filename=saveResultEquipment.xlsx");
-
-        wb.write(response.getOutputStream());
-        wb.close();
+        return hwManageService.deleteEqpList(deleteList);
     }
 
     /**
@@ -176,7 +84,7 @@ public class hwManageController {
     @ResponseBody
     @PostMapping("/selectConfig")
     public Map<String, Object> getSelectConfigData() {
-        return eqpManageService.getSelectConfigData();
+        return hwManageService.getSelectConfigData();
     }
 
     /**
@@ -188,7 +96,7 @@ public class hwManageController {
     @ResponseBody
     @PostMapping("/selectAsset")
     public Map<String, Object> getSelectAssetData(@RequestParam Map<String, Object> paramMap) {
-        return eqpManageService.getSelectAssetData(paramMap);
+        return hwManageService.getSelectAssetData(paramMap);
     }
 
     /**
@@ -199,7 +107,7 @@ public class hwManageController {
     @ResponseBody
     @PostMapping("/selectSub")
     public Map<String, Object> getSelectSubData(@RequestParam Map<String, Object> paramMap) {
-        return eqpManageService.getSelectSubData(paramMap);
+        return hwManageService.getSelectSubData(paramMap);
     }
 
     /**
@@ -210,7 +118,7 @@ public class hwManageController {
     @ResponseBody
     @PostMapping("/selectDetail")
     public Map<String, Object> getSelectDetailData(@RequestParam Map<String, Object> paramMap) {
-        return eqpManageService.getSelectDetailData(paramMap);
+        return hwManageService.getSelectDetailData(paramMap);
     }
 
     /**
@@ -222,7 +130,7 @@ public class hwManageController {
     @ResponseBody
     @PostMapping("/saveEquipmentInfo")
     public Map<String, Object> saveEquipmentInfo(@RequestBody Map<String, Object> paramMap) {
-        return eqpManageService.insertEqpList(paramMap);
+        return hwManageService.insertEqpList(paramMap);
     }
 
     /**
@@ -232,7 +140,7 @@ public class hwManageController {
      */
     @GetMapping("/detail/{id}")
     public String detailEquipmentPage(@PathVariable("id") String eqp_manage_id, Model model) {
-        Map<String, Object> result = eqpManageService.getEquipmentDetailTotalList(eqp_manage_id);
+        Map<String, Object> result = hwManageService.getEquipmentDetailTotalList(eqp_manage_id);
         if((boolean) result.get("errorCode")){
             model.addAttribute("equipment", result.get("selectData"));
             return "views/eqp/hw/detail";
@@ -250,7 +158,7 @@ public class hwManageController {
     @ResponseBody
     @PostMapping("/selectEqpLinkList")
     public Map<String, Object> getEquipmentLinkList(@RequestBody Map<String, Object> paramMap) {
-        return eqpManageService.getEqpLinkList(paramMap);
+        return hwManageService.getEqpLinkList(paramMap);
     }
 
 
@@ -261,7 +169,7 @@ public class hwManageController {
      */
     @GetMapping("/update/{id}")
     public String updateEquipmentPage(@PathVariable("id") String eqp_manage_id, Model model) {
-        Map<String, Object> result = eqpManageService.getEquipmentUpdateTotalList(eqp_manage_id);
+        Map<String, Object> result = hwManageService.getEquipmentUpdateTotalList(eqp_manage_id);
         if((boolean) result.get("errorCode")){
             model.addAttribute("equipment",       result.get("selectData"));
             model.addAttribute("config_category", result.get("config_category"));
@@ -285,7 +193,99 @@ public class hwManageController {
     @ResponseBody
     @PostMapping("/updateEquipmentInfo")
     public Map<String, Object> updateEquipmentInfo(@RequestBody Map<String, Object> paramMap) {
-        return eqpManageService.updateEqpList(paramMap);
+        return hwManageService.updateEqpList(paramMap);
     }
 
+
+
+    /**
+     * 장비관리 > 장비목록
+     * 모든 장비 목록 다운로드
+     *
+     */
+    @ResponseBody
+    @PostMapping("/excelDownload")
+    public void excelDownloadEquipmentList(HttpServletResponse response) throws IOException {
+        Workbook wb = hwManageService.excelDownloadEquipmentList();
+        response.setContentType("ms-vnd/excel");
+        response.setHeader("Content-Disposition", "attachment;filename=equipmentListTemplate.xlsx");
+
+        wb.write(response.getOutputStream());
+        wb.close();
+    }
+
+
+    /**
+     * 장비관리 > 장비목록 > 장비 업로드
+     * 업로드 양식 엑셀 파일 다운로드
+     *
+     * @param response HTTP 응답 객체
+     * @throws NumberFormatException 숫자 형식 오류
+     * @throws IOException 입력/출력 예외
+     */
+    @ResponseBody
+    @PostMapping("/excelTemplate")
+    public void excelTemplate(HttpServletResponse response) throws IOException {
+        Workbook wb = hwManageService.excelTemplate();
+        response.setContentType("ms-vnd/excel");
+        response.setHeader("Content-Disposition", "attachment;filename=equipmentUploadTemplate.xlsx");
+
+        wb.write(response.getOutputStream());
+        wb.close();
+    }
+
+
+    /**
+     * 장비관리 > 장비목록 > 장비 업로드
+     * 업로드된 엑셀 파일의 유효성을 검사하고 결과 반환
+     *
+     * @param file 업로드된 엑셀 파일
+     * @param response HTTP 응답 객체
+     * @throws IOException 입력/출력 예외
+     */
+    @ResponseBody
+    @PostMapping("/excelValid")
+    public void excelValid(@RequestParam("file") MultipartFile file, HttpServletResponse response) throws IOException {
+        Workbook wb = hwManageService.excelValidation(file);
+        response.setContentType("ms-vnd/excel");
+        response.setHeader("Content-Disposition", "attachment;filename=validEquipmentUploadTemplate.xlsx");
+
+        wb.write(response.getOutputStream());
+        wb.close();
+    }
+
+
+    /**
+     * 장비관리 > 장비목록 > 장비 업로드
+     * 업로드된 엑셀 파일 데이터 DB 저장
+     *
+     * @param file 업로드된 엑셀 파일
+     * @return 삽입 결과
+     * @throws IOException 입력/출력 예외
+     */
+    @ResponseBody
+    @PostMapping("/excelInsert")
+    public Map<String, Object> excelInsert(@RequestParam("file") MultipartFile file) throws IOException {
+        return hwManageService.insertExcelList(file);
+    }
+
+
+    /**
+     * 장비관리 > 장비목록 > 장비 업로드
+     * 저장 결과를 엑셀 파일로 생성하여 반환.
+     *
+     * @param paramMap 저장결과 파라미터 맵
+     * @param response HTTP 응답 객체
+     * @throws IOException 입력/출력 예외
+     */
+    @ResponseBody
+    @PostMapping("/excelResponse")
+    public void excelResponse(@RequestBody Map<String, Object> paramMap, HttpServletResponse response) throws IOException {
+        Workbook wb = hwManageService.saveResultEquipment(paramMap);
+        response.setContentType("ms-vnd/excel");
+        response.setHeader("Content-Disposition", "attachment;filename=saveResultEquipment.xlsx");
+
+        wb.write(response.getOutputStream());
+        wb.close();
+    }
 }
