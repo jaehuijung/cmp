@@ -63,19 +63,19 @@ function getSelectLink(){
         url: "/rack/line/selectLink",
         type: "post",
         success: function (res) {
-            const categorySelect = $("#cable_category");
+            const categorySelect = $("#line_category");
             const category = res.category;
             category.forEach(function(item) {
                 categorySelect.append(new Option(item.line_value, item.line_id));
             });
 
-            const speedSelect = $("#cable_speed");
+            const speedSelect = $("#line_speed");
             const speed    = res.speed;
             speed.forEach(function(item) {
                 speedSelect.append(new Option(item.line_value, item.line_id));
             });
 
-            const colorSelect = $("#cable_color");
+            const colorSelect = $("#line_color");
             const color    = res.color;
             color.forEach(function(item) {
                 colorSelect.append(new Option(item.line_value, item.line_id));

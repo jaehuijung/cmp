@@ -114,11 +114,11 @@ public class lineManageService {
 		try{
 			int isContain = lineMapper.checkInsertListToContainLine(paramMap);
 			if (isContain == 0) {
-				String cableManageId = paramMap.get("cable_installation_year").toString();
-				paramMap.put("cableManageId", cableManageId.replaceAll("-", ""));
+				String lineManageId = paramMap.get("line_installation_year").toString();
+				paramMap.put("lineManageId", lineManageId.replaceAll("-", ""));
 
-				cableManageId = lineMapper.generateLineManageId(paramMap);
-				paramMap.put("cableManageId", cableManageId);
+				lineManageId = lineMapper.generateLineManageId(paramMap);
+				paramMap.put("lineManageId", lineManageId);
 
 				// 인코딩 테스트
 				// System.out.println("cableManageId:" + cableManageId);
@@ -129,7 +129,7 @@ public class lineManageService {
 				// String decryptTest = AESUtil.decryptFromSafeFileName(encryptedTarget, key);
 				// System.out.println("decryptTest:" + decryptTest);
 
-				String filePath = qrMakeService.QRMake(cableManageId);
+				String filePath = qrMakeService.QRMake(lineManageId);
 				paramMap.put("qrImageLocation", filePath);
 				lineMapper.saveLineInfo(paramMap);
 
@@ -232,7 +232,7 @@ public class lineManageService {
 
 		try {
 			for(Map<String, Object> ele : deleteList){
-				String deleteCableTarget = ele.get("cable_manage_id").toString();
+				String deleteCableTarget = ele.get("line_manage_id").toString();
 				lineMapper.deleteLineList(deleteCableTarget);
 			}
 

@@ -560,7 +560,7 @@ header {
 중앙 콘텐츠 > 선번장관리 > 추가 / 수정 / 상세 페이지
 중앙 콘텐츠 > 장비관리 > 추가 / 수정 / 상세 페이지
 */
-#main-rack,
+#main .line,
 #main .equipment,
 #main .user {
     display: flex;
@@ -580,25 +580,13 @@ header {
 }
 
 /* h2 태그의 기본 스타일 */
-#section-rack-start-info h2,
-#section-rack-end-info h2,
-#section-rack-cable-info h2,
-#section-rack-select-info h2,
-#section-equipment-basic-info h2,
-#section-equipment-category h2,
-#section-equipment-operation-info h2,
-#section-equipment-details h2 {
+.contentCard h2 {
     font-size: 20px;
     margin-bottom: 10px;
     font-family: "Pretendard", sans-serif;
 }
 
-#section-equipment-connection-info h2 {
-    font-size: 20px;
-    margin: 0;
-}
-
-.section-rack-title,
+.section-line-title,
 .section-equipment-title {
     margin: 0px 0px 10px 0px;
     display: flex;
@@ -606,15 +594,13 @@ header {
 }
 
 
-/* 각 rack-wrap, equipment-wrap의 스타일 */
-.rack-wrap,
+/* equipment-wrap의 스타일 */
 .equipment-wrap {
     display: flex;
     flex-direction: row;
     margin-bottom: 10px;
 }
 
-.rack-item,
 .equipment-item {
     display: flex;
     flex-direction: row;
@@ -629,7 +615,6 @@ header {
 }
 
 /* 레이블 스타일 */
-.rack-wrap label,
 .equipment-wrap label {
     min-width: 150px;
     margin-right: 10px;
@@ -639,10 +624,6 @@ header {
 }
 
 /* 입력란 스타일 */
-.rack-wrap input[type="text"],
-.rack-wrap input[type="number"],
-.rack-wrap input[type="date"],
-.rack-wrap select,
 .equipment-wrap input[type="text"],
 .equipment-wrap input[type="number"],
 .equipment-wrap input[type="date"],
@@ -657,10 +638,6 @@ header {
     box-sizing: border-box;
 }
 
-.rack-wrap input[type="text"]:readonly,
-.rack-wrap input[type="number"]:readonly,
-.rack-wrap input[type="date"]:readonly,
-.rack-wrap select:read-only,
 .equipment-wrap input[type="text"]:read-only,
 .equipment-wrap input[type="number"]:read-only,
 .equipment-wrap input[type="date"]:read-only,
@@ -698,24 +675,6 @@ header {
     margin: 0px 0px 10px 5px;
     padding: 3px 8px;
 }
-
-/*
-button {
-    background-color: #014188;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    font-size: 14px;
-    margin-right: 5px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #01307a;
-}
-*/
-
 
 /* 중앙 콘텐츠 > 화면 하단 copyright */
 .copyright {

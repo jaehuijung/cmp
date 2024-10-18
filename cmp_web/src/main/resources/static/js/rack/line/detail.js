@@ -18,7 +18,7 @@ function createColumn(field, checkbox = false, title, type = 'default') {
     return column;
 }
 
-let rackSelectColumn = [
+let lineSelectColumn = [
     [
         { title: '출발지', align: 'center', valign: 'middle', colspan: 10 },
         { title: '목적지', align: 'center', valign: 'middle', colspan: 10 },
@@ -50,17 +50,17 @@ let rackSelectColumn = [
 
 $(function(){
 
-    $('#rackSelectTable').bootstrapTable({
-        url: '/rack/line/getRackDetailInfo',
+    $('#lineSelectTable').bootstrapTable({
+        url: '/rack/line/getLineDetailInfo',
         method: 'post',
         queryParams: function(params) {
-            let cable_manage_id = $("#cable_manage_id").val();
+            let line_manage_id = $("#line_manage_id").val();
             params.searchData = {
-                cable_manage_id
+                line_manage_id
             }
             return params;
         },
-        pageSize: 5, columns: rackSelectColumn, cache: false, undefinedText: "",
+        pageSize: 5, columns: lineSelectColumn, cache: false, undefinedText: "",
         pagination: true, sidePagination: 'server', checkboxHeader: true,
         classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
         responseHandler: function(res) {
@@ -74,6 +74,7 @@ $(function(){
             let errorCode = res.errorCode;
             if (!errorCode) {
                 alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+                return false;
             }
         },
     });
@@ -87,7 +88,7 @@ $(function(){
  * 사용자가 수정 페이지로 이동하도록 합니다.
  */
 function updateData(){
-    let id = $("#cable_manage_id").val();
+    let id = $("#line_manage_id").val();
     const url = `/rack/line/update/${id}`;
     window.location.href = url;
 }
@@ -112,7 +113,7 @@ function deleteData(){
     }).then((result) => {
         if (result.isConfirmed) {
             alert3("delete");
-            let data = [{"cable_manage_id": $("#cable_manage_id").val()}];
+            let data = [{"line_manage_id": $("#line_manage_id").val()}];
             $.ajax({
                 url : '/rack/line/delete',
                 type: 'post',
@@ -121,14 +122,14 @@ function deleteData(){
                 dataType : 'JSON',
                 success : function(res){
                     alert3Close();
-                    let errorCode = res.errorCode;
 
+                    let errorCode = res.errorCode;
                     if(!errorCode){
                         alert2('알림', '데이터를 삭제하는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+                        return false;
                     }
-                    else{
-                        alert2('알림', '삭제되었습니다.', 'info', '확인', back);
-                    }
+
+                    alert2('알림', '삭제되었습니다.', 'info', '확인', back);
                }
             });
         }

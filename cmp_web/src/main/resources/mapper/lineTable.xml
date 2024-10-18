@@ -10,8 +10,8 @@
         /** getLineTotalList ...
             선번장관리 > 선번장목록 > 리스트 목록 */
         select
-            cb.cable_manage_id, /* 선번장 관리번호 */
-            cb.qr_image_location, /* 선번장 이미지 */
+            lb.line_manage_id, /* 선번장 관리번호 */
+            lb.qr_image_location, /* 선번장 이미지 */
             /* 출발지 */
             seb.asset_id s_asset_id,                                        /* 자산분류 */
             sec.asset_category s_asset_category  ,                          /* 출발지 자산 카테고리 */
@@ -21,7 +21,7 @@
             seb.model_name s_model_name,                                    /* 모델명 */
             seb.host_name s_host_name,                                      /* 호스트명 */
             seb.m_company s_m_company,                                      /* 제조사 */
-            cb.start_eqp_port s_port,                                       /* 포트번호 */
+            lb.start_eqp_port s_port,                                       /* 포트번호 */
             seb.primary_operator s_primary_operator,                        /* 운영담당자 */
             seb.primary_outsourced_operator s_primary_outsourced_operator,  /* 위탁운영담당자 */
             /* 목적지 */
@@ -33,57 +33,57 @@
             eeb.model_name e_model_name,                                    /* 모델명 */
             eeb.host_name e_host_name,                                      /* 호스트명 */
             eeb.m_company e_m_company,                                      /* 제조사 */
-            cb.end_eqp_port e_port,                                         /* 포트번호 */
+            lb.end_eqp_port e_port,                                         /* 포트번호 */
             eeb.primary_operator e_primary_operator,                        /* 운영담당자 */
             eeb.primary_outsourced_operator e_primary_outsourced_operator,  /* 위탁운영담당자 */
             /* 선번장 회선 */
-            clctg.line_value cable_category,    /* 회선구분 */
-            clspd.line_value cable_speed,       /* 회선속도 */
-            clclr.line_value cable_color        /* 회선색상 */
+            lctg.value line_category,    /* 회선구분 */
+            lspd.value line_speed,       /* 회선속도 */
+            lclr.value line_color        /* 회선색상 */
         from
-            cable_basic cb /* 선번장 정보 */
+            line_basic lb /* 선번장 정보 */
         join
             equipment_basic seb /* 출발지 기본정보 */
-            on cb.start_eqp_id = seb.eqp_manage_id
+            on lb.start_eqp_id = seb.eqp_manage_id
         join
             equipment_detail sed /* 출발지 상세정보 */
             on seb.eqp_manage_id = sed.eqp_manage_id
         join (
-                select
-                    asset_id , asset_category
-                from
-                    equipment_categories
-                group by
-                    asset_id , asset_category
+            select
+                asset_id , asset_category
+            from
+                equipment_categories
+            group by
+                asset_id , asset_category
             ) sec /* 출발지 연결정보 */
             on seb.asset_id = sec.asset_id
         join
             equipment_basic eeb /* 목적지 기본정보 */
-            on cb.end_eqp_id = eeb.eqp_manage_id
+            on lb.end_eqp_id = eeb.eqp_manage_id
         join
             equipment_detail eed /* 목적지 상세정보 */
             on eeb.eqp_manage_id = eed.eqp_manage_id
         join (
-                select
-                    asset_id , asset_category
-                from
-                    equipment_categories
-                group by
-                    asset_id , asset_category
+            select
+                asset_id , asset_category
+            from
+                equipment_categories
+            group by
+                asset_id , asset_category
             ) eec /* 목적지 연결정보 */
             on eeb.asset_id = eec.asset_id
         join
-            cable_line clctg /* 회선구분 */
-            on clctg.line_category = 1 and cb.cable_category = clctg.line_id
+            line_category lctg /* 회선구분 */
+            on lctg.category = 1 and lb.line_category = lctg.id
         join
-            cable_line clspd /* 회선속도 */
-            on clspd.line_category = 2 and cb.cable_speed = clspd.line_id
+            line_category lspd /* 회선속도 */
+            on lspd.category = 2 and lb.line_speed = lspd.id
         join
-            cable_line clclr /* 회선색상 */
-            on clclr.line_category = 3 and cb.cable_color = clclr.line_id
+            line_category lclr /* 회선색상 */
+            on lclr.category = 3 and lb.line_color = lclr.id
         where
-            cb.is_deleted = 'N'
-        ORDER BY cb.cable_manage_id desc
+            lb.is_deleted = 'N'
+        ORDER BY lb.line_manage_id desc
         LIMIT #{offset},#{limit};
     </select>
 
@@ -91,12 +91,12 @@
         /** getLineTotalListCnt ...
             선번장관리 > 선번장 목록 > 리스트 개수 */
         select
-            count(cb.cable_manage_id)
+            count(lb.line_manage_id)
         from
-            cable_basic cb /* 선번장 정보 */
+            line_basic lb /* 선번장 정보 */
         join
             equipment_basic seb /* 출발지 기본정보 */
-            on cb.start_eqp_id = seb.eqp_manage_id
+            on lb.start_eqp_id = seb.eqp_manage_id
         join
             equipment_detail sed /* 출발지 상세정보 */
             on seb.eqp_manage_id = sed.eqp_manage_id
@@ -111,7 +111,7 @@
             on seb.asset_id = sec.asset_id
         join
             equipment_basic eeb /* 목적지 기본정보 */
-            on cb.end_eqp_id = eeb.eqp_manage_id
+            on lb.end_eqp_id = eeb.eqp_manage_id
         join
             equipment_detail eed /* 목적지 상세정보 */
             on eeb.eqp_manage_id = eed.eqp_manage_id
@@ -125,16 +125,16 @@
             ) eec /* 목적지 연결정보 */
             on eeb.asset_id = eec.asset_id
         join
-            cable_line clctg /* 회선구분 */
-            on clctg.line_category = 1 and cb.cable_category = clctg.line_id
+            line_category lctg /* 회선구분 */
+            on lctg.category = 1 and lb.line_category = lctg.id
         join
-            cable_line clspd /* 회선속도 */
-            on clspd.line_category = 2 and cb.cable_speed = clspd.line_id
+            line_category lspd /* 회선속도 */
+            on lspd.category = 2 and lb.line_speed = lspd.id
         join
-            cable_line clclr /* 회선색상 */
-            on clclr.line_category = 3 and cb.cable_color = clclr.line_id
+            line_category lclr /* 회선색상 */
+            on lclr.category = 3 and lb.line_color = lclr.id
         where
-            cb.is_deleted = 'N'
+            lb.is_deleted = 'N'
     </select>
 
     <select id="getLineEquipmentList" parameterType="map" resultType="map">
@@ -203,13 +203,13 @@
         /** getLineLinkList ...
             선번장관리 > 선번장목록 > 추가 페이지 > 회선구분, 회선속도, 회선색상 리스트 */
         select
-            line_id, line_value
+            id line_id, value line_value
         from
-            cable_line
+            line_category
         where
-            line_category = #{lineCategory}
+            category = #{lineCategory}
         order by
-            line_id
+            id
     </select>
 
     <select id="checkInsertListToContainLine" parameterType="map" resultType="int">
@@ -217,14 +217,14 @@
             선번장관리 > 선번장목록 > 추가 페이지 > 저장 > 선번장 목록 저장하기 전 이미 존재하는지 검증
         */
         select
-            count(cable_manage_id)
+            count(line_manage_id)
         from
-            cable_basic
+            line_basic
         where
             1=1
             and is_deleted = 'N'
-            and (start_eqp_id = #{rackStartId} and start_eqp_port = #{rackStartPort})
-            and (end_eqp_id = #{rackEndId} and end_eqp_port = #{rackEndPort})
+            and (start_eqp_id = #{rackStartId} and start_eqp_port = #{lineStartPort})
+            and (end_eqp_id = #{rackEndId} and end_eqp_port = #{lineEndPort})
     </select>
 
     <select id="generateLineManageId" parameterType="map" resultType="String">
@@ -232,24 +232,24 @@
             선번장관리 > 선번장목록 > 추가 페이지 > 저장 > 선번장 관리번호 생성
         */
         SELECT
-            CONCAT(#{cableManageId}, '-', LPAD(IFNULL(MAX(CAST(SUBSTRING(cable_manage_id, -5) AS UNSIGNED)) + 1, 1), 5, '0')) AS next_id
+            CONCAT(#{lineManageId}, '-', LPAD(IFNULL(MAX(CAST(SUBSTRING(line_manage_id, -5) AS UNSIGNED)) + 1, 1), 5, '0')) AS next_id
         FROM
-            cable_basic
+            line_basic
         WHERE
-            cable_manage_id LIKE CONCAT(#{cableManageId}, '-%')
+            line_manage_id LIKE CONCAT(#{lineManageId}, '-%')
     </select>
 
     <insert id="saveLineInfo" parameterType="map">
         /* saveLineInfo...
             선번장관리 > 선번장목록 > 추가 페이지 > 저장 > 선번장 정보 저장
         */
-        insert into cable_basic(
-            cable_manage_id,
+        insert into line_basic(
+            line_manage_id,
             start_eqp_id,
             end_eqp_id,
-            cable_speed,
-            cable_category,
-            cable_color,
+            line_speed,
+            line_category,
+            line_color,
             start_eqp_port,
             end_eqp_port,
             installation_year,
@@ -259,15 +259,15 @@
             is_deleted
         )
         values(
-            #{cableManageId},
-            #{rackStartId},
-            #{rackEndId},
-            #{cable_speed},
-            #{cable_category},
-            #{cable_color},
-            #{rackStartPort},
-            #{rackEndPort},
-            #{cable_installation_year},
+            #{lineManageId},
+            #{lineStartId},
+            #{lineEndId},
+            #{line_speed},
+            #{line_category},
+            #{line_color},
+            #{lineStartPort},
+            #{lineEndPort},
+            #{line_installation_year},
             #{qrImageLocation},
             NOW(),
             NULL,
@@ -280,28 +280,28 @@
             선번장관리 > 선번장목록 > 수정 / 상세 페이지 > 선번장 정보 (포설년도, 회선정보)
         */
         select
-            cb.cable_manage_id,
-            cb.start_eqp_id,
-            cb.end_eqp_id,
-            cb.start_eqp_port,
-            cb.end_eqp_port,
-            cb.installation_year cable_installation_year,
-            clctg.line_value cable_category,
-            clspd.line_value cable_speed,
-            clclr.line_value cable_color
+            lb.line_manage_id,
+            lb.start_eqp_id,
+            lb.end_eqp_id,
+            lb.start_eqp_port,
+            lb.end_eqp_port,
+            lb.installation_year line_installation_year,
+            lctg.value line_category,
+            lspd.value line_speed,
+            lclr.value line_color
         from
-            cable_basic cb
+            line_basic lb
         join
-            cable_line clctg
-            on clctg.line_category = 1 and cb.cable_category = clctg.line_id
+            line_category lctg
+            on lctg.category = 1 and lb.line_category = lctg.id
         join
-            cable_line clspd
-            on clspd.line_category = 2 and cb.cable_speed = clspd.line_id
+            line_category lspd
+            on lspd.category = 2 and lb.line_speed = lspd.id
         join
-            cable_line clclr
-            on clclr.line_category = 3 and cb.cable_color = clclr.line_id
+            line_category lclr
+            on lclr.category = 3 and lb.line_color = lclr.id
         where
-            cable_manage_id = #{cable_manage_id}
+            line_manage_id = #{line_manage_id}
     </select>
 
     <select id="getLineDetailTotalList" parameterType="String" resultType="map">
@@ -309,11 +309,11 @@
             선번장관리 > 선번장목록 > 수정/상세 페이지 > 선번장 정보 (출발지, 목적지)
         */
         select
-            cb.cable_manage_id, /* 선번장 관리번호 */
+            lb.line_manage_id, /* 선번장 관리번호 */
             /* 출발지 */
             seb.eqp_manage_id s_eqp_manage_id,                              /* 관리번호 */
             seb.eqp_name s_eqp_name ,                                       /* 구성자원명 */
-            cb.start_eqp_port s_port,                                       /* 포트번호 */
+            lb.start_eqp_port s_port,                                       /* 포트번호 */
             sec.asset_category s_asset_category  ,                          /* 출발지 자산 카테고리 */
             sed.installation_coordinates s_installation_coordinates,        /* 설치좌표 */
             seb.model_name s_model_name,                                    /* 모델명 */
@@ -324,7 +324,7 @@
             /* 목적지 */
             eeb.eqp_manage_id e_eqp_manage_id,                              /* 관리번호 */
             eeb.eqp_name e_eqp_name ,                                       /* 구성자원명 */
-            cb.end_eqp_port e_port,                                         /* 포트번호 */
+            lb.end_eqp_port e_port,                                         /* 포트번호 */
             eec.asset_category e_asset_category,                            /* 목적지 자산 카테고리 */
             eed.installation_coordinates e_installation_coordinates,        /* 설치좌표 */
             eeb.model_name e_model_name,                                    /* 모델명 */
@@ -333,10 +333,10 @@
             eeb.primary_operator e_primary_operator,                        /* 운영담당자 */
             eeb.primary_outsourced_operator e_primary_outsourced_operator   /* 위탁운영담당자 */
         from
-            cable_basic cb /* 선번장 정보 */
+            line_basic lb /* 선번장 정보 */
         join
             equipment_basic seb /* 출발지 기본정보 */
-            on cb.start_eqp_id = seb.eqp_manage_id
+            on lb.start_eqp_id = seb.eqp_manage_id
         join
             equipment_detail sed /* 출발지 상세정보 */
             on seb.eqp_manage_id = sed.eqp_manage_id
@@ -351,7 +351,7 @@
             on seb.asset_id = sec.asset_id
         join
             equipment_basic eeb /* 목적지 기본정보 */
-            on cb.end_eqp_id = eeb.eqp_manage_id
+            on lb.end_eqp_id = eeb.eqp_manage_id
         join
             equipment_detail eed /* 목적지 상세정보 */
             on eeb.eqp_manage_id = eed.eqp_manage_id
@@ -365,7 +365,7 @@
             ) eec /* 목적지 연결정보 */
             on eeb.asset_id = eec.asset_id
         where
-            cable_manage_id = #{cable_manage_id}
+            line_manage_id = #{line_manage_id}
     </select>
 
     <select id="getSelectLinkCategory" resultType="map">
@@ -373,12 +373,12 @@
             선번장관리 > 선번장목록 > 수정 페이지 > 회선정보 : 구성
         */
         select
-            line_id id,
-            line_value name
+            id,
+            value name
         from
-            cable_line
+            line_category
         where
-            line_category = 1
+            category = 1
     </select>
 
     <select id="getSelectLinkSpeed" resultType="map">
@@ -386,12 +386,12 @@
             선번장관리 > 선번장목록 > 수정 페이지 > 회선정보 : 속도
         */
         select
-            line_id id,
-            line_value name
+            id,
+            value name
         from
-            cable_line
+            line_category
         where
-            line_category = 2
+            category = 2
     </select>
 
     <select id="getSelectLinkColor" resultType="map">
@@ -399,12 +399,12 @@
             선번장관리 > 선번장목록 > 수정 페이지 > 회선정보 : 색상
         */
         select
-            line_id id,
-            line_value name
+            id,
+            value name
         from
-            cable_line
+            line_category
         where
-            line_category = 3
+            category = 3
     </select>
 
     <update id="deleteLineList" parameterType="String">
@@ -413,11 +413,11 @@
             선번장관리 > 선번장목록 > 상세 페이지 > 삭제
         */
         update
-            cable_basic
+            line_basic
         set
             is_deleted = 'Y'
         where
-            cable_manage_id = #{deleteCableTarget}
+            line_manage_id = #{deleteLineTarget}
     </update>
 
 </mapper>

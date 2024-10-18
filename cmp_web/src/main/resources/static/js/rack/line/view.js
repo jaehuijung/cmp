@@ -1,10 +1,10 @@
 
 
 /**
- * 선번장 목록 테이블(cableTable)을 새로고침하는 함수
+ * 선번장 목록 테이블(lineTable)을 새로고침하는 함수
  */
 function tableRefresh(){
-    $("#cableTable").bootstrapTable('refresh');
+    $("#lineTable").bootstrapTable('refresh');
 }
 
 function createColumn(field, checkbox = false, title, type = 'default') {
@@ -21,7 +21,7 @@ function createColumn(field, checkbox = false, title, type = 'default') {
     }
     else if(type === 'formatter'){
         column.formatter = function(value, row, index) {
-            let tableOptions = $('#cableTable').bootstrapTable('getOptions');
+            let tableOptions = $('#lineTable').bootstrapTable('getOptions');
             return tableOptions.totalRows - ((tableOptions.pageNumber - 1) * tableOptions.pageSize) - index;
         };
     }
@@ -43,7 +43,7 @@ let columns = [
         // 구분
         createColumn('', true, ''),
         createColumn('no', false, 'no', 'formatter'),
-        createColumn('cable_manage_id', false, '케이블 관리번호', 'underline'),
+        createColumn('line_manage_id', false, '케이블 관리번호', 'underline'),
 
         // 출발지
         createColumn('s_asset_category',              false, '자산분류'),
@@ -70,14 +70,14 @@ let columns = [
         createColumn('e_primary_outsourced_operator', false, '위탁운영담당자'),
 
         // 회선
-        createColumn('cable_speed',     false, '속도'),
-        createColumn('cable_category',  false, '구분'),
-        createColumn('cable_color',     false, '색상')
+        createColumn('line_speed',     false, '속도'),
+        createColumn('line_category',  false, '구분'),
+        createColumn('line_color',     false, '색상')
     ]
 ];
 
 $(function() {
-    $('#cableTable').bootstrapTable({
+    $('#lineTable').bootstrapTable({
         url: '/rack/line/list',
         method: 'post',
         queryParams: function(params) {
@@ -109,14 +109,15 @@ $(function() {
             let errorCode = res.errorCode;
             if (!errorCode) {
                 alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
-            } else {
-                $("#cableTotalCnt").text("총 " + res.total + "건")
+                return false;
             }
+
+            $("#lineTotalCnt").text("총 " + res.total + "건");
         },
         onClickCell: function(field, value, row, $element) {
             if (!$element.hasClass("bs-checkbox")) {
-                if(field == 'cable_manage_id'){
-                    rackDetail(row.cable_manage_id)
+                if(field == 'line_manage_id'){
+                    lineDetail(row.line_manage_id);
                 }
                 else{
                     let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
@@ -130,7 +131,7 @@ $(function() {
 
     $('#searchInput').keyup(function(e) {
         if(e.which == 13) {
-            $('#cableTable').bootstrapTable('refresh');
+            $('#lineTable').bootstrapTable('refresh');
         }
     });
 });
@@ -212,85 +213,86 @@ function searchState(btn, type, isChecked) {
         }
     }
 
-    $('#cableTable').bootstrapTable('refreshOptions', { columns: columns });
+    $('#lineTable').bootstrapTable('refreshOptions', { columns: columns });
 }
 
 // 선번장관리 > 선번장목록 > 선번장추가 페이지 이동
-function rackCreate(){
+function lineCreate(){
     const url = "/rack/line/create";
     window.location.href = url;
 }
 
 // 선번장관리 > 선번장목록 > 선번장상세 페이지 이동
-function rackDetail(id){
+function lineDetail(id){
     const url = `/rack/line/detail/${id}`;
     window.location.href = url;
 }
 
 // 선번장관리 > 선번장목록 > 선번장수정 페이지 이동
-function rackUpdate(){
-    let data = $("#cableTable").bootstrapTable('getSelections');
+function lineUpdate(){
+    let data = $("#lineTable").bootstrapTable('getSelections');
 
     if (data.length == 0){
         alert2('알림', '수정할 선번장을 선택하세요.', 'info', '확인');
+        return false;
     }
-    else if (data.length > 1){
+
+    if (data.length > 1){
         alert2('알림', '하나의 선반장만 수정할 수 있습니다.', 'info', '확인');
+        return false;
     }
-    else{
-        let id = data[0].cable_manage_id;
-        const url = `/rack/line/update/${id}`;
-        window.location.href = url;
-    }
+
+    let id = data[0].line_manage_id;
+    const url = `/rack/line/update/${id}`;
+    window.location.href = url;
 }
 
 /**
  * 선번장관리 > 선번장목록 > 삭제 버튼
  * 선택된 하나 또는 여러 개의 장비를 삭제함
 */
-function rackDelete() {
-    let data = $("#cableTable").bootstrapTable('getSelections');
+function lineDelete() {
+    let data = $("#lineTable").bootstrapTable('getSelections');
 
     if (data.length == 0){
         alert2('알림', '삭제할 장비를 선택하세요.', 'info', '확인');
+        return false;
     }
 
-    else{
-        Swal.fire({
-            title: '선번장 목록 삭제',
-            html : '선택한 선번장을 삭제하시겠습니까? 삭제하면 복구할 수 없습니다.',
-            icon : 'error',
-            focusConfirm: false,
-            confirmButtonText: '삭제',
-            cancelButtonText: '취소',
-            showCancelButton: true,
-            customClass: {
-                popup: 'custom-width'
-            },
-        }).then((result) => {
-            if (result.isConfirmed) {
-                alert3("load");
-                $.ajax({
-                    url : '/rack/line/delete',
-                    type: 'post',
-                    contentType: 'application/json',
-                    data: JSON.stringify(data),
-                    dataType : 'JSON',
-                    success : function(res){
-                        alert3Close();
-                        let errorCode = res.errorCode;
+    Swal.fire({
+        title: '선번장 목록 삭제',
+        html : '선택한 선번장을 삭제하시겠습니까? 삭제하면 복구할 수 없습니다.',
+        icon : 'error',
+        focusConfirm: false,
+        confirmButtonText: '삭제',
+        cancelButtonText: '취소',
+        showCancelButton: true,
+        customClass: {
+            popup: 'custom-width'
+        },
+    }).then((result) => {
+        if (result.isConfirmed) {
+            alert3("load");
+            $.ajax({
+                url : '/rack/line/delete',
+                type: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                dataType : 'JSON',
+                success : function(res){
+                    alert3Close();
 
-                        if(!errorCode){
-                            alert2('알림', '데이터를 삭제하는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
-                        }
-                        else{
-                            alert2('알림', '삭제되었습니다.', 'info', '확인', tableRefresh());
-                        }
-                   }
-                });
-            }
-        });
-    }
+                    let errorCode = res.errorCode;
+                    if(!errorCode){
+                        alert2('알림', '데이터를 삭제하는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+                        return false;
+                    }
+
+                    alert2('알림', '삭제되었습니다.', 'info', '확인', tableRefresh());
+               }
+            });
+        }
+    });
 }
 
 /**
@@ -344,7 +346,7 @@ function qrSubmit(){
 
 // PDF 다운로드 버튼
 function QRPDFImg(){
-	let pdfSelection = $("#cableTable").bootstrapTable("getSelections");
+	let pdfSelection = $("#lineTable").bootstrapTable("getSelections");
 
     if(pdfSelection.length === 0){
         alert2('알림', 'pdf로 출력할 선번장을 선택해주세요.', 'info', '확인');

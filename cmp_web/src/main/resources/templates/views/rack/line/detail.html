@@ -6,54 +6,54 @@
 
 <head>
     <style>
-        #rackCableTable tr:hover {
+        #lineCategoryTable tr:hover {
             background-color: transparent;
         }
     </style>
 </head>
 
 <div layout:fragment="content">
-    <main id="main" class="main">
+    <main id="main" class="line">
 
         <div class="contentCard">
-            <input type="hidden" id="cable_manage_id" name="cable_manage_id" th:value="${cable.cable_manage_id}"/>
+            <input type="hidden" id="line_manage_id" name="line_manage_id" th:value="${line.line_manage_id}"/>
 
             <!-- 선택된 출발지, 목적지 테이블 -->
-            <div id="section-rack-select-info">
-                <div class="section-rack-title">
+            <div id="section-line-select-info">
+                <div class="section-line-title">
                     <h2>선번장 구성</h2>
                 </div>
                 <div class="tbl-bootstrap-wrap">
                     <div class="tbl-bootstrap-wrap">
-                        <table id="rackSelectTable"></table>
+                        <table id="lineSelectTable"></table>
                     </div>
                 </div>
             </div>
 
             <!-- 회선 -->
-            <div id="section-rack-cable-info">
-                <div class="section-rack-title">
+            <div id="section-line-category-info">
+                <div class="section-line-title">
                     <h2>회선</h2>
                 </div>
                 <div class="tbl-bootstrap-wrap">
-                    <table id="rackCableTable">
+                    <table id="lineCategoryTable">
                         <tbody>
                         <tr>
-                            <td><label for="cable_installation_year">포설년도</label></td>
+                            <td><label for="line_installation_year">포설년도</label></td>
                             <td>
-                                <input type="date" id="cable_installation_year" name="cable_installation_year" th:value="${cable.cable_installation_year}" readonly/>
+                                <input type="date" id="line_installation_year" name="line_installation_year" th:value="${line.line_installation_year}" readonly/>
                             </td>
-                            <td><label for="cable_category">구분</label></td>
+                            <td><label for="line_category">구분</label></td>
                             <td>
-                                <input type="text" id="cable_category" name="cable_category" th:value="${cable.cable_category}" readonly>
+                                <input type="text" id="line_category" name="line_category" th:value="${line.line_category}" readonly>
                             </td>
-                            <td><label for="cable_speed">속도</label></td>
+                            <td><label for="line_speed">속도</label></td>
                             <td>
-                                <input type="text" id="cable_speed" name="cable_speed" th:value="${cable.cable_speed}" readonly>
+                                <input type="text" id="line_speed" name="line_speed" th:value="${line.line_speed}" readonly>
                             </td>
-                            <td><label for="cable_color">색상</label></td>
+                            <td><label for="line_color">색상</label></td>
                             <td>
-                                <input type="text" id="cable_color" name="cable_color" th:value="${cable.cable_color}" readonly>
+                                <input type="text" id="line_color" name="line_color" th:value="${line.line_color}" readonly>
                             </td>
                         </tr>
                         </tbody>

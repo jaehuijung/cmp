@@ -98,10 +98,10 @@ public class lineManageController {
      * @return 선번장 상세 뷰 페이지
      */
     @GetMapping("/detail/{id}")
-    public String detailLinePage(@PathVariable("id") String cable_manage_id, Model model) {
-        Map<String, Object> result = lineManageService.getEquipmentDetailTotalList(cable_manage_id);
+    public String detailLinePage(@PathVariable("id") String line_manage_id, Model model) {
+        Map<String, Object> result = lineManageService.getEquipmentDetailTotalList(line_manage_id);
         if((boolean) result.get("errorCode")){
-            model.addAttribute("cable", result.get("selectData"));
+            model.addAttribute("line", result.get("selectData"));
             return "views/rack/line/detail";
         }
         else{
@@ -126,10 +126,10 @@ public class lineManageController {
      * @return 선번장 수정 뷰 페이지
      */
     @GetMapping("/update/{id}")
-    public String updateLinePage(@PathVariable("id") String cable_manage_id, Model model) {
-        Map<String, Object> result = lineManageService.getEquipmentUpdateTotalList(cable_manage_id);
+    public String updateLinePage(@PathVariable("id") String line_manage_id, Model model) {
+        Map<String, Object> result = lineManageService.getEquipmentUpdateTotalList(line_manage_id);
         if((boolean) result.get("errorCode")){
-            model.addAttribute("cable", result.get("selectData"));
+            model.addAttribute("line", result.get("selectData"));
             model.addAttribute("link_category", result.get("link_category"));
             model.addAttribute("link_speed",    result.get("link_speed"));
             model.addAttribute("link_color",    result.get("link_color"));
