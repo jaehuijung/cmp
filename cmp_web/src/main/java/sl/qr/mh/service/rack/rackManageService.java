@@ -1,25 +1,23 @@
-package sl.qr.mh.service.cable;
+package sl.qr.mh.service.rack;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sl.qr.mh.service.common.AESUtil;
 import sl.qr.mh.service.common.qrMakeService;
 
-import javax.crypto.SecretKey;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Slf4j
 @Service
-public class cableManageService {
+public class rackManageService {
 
-	private final cableMapper cableMapper;
+	private final rackMapper rackMapper;
 	private final qrMakeService qrMakeService;
 
-	public cableManageService(cableMapper cableMapper, qrMakeService qrMakeService) {
-		this.cableMapper = cableMapper;
+	public rackManageService(rackMapper rackMapper, qrMakeService qrMakeService) {
+		this.rackMapper = rackMapper;
 		this.qrMakeService = qrMakeService;
 	}
 
@@ -29,15 +27,15 @@ public class cableManageService {
 	 * @param paramMap 요청 파라미터 맵
 	 * @return 선번장 목록 데이터 및 기타 메타 정보
 	 */
-	public Map<String, Object> getCableList(Map<String, Object> paramMap){
+	public Map<String, Object> getRackList(Map<String, Object> paramMap){
 
 		Map<String, Object> returnMap = new HashMap<>();
 		returnMap.put("errorCode", false);
 
 		try {
 
-			List<Map<String, Object>> rows = cableMapper.getCableTotalList(paramMap);
-			int total = cableMapper.getCableTotalListCnt(paramMap);
+			List<Map<String, Object>> rows = rackMapper.getRackTotalList(paramMap);
+			int total = rackMapper.getRackTotalListCnt(paramMap);
 
 			returnMap.put("rows", rows);
 			returnMap.put("total", total);
@@ -60,8 +58,8 @@ public class cableManageService {
 		returnMap.put("errorCode", false);
 
 		try{
-			List<Map<String, Object>> rows = cableMapper.getRackEquipmentList(paramMap);
-			int total = cableMapper.getRackEquipmentListCnt(paramMap);
+			List<Map<String, Object>> rows = rackMapper.getRackEquipmentList(paramMap);
+			int total = rackMapper.getRackEquipmentListCnt(paramMap);
 
 			returnMap.put("rows", rows);
 			returnMap.put("total", total);
@@ -87,11 +85,11 @@ public class cableManageService {
 			Map<String, Object> paramMap = new HashMap<>();
 
 			paramMap.put("lineCategory", "1");
-			List<Map<String, Object>> category = cableMapper.getRackLinkList(paramMap);
+			List<Map<String, Object>> category = rackMapper.getRackLinkList(paramMap);
 			paramMap.put("lineCategory", "2");
-			List<Map<String, Object>> speed    = cableMapper.getRackLinkList(paramMap);
+			List<Map<String, Object>> speed    = rackMapper.getRackLinkList(paramMap);
 			paramMap.put("lineCategory", "3");
-			List<Map<String, Object>> color    = cableMapper.getRackLinkList(paramMap);
+			List<Map<String, Object>> color    = rackMapper.getRackLinkList(paramMap);
 
 			returnMap.put("category", category);
 			returnMap.put("speed", speed);
@@ -110,16 +108,16 @@ public class cableManageService {
 	 *
 	 * @return 저장결과
 	 */
-	public Map<String, Object> saveCableInfo(Map<String, Object> paramMap){
+	public Map<String, Object> saveRackInfo(Map<String, Object> paramMap){
 		Map<String, Object> returnMap = new HashMap<>();
 		returnMap.put("errorCode", false);
 		try{
-			int isContain = cableMapper.checkInsertListToContainCable(paramMap);
+			int isContain = rackMapper.checkInsertListToContainRack(paramMap);
 			if (isContain == 0) {
 				String cableManageId = paramMap.get("cable_installation_year").toString();
 				paramMap.put("cableManageId", cableManageId.replaceAll("-", ""));
 
-				cableManageId = cableMapper.generateCableManageId(paramMap);
+				cableManageId = rackMapper.generateRackManageId(paramMap);
 				paramMap.put("cableManageId", cableManageId);
 
 				// 인코딩 테스트
@@ -133,7 +131,7 @@ public class cableManageService {
 
 				String filePath = qrMakeService.QRMake(cableManageId);
 				paramMap.put("qrImageLocation", filePath);
-				cableMapper.saveCableInfo(paramMap);
+				rackMapper.saveRackInfo(paramMap);
 
 			}
 			returnMap.put("isContain", isContain);
@@ -156,7 +154,7 @@ public class cableManageService {
 		returnMap.put("errorCode", false);
 
 		try{
-			Map<String, Object> rackMap = cableMapper.getCableDetailLinkList(cableManageId);
+			Map<String, Object> rackMap = rackMapper.getRackDetailLinkList(cableManageId);
 
 			returnMap.put("selectData", rackMap);
 			returnMap.put("errorCode", true);
@@ -178,10 +176,10 @@ public class cableManageService {
 		returnMap.put("errorCode", false);
 
 		try{
-			Map<String, Object> rackMap = cableMapper.getCableDetailLinkList(cableManageId); // 선택된 출발지, 목적지
-			List<Map<String, Object>> link_category = cableMapper.getSelectLinkCategory();   // 회선구분
-			List<Map<String, Object>> link_speed    = cableMapper.getSelectLinkSpeed();      // 회선속도
-			List<Map<String, Object>> link_color    = cableMapper.getSelectLinkColor();      // 회선색상
+			Map<String, Object> rackMap = rackMapper.getRackDetailLinkList(cableManageId); // 선택된 출발지, 목적지
+			List<Map<String, Object>> link_category = rackMapper.getSelectLinkCategory();   // 회선구분
+			List<Map<String, Object>> link_speed    = rackMapper.getSelectLinkSpeed();      // 회선속도
+			List<Map<String, Object>> link_color    = rackMapper.getSelectLinkColor();      // 회선색상
 
 			returnMap.put("selectData", rackMap);
 			returnMap.put("link_category", link_category);
@@ -202,7 +200,7 @@ public class cableManageService {
 	 * @return 선번장 구성 데이터
 	 */
 	@SuppressWarnings("unchecked")
-	public Map<String, Object> getCableDetailInfo(Map<String, Object> paramMap){
+	public Map<String, Object> getRackDetailInfo(Map<String, Object> paramMap){
 		Map<String, Object> returnMap = new HashMap<>();
 		returnMap.put("errorCode", false);
 
@@ -211,7 +209,7 @@ public class cableManageService {
 				paramMap.putAll((Map<String, Object>) paramMap.get("searchData"));
 			}
 
-			returnMap.put("rows", cableMapper.getCableDetailTotalList(paramMap));
+			returnMap.put("rows", rackMapper.getRackDetailTotalList(paramMap));
 			returnMap.put("errorCode", true);
 		}catch (Exception e){
 			log.error(e.getMessage());
@@ -227,7 +225,7 @@ public class cableManageService {
 	 * @return 삭제 결과
 	 */
 	@Transactional
-	public Map<String, Object> deleteCableList(List<Map<String, Object>> deleteList) {
+	public Map<String, Object> deleteRackList(List<Map<String, Object>> deleteList) {
 
 		Map<String, Object> returnMap = new HashMap<>();
 		returnMap.put("errorCode",false);
@@ -235,7 +233,7 @@ public class cableManageService {
 		try {
 			for(Map<String, Object> ele : deleteList){
 				String deleteCableTarget = ele.get("cable_manage_id").toString();
-				cableMapper.deleteCableList(deleteCableTarget);
+				rackMapper.deleteRackList(deleteCableTarget);
 			}
 
 			returnMap.put("errorCode",true);

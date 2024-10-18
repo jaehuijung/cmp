@@ -4,10 +4,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="sl.qr.mh.service.cable.cableMapper">
+<mapper namespace="sl.qr.mh.service.rack.rackMapper">
 
-    <select id="getCableTotalList" parameterType="map" resultType="map">
-        /** getCableTotalList ...
+    <select id="getRackTotalList" parameterType="map" resultType="map">
+        /** getRackTotalList ...
             선번장관리 > 선번장목록 > 리스트 목록 */
         select
             cb.cable_manage_id, /* 선번장 관리번호 */
@@ -87,8 +87,8 @@
         LIMIT #{offset},#{limit};
     </select>
 
-    <select id="getCableTotalListCnt" parameterType="map" resultType="int">
-        /** getCableTotalListCnt ...
+    <select id="getRackTotalListCnt" parameterType="map" resultType="int">
+        /** getRackTotalListCnt ...
             선번장관리 > 선번장 목록 > 리스트 개수 */
         select
             count(cb.cable_manage_id)
@@ -212,8 +212,8 @@
             line_id
     </select>
 
-    <select id="checkInsertListToContainCable" parameterType="map" resultType="int">
-        /* checkInsertListToContainCable...
+    <select id="checkInsertListToContainRack" parameterType="map" resultType="int">
+        /* checkInsertListToContainRack...
             선번장관리 > 선번장목록 > 추가 페이지 > 저장 > 선번장 목록 저장하기 전 이미 존재하는지 검증
         */
         select
