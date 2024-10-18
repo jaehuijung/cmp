@@ -156,7 +156,7 @@ public interface eqpMapper {
 	 *
 	 * @param deleteEqpTarget 장비관리번호
 	 */
-	public int checkCableIsContainEqpList(String deleteEqpTarget);
+	public int checkLineIsContainEqpList(String deleteEqpTarget);
 
 	/**
 	 * 장비관리 > 장비목록 > 삭제 > 선택한 장비 정보 리스트 삭제

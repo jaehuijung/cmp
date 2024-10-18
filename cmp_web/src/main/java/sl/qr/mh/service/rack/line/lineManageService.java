@@ -149,12 +149,12 @@ public class lineManageService {
 	 * @param cableManageId 선번장 관리번호
 	 * @return 선번장 정보
 	 */
-	public Map<String, Object> getEquipmentDetailTotalList(String cableManageId){
+	public Map<String, Object> getEquipmentDetailTotalList(String lineManageId){
 		Map<String, Object> returnMap = new HashMap<>();
 		returnMap.put("errorCode", false);
 
 		try{
-			Map<String, Object> LineMap = lineMapper.getLineDetailLinkList(cableManageId);
+			Map<String, Object> LineMap = lineMapper.getLineDetailLinkList(lineManageId);
 
 			returnMap.put("selectData", LineMap);
 			returnMap.put("errorCode", true);
@@ -168,15 +168,15 @@ public class lineManageService {
 	/**
 	 * 선번장관리 > 선번장목록 > 수정 > 선택한 선번장 정보 (포설년도, 회선정보)
 	 *
-	 * @param cableManageId 선번장 관리번호
+	 * @param lineManageId 선번장 관리번호
 	 * @return 선번장 정보
 	 */
-	public Map<String, Object> getEquipmentUpdateTotalList(String cableManageId){
+	public Map<String, Object> getEquipmentUpdateTotalList(String lineManageId){
 		Map<String, Object> returnMap = new HashMap<>();
 		returnMap.put("errorCode", false);
 
 		try{
-			Map<String, Object> LineMap = lineMapper.getLineDetailLinkList(cableManageId); // 선택된 출발지, 목적지
+			Map<String, Object> LineMap = lineMapper.getLineDetailLinkList(lineManageId); // 선택된 출발지, 목적지
 			List<Map<String, Object>> link_category = lineMapper.getSelectLinkCategory();   // 회선구분
 			List<Map<String, Object>> link_speed    = lineMapper.getSelectLinkSpeed();      // 회선속도
 			List<Map<String, Object>> link_color    = lineMapper.getSelectLinkColor();      // 회선색상
@@ -232,8 +232,8 @@ public class lineManageService {
 
 		try {
 			for(Map<String, Object> ele : deleteList){
-				String deleteCableTarget = ele.get("line_manage_id").toString();
-				lineMapper.deleteLineList(deleteCableTarget);
+				String deleteLineTarget = ele.get("line_manage_id").toString();
+				lineMapper.deleteLineList(deleteLineTarget);
 			}
 
 			returnMap.put("errorCode",true);

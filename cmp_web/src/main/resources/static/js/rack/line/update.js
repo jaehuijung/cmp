@@ -81,18 +81,27 @@ let selectInitEndRow = false;
 
 function updateSelectTable() {
     let data = [{
-        s_eqp_manage_id: selectedStartRow ? selectedStartRow.eqp_manage_id : "",
-        s_eqp_name: selectedStartRow ? selectedStartRow.eqp_name : "",
-        s_port: selectedStartRow ? selectedStartRow.port : "",
         s_asset_category: selectedStartRow ? selectedStartRow.asset_category : "",
         s_installation_coordinates: selectedStartRow ? selectedStartRow.installation_coordinates : "",
+        s_eqp_manage_id: selectedStartRow ? selectedStartRow.eqp_manage_id : "",
+        s_m_company: selectedStartRow ? selectedStartRow.m_company : "",
         s_model_name: selectedStartRow ? selectedStartRow.model_name : "",
-        e_eqp_manage_id: selectedEndRow ? selectedEndRow.eqp_manage_id : "",
-        e_eqp_name: selectedEndRow ? selectedEndRow.eqp_name : "",
-        e_port: selectedEndRow ? selectedEndRow.port : "",
+        s_host_name: selectedStartRow ? selectedStartRow.host_name : "",
+        s_eqp_name: selectedStartRow ? selectedStartRow.eqp_name : "",
+        s_port: selectedStartRow ? selectedStartRow.port : "",
+        s_primary_operator: selectedStartRow ? selectedStartRow.primary_operator : "",
+        s_primary_outsourced_operator: selectedStartRow ? selectedStartRow.primary_outsourced_operator : "",
+
         e_asset_category: selectedEndRow ? selectedEndRow.asset_category : "",
         e_installation_coordinates: selectedEndRow ? selectedEndRow.installation_coordinates : "",
-        e_model_name: selectedEndRow ? selectedEndRow.model_name : ""
+        e_eqp_manage_id: selectedEndRow ? selectedEndRow.eqp_manage_id : "",
+        e_m_company: selectedEndRow ? selectedEndRow.m_company : "",
+        e_model_name: selectedEndRow ? selectedEndRow.model_name : "",
+        e_host_name: selectedEndRow ? selectedEndRow.host_name : "",
+        e_eqp_name: selectedEndRow ? selectedEndRow.eqp_name : "",
+        e_port: selectedEndRow ? selectedEndRow.port : "",
+        e_primary_operator: selectedEndRow ? selectedEndRow.primary_operator : "",
+        e_primary_outsourced_operator: selectedEndRow ? selectedEndRow.primary_outsourced_operator : "",
     }];
 
     $('#lineSelectTable').bootstrapTable('load', data);

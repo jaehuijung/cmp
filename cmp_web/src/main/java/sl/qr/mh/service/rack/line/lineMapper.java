@@ -33,7 +33,7 @@ interface lineMapper {
     void saveLineInfo(Map<String, Object> paramMap);
 
     // 선번장관리 > 선번장목록 > 수정/상세 > 선번장 상세 정보 (포설년도, 회선정보)
-    Map<String, Object> getLineDetailLinkList(String cableManageId);
+    Map<String, Object> getLineDetailLinkList(String lineManageId);
 
     // 선번장관리 > 선번장목록 > 수정/상세 > 선택박스 : 회선구분
     List<Map<String, Object>> getSelectLinkCategory();
@@ -51,7 +51,7 @@ interface lineMapper {
      * 선번장관리 > 선번장목록 > 삭제 > 선택한 선번장 정보 리스트 삭제
      * 기본정보 is_deleted 컬럼 'Y'로 변경
      *
-     * @param deleteCableTarget 장비관리번호
+     * @param deleteLineTarget 장비관리번호
      */
-    void deleteLineList(String deleteCableTarget);
+    void deleteLineList(String deleteLineTarget);
 }

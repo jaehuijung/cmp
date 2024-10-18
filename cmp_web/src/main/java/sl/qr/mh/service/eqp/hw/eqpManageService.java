@@ -735,7 +735,7 @@ public class eqpManageService {
             List<String> errorTarget = new ArrayList<>();
             for(Map<String, Object> ele : deleteList){
                 String deleteEqpTarget = ele.get("eqp_manage_id").toString();
-                int isContain = eqpMapper.checkCableIsContainEqpList(deleteEqpTarget);
+                int isContain = eqpMapper.checkLineIsContainEqpList(deleteEqpTarget);
                 if(isContain == 0){
                     eqpMapper.deleteEqpList(deleteEqpTarget);
                 }
