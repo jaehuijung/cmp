@@ -1,4 +1,4 @@
-package sl.qr.mh.controller.auth;
+package sl.qr.mh.controller.settings.auth;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

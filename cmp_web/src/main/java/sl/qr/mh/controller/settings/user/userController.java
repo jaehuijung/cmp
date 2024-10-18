@@ -1,9 +1,9 @@
-package sl.qr.mh.controller.user;
+package sl.qr.mh.controller.settings.user;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import sl.qr.mh.service.user.userService;
+import sl.qr.mh.service.settings.user.userService;
 
 import java.util.List;
 import java.util.Map;

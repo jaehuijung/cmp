@@ -101,7 +101,7 @@ function updateSelectTable() {
 $(function(){
 
     $('#rackStartTable').bootstrapTable({
-        url: '/rack/line/rackEquipmentList',
+        url: '/rack/line/equipmentList',
         method: 'post',
         queryParams: function(params) {
             let eqp_manage_id = $("#searchInput").val();
@@ -172,7 +172,7 @@ $(function(){
     });
 
     $('#rackEndTable').bootstrapTable({
-        url: '/rack/line/rackEquipmentList',
+        url: '/rack/line/equipmentList',
         method: 'post',
         queryParams: function(params) {
             let eqp_manage_id = $("#searchInput").val();

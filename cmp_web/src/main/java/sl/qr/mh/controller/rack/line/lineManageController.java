@@ -6,7 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import sl.qr.mh.service.rack.rackManageService;
+import sl.qr.mh.service.rack.line.lineManageService;
 
 import java.util.List;
 import java.util.Map;
@@ -18,12 +18,12 @@ import java.util.Map;
 @CrossOrigin(origins = "*", allowedHeaders = "*") /* CORS 어노테이션 */
 @Controller
 @RequestMapping(value = "/rack/line")
-public class rackManageController {
+public class lineManageController {
 
-    private final rackManageService rackManageService;
+    private final lineManageService lineManageService;
 
-    public rackManageController(rackManageService rackManageService) {
-        this.rackManageService = rackManageService;
+    public lineManageController(lineManageService lineManageService) {
+        this.lineManageService = lineManageService;
     }
 
     /**
@@ -45,7 +45,7 @@ public class rackManageController {
     @PostMapping("/list")
     @ResponseBody
     public Map<String, Object> list(@RequestBody Map<String, Object> paramMap) {
-        return rackManageService.getRackList(paramMap);
+        return lineManageService.getLineList(paramMap);
     }
 
     /**
@@ -54,7 +54,7 @@ public class rackManageController {
      * @return 선번장 추가 뷰 페이지
      */
     @GetMapping("/create")
-    public String createRackPage() {
+    public String createLinePage() {
         return "views/rack/line/register";
     }
 
@@ -64,9 +64,9 @@ public class rackManageController {
      * @return 장비 리스트
      */
     @ResponseBody
-    @PostMapping("/rackEquipmentList")
-    public Map<String, Object> getRackEquipmentList(@RequestBody Map<String, Object> paramMap) {
-        return rackManageService.getRackEquipmentList(paramMap);
+    @PostMapping("/equipmentList")
+    public Map<String, Object> getLineEquipmentList(@RequestBody Map<String, Object> paramMap) {
+        return lineManageService.getLineEquipmentList(paramMap);
     }
 
     /**
@@ -76,8 +76,8 @@ public class rackManageController {
      */
     @ResponseBody
     @PostMapping("/selectLink")
-    public Map<String, Object> getRackLinkList() {
-        return rackManageService.getRackLinkList();
+    public Map<String, Object> getLineLinkList() {
+        return lineManageService.getLineLinkList();
     }
 
     /**
@@ -87,9 +87,9 @@ public class rackManageController {
      * @return 선번장 저장 결과
      */
     @ResponseBody
-    @PostMapping("/saveRackInfo")
-    public Map<String, Object> saveRackInfo(@RequestBody Map<String, Object> paramMap) {
-         return rackManageService.saveRackInfo(paramMap);
+    @PostMapping("/saveLineInfo")
+    public Map<String, Object> saveLineInfo(@RequestBody Map<String, Object> paramMap) {
+         return lineManageService.saveLineInfo(paramMap);
     }
 
     /**
@@ -98,8 +98,8 @@ public class rackManageController {
      * @return 선번장 상세 뷰 페이지
      */
     @GetMapping("/detail/{id}")
-    public String detailRackPage(@PathVariable("id") String cable_manage_id, Model model) {
-        Map<String, Object> result = rackManageService.getEquipmentDetailTotalList(cable_manage_id);
+    public String detailLinePage(@PathVariable("id") String cable_manage_id, Model model) {
+        Map<String, Object> result = lineManageService.getEquipmentDetailTotalList(cable_manage_id);
         if((boolean) result.get("errorCode")){
             model.addAttribute("cable", result.get("selectData"));
             return "views/rack/line/detail";
@@ -115,9 +115,9 @@ public class rackManageController {
      * @return 선번장 구성 데이터
      */
     @ResponseBody
-    @PostMapping("/getRackDetailInfo")
-    public Map<String, Object> getRackDetailInfo(@RequestBody Map<String, Object> paramMap) {
-        return rackManageService.getRackDetailInfo(paramMap);
+    @PostMapping("/getLineDetailInfo")
+    public Map<String, Object> getLineDetailInfo(@RequestBody Map<String, Object> paramMap) {
+        return lineManageService.getLineDetailInfo(paramMap);
     }
 
     /**
@@ -126,8 +126,8 @@ public class rackManageController {
      * @return 선번장 수정 뷰 페이지
      */
     @GetMapping("/update/{id}")
-    public String updateRackPage(@PathVariable("id") String cable_manage_id, Model model) {
-        Map<String, Object> result = rackManageService.getEquipmentUpdateTotalList(cable_manage_id);
+    public String updateLinePage(@PathVariable("id") String cable_manage_id, Model model) {
+        Map<String, Object> result = lineManageService.getEquipmentUpdateTotalList(cable_manage_id);
         if((boolean) result.get("errorCode")){
             model.addAttribute("cable", result.get("selectData"));
             model.addAttribute("link_category", result.get("link_category"));
@@ -150,6 +150,6 @@ public class rackManageController {
     @ResponseBody
     @PostMapping("/delete")
     public Map<String, Object> delete(@RequestBody List<Map<String, Object>> deleteList) {
-        return rackManageService.deleteRackList(deleteList);
+        return lineManageService.deleteLineList(deleteList);
     }
 }

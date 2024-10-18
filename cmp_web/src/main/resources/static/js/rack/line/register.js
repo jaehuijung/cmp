@@ -111,7 +111,7 @@ $(function(){
     getSelectLink(); // 화면 렌더링 시 회선 선택박스 세팅
 
     $('#rackStartTable').bootstrapTable({
-        url: '/rack/line/rackEquipmentList',
+        url: '/rack/line/equipmentList',
         method: 'post',
         queryParams: function(params) {
             let eqp_manage_id = $("#searchInput").val();
@@ -165,7 +165,7 @@ $(function(){
     });
 
     $('#rackEndTable').bootstrapTable({
-        url: '/rack/line/rackEquipmentList',
+        url: '/rack/line/equipmentList',
         method: 'post',
         queryParams: function(params) {
             let eqp_manage_id = $("#searchInput").val();
@@ -311,7 +311,7 @@ function saveData() {
 
             $.ajax({
                 type: "POST",
-                url: "/rack/line/saveRackInfo",
+                url: "/rack/line/saveLineInfo",
                 data: JSON.stringify(data),
                 contentType: "application/json",
                 success: function(res) {

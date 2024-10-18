@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import sl.qr.mh.service.eqp.eqpManageService;
+import sl.qr.mh.service.eqp.hw.eqpManageService;
 
 import java.io.IOException;
 import java.util.List;

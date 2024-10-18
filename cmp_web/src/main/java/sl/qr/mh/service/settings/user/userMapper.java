@@ -1,4 +1,4 @@
-package sl.qr.mh.service.user;
+package sl.qr.mh.service.settings.user;
 
 import org.apache.ibatis.annotations.Mapper;
 

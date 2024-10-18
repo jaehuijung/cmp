@@ -1,4 +1,4 @@
-package sl.qr.mh.service.rack;
+package sl.qr.mh.service.rack.line;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -11,13 +11,13 @@ import java.util.Map;
 
 @Slf4j
 @Service
-public class rackManageService {
+public class lineManageService {
 
-	private final rackMapper rackMapper;
+	private final lineMapper lineMapper;
 	private final qrMakeService qrMakeService;
 
-	public rackManageService(rackMapper rackMapper, qrMakeService qrMakeService) {
-		this.rackMapper = rackMapper;
+	public lineManageService(lineMapper lineMapper, qrMakeService qrMakeService) {
+		this.lineMapper = lineMapper;
 		this.qrMakeService = qrMakeService;
 	}
 
@@ -27,15 +27,15 @@ public class rackManageService {
 	 * @param paramMap 요청 파라미터 맵
 	 * @return 선번장 목록 데이터 및 기타 메타 정보
 	 */
-	public Map<String, Object> getRackList(Map<String, Object> paramMap){
+	public Map<String, Object> getLineList(Map<String, Object> paramMap){
 
 		Map<String, Object> returnMap = new HashMap<>();
 		returnMap.put("errorCode", false);
 
 		try {
 
-			List<Map<String, Object>> rows = rackMapper.getRackTotalList(paramMap);
-			int total = rackMapper.getRackTotalListCnt(paramMap);
+			List<Map<String, Object>> rows = lineMapper.getLineTotalList(paramMap);
+			int total = lineMapper.getLineTotalListCnt(paramMap);
 
 			returnMap.put("rows", rows);
 			returnMap.put("total", total);
@@ -53,13 +53,13 @@ public class rackManageService {
 	 *
 	 * @return 장비 리스트
 	 */
-	public Map<String, Object> getRackEquipmentList(Map<String, Object> paramMap){
+	public Map<String, Object> getLineEquipmentList(Map<String, Object> paramMap){
 		Map<String, Object> returnMap = new HashMap<>();
 		returnMap.put("errorCode", false);
 
 		try{
-			List<Map<String, Object>> rows = rackMapper.getRackEquipmentList(paramMap);
-			int total = rackMapper.getRackEquipmentListCnt(paramMap);
+			List<Map<String, Object>> rows = lineMapper.getLineEquipmentList(paramMap);
+			int total = lineMapper.getLineEquipmentListCnt(paramMap);
 
 			returnMap.put("rows", rows);
 			returnMap.put("total", total);
@@ -77,7 +77,7 @@ public class rackManageService {
 	 *
 	 * @return 회선정보 리스트
 	 */
-	public Map<String, Object> getRackLinkList(){
+	public Map<String, Object> getLineLinkList(){
 		Map<String, Object> returnMap = new HashMap<>();
 		returnMap.put("errorCode", false);
 
@@ -85,11 +85,11 @@ public class rackManageService {
 			Map<String, Object> paramMap = new HashMap<>();
 
 			paramMap.put("lineCategory", "1");
-			List<Map<String, Object>> category = rackMapper.getRackLinkList(paramMap);
+			List<Map<String, Object>> category = lineMapper.getLineLinkList(paramMap);
 			paramMap.put("lineCategory", "2");
-			List<Map<String, Object>> speed    = rackMapper.getRackLinkList(paramMap);
+			List<Map<String, Object>> speed    = lineMapper.getLineLinkList(paramMap);
 			paramMap.put("lineCategory", "3");
-			List<Map<String, Object>> color    = rackMapper.getRackLinkList(paramMap);
+			List<Map<String, Object>> color    = lineMapper.getLineLinkList(paramMap);
 
 			returnMap.put("category", category);
 			returnMap.put("speed", speed);
@@ -108,16 +108,16 @@ public class rackManageService {
 	 *
 	 * @return 저장결과
 	 */
-	public Map<String, Object> saveRackInfo(Map<String, Object> paramMap){
+	public Map<String, Object> saveLineInfo(Map<String, Object> paramMap){
 		Map<String, Object> returnMap = new HashMap<>();
 		returnMap.put("errorCode", false);
 		try{
-			int isContain = rackMapper.checkInsertListToContainRack(paramMap);
+			int isContain = lineMapper.checkInsertListToContainLine(paramMap);
 			if (isContain == 0) {
 				String cableManageId = paramMap.get("cable_installation_year").toString();
 				paramMap.put("cableManageId", cableManageId.replaceAll("-", ""));
 
-				cableManageId = rackMapper.generateRackManageId(paramMap);
+				cableManageId = lineMapper.generateLineManageId(paramMap);
 				paramMap.put("cableManageId", cableManageId);
 
 				// 인코딩 테스트
@@ -131,7 +131,7 @@ public class rackManageService {
 
 				String filePath = qrMakeService.QRMake(cableManageId);
 				paramMap.put("qrImageLocation", filePath);
-				rackMapper.saveRackInfo(paramMap);
+				lineMapper.saveLineInfo(paramMap);
 
 			}
 			returnMap.put("isContain", isContain);
@@ -154,9 +154,9 @@ public class rackManageService {
 		returnMap.put("errorCode", false);
 
 		try{
-			Map<String, Object> rackMap = rackMapper.getRackDetailLinkList(cableManageId);
+			Map<String, Object> LineMap = lineMapper.getLineDetailLinkList(cableManageId);
 
-			returnMap.put("selectData", rackMap);
+			returnMap.put("selectData", LineMap);
 			returnMap.put("errorCode", true);
 		}catch (Exception e){
 			log.error(e.getMessage());
@@ -176,12 +176,12 @@ public class rackManageService {
 		returnMap.put("errorCode", false);
 
 		try{
-			Map<String, Object> rackMap = rackMapper.getRackDetailLinkList(cableManageId); // 선택된 출발지, 목적지
-			List<Map<String, Object>> link_category = rackMapper.getSelectLinkCategory();   // 회선구분
-			List<Map<String, Object>> link_speed    = rackMapper.getSelectLinkSpeed();      // 회선속도
-			List<Map<String, Object>> link_color    = rackMapper.getSelectLinkColor();      // 회선색상
+			Map<String, Object> LineMap = lineMapper.getLineDetailLinkList(cableManageId); // 선택된 출발지, 목적지
+			List<Map<String, Object>> link_category = lineMapper.getSelectLinkCategory();   // 회선구분
+			List<Map<String, Object>> link_speed    = lineMapper.getSelectLinkSpeed();      // 회선속도
+			List<Map<String, Object>> link_color    = lineMapper.getSelectLinkColor();      // 회선색상
 
-			returnMap.put("selectData", rackMap);
+			returnMap.put("selectData", LineMap);
 			returnMap.put("link_category", link_category);
 			returnMap.put("link_speed", link_speed);
 			returnMap.put("link_color", link_color);
@@ -200,7 +200,7 @@ public class rackManageService {
 	 * @return 선번장 구성 데이터
 	 */
 	@SuppressWarnings("unchecked")
-	public Map<String, Object> getRackDetailInfo(Map<String, Object> paramMap){
+	public Map<String, Object> getLineDetailInfo(Map<String, Object> paramMap){
 		Map<String, Object> returnMap = new HashMap<>();
 		returnMap.put("errorCode", false);
 
@@ -209,7 +209,7 @@ public class rackManageService {
 				paramMap.putAll((Map<String, Object>) paramMap.get("searchData"));
 			}
 
-			returnMap.put("rows", rackMapper.getRackDetailTotalList(paramMap));
+			returnMap.put("rows", lineMapper.getLineDetailTotalList(paramMap));
 			returnMap.put("errorCode", true);
 		}catch (Exception e){
 			log.error(e.getMessage());
@@ -225,7 +225,7 @@ public class rackManageService {
 	 * @return 삭제 결과
 	 */
 	@Transactional
-	public Map<String, Object> deleteRackList(List<Map<String, Object>> deleteList) {
+	public Map<String, Object> deleteLineList(List<Map<String, Object>> deleteList) {
 
 		Map<String, Object> returnMap = new HashMap<>();
 		returnMap.put("errorCode",false);
@@ -233,7 +233,7 @@ public class rackManageService {
 		try {
 			for(Map<String, Object> ele : deleteList){
 				String deleteCableTarget = ele.get("cable_manage_id").toString();
-				rackMapper.deleteRackList(deleteCableTarget);
+				lineMapper.deleteLineList(deleteCableTarget);
 			}
 
 			returnMap.put("errorCode",true);
