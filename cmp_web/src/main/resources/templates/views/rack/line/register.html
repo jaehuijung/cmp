@@ -19,16 +19,21 @@
         <div class="contentCard">
             <div class="rackEquipmentWrap" style="display: flex; width: 100%; justify-content: space-around;">
                 <!-- 출발지정보 -->
-                <div id="section-rack-start-info" style="width: 49%">
-                    <div class="section-rack-title">
+                <div id="section-rack-start-info" style="width: 49%; padding-right: 10px;">
+                    <div>
                         <h2>출발지</h2>
-                        <p id="rackStartTotalCnt" style="margin:10px 0px 10px 0px;font-size:14px;padding:3px 8px;"></p>
                     </div>
-                    <div class="searchSearchWrap">
-                        <div class="searchTitle1">검색어</div>
-                        <div class="searchSearchInput">
-                            <input type="text" id="searchInput1" placeholder="검색어를 입력하세요"/>
-                            <button type="button"  onclick="searchEqpList();">검색</button>
+
+                    <div style="display: flex; justify-content: space-between;">
+                        <div style="display: flex; align-items: flex-end;">
+                            <p class="totalCnt" id="rackStartTotalCnt"></p>
+                        </div>
+                        <div class="searchWordWrap" style="display: flex; align-items: center; margin-bottom: 10px;">
+                            <div class="searchTitle">검색어</div>
+                            <div class="searchWordInput">
+                                <input type="text" id="searchInput" style="width:300px;" placeholder="검색어를 입력하세요"/>
+                                <button type="button"  onclick="searchEqpList();">검색</button>
+                            </div>
                         </div>
                     </div>
                     <div class="tbl-bootstrap-wrap">
@@ -38,17 +43,22 @@
 
                 <!-- 목적지정보 -->
                 <div id="section-rack-end-info" style="width:49%; ">
-                    <div class="section-rack-title">
+                    <div>
                         <h2>목적지</h2>
-                        <p id="rackEndTotalCnt" style="margin:10px 0px 10px 0px;font-size:14px;padding:3px 8px;"></p>
                     </div>
-                    <div class="searchSearchWrap">
-                        <div class="searchTitle1">검색어</div>
-                        <div class="searchSearchInput">
-                            <input type="text" id="searchInput2" placeholder="검색어를 입력하세요"/>
-                            <button type="button"  onclick="searchEqpList();">검색</button>
+                    <div style="display: flex; justify-content: space-between;">
+                        <div style="display: flex; align-items: flex-end;">
+                            <p class="totalCnt" id="rackEndTotalCnt"></p>
+                        </div>
+                        <div class="searchWordWrap" style="display: flex; align-items: center; margin-bottom: 10px;">
+                            <div class="searchTitle">검색어</div>
+                            <div class="searchWordInput">
+                                <input type="text" id="searchInput" style="width:300px;" placeholder="검색어를 입력하세요"/>
+                                <button type="button"  onclick="searchEqpList();">검색</button>
+                            </div>
                         </div>
                     </div>
+
                     <div style='display: flex; justify-content: space-between;'>
                     </div>
                     <div class="tbl-bootstrap-wrap">
@@ -107,8 +117,12 @@
         </div>
 
         <div>
-            <button type="button" onclick="saveData()">저장</button>
-            <button type="button" onclick="back()">취소</button>
+            <button type='button' class="btn btn-outline-secondary custom-normal-btn"
+                    onclick="saveData()">저장
+            </button>
+            <button type='button' class="btn btn-outline-secondary custom-normal-btn"
+                    onclick="back()">취소
+            </button>
         </div>
     </main>
 
