@@ -242,7 +242,7 @@ $(function(){
     });
 
     $('#rackSelectTable').bootstrapTable({
-        url: '/rack/line/getCableDetailInfo',
+        url: '/rack/line/getRackDetailInfo',
         method: 'post',
         queryParams: function(params) {
             let cable_manage_id = $("#cable_manage_id").val();
@@ -346,7 +346,7 @@ function saveData() {
 
             $.ajax({
                 type: "POST",
-                url: "/rack/line/saveCableInfo",
+                url: "/rack/line/saveRackInfo",
                 data: JSON.stringify(data),
                 contentType: "application/json",
                 success: function(res) {

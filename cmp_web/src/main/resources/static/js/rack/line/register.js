@@ -311,7 +311,7 @@ function saveData() {
 
             $.ajax({
                 type: "POST",
-                url: "/rack/line/saveCableInfo",
+                url: "/rack/line/saveRackInfo",
                 data: JSON.stringify(data),
                 contentType: "application/json",
                 success: function(res) {

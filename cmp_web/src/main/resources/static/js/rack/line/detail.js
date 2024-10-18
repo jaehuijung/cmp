@@ -51,7 +51,7 @@ let rackSelectColumn = [
 $(function(){
 
     $('#rackSelectTable').bootstrapTable({
-        url: '/cable/rack/getCableDetailInfo',
+        url: '/rack/line/getRackDetailInfo',
         method: 'post',
         queryParams: function(params) {
             let cable_manage_id = $("#cable_manage_id").val();

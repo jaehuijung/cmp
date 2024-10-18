@@ -227,8 +227,8 @@
             and (end_eqp_id = #{rackEndId} and end_eqp_port = #{rackEndPort})
     </select>
 
-    <select id="generateCableManageId" parameterType="map" resultType="String">
-        /* generateCableManageId...
+    <select id="generateRackManageId" parameterType="map" resultType="String">
+        /* generateRackManageId...
             선번장관리 > 선번장목록 > 추가 페이지 > 저장 > 선번장 관리번호 생성
         */
         SELECT
@@ -239,8 +239,8 @@
             cable_manage_id LIKE CONCAT(#{cableManageId}, '-%')
     </select>
 
-    <insert id="saveCableInfo" parameterType="map">
-        /* saveCableInfo...
+    <insert id="saveRackInfo" parameterType="map">
+        /* saveRackInfo...
             선번장관리 > 선번장목록 > 추가 페이지 > 저장 > 선번장 정보 저장
         */
         insert into cable_basic(
@@ -275,8 +275,8 @@
         )
     </insert>
 
-    <select id="getCableDetailLinkList" parameterType="String" resultType="map">
-        /* getCableDetailLinkList...
+    <select id="getRackDetailLinkList" parameterType="String" resultType="map">
+        /* getRackDetailLinkList...
             선번장관리 > 선번장목록 > 수정 / 상세 페이지 > 선번장 정보 (포설년도, 회선정보)
         */
         select
@@ -304,8 +304,8 @@
             cable_manage_id = #{cable_manage_id}
     </select>
 
-    <select id="getCableDetailTotalList" parameterType="String" resultType="map">
-        /* getCableDetailTotalList...
+    <select id="getRackDetailTotalList" parameterType="String" resultType="map">
+        /* getRackDetailTotalList...
             선번장관리 > 선번장목록 > 수정/상세 페이지 > 선번장 정보 (출발지, 목적지)
         */
         select
@@ -407,8 +407,8 @@
             line_category = 3
     </select>
 
-    <update id="deleteCableList" parameterType="String">
-        /* deleteCableList...
+    <update id="deleteRackList" parameterType="String">
+        /* deleteRackList...
             선번장관리 > 선번장목록 > 삭제
             선번장관리 > 선번장목록 > 상세 페이지 > 삭제
         */

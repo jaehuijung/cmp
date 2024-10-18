@@ -84,7 +84,7 @@ public class rackManageController {
      * @return 선번장 저장 결과
      */
     @ResponseBody
-    @PostMapping("/saveCableInfo")
+    @PostMapping("/saveRackInfo")
     public Map<String, Object> saveRackInfo(@RequestBody Map<String, Object> paramMap) {
          return rackManageService.saveRackInfo(paramMap);
     }
@@ -112,7 +112,7 @@ public class rackManageController {
      * @return 선번장 구성 데이터
      */
     @ResponseBody
-    @PostMapping("/getCableDetailInfo")
+    @PostMapping("/getRackDetailInfo")
     public Map<String, Object> getRackDetailInfo(@RequestBody Map<String, Object> paramMap) {
         return rackManageService.getRackDetailInfo(paramMap);
     }

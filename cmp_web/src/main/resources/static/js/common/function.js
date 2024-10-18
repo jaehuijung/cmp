@@ -60,7 +60,7 @@ function back() {
 // 선번장목록 > 추가/상세/수정 > 회선 > 회선구분, 회선속도, 회선색상 리스트
 function getSelectLink(){
     $.ajax({
-        url: "/cable/rack/selectLink",
+        url: "/rack/line/selectLink",
         type: "post",
         success: function (res) {
             const categorySelect = $("#cable_category");
@@ -93,7 +93,7 @@ function getSelectLink(){
 // 장비목록 > 추가/상세/수정 > 장비분류 > 구성분류 리스트
 function getSelectConfig(){
     $.ajax({
-        url: "/cable/eqp/selectConfig",
+        url: "/eqp/hw/selectConfig",
         type: "post",
         success: function (res) {
             const categorySelect = $("#config_id");
@@ -125,7 +125,7 @@ function getSelectConfig(){
 // 장비목록 > 추가/상세/수정 > 장비분류 > 자산분류 리스트
 function getSelectAsset(configValue){
     $.ajax({
-        url: "/cable/eqp/selectAsset",
+        url: "/eqp/hw/selectAsset",
         type: "post",
         data: {config_id: configValue},
         success: function (res) {
@@ -154,7 +154,7 @@ function getSelectAsset(configValue){
 // 장비목록 > 추가/상세/수정 > 장비분류 > 자산세부 리스트
 function getSelectSub(assetValue){
     $.ajax({
-        url: "/cable/eqp/selectSub",
+        url: "/eqp/hw/selectSub",
         type: "post",
         data: {asset_id: assetValue},
         success: function (res) {
@@ -186,7 +186,7 @@ function getSelectSub(assetValue){
 // 장비목록 > 추가/상세/수정 > 장비분류 > 자산상세 리스트
 function getSelectDetail(subValue){
     $.ajax({
-        url: "/cable/eqp/selectDetail",
+        url: "/eqp/hw/selectDetail",
         type: "post",
         data: {sub_id: subValue},
         success: function (res) {
