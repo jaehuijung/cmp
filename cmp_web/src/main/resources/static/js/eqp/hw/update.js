@@ -12,24 +12,6 @@ $(function(){
 
     addComma(document.getElementById("acquisition_cost")); // 도입금액 콤마처리
 
-    // 장비분류 선택 시 선택박스 세팅
-    $(document).ready(function() {
-        $('#config_id').change(function(){
-            const configValue = $(this).val();
-            getSelectAsset(configValue);
-        })
-
-        $('#asset_id').change(function(){
-            const assetValue = $(this).val();
-            getSelectSub(assetValue);
-        })
-
-        $('#sub_id').change(function(){
-            const subValue = $(this).val();
-            getSelectDetail(subValue);
-        })
-    })
-
     $('#eqpLinkTable').bootstrapTable({
         url: '/eqp/hw/selectEqpLinkList',
         method: 'post',
@@ -61,6 +43,17 @@ $(function(){
         },
     });
 });
+
+// 장비분류 선택 시 선택박스 세팅
+$('#asset_id').change(function(){      // 자산분류 > 자산세부분류
+    const assetValue = $(this).val();
+    getSelectSub(assetValue);
+})
+$('#sub_id').change(function(){        // 자산세부분류 > 자산상세분류
+    const subValue = $(this).val();
+    getSelectDetail(subValue);
+})
+
 
 /**
  * 장비관리 > 장비목록 > 장비수정 > 저장버튼
@@ -239,6 +232,7 @@ function saveData() {
     data["eqpLinkDelete"] = eqpLinkDelete;
     data["eqpLinkUpdate"] = eqpLinkUpdate;
     data["eqp_manage_id"] = $("#eqp_manage_id").val();
+    data["config_id"] = "1"; // 구성분류 : H/W
 
     Swal.fire({
         title: '알림',

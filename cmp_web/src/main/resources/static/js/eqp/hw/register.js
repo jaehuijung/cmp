@@ -10,10 +10,13 @@ $(function(){
     getSelectConfig(); // 화면 렌더링 시 구성분류 선택박스 세팅
 
     // 장비분류 선택 시 선택박스 세팅
-    $('#config_id').change(function(){     // 구성분류 > 자산분류
-        const configValue = $(this).val();
-        getSelectAsset(configValue);
-    })
+    // $('#config_id').change(function(){     // 구성분류 > 자산분류
+    //     const configValue = $(this).val();
+    //     getSelectAsset(configValue);
+    // })
+
+    getSelectAsset("1"); // 구성분류 > 자산분류(H/W에 해당하는 항목만)
+
     $('#asset_id').change(function(){      // 자산분류 > 자산세부분류
         const assetValue = $(this).val();
         getSelectSub(assetValue);
@@ -58,10 +61,10 @@ function saveData() {
         return false;
     }
 
-    if($("#config_id").val() === ""){
-        alert2("알림", "구성분류를 선택해주세요", "info", "확인");
-        return false;
-    }
+    // if($("#config_id").val() === ""){
+    //     alert2("알림", "구성분류를 선택해주세요", "info", "확인");
+    //     return false;
+    // }
     if($("#asset_id").val() === ""){
         alert2("알림", "자산분류를 선택해주세요", "info", "확인");
         return false;
@@ -210,6 +213,7 @@ function saveData() {
     }
 
     data["eqpLink"] = eqpLinkData;
+    data["config_id"] = "1"; // 구성분류 : H/W
 
     Swal.fire({
         title: '알림',
