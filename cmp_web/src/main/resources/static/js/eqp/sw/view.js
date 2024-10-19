@@ -65,7 +65,7 @@ var equColumns = [
 $(function(){
 
     $('#eqpTable').bootstrapTable({
-        url: '/eqp/hw/list',
+        url: '/eqp/sw/list',
         method: 'post',
         queryParams: function(params) {
             let searchInput = $("#searchInput").val().trim();

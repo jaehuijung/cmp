@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sl.qr.mh.service.eqp.sw.swMapper">
+
+    <sql id="getEquipmentTotalCommon">
+        /* getEquipmentTotalCommon...
+           장비 목록 리스트 검색용 쿼리 */
+        AND is_deleted = 'N'
+        <if test="searchInput != null and searchInput != ''">
+            AND (
+            BINARY A.eqp_manage_id                  Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY A.eqp_name                       Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY A.host_name                      Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY A.model_name                     Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY A.m_company                      Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY A.operating_department           Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY A.primary_operator               Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY A.secondary_operator             Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY A.primary_outsourced_operator    Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY A.secondary_outsourced_operator  Like CONCAT('%', #{searchInput}, '%')
+            )
+        </if>
+    </sql>
+
+    <select id="getEquipmentTotalList" parameterType="Map" resultType="Map">
+        /* getEquipmentTotalList ...
+        H/W관리 > 장비목록 > 장비 목록 데이터  */
+        SELECT
+            A.eqp_manage_id                   /* 장비 관리번호 */
+            , A.eqp_name                      /* 장비명 */
+            , A.host_name                     /* 호스트명 */
+            , A.model_name                    /* 모델명 */
+            , A.m_company                     /* 제조사 */
+            , A.domestic                      /* 국산여부 */
+            , A.dependent_config              /* 종속 SW 여부 */
+            , A.maintenance_contract_target   /* 유지관리 계약대상여부 */
+            , A.config_id                     /* 구성분류 */
+            , A.asset_id                      /* 자산분류 */
+            , A.sub_id                        /* 자산세부분류 */
+            , A.detail_id                     /* 자산상세분류 */
+            , A.network_operation_type        /* 네트워크 운영 구분 */
+            , A.operating_status              /* 운영상태 */
+            , A.operating_department          /* 운영부서 */
+            , A.primary_operator              /* 운영담당자(정) */
+            , A.secondary_operator            /* 운영담당자(부) */
+            , A.primary_outsourced_operator   /* 위탁운영사용자(정) */
+            , A.secondary_outsourced_operator /* 위탁운영사용자(부) */
+            , A.created_at                    /* 생성일 */
+            , A.updated_at                    /* 수정일 */
+            , A.creator                       /* 등록자 */
+        FROM
+            equipment_sw_basic A
+        WHERE 1=1
+        <include refid="getEquipmentTotalCommon"/>
+        ORDER BY A.eqp_manage_id desc
+        LIMIT #{offset},#{limit}
+    </select>
+
+
+    <select id="getEquipmentTotalListCnt" parameterType="Map" resultType="int">
+        /* getEquipmentTotalListCnt ...
+        H/W관리 > 장비목록 > 장비 목록 데이터 개수  */
+        SELECT
+            COUNT(A.eqp_manage_id)
+        FROM
+            equipment_sw_basic A
+        WHERE 1=1
+        <include refid="getEquipmentTotalCommon"/>
+    </select>
+
+    <select id="generateEquipmentManageId" parameterType="map" resultType="String">
+        /* generateEquipmentManageId...
+        H/W관리 > 장비목록 > 추가 > 장비 저장 : 장비관리번호 생성 */
+        SELECT
+            CONCAT(#{categories}, YEAR(CURDATE()), LPAD(IFNULL(MAX(CAST(SUBSTRING(eqp_manage_id, -4) AS UNSIGNED)) + 1, 1), 4, '0'))
+        FROM
+            equipment_sw_basic
+        WHERE
+            eqp_manage_id LIKE CONCAT(#{categories}, YEAR(CURDATE()), '%')
+    </select>
+
+    <insert id="insertEquipmentBasic" parameterType="map">
+        /* insertEquipmentBasic...
+        H/W관리 > 장비목록 > 추가 > 장비 저장 : 기본정보 */
+        INSERT INTO equipment_sw_basic (
+            eqp_manage_id,
+            eqp_name,
+            host_name,
+            model_name,
+            m_company,
+            domestic,
+            dependent_config,
+            maintenance_contract_target,
+            config_id,
+            asset_id,
+            sub_id,
+            detail_id,
+            network_operation_type,
+            operating_status,
+            operating_department,
+            primary_operator,
+            secondary_operator,
+            primary_outsourced_operator,
+            secondary_outsourced_operator,
+            created_at,
+            updated_at,
+            creator,
+            is_deleted
+        )
+        VALUES (
+            #{eqp_manage_id},
+            #{eqp_name},
+            #{host_name},
+            #{model_name},
+            #{m_company},
+            #{domestic},
+            #{dependent_config},
+            #{maintenance_contract_target},
+            #{config_id},
+            #{asset_id},
+            #{sub_id},
+            #{detail_id},
+            #{network_operation_type},
+            #{operating_status},
+            #{operating_department},
+            #{primary_operator},
+            #{secondary_operator},
+            #{primary_outsourced_operator},
+            #{secondary_outsourced_operator},
+            NOW(),
+            NULL,
+            NULL,
+            'N'
+        )
+    </insert>
+
+    <insert id="insertEquipmentDetail" parameterType="map">
+        /* insertEquipmentDetail...
+        H/W관리 > 장비목록 > 추가 > 장비 저장 : 세부정보 */
+        insert into equipment_sw_detail(
+            eqp_manage_id,
+            OS,
+            acquisition_cost,
+            amount,
+            dbrain_number,
+            license_number,
+            asset_acquisition_date,
+            asset_disposal_date,
+            eol_status,
+            eos_status
+        )
+        values(
+            #{eqp_manage_id},
+            #{os_version},
+            #{acquisition_cost},
+            #{amount},
+            #{dbrain_number},
+            #{license_number},
+            #{asset_acquisition_date},
+            #{asset_disposal_date},
+            #{eol_status},
+            #{eos_status}
+        )
+    </insert>
+</mapper>

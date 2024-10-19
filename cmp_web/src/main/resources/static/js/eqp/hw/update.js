@@ -117,25 +117,18 @@ function saveData() {
             data[name] = acquisition_cost;
         }
         else{
-            if (["eqp_name", "hostname", "model", "m_company", "primary_operator", "primary_outsourced_operator",
-                "secondary_operator", "secondary_outsourced_operator", "operating_department", "cpu", "mem",
-                "disk", "os_version", "dbrain_number", "serial_number", "installation_coordinates"].includes(name)) {
-                if (value.length > 30) {
-                    errorMessage += `${labelName} 30글자 초과할 수 없습니다.</br>`;
-                    isValid = false;
-                }
-            }
-            if ((name === "installation_units" || name === "equipment_size_units") && (isNaN(value) || Number(value) > 1000)) {
-                errorMessage += `${labelName} 숫자만 입력가능하며, 1000 이하입니다.</br>`;
-                isValid = false;
-            }
-
-            if (name.includes("date") && !isValidDate(value)) {
-                errorMessage += `${labelName} 유효한 날짜여야 합니다.</br>`;
-                isValid = false;
-            }
-
             if(name != ""){
+                if (["eqp_name", "hostname", "model", "m_company",
+                     "primary_operator", "primary_outsourced_operator",
+                     "secondary_operator", "secondary_outsourced_operator",
+                     "operating_department", "os_version", "dbrain_number", "license_number"].includes(name)) {
+                    // 글자수 변경필요!!!
+                    if (value.length > 50) {
+                        errorMessage += `${labelName} 50글자 초과할 수 없습니다.</br>`;
+                        isValid = false;
+                    }
+                }
+
                 if ((name === "installation_units") && (value === '')){
                     value = 0;
                 }
@@ -144,10 +137,13 @@ function saveData() {
                 }
 
                 data[name] = value;
+
+                if (name.includes("date") && !isValidDate(value)) {
+                    errorMessage += `${labelName} 유효한 날짜여야 합니다.</br>`;
+                    isValid = false;
+                }
             }
         }
-
-        data["ip_address"] = combineIP(); // ip_block1 ~ ip_block4까지 구분자 붙여서 ip_address 문자열 생성
     });
 
 

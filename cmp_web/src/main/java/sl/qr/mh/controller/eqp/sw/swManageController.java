@@ -45,7 +45,7 @@ public class swManageController {
     }
 
     /**
-     * H/W관리 > 장비목록 > 추가 뷰 페이지
+     * S/W관리 > 장비목록 > 추가 뷰 페이지
      *
      * @return 장비 추가 뷰 페이지
      */
@@ -53,4 +53,16 @@ public class swManageController {
     public String createEquipmentPage() {
         return "views/eqp/sw/register";
     }
+
+    /**
+     * S/W관리 > 장비목록 > 추가 > 장비 정보 저장
+     *
+     * @return 장비 저장 결과
+     */
+    @ResponseBody
+    @PostMapping("/saveEquipmentInfo")
+    public Map<String, Object> saveEquipmentInfo(@RequestBody Map<String, Object> paramMap) {
+        return swManageService.insertEqpList(paramMap);
+    }
+
 }
