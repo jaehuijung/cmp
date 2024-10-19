@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 @Mapper
-interface lineMapper {
+public interface lineMapper {
 
     // 선번장관리 > 선번장목록 > 리스트 목록
     List<Map<String, Object>> getLineTotalList(Map<String, Object> paramMap);

@@ -17,10 +17,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 장비관리 > H/W관리
+ */
 @Slf4j
 @Service
 public class hwManageService {
-
 
     private final hwMapper hwMapper;
     private final String sep = "/";
@@ -31,7 +33,7 @@ public class hwManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 장비 목록 데이터 가져오기
+     * H/W관리 > 장비목록 > 장비 목록 데이터
      *
      * @param paramMap 요청 파라미터 맵
      * @return 장비 목록 데이터
@@ -63,7 +65,7 @@ public class hwManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 추가/수정/상세 > 장비분류 선택박스 : 구성분류 데이터 가져오기
+     * H/W관리 > 장비목록 > 추가/수정/상세 장비분류 선택박스 > 장비분류 데이터 : 구성분류
      *
      * @return 구성분류 데이터
      */
@@ -83,7 +85,7 @@ public class hwManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 추가/수정/상세 > 장비분류 선택박스 : 자산분류 데이터 가져오기
+     * H/W관리 > 장비목록 > 추가/수정/상세 장비분류 선택박스 > 장비분류 데이터 : 자산분류
      *
      * @return 자산분류 데이터
      */
@@ -103,7 +105,7 @@ public class hwManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 추가/수정/상세 > 장비분류 선택박스 : 자산세부 데이터 가져오기
+     * H/W관리 > 장비목록 > 추가/수정/상세 장비분류 선택박스 > 장비분류 데이터 : 자산세부
      *
      * @return 자산세부 데이터
      */
@@ -124,7 +126,7 @@ public class hwManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 추가/수정/상세 > 장비분류 선택박스 : 자산상세 데이터 가져오기
+     * H/W관리 > 장비목록 > 추가/수정/상세 장비분류 선택박스 > 장비분류 데이터 : 자산상세
      *
      * @return 자산상세 데이터
      */
@@ -144,7 +146,7 @@ public class hwManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 추가 > 장비 저장 (기본정보, 세부정보, 연결정보)
+     * H/W관리 > 장비목록 > 추가 > 장비 저장 : 기본정보, 세부정보, 연결정보
      *
      * @param paramMap 저장할 장비 데이터
      * @return 저장 결과
@@ -156,7 +158,7 @@ public class hwManageService {
         returnMap.put("errorCode",false);
 
         try {
-            String eqp_manage_id = hwMapper.generateEqpManageId(paramMap);
+            String eqp_manage_id = hwMapper.generateEquipmentManageId(paramMap);
             paramMap.put("eqp_manage_id", eqp_manage_id); // 장비 관리번호 생성
 
             hwMapper.insertEquipmentBasic(paramMap); // 장비 기본정보 저장
@@ -181,7 +183,7 @@ public class hwManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 수정/상세 > 장비연결정보 데이터 가져오기
+     * H/W관리 > 장비목록 > 수정/상세 > 장비연결정보 데이터
      *
      * @return 장비 연결정보 리스트
      */
@@ -211,7 +213,7 @@ public class hwManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 수정 > 선택한 장비 정보 리스트 수정 (기본정보, 세부정보, 연결정보)
+     * H/W관리 > 장비목록 > 수정 > 선택한 장비 정보 수정 : 기본정보, 세부정보, 연결정보
      *
      * @param paramMap 수정할 장비 데이터
      * @return 수정 결과
@@ -259,7 +261,7 @@ public class hwManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 상세 > 선택한 장비 정보 리스트 (기본정보, 세부정보, 연결정보)
+     * H/W관리 > 장비목록 > 상세 > 선택한 장비 정보 : 기본정보, 세부정보, 연결정보
      *
      * @param eqp_manage_id 장비 관리번호
      * @return 장비 정보 리스트
@@ -283,7 +285,7 @@ public class hwManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 수정 > 선택한 장비 정보 리스트 (기본정보, 세부정보, 연결정보)
+     * H/W관리 > 장비목록 > 수정 > 선택한 장비 정보 : 기본정보, 세부정보, 연결정보
      *
      * @param eqp_manage_id 장비 관리번호
      * @return 장비 정보 리스트
@@ -315,7 +317,7 @@ public class hwManageService {
     }
     
     /**
-     * 장비관리 > 장비목록 > 삭제 > 선택한 장비 정보 리스트 삭제 (기본정보, 세부정보, 연결정보)
+     * H/W관리 > 장비목록 > 삭제 > 선택한 장비 정보 삭제 : 기본정보, 세부정보, 연결정보
      *
      * @param deleteList 삭제할 장비 데이터
      * @return 삭제 결과
@@ -349,10 +351,8 @@ public class hwManageService {
         return returnMap;
     }
 
-
-
     /**
-     * 장비관리 > 장비목록 > 엑셀 다운로드
+     * H/W관리 > 장비목록 > 장비 목록 다운로드 > 장비목록 전체 리스트
      *
      * @return 장비 목록 데이터
      */
@@ -385,9 +385,8 @@ public class hwManageService {
         return wb;
     }
 
-
     /**
-     * 장비관리 > 장비목록 > 엑셀 다운로드 : 시트에 데이터 입력
+     * H/W관리 > 장비목록 > 장비 목록 다운로드 : 엑셀 시트에 장비목록 데이터 입력
      *
      * @param workbook 엑셀 워크북 객체
      * @param sheetIndex 시트 인덱스
@@ -444,11 +443,22 @@ public class hwManageService {
             setCellValue(sheetIndex, 2,  workbook, dataRow, data.get("ip_address"));
             setCellValue(sheetIndex, 3,  workbook, dataRow, data.get("port"));
         }
-
     }
 
     /**
-     * 장비관리 > 장비목록 > 장비 업로드 > 데이터 저장
+     * H/W관리 > 장비목록 > 장비 목록 업로드 > 엑셀 양식 다운로드 > 업로드 양식 엑셀 파일 생성
+     *
+     * @return 엑셀 워크북 객체
+     * @throws IOException 입력/출력 예외
+     */
+    public Workbook excelTemplate() throws IOException {
+        String uploadPath = staticPath + "equipmentUploadTemplate.xlsx";
+        FileInputStream file = new FileInputStream(uploadPath);
+        return new XSSFWorkbook(file);
+    }
+
+    /**
+     * H/W관리 > 장비목록 > 장비 목록 업로드 > 업로드된 엑셀 파일 데이터 저장
      *
      * @param file 업로드된 엑셀 파일
      * @return 삽입 결과
@@ -496,7 +506,7 @@ public class hwManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 장비 업로드 > 데이터 저장 후 결과파일 생성
+     * H/W관리 > 장비목록 > 장비 목록 업로드 > 업로드된 엑셀 파일 데이터 저장 후 결과파일 생성
      *
      * @param paramMap 저장결과 파라미터 맵
      * @return 엑셀 워크북 객체
@@ -513,19 +523,7 @@ public class hwManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 장비 업로드 > 업로드 양식 엑셀 파일 생성
-     *
-     * @return 엑셀 워크북 객체
-     * @throws IOException 입력/출력 예외
-     */
-    public Workbook excelTemplate() throws IOException {
-        String uploadPath = staticPath + "equipmentUploadTemplate.xlsx";
-        FileInputStream file = new FileInputStream(uploadPath);
-        return new XSSFWorkbook(file);
-    }
-
-    /**
-     * 장비관리 > 장비목록 > 장비 업로드 > 엑셀 업로드 파일 유효성 검증
+     * H/W관리 > 장비목록 > 장비 목록 업로드 > 검증 > 업로드된 엑셀 파일의 유효성 검사
      *
      * @param file 업로드된 엑셀 파일
      * @return 엑셀 워크북 객체
@@ -565,7 +563,7 @@ public class hwManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 장비 업로드 > 검증용 메서드1 : 문자/숫자 셀 형식 찾기
+     * H/W관리 > 장비목록 > 장비 목록 업로드 > 검증용 메서드1 : 문자/숫자 셀 형식 찾기
      *
      * @param cellHeader 셀 헤더
      * @param cellValue 셀 값
@@ -589,7 +587,7 @@ public class hwManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 장비 업로드 > 검증용 메서드2 : 숫자만 들어가야 하는 컬럼들
+     * H/W관리 > 장비목록 > 장비 목록 업로드 > 검증용 메서드2 : 숫자만 들어가야 하는 컬럼들
      *
      * @param cellHeaderStr 셀 헤더 문자열
      * @return 셀이 숫자여야 하는 경우 true, 그렇지 않으면 false
@@ -602,7 +600,7 @@ public class hwManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 장비 업로드 > 검증용 메서드3 : 셀이 숫자여야 할 때
+     * H/W관리 > 장비목록 > 장비 목록 업로드 > 검증용 메서드3 : 셀이 숫자여야 할 때
      *
      * @param cellHeaderStr 셀 헤더 문자열
      * @param cellValue 셀 값
@@ -629,7 +627,7 @@ public class hwManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 장비 업로드 > 검증용 메서드4 : 셀이 문자여야 할 때
+     * H/W관리 > 장비목록 > 장비 목록 업로드 > 검증용 메서드4 : 셀이 문자여야 할 때
      *
      * @param cellHeaderStr 셀 헤더 문자열
      * @param cellValue 셀 값
@@ -656,7 +654,7 @@ public class hwManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 장비 업로드 > 검증용 메서드5 : 셀이 비었을 때 처리
+     * H/W관리 > 장비목록 > 장비 목록 업로드 > 검증용 메서드5 : 셀이 비었을 때 처리
      *
      * @param cellHeaderStr 셀 헤더 문자열
      * @param processMap 처리된 셀 데이터와 관련된 맵
@@ -670,7 +668,7 @@ public class hwManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 장비 업로드 > 검증용 메서드6 : workbook 시트에 셀 값 지정
+     * H/W관리 > 장비목록 > 장비 목록 업로드 > 검증용 메서드6 : workbook 시트에 셀 값 지정
      *
      * @param workbook 엑셀 워크북 객체
      * @param sheetIndex 시트 인덱스
@@ -725,7 +723,7 @@ public class hwManageService {
     }
 
     /**
-     * 장비관리 > 장비목록 > 장비 업로드 > 검증용 메서드7 : 문자인지 숫자인지 구분해서 셀 값 지정
+     * H/W관리 > 장비목록 > 장비 목록 업로드 > 검증용 메서드7 : 문자인지 숫자인지 구분해서 셀 값 지정
      *
      * @param sheetIndex 시트 인덱스
      * @param cellIndex 셀 인덱스

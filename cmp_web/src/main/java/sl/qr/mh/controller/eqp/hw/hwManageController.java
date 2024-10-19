@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *  장비관리 > H/W 관리
+ *  H/W관리 > H/W 관리
  */
 @Slf4j
 @CrossOrigin(origins = "*", allowedHeaders = "*") /* CORS 어노테이션 */
@@ -29,7 +29,7 @@ public class hwManageController {
     }
 
     /**
-     * 장비관리 > 장비목록
+     * H/W관리 > 장비목록 > 조회 뷰 페이지
      *
      * @return 장비 목록 뷰 페이지
      */
@@ -40,8 +40,7 @@ public class hwManageController {
 
 
     /**
-     * 장비관리 > 장비목록
-     * 장비 목록 데이터
+     * H/W관리 > 장비목록 > 장비목록 데이터
      *
      * @param paramMap 요청 파라미터 맵
      * @return 장비 목록 데이터 및 기타 메타 정보
@@ -54,8 +53,7 @@ public class hwManageController {
 
 
     /**
-     * 장비관리 > 장비목록
-     * 선택된 장비 목록 삭제
+     * H/W관리 > 장비목록 > 장비 삭제
      *
      * @param deleteList 삭제할 장비 목록
      * @return 삭제 결과
@@ -67,7 +65,7 @@ public class hwManageController {
     }
 
     /**
-     * 장비관리 > 장비목록 > 추가
+     * H/W관리 > 장비목록 > 추가 뷰 페이지
      *
      * @return 장비 추가 뷰 페이지
      */
@@ -77,7 +75,7 @@ public class hwManageController {
     }
 
     /**
-     * 장비관리 > 장비목록 > 추가
+     * H/W관리 > 장비목록 > 추가 > 장비분류 데이터 : 구성분류
      *
      * @return 장비분류 구성분류 리스트
      */
@@ -88,7 +86,7 @@ public class hwManageController {
     }
 
     /**
-     * 장비관리 > 장비목록 > 추가
+     * H/W관리 > 장비목록 > 추가 > 장비분류 데이터 : 자산분류
      *
      * @return 장비분류 자산분류 리스트
      */
@@ -100,7 +98,7 @@ public class hwManageController {
     }
 
     /**
-     * 장비관리 > 장비목록 > 추가
+     * H/W관리 > 장비목록 > 추가 > 장비분류 데이터 : 자산세부분류
      *
      * @return 장비분류 자산세부분류 리스트
      */
@@ -111,7 +109,7 @@ public class hwManageController {
     }
 
     /**
-     * 장비관리 > 장비목록 > 추가
+     * H/W관리 > 장비목록 > 추가 > 장비분류 데이터 : 자산상세분류
      *
      * @return 장비분류 자산상세분류 리스트
      */
@@ -122,8 +120,7 @@ public class hwManageController {
     }
 
     /**
-     * 장비관리 > 장비목록 > 추가
-     * 장비 정보 저장
+     * H/W관리 > 장비목록 > 추가 > 장비 정보 저장
      *
      * @return 장비 저장 결과
      */
@@ -134,7 +131,7 @@ public class hwManageController {
     }
 
     /**
-     * 장비관리 > 장비목록 > 상세
+     * H/W관리 > 장비목록 > 상세 뷰 페이지
      *
      * @return 장비 상세 뷰 페이지
      */
@@ -151,7 +148,7 @@ public class hwManageController {
     }
 
     /**
-     * 장비관리 > 장비목록 > 수정 / 상세 > 장비 연결정보
+     * H/W관리 > 장비목록 > 수정 / 상세 > 장비 연결정보 데이터
      *
      * @return 장비 연걸정보 리스트
      */
@@ -163,7 +160,7 @@ public class hwManageController {
 
 
     /**
-     * 장비관리 > 장비목록 > 수정
+     * H/W관리 > 장비목록 > 수정 뷰 페이지
      *
      * @return 장비 수정 뷰 페이지
      */
@@ -185,8 +182,7 @@ public class hwManageController {
     }
 
     /**
-     * 장비관리 > 장비목록 > 수정
-     * 장비 정보 수정
+     * H/W관리 > 장비목록 > 수정 > 장비 정보 수정
      *
      * @return 장비 수정 결과
      */
@@ -199,9 +195,8 @@ public class hwManageController {
 
 
     /**
-     * 장비관리 > 장비목록
-     * 모든 장비 목록 다운로드
-     *
+     * H/W관리 > 장비목록 > 장비 목록 다운로드
+     * wb : 모든 장비 목록 리스트
      */
     @ResponseBody
     @PostMapping("/excelDownload")
@@ -216,8 +211,7 @@ public class hwManageController {
 
 
     /**
-     * 장비관리 > 장비목록 > 장비 업로드
-     * 업로드 양식 엑셀 파일 다운로드
+     * H/W관리 > 장비목록 > 장비 목록 업로드 > 엑셀 양식 다운로드
      *
      * @param response HTTP 응답 객체
      * @throws NumberFormatException 숫자 형식 오류
@@ -236,8 +230,7 @@ public class hwManageController {
 
 
     /**
-     * 장비관리 > 장비목록 > 장비 업로드
-     * 업로드된 엑셀 파일의 유효성을 검사하고 결과 반환
+     * H/W관리 > 장비목록 > 장비 목록 업로드 > 검증 > 업로드된 엑셀 파일의 유효성 검사
      *
      * @param file 업로드된 엑셀 파일
      * @param response HTTP 응답 객체
@@ -256,8 +249,7 @@ public class hwManageController {
 
 
     /**
-     * 장비관리 > 장비목록 > 장비 업로드
-     * 업로드된 엑셀 파일 데이터 DB 저장
+     * H/W관리 > 장비목록 > 장비 목록 업로드 > 업로드된 엑셀 파일 데이터 저장
      *
      * @param file 업로드된 엑셀 파일
      * @return 삽입 결과
@@ -271,8 +263,7 @@ public class hwManageController {
 
 
     /**
-     * 장비관리 > 장비목록 > 장비 업로드
-     * 저장 결과를 엑셀 파일로 생성하여 반환.
+     * H/W관리 > 장비목록 > 장비 목록 업로드 > 저장 결과가 담긴 엑셀 파일 반환
      *
      * @param paramMap 저장결과 파라미터 맵
      * @param response HTTP 응답 객체
