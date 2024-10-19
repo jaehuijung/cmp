@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+    <div layout:fragment="content">
+
+        <main id="main" class="equipment">
+
+            <div class="contentCard">
+
+                <div class="searchWordWrap">
+                    <div class="searchTitle">검색어</div>
+                    <div class="searchWordInput">
+                        <input type="text" id="searchInput" placeholder="검색어를 입력하세요"/>
+                        <button type="button"  onclick="searchEqpList();">검색</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="contentCard">
+                <div style='display: flex; justify-content: space-between;'>
+                    <div>
+                        <p class="totalCnt" id="eqpTotalCnt"></p>
+                    </div>
+                    <div>
+                        <button type='button' class="btn btn-outline-secondary custom-normal-btn"
+                                onclick="eqpCreate()">추가
+                        </button>
+                        <button type='button' class="btn btn-outline-secondary custom-normal-btn"
+                                onclick="eqpUpdate()">수정
+                        </button>
+                        <button type='button' class="btn btn-outline-secondary custom-normal-btn"
+                                onclick="eqpDelete()">삭제
+                        </button>
+                        <button type='button' class="btn btn-outline-secondary custom-blue-btn"
+                                onclick="excelUpload()">장비 목록 업로드
+                        </button>
+                        <button type='button' class="btn btn-outline-secondary custom-blue-btn"
+                                onclick="selectEquipmentDownload()">장비 목록 다운로드
+                        </button>
+                    </div>
+                </div>
+
+                <div class="tbl-bootstrap-wrap">
+                    <table id="eqpTable"></table>
+                </div>
+            </div>
+
+        </main>
+
+        <th:block layout:fragment="script">
+            <script th:src="@{/js/eqp/sw/view.js}"></script>
+        </th:block>
+    </div>
+
+
+</html>

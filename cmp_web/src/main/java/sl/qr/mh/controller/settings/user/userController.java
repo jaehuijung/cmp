@@ -30,7 +30,7 @@ public class userController {
      */
     @GetMapping("/view")
     public String view() {
-        return "views/user/view";
+        return "views/settings/user/view";
     }
 
     /**

@@ -3,10 +3,6 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout}">
-<!--	layout:decorate="~{layouts/new_default_layout}">-->
-
-
-
 
 <div layout:fragment="content">
 
@@ -73,7 +69,7 @@
 	</main>
 	<th:block layout:fragment="script">
 		<script th:src="@{/assets/vendor/axios/axios.min.js}"></script>
-		<script th:src="@{/js/user/view.js}"></script>
+		<script th:src="@{/js/settings/user/view.js}"></script>
 	</th:block>
 </div>
 

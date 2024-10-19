@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *  H/W관리 > H/W 관리
+ *  장비관리 > H/W 관리
  */
 @Slf4j
 @CrossOrigin(origins = "*", allowedHeaders = "*") /* CORS 어노테이션 */
