@@ -75,51 +75,6 @@ public class hwManageController {
     }
 
     /**
-     * H/W관리 > 장비목록 > 추가 > 장비분류 데이터 : 구성분류
-     *
-     * @return 장비분류 구성분류 리스트
-     */
-    @ResponseBody
-    @PostMapping("/selectConfig")
-    public Map<String, Object> getSelectConfigData() {
-        return hwManageService.getSelectConfigData();
-    }
-
-    /**
-     * H/W관리 > 장비목록 > 추가 > 장비분류 데이터 : 자산분류
-     *
-     * @return 장비분류 자산분류 리스트
-     */
-
-    @ResponseBody
-    @PostMapping("/selectAsset")
-    public Map<String, Object> getSelectAssetData(@RequestParam Map<String, Object> paramMap) {
-        return hwManageService.getSelectAssetData(paramMap);
-    }
-
-    /**
-     * H/W관리 > 장비목록 > 추가 > 장비분류 데이터 : 자산세부분류
-     *
-     * @return 장비분류 자산세부분류 리스트
-     */
-    @ResponseBody
-    @PostMapping("/selectSub")
-    public Map<String, Object> getSelectSubData(@RequestParam Map<String, Object> paramMap) {
-        return hwManageService.getSelectSubData(paramMap);
-    }
-
-    /**
-     * H/W관리 > 장비목록 > 추가 > 장비분류 데이터 : 자산상세분류
-     *
-     * @return 장비분류 자산상세분류 리스트
-     */
-    @ResponseBody
-    @PostMapping("/selectDetail")
-    public Map<String, Object> getSelectDetailData(@RequestParam Map<String, Object> paramMap) {
-        return hwManageService.getSelectDetailData(paramMap);
-    }
-
-    /**
      * H/W관리 > 장비목록 > 추가 > 장비 정보 저장
      *
      * @return 장비 저장 결과

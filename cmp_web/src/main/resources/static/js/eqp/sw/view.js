@@ -175,7 +175,7 @@ function searchState(type, isChecked){
 
 // 장비관리 > 장비목록 > 장비추가 페이지 이동
 function eqpCreate(){
-    const url = "/eqp/hw/create";
+    const url = "/eqp/sw/create";
     window.location.href = url;
 }
 

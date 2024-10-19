@@ -44,4 +44,13 @@ public class swManageController {
         return swManageService.getEquipmentTotalList(paramMap);
     }
 
+    /**
+     * H/W관리 > 장비목록 > 추가 뷰 페이지
+     *
+     * @return 장비 추가 뷰 페이지
+     */
+    @GetMapping("/create")
+    public String createEquipmentPage() {
+        return "views/eqp/sw/register";
+    }
 }
