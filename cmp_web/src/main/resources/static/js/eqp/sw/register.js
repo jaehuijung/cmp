@@ -1,9 +1,3 @@
-let eqpRegisterPortColumn = [
-    { field: '',             title: ''         , checkbox: true },
-    { field: 'host',         title: '호스트명'  , formatter: inputEqpLinkFormatter },
-    { field: 'ip_address',   title: 'IP 주소'   , formatter: inputEqpLinkFormatter },
-    { field: 'port',         title: '포트'      , formatter: inputEqpLinkFormatter }
-];
 
 $(function(){
     setDefaultDates(); // 화면 렌더링 시 날짜 컬럼들 현재날짜로 세팅
@@ -21,9 +15,6 @@ $(function(){
         getSelectDetail(subValue);
     })
 
-    $('#eqpLinkTable').bootstrapTable({
-        columns: eqpRegisterPortColumn
-    });
 });
 
 
