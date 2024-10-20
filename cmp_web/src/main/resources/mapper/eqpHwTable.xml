@@ -487,13 +487,13 @@
             eqp_manage_id = #{eqp_manage_id}
     </update>
 
-    <select id="checkCableIsContainEqpList" parameterType="String" resultType="int">
-        /* checkCableIsContainEqpList ...
+    <select id="checkLineIsContainEqpList" parameterType="String" resultType="int">
+        /* checkLineIsContainEqpList ...
             H/W관리 > 장비목록 > 삭제 > 삭제하려는 장비가 선번장에 등록되어 있는지 검증 */
         select
-            COUNT(cable_manage_id)
+            COUNT(line_manage_id)
         from
-            cable_basic
+            line_basic
         where
             1=1
             and is_deleted = 'N'

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import sl.qr.mh.service.eqp.sw.swManageService;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -122,6 +123,16 @@ public class swManageController {
     }
 
 
-
+    /**
+     * S/W관리 > 장비목록 > 장비 삭제
+     *
+     * @param deleteList 삭제할 장비 목록
+     * @return 삭제 결과
+     */
+    @ResponseBody
+    @PostMapping("/delete")
+    public Map<String, Object> delete(@RequestBody List<Map<String, Object>> deleteList) {
+        return swManageService.deleteEqpList(deleteList);
+    }
 
 }

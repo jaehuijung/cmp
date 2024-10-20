@@ -53,7 +53,7 @@ function deleteData(){
                     else{
                         let errorTarget = res.errorTarget;
                         if(errorTarget.length == 0){
-                            alert2('알림', '삭제되었습니다.', 'info', '확인', tableRefresh());
+                            alert2('알림', '삭제되었습니다.', 'info', '확인', back);
                         }
                         else{
                             alert2('알림', '선번장에 등록되어 있는 장비는 삭제할 수 없습니다.', 'info', '확인');                        }
