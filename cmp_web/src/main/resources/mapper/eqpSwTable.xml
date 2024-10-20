@@ -265,7 +265,7 @@
             <if test="sub_id != null and sub_id != ''">
                 , sub_id = #{sub_id}
             </if>
-            <if test="detail_id != null and detail_id != ''">
+            <if test="detail_id != null">
                 , detail_id = #{detail_id}
             </if>
             <if test="network_operation_type != null and network_operation_type != ''">
