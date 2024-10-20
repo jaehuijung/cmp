@@ -57,6 +57,13 @@ public interface hwMapper {
     List<Map<String, Object>> getSelectDetailData(Map<String, Object> paramMap);
 
     /**
+     * H/W관리 > 장비목록 > 추가/수정 > S/W 장비 목록 리스트
+     *
+     * @return S/W 장비 목록 리스트
+     */
+    List<Map<String, Object>> getEquipmentSoftwareList(Map<String, Object> paramMap);
+
+    /**
      * H/W관리 > 장비목록 > 추가 > 장비 저장 : 장비관리번호 생성
      *
      * @param paramMap 저장할 장비 데이터

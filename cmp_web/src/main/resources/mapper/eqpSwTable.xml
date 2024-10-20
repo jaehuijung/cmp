@@ -28,7 +28,7 @@
 
     <select id="getEquipmentTotalList" parameterType="Map" resultType="Map">
         /* getEquipmentTotalList ...
-        S/W관리 > 장비목록 > 장비 목록 데이터  */
+            S/W관리 > 장비목록 > 장비 목록 데이터  */
         SELECT
             A.eqp_manage_id                   /* 장비 관리번호 */
             , A.eqp_name                      /* 장비명 */
@@ -63,7 +63,7 @@
 
     <select id="getEquipmentTotalListCnt" parameterType="Map" resultType="int">
         /* getEquipmentTotalListCnt ...
-        S/W관리 > 장비목록 > 장비 목록 데이터 개수  */
+            S/W관리 > 장비목록 > 장비 목록 데이터 개수  */
         SELECT
             COUNT(A.eqp_manage_id)
         FROM
@@ -74,7 +74,7 @@
 
     <select id="generateEquipmentManageId" parameterType="map" resultType="String">
         /* generateEquipmentManageId...
-        S/W관리 > 장비목록 > 추가 > 장비 저장 : 장비관리번호 생성 */
+            S/W관리 > 장비목록 > 추가 > 장비 저장 : 장비관리번호 생성 */
         SELECT
             CONCAT(#{categories}, YEAR(CURDATE()), LPAD(IFNULL(MAX(CAST(SUBSTRING(eqp_manage_id, -4) AS UNSIGNED)) + 1, 1), 4, '0'))
         FROM
@@ -85,7 +85,7 @@
 
     <insert id="insertEquipmentBasic" parameterType="map">
         /* insertEquipmentBasic...
-        S/W관리 > 장비목록 > 추가 > 장비 저장 : 기본정보 */
+            S/W관리 > 장비목록 > 추가 > 장비 저장 : 기본정보 */
         INSERT INTO equipment_sw_basic (
             eqp_manage_id,
             eqp_name,
@@ -140,7 +140,7 @@
 
     <insert id="insertEquipmentDetail" parameterType="map">
         /* insertEquipmentDetail...
-        S/W관리 > 장비목록 > 추가 > 장비 저장 : 세부정보 */
+            S/W관리 > 장비목록 > 추가 > 장비 저장 : 세부정보 */
         insert into equipment_sw_detail(
             eqp_manage_id,
             OS,
@@ -172,7 +172,7 @@
 
     <select id="getEquipmentDetailTotalList" parameterType="String" resultType="map">
         /* getEquipmentDetailTotalList...
-        S/W관리 > 장비목록 > 수정/상세 > 선택한 장비 정보 : 기본정보, 세부정보 */
+            S/W관리 > 장비목록 > 수정/상세 > 선택한 장비 정보 : 기본정보, 세부정보 */
         select
             eb.eqp_manage_id,
             eb.eqp_name,
@@ -213,7 +213,7 @@
 
     <select id="getEquipmentDetailAssetList" parameterType="map" resultType="map">
         /* getEquipmentDetailAssetList...
-        S/W관리 > 장비목록 > 수정/상세 > 선택한 장비 정보 : 장비 분류 (구성분류, 자산분류, 자산세부분류, 자산상세분류) */
+            S/W관리 > 장비목록 > 수정/상세 > 선택한 장비 정보 : 장비 분류 (구성분류, 자산분류, 자산세부분류, 자산상세분류) */
         select
             ec.config_category,
             ec.asset_category,
@@ -233,7 +233,7 @@
 
     <update id="updateBasicEqpList" parameterType="Map">
         /* updateBasicEqpList ...
-        S/W관리 > 장비목록 > 수정 > 선택한 장비 정보 : 기본정보 */
+            S/W관리 > 장비목록 > 수정 > 선택한 장비 정보 : 기본정보 */
         UPDATE
             equipment_sw_basic
         SET
@@ -250,7 +250,7 @@
             <if test="domestic != null and domestic != ''">
                 , domestic = #{domestic}
             </if>
-            <if test="redundancy_config != null and redundancy_config != ''">
+            <if test="dependent_config != null and dependent_config != ''">
                 , dependent_config = #{dependent_config}
             </if>
             <if test="maintenance_contract_target != null and maintenance_contract_target != ''">
@@ -298,7 +298,7 @@
 
     <update id="updateDetailEqpList" parameterType="Map">
         /* updateDetailEqpList ...
-        S/W관리 > 장비목록 > 수정 > 선택한 장비 정보 : 세부정보 */
+            S/W관리 > 장비목록 > 수정 > 선택한 장비 정보 : 세부정보 */
         UPDATE
         equipment_sw_detail
         SET

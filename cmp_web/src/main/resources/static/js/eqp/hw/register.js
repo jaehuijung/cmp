@@ -27,30 +27,14 @@ function createColumn(field, checkbox = false, title, type = 'default') {
 
 let eqpSoftwareColumn = [
     createColumn('asset_category',              false, '자산분류'),
-    createColumn('installation_coordinates',    false, '설치좌표'),
     createColumn('eqp_manage_id',               false, '관리번호'),
     createColumn('m_company',                   false, '제조사'),
     createColumn('model_name',                  false, '모델명'),
     createColumn('host_name',                   false, '호스트명'),
     createColumn('eqp_name',                    false, '구성자원명'),
-    createColumn('port',                        false, '포트번호'),
+    createColumn('dependent_config',            false, '종속 SW 여부'),
     createColumn('primary_operator',            false, '운영담당자'),
     createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
-];
-
-let lineSelectColumn = [
-    [
-        createColumn('s_asset_category',              false, '자산분류'),
-        createColumn('s_installation_coordinates',    false, '설치좌표'),
-        createColumn('s_eqp_manage_id',               false, '관리번호'),
-        createColumn('s_m_company',                   false, '제조사'),
-        createColumn('s_model_name',                  false, '모델명'),
-        createColumn('s_host_name',                   false, '호스트명'),
-        createColumn('s_eqp_name',                    false, '구성자원명'),
-        createColumn('s_port',                        false, '포트번호'),
-        createColumn('s_primary_operator',            false, '운영담당자'),
-        createColumn('s_primary_outsourced_operator', false, '위탁운영담당자')
-    ]
 ];
 
 $(function(){
@@ -82,13 +66,13 @@ $(function(){
         url: '/eqp/hw/equipmentSoftwareList',
         method: 'post',
         queryParams: function(params) {
-            let eqp_manage_id = $("#searchInput").val();
+            let searchInput = $("#searchInput").val();
             params.searchData = {
-                eqp_manage_id
+                searchInput
             }
             return params;
         },
-        pageSize: 5, columns: lineStartColumn, cache: false, undefinedText: "",
+        pageSize: 5, columns: eqpSoftwareColumn, cache: false, undefinedText: "",
         pagination: true, sidePagination: 'server', checkboxHeader: true,
         classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
         responseHandler: function(res) {

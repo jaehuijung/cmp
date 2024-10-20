@@ -51,6 +51,11 @@ public class hwManageController {
         return hwManageService.getEquipmentTotalList(paramMap);
     }
 
+    @ResponseBody
+    @PostMapping("/equipmentSoftwareList")
+    public Map<String, Object> getEquipmentSoftwareList(@RequestBody Map<String, Object> paramMap) {
+        return hwManageService.getEquipmentSoftwareList(paramMap);
+    }
 
     /**
      * H/W관리 > 장비목록 > 장비 삭제

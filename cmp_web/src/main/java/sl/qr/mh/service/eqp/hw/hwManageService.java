@@ -145,6 +145,29 @@ public class hwManageService {
         return returnMap;
     }
 
+
+    /**
+     * H/W관리 > 장비목록 > 추가/수정 > S/W 장비 목록 리스트
+     *
+     * @return S/W 장비 목록 리스트
+     */
+    public Map<String, Object> getEquipmentSoftwareList(Map<String, Object> paramMap){
+        Map<String, Object> returnMap = new HashMap<>();
+        returnMap.put("errorCode",false);
+
+        try{
+            returnMap.put("rows", hwMapper.getEquipmentSoftwareList(paramMap));
+            returnMap.put("errorCode",true);
+        }
+        catch (Exception e){
+            log.error(e.getMessage());
+        }
+
+        return returnMap;
+    };
+
+
+
     /**
      * H/W관리 > 장비목록 > 추가 > 장비 저장 : 기본정보, 세부정보, 연결정보
      *
