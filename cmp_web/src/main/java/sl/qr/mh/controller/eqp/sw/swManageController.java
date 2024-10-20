@@ -135,4 +135,19 @@ public class swManageController {
         return swManageService.deleteEqpList(deleteList);
     }
 
+    /**
+     * S/W관리 > 장비목록 > 장비 목록 다운로드
+     * wb : 모든 장비 목록 리스트
+     */
+    @ResponseBody
+    @PostMapping("/excelDownload")
+    public void excelDownloadEquipmentList(HttpServletResponse response) throws IOException {
+        Workbook wb = swManageService.excelDownloadEquipmentList();
+        response.setContentType("ms-vnd/excel");
+        response.setHeader("Content-Disposition", "attachment;filename=equipmentListTemplate.xlsx");
+
+        wb.write(response.getOutputStream());
+        wb.close();
+    }
+
 }

@@ -88,4 +88,11 @@ public interface swMapper {
      */
     void deleteEqpList(String deleteEqpTarget);
 
+    /**
+     * S/W관리 > 장비목록 > 장비 목록 다운로드 > 장비목록 전체 리스트 : 기본정보, 상세정보
+     *
+     * @return 장비 목록 데이터
+     */
+    List<Map<String, Object>> getExcelEquipmentTotalList();
+
 }

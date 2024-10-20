@@ -341,4 +341,70 @@
         where
             eqp_manage_id = #{deleteEqpTarget}
     </update>
+
+    <select id="getExcelEquipmentTotalList" resultType="map">
+        /* getExcelEquipmentTotalList...
+        H/W관리 > 장비목록 > 장비 목록 다운로드 > 장비목록 전체 리스트 : 기본정보, 상세정보 */
+            select
+            eb.eqp_manage_id,
+            eb.eqp_name,
+            eb.host_name,
+            eb.m_company,
+            eb.model_name,
+            ec.config_category ,
+            ec.asset_category ,
+            ec.sub_category ,
+            ec.detail_category ,
+            CASE
+                WHEN eb.domestic = 1 THEN '국산'
+                WHEN eb.domestic = 2 THEN '외산'
+            END domestic,
+            CASE
+                WHEN eb.dependent_config = 1 THEN '공개'
+                WHEN eb.dependent_config = 2 THEN '상용'
+            END redundancy_config,
+            CASE
+                WHEN eb.maintenance_contract_target = 1 THEN 'Y'
+                WHEN eb.maintenance_contract_target = 2 THEN 'N'
+            END maintenance_contract_target,
+            CASE
+                WHEN eb.network_operation_type = 1 THEN '인터넷망'
+                WHEN eb.network_operation_type = 2 THEN '업무망'
+                WHEN eb.network_operation_type = 3 THEN '운영망'
+            END network_operation_type,
+            CASE
+                WHEN eb.operating_status = 1 THEN '사용'
+                WHEN eb.operating_status = 2 THEN '정지'
+            END operating_status,
+            eb.operating_department,
+            eb.primary_operator,
+            eb.secondary_operator,
+            eb.primary_outsourced_operator,
+            eb.secondary_outsourced_operator,
+            ed.OS os_version,
+            ed.acquisition_cost,
+            ed.amount,
+            ed.dbrain_number,
+            ed.license_number,
+            ed.asset_acquisition_date,
+            ed.asset_disposal_date,
+            ed.eol_status,
+            ed.eos_status,
+            eb.created_at
+        from
+            equipment_sw_basic eb
+        join
+            equipment_sw_detail ed
+            on eb.eqp_manage_id = ed.eqp_manage_id
+        join
+            equipment_categories ec
+            ON eb.config_id = ec.config_id
+            AND eb.asset_id = ec.asset_id
+            AND eb.sub_id = ec.sub_id
+            AND eb.detail_id =ec.detail_id
+        where
+            eb.is_deleted = 'N'
+        ORDER BY
+            eqp_manage_id
+    </select>
 </mapper>

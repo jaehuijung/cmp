@@ -266,7 +266,7 @@ function selectEquipmentDownload(){
     alert3("save");
 
     $.ajax({
-        url: "/eqp/hw/excelDownload",
+        url: "/eqp/sw/excelDownload",
         method: "post",
         xhrFields: {
             responseType: 'blob'
@@ -274,7 +274,7 @@ function selectEquipmentDownload(){
     }).done(function(res) {
         alert3Close();
     }).then(function(res) {
-        downloadFileFunction(res, 'equipmentList.xlsx');
+        downloadFileFunction(res, 'equipmentSWList.xlsx');
         alert2('알림', '장비목록이 다운로드되었습니다.', 'info', '확인');
     }).catch(function() {
         alert2('알림', '엑셀 파일을 다운로드하는 중 오류가 발생했습니다. 관리자에게 문의하세요.', 'error', '확인');
@@ -379,7 +379,7 @@ function saveFile(file){
     let formData = new FormData();
     formData.append("file", file);
     $.ajax({
-        url : '/eqp/hw/excelInsert',
+        url : '/eqp/sw/excelInsert',
         type: 'post',
         data: formData,
         processData: false,
@@ -404,7 +404,7 @@ function notifySaveResult(res){
     })
     .then(() => {
         $.ajax({
-            url : '/eqp/hw/excelResponse',
+            url : '/eqp/sw/excelResponse',
             type: 'post',
             data: JSON.stringify(res),
             contentType: 'application/json',
@@ -427,7 +427,7 @@ function notifySaveResult(res){
  */
 function downloadExcelTemplate(){
     $.ajax({
-        url: "/eqp/hw/excelTemplate",
+        url: "/eqp/sw/excelTemplate",
         method: "post",
         xhrFields: {
             responseType: 'blob'
@@ -454,7 +454,7 @@ function validExcelEquipmentList() {
         formData.append("file", data);
 
         $.ajax({
-            url : '/eqp/hw/excelValid',
+            url : '/eqp/sw/excelValid',
             type: 'post',
             data: formData,
             processData: false,

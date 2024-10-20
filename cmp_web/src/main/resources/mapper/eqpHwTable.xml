@@ -527,7 +527,7 @@
             ec.detail_category ,
             CASE
                 WHEN eb.domestic = 1 THEN '국산'
-                WHEN eb.domestic = 1 THEN '외산'
+                WHEN eb.domestic = 2 THEN '외산'
             END domestic,
             CASE
                 WHEN eb.redundancy_config = 1 THEN '단일'

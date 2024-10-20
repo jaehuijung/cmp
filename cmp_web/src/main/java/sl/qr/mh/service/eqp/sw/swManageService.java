@@ -1,10 +1,16 @@
 package sl.qr.mh.service.eqp.sw;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sl.qr.mh.service.eqp.hw.hwMapper;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +25,8 @@ public class swManageService {
 
     private final hwMapper hwMapper;
     private final swMapper swMapper;
+    private final String sep = "/";
+    private final String staticPath = System.getProperty("user.dir") + sep + "src" + sep + "main" + sep + "resources" + sep + "static" + sep + "excelTemplate" + sep;
 
     public swManageService(hwMapper hwMapper, swMapper swMapper) {
         this.hwMapper = hwMapper;
@@ -63,7 +71,6 @@ public class swManageService {
      * @param paramMap 저장할 장비 데이터
      * @return 저장 결과
      */
-    @SuppressWarnings("unchecked")
     @Transactional
     public Map<String, Object> insertEqpList(Map<String, Object> paramMap) {
         Map<String, Object> returnMap = new HashMap<>();
@@ -150,7 +157,6 @@ public class swManageService {
      * @param paramMap 수정할 장비 데이터
      * @return 수정 결과
      */
-    @SuppressWarnings("unchecked")
     @Transactional
     public Map<String, Object> updateEqpList(Map<String, Object> paramMap) {
         Map<String, Object> returnMap = new HashMap<>();
@@ -186,14 +192,6 @@ public class swManageService {
             for(Map<String, Object> ele : deleteList){
                 String deleteEqpTarget = ele.get("eqp_manage_id").toString();
                 swMapper.deleteEqpList(deleteEqpTarget);
-
-                //int isContain = swMapper.checkLineIsContainEqpList(deleteEqpTarget);
-                //if(isContain == 0){
-                //    swMapper.deleteEqpList(deleteEqpTarget);
-                //}
-                //else{
-                //    errorTarget.add(deleteEqpTarget);
-                //}
             }
 
             returnMap.put("errorTarget", errorTarget);
@@ -205,4 +203,99 @@ public class swManageService {
 
         return returnMap;
     }
+
+
+    /**
+     * S/W관리 > 장비목록 > 장비 목록 다운로드 > 장비목록 전체 리스트
+     *
+     * @return 장비 목록 데이터
+     */
+    @Transactional
+    public Workbook excelDownloadEquipmentList() throws IOException {
+        String resultPath = staticPath + "equipmentSWListTemplate.xlsx";
+        FileInputStream file = new FileInputStream(resultPath);
+        Workbook wb = new XSSFWorkbook(file);
+
+        try {
+            int sheetIndex = 0;
+
+            List<Map<String, Object>> equipmentDetailTotalList = swMapper.getExcelEquipmentTotalList();
+            for(Map<String, Object> ele : equipmentDetailTotalList) {
+                insertDataToSheet(wb, sheetIndex, ele);
+            }
+
+        } catch (Exception e){
+            log.error(e.getMessage());
+        }
+
+        // 결과파일 생성 시 데이터 받아와서 엑셀 생성
+        // 장비추가/수정/상세/삭제 기능 개발 완료 후 개발
+        return wb;
+    }
+
+    /**
+     * S/W관리 > 장비목록 > 장비 목록 다운로드 : 엑셀 시트에 장비목록 데이터 입력
+     *
+     * @param workbook 엑셀 워크북 객체
+     * @param sheetIndex 시트 인덱스
+     * @param data 셀에 입력할 데이터 맵
+     */
+    private void insertDataToSheet(Workbook workbook, int sheetIndex, Map<String, Object> data) {
+
+        Sheet sheet = workbook.getSheetAt(sheetIndex);
+        int lastRowNum = sheet.getLastRowNum();
+
+        Row dataRow = sheet.createRow(lastRowNum + 1);
+
+        // S/W 장비 기본정보, 상세정보
+        setCellValue(sheetIndex, 0,  workbook, dataRow, data.get("eqp_manage_id")); // 관리번호
+        setCellValue(sheetIndex, 1,  workbook, dataRow, data.get("eqp_name")); // 구성자원명
+        setCellValue(sheetIndex, 2,  workbook, dataRow, data.get("host_name")); // 호스트명
+        setCellValue(sheetIndex, 3,  workbook, dataRow, data.get("m_company")); // 제조사
+        setCellValue(sheetIndex, 4,  workbook, dataRow, data.get("model_name")); // 모델명
+        setCellValue(sheetIndex, 5,  workbook, dataRow, data.get("config_category")); // 구성분류
+        setCellValue(sheetIndex, 6,  workbook, dataRow, data.get("asset_category")); // 자산분류
+        setCellValue(sheetIndex, 7,  workbook, dataRow, data.get("sub_category")); // 자산세부분류
+        setCellValue(sheetIndex, 8,  workbook, dataRow, data.get("detail_category")); // 자산상세분류
+        setCellValue(sheetIndex, 9,  workbook, dataRow, data.get("detail_category")); // 자산상세분류
+        setCellValue(sheetIndex, 10, workbook, dataRow, data.get("os_version")); // OS VERSION
+        setCellValue(sheetIndex, 11, workbook, dataRow, data.get("operating_department")); // 운영부서
+        setCellValue(sheetIndex, 12, workbook, dataRow, data.get("primary_operator")); // 운영담당자 정
+        setCellValue(sheetIndex, 13, workbook, dataRow, data.get("secondary_operator")); // 운영담당자 부
+        setCellValue(sheetIndex, 14, workbook, dataRow, data.get("primary_outsourced_operator")); // 위탁운영담당자 정
+        setCellValue(sheetIndex, 15, workbook, dataRow, data.get("secondary_outsourced_operator")); // 위탁운영담당자 부
+        setCellValue(sheetIndex, 16, workbook, dataRow, data.get("operating_status")); // 운영상태
+        setCellValue(sheetIndex, 17, workbook, dataRow, data.get("eol_status")); // 단종상태 EOL
+        setCellValue(sheetIndex, 18, workbook, dataRow, data.get("eos_status")); // 단종상태 EOS
+        setCellValue(sheetIndex, 19, workbook, dataRow, data.get("network_operation_type")); // 네트워크 운영구분
+        setCellValue(sheetIndex, 20, workbook, dataRow, data.get("asset_acquisition_date")); // 자산취득일자
+        setCellValue(sheetIndex, 21, workbook, dataRow, data.get("asset_disposal_date")); // 자산폐기일자
+        setCellValue(sheetIndex, 22, workbook, dataRow, data.get("acquisition_cost")); // 도입금액
+        setCellValue(sheetIndex, 23, workbook, dataRow, data.get("dbrain_number")); // 디브레인번호
+        setCellValue(sheetIndex, 24, workbook, dataRow, data.get("domestic")); // 국산여부
+        setCellValue(sheetIndex, 25, workbook, dataRow, data.get("maintenance_contract_target")); // 유지관리 계약대상 여부
+        setCellValue(sheetIndex, 26, workbook, dataRow, data.get("amount")); // 수량
+        setCellValue(sheetIndex, 27, workbook, dataRow, data.get("license_number")); // 라이센스 번호
+        setCellValue(sheetIndex, 28, workbook, dataRow, data.get("created_at")); // 생성일
+    }
+
+    /**
+     * S/W관리 > 장비목록 > 장비 목록 업로드 > 검증용 메서드7 : 문자인지 숫자인지 구분해서 셀 값 지정
+     *
+     * @param cellIndex 셀 인덱스
+     * @param dataRow 데이터 행
+     * @param value 셀에 입력할 값
+     */
+    private void setCellValue(int sheetIndex, int cellIndex, Workbook workbook, Row dataRow, Object value) {
+        if (value == null) {
+            dataRow.createCell(cellIndex).setCellValue("");
+        } else if (value instanceof String) {
+            dataRow.createCell(cellIndex).setCellValue((String) value);
+        } else if (value instanceof Number) {
+            dataRow.createCell(cellIndex).setCellValue(((Number) value).doubleValue());
+        } else {
+            dataRow.createCell(cellIndex).setCellValue(value.toString());
+        }
+    }
+
 }
