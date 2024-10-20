@@ -65,7 +65,7 @@
                         </div>
                         <div class="equipment-item">
                             <label for="dependent_config">종속 SW 여부:</label>
-                            <input type="text" id="dependent_config" name="dependent_config" th:value="${equipment.dependent_config == '1' ? '단일' : '이중화'}" readonly/>
+                            <input type="text" id="dependent_config" name="dependent_config" th:value="${equipment.dependent_config == '1' ? '공개' : '상용'}" readonly/>
                         </div>
                         <div class="equipment-item">
                             <label for="maintenance_contract_target">유지관리 계약대상여부:</label>
