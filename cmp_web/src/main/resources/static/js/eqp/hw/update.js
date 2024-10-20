@@ -1,4 +1,4 @@
-let eqpRegisterPortColumn = [
+let eqpLinkColumn = [
     { field: 'id',        title: 'id',        visible: false },
     { field: '',           title: ''         , checkbox: true },
     { field: 'host',         title: '호스트명'  , formatter: inputEqpLinkFormatter },
@@ -22,7 +22,7 @@ $(function(){
             }
             return params;
         },
-        pageSize: 5, columns: eqpRegisterPortColumn, cache: false, undefinedText: "",
+        pageSize: 5, columns: eqpLinkColumn, cache: false, undefinedText: "",
         pagination: true, sidePagination: 'server', checkboxHeader: true,
         classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
         responseHandler: function(res) {

@@ -1,8 +1,56 @@
-let eqpRegisterPortColumn = [
+let eqpLinkColumn = [
     { field: '',             title: ''         , checkbox: true },
     { field: 'host',         title: '호스트명'  , formatter: inputEqpLinkFormatter },
     { field: 'ip_address',   title: 'IP 주소'   , formatter: inputEqpLinkFormatter },
     { field: 'port',         title: '포트'      , formatter: inputEqpLinkFormatter }
+];
+
+
+// cable table column creation function
+function createColumn(field, checkbox = false, title, type = 'default') {
+    let column = {
+        title: title,
+        field: field,
+        align: 'center',
+        valign: 'middle',
+        checkbox: checkbox
+    };
+
+    if (type === 'underline') {
+        column.class = 'nowrap underline';
+    } else {
+        column.class = 'nowrap';
+    }
+
+    return column;
+}
+
+let eqpSoftwareColumn = [
+    createColumn('asset_category',              false, '자산분류'),
+    createColumn('installation_coordinates',    false, '설치좌표'),
+    createColumn('eqp_manage_id',               false, '관리번호'),
+    createColumn('m_company',                   false, '제조사'),
+    createColumn('model_name',                  false, '모델명'),
+    createColumn('host_name',                   false, '호스트명'),
+    createColumn('eqp_name',                    false, '구성자원명'),
+    createColumn('port',                        false, '포트번호'),
+    createColumn('primary_operator',            false, '운영담당자'),
+    createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
+];
+
+let lineSelectColumn = [
+    [
+        createColumn('s_asset_category',              false, '자산분류'),
+        createColumn('s_installation_coordinates',    false, '설치좌표'),
+        createColumn('s_eqp_manage_id',               false, '관리번호'),
+        createColumn('s_m_company',                   false, '제조사'),
+        createColumn('s_model_name',                  false, '모델명'),
+        createColumn('s_host_name',                   false, '호스트명'),
+        createColumn('s_eqp_name',                    false, '구성자원명'),
+        createColumn('s_port',                        false, '포트번호'),
+        createColumn('s_primary_operator',            false, '운영담당자'),
+        createColumn('s_primary_outsourced_operator', false, '위탁운영담당자')
+    ]
 ];
 
 $(function(){
@@ -27,7 +75,61 @@ $(function(){
     })
 
     $('#eqpLinkTable').bootstrapTable({
-        columns: eqpRegisterPortColumn
+        columns: eqpLinkColumn
+    });
+
+    $('#eqpSoftwareTable').bootstrapTable({
+        url: '/eqp/hw/equipmentSoftwareList',
+        method: 'post',
+        queryParams: function(params) {
+            let eqp_manage_id = $("#searchInput").val();
+            params.searchData = {
+                eqp_manage_id
+            }
+            return params;
+        },
+        pageSize: 5, columns: lineStartColumn, cache: false, undefinedText: "",
+        pagination: true, sidePagination: 'server', checkboxHeader: true,
+        classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
+        responseHandler: function(res) {
+            return {
+                rows: res.rows,
+                total: res.total,
+                errorCode: res.errorCode
+            }
+        },
+        onLoadSuccess: function(res) {
+            let errorCode = res.errorCode;
+            if (!errorCode) {
+                alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+                return false;
+            }
+
+            $("#lineStartTotalCnt").text("총 " + res.total + "건")
+        },
+        onClickCell: function(field, value, row, $element) {
+            if (!$element.hasClass("bs-checkbox")) {
+                if (selectedStartRow) {
+                    $('#lineStartTable').bootstrapTable('uncheckBy', {
+                        field: 'eqp_manage_id',
+                        values: [selectedStartRow.eqp_manage_id]
+                    });
+
+                    // 기존 선택된 행의 클래스 제거
+                    $('#lineStartTable').find('tr[data-index="' + $('#lineStartTable').bootstrapTable('getData').indexOf(selectedStartRow) + '"]').removeClass('selected-row');
+                }
+                selectedStartRow = row;
+                $('#lineStartTable').bootstrapTable('checkBy', {
+                    field: 'eqp_manage_id',
+                    values: [selectedStartRow.eqp_manage_id]
+                });
+
+                // 새로운 선택된 행에 클래스 추가
+                $('#lineStartTable').find('tr[data-index="' + $('#lineStartTable').bootstrapTable('getData').indexOf(selectedStartRow) + '"]').addClass('selected-row');
+
+                updateSelectTable();
+            }
+        },
     });
 });
 
