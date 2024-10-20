@@ -37,6 +37,24 @@ let eqpSoftwareColumn = [
     createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
 ];
 
+let selectedSoftwareRow = null;
+
+function updateEqpSoftwareTable() {
+    let data = [{
+        asset_category:              selectedSoftwareRow ? selectedSoftwareRow.asset_category : "",
+        eqp_manage_id:               selectedSoftwareRow ? selectedSoftwareRow.eqp_manage_id : "",
+        m_company:                   selectedSoftwareRow ? selectedSoftwareRow.m_company : "",
+        model_name:                  selectedSoftwareRow ? selectedSoftwareRow.model_name : "",
+        host_name:                   selectedSoftwareRow ? selectedSoftwareRow.host_name : "",
+        eqp_name:                    selectedSoftwareRow ? selectedSoftwareRow.eqp_name : "",
+        dependent_config:            selectedSoftwareRow ? selectedSoftwareRow.dependent_config : "",
+        primary_operator:            selectedSoftwareRow ? selectedSoftwareRow.primary_operator : "",
+        primary_outsourced_operator: selectedSoftwareRow ? selectedSoftwareRow.primary_outsourced_operator : "",
+    }];
+
+    $('#eqpSoftwareTable').bootstrapTable('load', data);
+}
+
 $(function(){
     setDefaultDates(); // 화면 렌더링 시 날짜 컬럼들 현재날짜로 세팅
     getSelectConfig(); // 화면 렌더링 시 구성분류 선택박스 세팅
@@ -89,29 +107,29 @@ $(function(){
                 return false;
             }
 
-            $("#lineStartTotalCnt").text("총 " + res.total + "건")
+            $("#eqpSoftwareTotalCnt").text("총 " + res.total + "건")
         },
         onClickCell: function(field, value, row, $element) {
             if (!$element.hasClass("bs-checkbox")) {
-                if (selectedStartRow) {
-                    $('#lineStartTable').bootstrapTable('uncheckBy', {
+                if (selectedSoftwareRow) {
+                    $('#eqpSoftwareTable').bootstrapTable('uncheckBy', {
                         field: 'eqp_manage_id',
-                        values: [selectedStartRow.eqp_manage_id]
+                        values: [selectedSoftwareRow.eqp_manage_id]
                     });
 
                     // 기존 선택된 행의 클래스 제거
-                    $('#lineStartTable').find('tr[data-index="' + $('#lineStartTable').bootstrapTable('getData').indexOf(selectedStartRow) + '"]').removeClass('selected-row');
+                    $('#eqpSoftwareTable').find('tr[data-index="' + $('#eqpSoftwareTable').bootstrapTable('getData').indexOf(selectedSoftwareRow) + '"]').removeClass('selected-row');
                 }
-                selectedStartRow = row;
-                $('#lineStartTable').bootstrapTable('checkBy', {
+                selectedSoftwareRow = row;
+                $('#eqpSoftwareTable').bootstrapTable('checkBy', {
                     field: 'eqp_manage_id',
-                    values: [selectedStartRow.eqp_manage_id]
+                    values: [selectedSoftwareRow.eqp_manage_id]
                 });
 
                 // 새로운 선택된 행에 클래스 추가
-                $('#lineStartTable').find('tr[data-index="' + $('#lineStartTable').bootstrapTable('getData').indexOf(selectedStartRow) + '"]').addClass('selected-row');
+                $('#eqpSoftwareTable').find('tr[data-index="' + $('#eqpSoftwareTable').bootstrapTable('getData').indexOf(selectedSoftwareRow) + '"]').addClass('selected-row');
 
-                updateSelectTable();
+                updateEqpSoftwareTable();
             }
         },
     });
