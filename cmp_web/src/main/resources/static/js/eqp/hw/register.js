@@ -37,22 +37,22 @@ let eqpSoftwareColumn = [
     createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
 ];
 
-let selectedSoftwareRow = null;
+let selectedSoftwareRows = new Map();
 
 function updateEqpSoftwareTable() {
-    let data = [{
-        asset_category:              selectedSoftwareRow ? selectedSoftwareRow.asset_category : "",
-        eqp_manage_id:               selectedSoftwareRow ? selectedSoftwareRow.eqp_manage_id : "",
-        m_company:                   selectedSoftwareRow ? selectedSoftwareRow.m_company : "",
-        model_name:                  selectedSoftwareRow ? selectedSoftwareRow.model_name : "",
-        host_name:                   selectedSoftwareRow ? selectedSoftwareRow.host_name : "",
-        eqp_name:                    selectedSoftwareRow ? selectedSoftwareRow.eqp_name : "",
-        dependent_config:            selectedSoftwareRow ? selectedSoftwareRow.dependent_config : "",
-        primary_operator:            selectedSoftwareRow ? selectedSoftwareRow.primary_operator : "",
-        primary_outsourced_operator: selectedSoftwareRow ? selectedSoftwareRow.primary_outsourced_operator : "",
-    }];
+    let data = Array.from(selectedSoftwareRows.values()).map(row => ({
+        asset_category: row.asset_category,
+        eqp_manage_id: row.eqp_manage_id,
+        m_company: row.m_company,
+        model_name: row.model_name,
+        host_name: row.host_name,
+        eqp_name: row.eqp_name,
+        dependent_config: row.dependent_config,
+        primary_operator: row.primary_operator,
+        primary_outsourced_operator: row.primary_outsourced_operator,
+    }));
 
-    $('#eqpSoftwareTable').bootstrapTable('load', data);
+    $('#eqpSoftwareSelectTable').bootstrapTable('load', data);
 }
 
 $(function(){
@@ -108,34 +108,52 @@ $(function(){
             }
 
             $("#eqpSoftwareTotalCnt").text("총 " + res.total + "건")
+
+            // 로드가 완료되면 선택된 행을 반영
+            $('#eqpSoftwareTable').find('tr').each(function() {
+                let dataIndex = $(this).data('index');
+                let rowData = res.rows;
+                if (selectedSoftwareRows.has(rowData.eqp_manage_id)) {
+                    $(this).addClass('selected-row');
+                }
+            });
+
+            // 로드가 완료되면 선택된 행을 반영
+            res.rows.forEach((row, index) => {
+                if (selectedSoftwareRows.has(row.eqp_manage_id)) {
+                    $('#eqpSoftwareTable').find('tr[data-index="' + index + '"]').addClass('selected-row');
+                }
+            });
         },
         onClickCell: function(field, value, row, $element) {
-            if (!$element.hasClass("bs-checkbox")) {
-                if (selectedSoftwareRow) {
-                    $('#eqpSoftwareTable').bootstrapTable('uncheckBy', {
-                        field: 'eqp_manage_id',
-                        values: [selectedSoftwareRow.eqp_manage_id]
-                    });
-
-                    // 기존 선택된 행의 클래스 제거
-                    $('#eqpSoftwareTable').find('tr[data-index="' + $('#eqpSoftwareTable').bootstrapTable('getData').indexOf(selectedSoftwareRow) + '"]').removeClass('selected-row');
+            if (!selectedSoftwareRows.has(row.eqp_manage_id)) {
+                selectedSoftwareRows.set(row.eqp_manage_id, row);
+                const rowIndex = findRowIndexById($('#eqpSoftwareTable').bootstrapTable('getData'), row.eqp_manage_id);
+                if (rowIndex !== -1) {
+                    $('#eqpSoftwareTable').find('tr[data-index="' + rowIndex + '"]').addClass('selected-row');
                 }
-                selectedSoftwareRow = row;
-                $('#eqpSoftwareTable').bootstrapTable('checkBy', {
-                    field: 'eqp_manage_id',
-                    values: [selectedSoftwareRow.eqp_manage_id]
-                });
-
-                // 새로운 선택된 행에 클래스 추가
-                $('#eqpSoftwareTable').find('tr[data-index="' + $('#eqpSoftwareTable').bootstrapTable('getData').indexOf(selectedSoftwareRow) + '"]').addClass('selected-row');
-
-                updateEqpSoftwareTable();
             }
-        },
+            updateEqpSoftwareTable();
+        }
+    });
+
+    $('#eqpSoftwareSelectTable').bootstrapTable({
+        columns: eqpSoftwareColumn,
+        data: [],
+        onClickCell: function(field, value, row, $element) {
+            selectedSoftwareRows.delete(row.eqp_manage_id);
+            updateEqpSoftwareTable();
+            const rowIndex = findRowIndexById($('#eqpSoftwareTable').bootstrapTable('getData'), row.eqp_manage_id);
+            if (rowIndex !== -1) {
+                $('#eqpSoftwareTable').find('tr[data-index="' + rowIndex + '"]').removeClass('selected-row');
+            }
+        }
     });
 });
 
-
+function findRowIndexById(data, id) {
+    return data.findIndex(row => row.eqp_manage_id === id);
+}
 
 /**
  * 장비관리 > 장비목록 > 장비추가

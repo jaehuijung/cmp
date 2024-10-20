@@ -156,7 +156,10 @@ public class hwManageService {
         returnMap.put("errorCode",false);
 
         try{
-            returnMap.put("rows", hwMapper.getEquipmentSoftwareList(paramMap));
+            List<Map<String, Object>> rows = hwMapper.getEquipmentSoftwareList(paramMap);
+            int total = hwMapper.getEquipmentSoftwareListCnt(paramMap);
+            returnMap.put("rows", rows);
+            returnMap.put("total", total);
             returnMap.put("errorCode",true);
         }
         catch (Exception e){
