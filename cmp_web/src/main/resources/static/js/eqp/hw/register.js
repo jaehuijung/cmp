@@ -53,6 +53,7 @@ function updateEqpSoftwareTable() {
     }));
 
     $('#eqpSoftwareSelectTable').bootstrapTable('load', data);
+    $("#eqpSoftwareSelectTotalCnt").text("총 " + selectedSoftwareRows.size + "건")
 }
 
 $(function(){
@@ -126,9 +127,14 @@ $(function(){
             });
         },
         onClickCell: function(field, value, row, $element) {
-            if (!selectedSoftwareRows.has(row.eqp_manage_id)) {
+            const rowIndex = findRowIndexById($('#eqpSoftwareTable').bootstrapTable('getData'), row.eqp_manage_id);
+            if (selectedSoftwareRows.has(row.eqp_manage_id)) {
+                selectedSoftwareRows.delete(row.eqp_manage_id);
+                if (rowIndex !== -1) {
+                    $('#eqpSoftwareTable').find('tr[data-index="' + rowIndex + '"]').removeClass('selected-row');
+                }
+            } else {
                 selectedSoftwareRows.set(row.eqp_manage_id, row);
-                const rowIndex = findRowIndexById($('#eqpSoftwareTable').bootstrapTable('getData'), row.eqp_manage_id);
                 if (rowIndex !== -1) {
                     $('#eqpSoftwareTable').find('tr[data-index="' + rowIndex + '"]').addClass('selected-row');
                 }
@@ -140,6 +146,7 @@ $(function(){
     $('#eqpSoftwareSelectTable').bootstrapTable({
         columns: eqpSoftwareColumn,
         data: [],
+        pageSize: 5, pagination: true,
         onClickCell: function(field, value, row, $element) {
             selectedSoftwareRows.delete(row.eqp_manage_id);
             updateEqpSoftwareTable();
