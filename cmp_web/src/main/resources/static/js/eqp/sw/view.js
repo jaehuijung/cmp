@@ -181,7 +181,7 @@ function eqpCreate(){
 
 // 장비관리 > 장비목록 > 장비상세 페이지 이동
 function eqpDetail(id){
-    const url = `/eqp/hw/detail/${id}`;
+    const url = `/eqp/sw/detail/${id}`;
     window.location.href = url;
 }
 
@@ -197,7 +197,7 @@ function eqpUpdate() {
     }
     else{
         let id = data[0].eqp_manage_id;
-        const url = `/eqp/hw/update/${id}`;
+        const url = `/eqp/sw/update/${id}`;
         window.location.href = url;
     }
 };
@@ -229,7 +229,7 @@ function eqpDelete() {
             if (result.isConfirmed) {
                 alert3("load");
                 $.ajax({
-                    url : '/eqp/hw/delete',
+                    url : '/eqp/sw/delete',
                     type: 'post',
                     contentType: 'application/json',
                     data: JSON.stringify(data),

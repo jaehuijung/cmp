@@ -503,9 +503,12 @@
     <update id="deleteEqpList" parameterType="String">
         /* deleteEqpList ...
             H/W관리 > 장비목록 > 삭제 > 선택한 장비 정보 삭제 */
-        update equipment_basic
-        set is_deleted = 'Y'
-        where eqp_manage_id = #{deleteEqpTarget}
+        update
+            equipment_basic
+        set
+            is_deleted = 'Y'
+        where
+            eqp_manage_id = #{deleteEqpTarget}
     </update>
 
 

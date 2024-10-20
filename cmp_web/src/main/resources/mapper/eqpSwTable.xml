@@ -28,7 +28,7 @@
 
     <select id="getEquipmentTotalList" parameterType="Map" resultType="Map">
         /* getEquipmentTotalList ...
-        H/W관리 > 장비목록 > 장비 목록 데이터  */
+        S/W관리 > 장비목록 > 장비 목록 데이터  */
         SELECT
             A.eqp_manage_id                   /* 장비 관리번호 */
             , A.eqp_name                      /* 장비명 */
@@ -63,7 +63,7 @@
 
     <select id="getEquipmentTotalListCnt" parameterType="Map" resultType="int">
         /* getEquipmentTotalListCnt ...
-        H/W관리 > 장비목록 > 장비 목록 데이터 개수  */
+        S/W관리 > 장비목록 > 장비 목록 데이터 개수  */
         SELECT
             COUNT(A.eqp_manage_id)
         FROM
@@ -74,7 +74,7 @@
 
     <select id="generateEquipmentManageId" parameterType="map" resultType="String">
         /* generateEquipmentManageId...
-        H/W관리 > 장비목록 > 추가 > 장비 저장 : 장비관리번호 생성 */
+        S/W관리 > 장비목록 > 추가 > 장비 저장 : 장비관리번호 생성 */
         SELECT
             CONCAT(#{categories}, YEAR(CURDATE()), LPAD(IFNULL(MAX(CAST(SUBSTRING(eqp_manage_id, -4) AS UNSIGNED)) + 1, 1), 4, '0'))
         FROM
@@ -85,7 +85,7 @@
 
     <insert id="insertEquipmentBasic" parameterType="map">
         /* insertEquipmentBasic...
-        H/W관리 > 장비목록 > 추가 > 장비 저장 : 기본정보 */
+        S/W관리 > 장비목록 > 추가 > 장비 저장 : 기본정보 */
         INSERT INTO equipment_sw_basic (
             eqp_manage_id,
             eqp_name,
@@ -140,7 +140,7 @@
 
     <insert id="insertEquipmentDetail" parameterType="map">
         /* insertEquipmentDetail...
-        H/W관리 > 장비목록 > 추가 > 장비 저장 : 세부정보 */
+        S/W관리 > 장비목록 > 추가 > 장비 저장 : 세부정보 */
         insert into equipment_sw_detail(
             eqp_manage_id,
             OS,
@@ -166,4 +166,179 @@
             #{eos_status}
         )
     </insert>
+
+
+
+
+    <select id="getEquipmentDetailTotalList" parameterType="String" resultType="map">
+        /* getEquipmentDetailTotalList...
+        S/W관리 > 장비목록 > 수정/상세 > 선택한 장비 정보 : 기본정보, 세부정보 */
+        select
+            eb.eqp_manage_id,
+            eb.eqp_name,
+            eb.host_name,
+            eb.model_name,
+            eb.m_company,
+            eb.domestic,
+            eb.dependent_config,
+            eb.maintenance_contract_target,
+            eb.config_id,
+            eb.asset_id,
+            eb.sub_id,
+            eb.detail_id,
+            eb.network_operation_type,
+            eb.operating_status,
+            eb.operating_department,
+            eb.primary_operator,
+            eb.secondary_operator,
+            eb.primary_outsourced_operator,
+            eb.secondary_outsourced_operator,
+            ed.OS,
+            ed.acquisition_cost,
+            ed.amount,
+            ed.dbrain_number,
+            ed.license_number,
+            ed.asset_acquisition_date,
+            ed.asset_disposal_date,
+            ed.eol_status,
+            ed.eos_status
+        from
+            equipment_sw_basic eb
+        join
+            equipment_sw_detail ed
+            on eb.eqp_manage_id = ed.eqp_manage_id
+        where 1=1
+            and eb.eqp_manage_id = #{eqp_manage_id}
+    </select>
+
+    <select id="getEquipmentDetailAssetList" parameterType="map" resultType="map">
+        /* getEquipmentDetailAssetList...
+        S/W관리 > 장비목록 > 수정/상세 > 선택한 장비 정보 : 장비 분류 (구성분류, 자산분류, 자산세부분류, 자산상세분류) */
+        select
+            ec.config_category,
+            ec.asset_category,
+            ec.sub_category,
+            ec.detail_category
+        from
+            equipment_sw_basic eb
+        join
+            equipment_categories ec
+            on eb.config_id = ec.config_id
+            and eb.asset_id = ec.asset_id
+            and eb.sub_id = ec.sub_id
+            and eb.detail_id = ec.detail_id
+        where
+            eb.eqp_manage_id = #{eqp_manage_id}
+    </select>
+
+    <update id="updateBasicEqpList" parameterType="Map">
+        /* updateBasicEqpList ...
+        S/W관리 > 장비목록 > 수정 > 선택한 장비 정보 : 기본정보 */
+        UPDATE
+            equipment_sw_basic
+        SET
+            eqp_name = #{eqp_name}
+            <if test="host_name != null and host_name != ''">
+                , host_name = #{host_name}
+            </if>
+            <if test="model_name != null and model_name != ''">
+                , model_name = #{model_name}
+            </if>
+            <if test="m_company != null and m_company != ''">
+                , m_company = #{m_company}
+            </if>
+            <if test="domestic != null and domestic != ''">
+                , domestic = #{domestic}
+            </if>
+            <if test="redundancy_config != null and redundancy_config != ''">
+                , dependent_config = #{dependent_config}
+            </if>
+            <if test="maintenance_contract_target != null and maintenance_contract_target != ''">
+                , maintenance_contract_target = #{maintenance_contract_target}
+            </if>
+            <if test="config_id != null and config_id != ''">
+                , config_id = #{config_id}
+            </if>
+            <if test="asset_id != null and asset_id != ''">
+                , asset_id = #{asset_id}
+            </if>
+            <if test="sub_id != null and sub_id != ''">
+                , sub_id = #{sub_id}
+            </if>
+            <if test="detail_id != null and detail_id != ''">
+                , detail_id = #{detail_id}
+            </if>
+            <if test="network_operation_type != null and network_operation_type != ''">
+                , network_operation_type = #{network_operation_type}
+            </if>
+            <if test="operating_status != null and operating_status != ''">
+                , operating_status = #{operating_status}
+            </if>
+            <if test="operating_department != null and operating_department != ''">
+                , operating_department = #{operating_department}
+            </if>
+            <if test="primary_operator != null and primary_operator != ''">
+                , primary_operator = #{primary_operator}
+            </if>
+            <if test="secondary_operator != null and secondary_operator != ''">
+                , secondary_operator = #{secondary_operator}
+            </if>
+            <if test="primary_outsourced_operator != null and primary_outsourced_operator != ''">
+                , primary_outsourced_operator = #{primary_outsourced_operator}
+            </if>
+            <if test="secondary_outsourced_operator != null and secondary_outsourced_operator != ''">
+                , secondary_outsourced_operator = #{secondary_outsourced_operator}
+            </if>
+            <if test="updated_at != null and updated_at != ''">
+                , updated_at = NOW()
+            </if>
+        WHERE
+            eqp_manage_id = #{eqp_manage_id};
+    </update>
+
+    <update id="updateDetailEqpList" parameterType="Map">
+        /* updateDetailEqpList ...
+        S/W관리 > 장비목록 > 수정 > 선택한 장비 정보 : 세부정보 */
+        UPDATE
+        equipment_sw_detail
+        SET
+            license_number = #{license_number}
+            <if test="dbrain_number != null and dbrain_number != ''">
+                , dbrain_number = #{dbrain_number}
+            </if>
+            <if test="os_version != null and os_version != ''">
+                , OS = #{os_version}
+            </if>
+            <if test="acquisition_cost != null and acquisition_cost != ''">
+                , acquisition_cost = #{acquisition_cost}
+            </if>
+            <if test="amount != null and amount != ''">
+                , amount = #{amount}
+            </if>
+            <if test="asset_acquisition_date != null and asset_acquisition_date != ''">
+                , asset_acquisition_date = #{asset_acquisition_date}
+            </if>
+            <if test="asset_disposal_date != null and asset_disposal_date != ''">
+                , asset_disposal_date = #{asset_disposal_date}
+            </if>
+            <if test="eol_status != null and eol_status != ''">
+                , eol_status = #{eol_status}
+            </if>
+            <if test="eos_status != null and eos_status != ''">
+                , eos_status = #{eos_status}
+            </if>
+        WHERE
+            eqp_manage_id = #{eqp_manage_id}
+    </update>
+
+    <update id="deleteEqpList" parameterType="String">
+        /* deleteEqpList ...
+        S/W관리 > 장비목록 > 삭제 > 선택한 장비 정보 삭제 */
+        update
+            equipment_sw_basic
+        set
+            is_deleted = 'Y'
+        where
+            eqp_manage_id = #{deleteEqpTarget}
+    </update>
 </mapper>
