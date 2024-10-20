@@ -190,10 +190,6 @@ function saveData() {
         return false;
     }
 
-    // if($("#config_id").val() === ""){
-    //     alert2("알림", "구성분류를 선택해주세요", "info", "확인");
-    //     return false;
-    // }
     if($("#asset_id").val() === ""){
         alert2("알림", "자산분류를 선택해주세요", "info", "확인");
         return false;
@@ -344,6 +340,14 @@ function saveData() {
     data["eqpLink"] = eqpLinkData;
     data["config_id"] = "1"; // 구성분류 : H/W
 
+    let eqpSoftwareSelectData = $("#eqpSoftwareSelectTable").bootstrapTable("getData");
+    if(eqpSoftwareSelectData.length == 0){
+        alert2("알림", "소프트웨어는 1건 이상 등록되어야 합니다.", "info", "확인");
+        return false;
+    }
+
+    data["eqpSoftware"] = eqpSoftwareSelectData; // 소프트웨어 등록정보
+
     Swal.fire({
         title: '알림',
         html : '저장하시겠습니까?',
@@ -368,11 +372,10 @@ function saveData() {
                     alert3Close();
                     if(!res.errorCode){
                         alert2("알림", "저장 중 오류가 발생했습니다. <br>관리자에게 문의하세요", "error", "확인");
-                    }
-                    else{
-                        alert2("알림", "저장되었습니다.", "info", "확인", back);
+                        return false;
                     }
 
+                    alert2("알림", "저장되었습니다.", "info", "확인", back);
                 },
                 error: function(error) {
                     alert2("알림", "저장 중 오류가 발생했습니다. <br>관리자에게 문의하세요", "error", "확인");

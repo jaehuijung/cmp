@@ -191,12 +191,18 @@ public class hwManageService {
             hwMapper.insertEquipmentDetail(paramMap); // 장비 세부정보 저장
 
             List<Map<String, Object>> eqpLink = (List<Map<String, Object>>) paramMap.get("eqpLink");
-            if (eqpLink != null) {
-                for (Map<String, Object> link : eqpLink) {
-                    link.put("eqp_manage_id", eqp_manage_id);
-                    hwMapper.insertEquipmentLink(link); // 장비 연결정보 저장
-                }
+            for (Map<String, Object> link : eqpLink) {
+                link.put("eqp_manage_id", eqp_manage_id);
+                hwMapper.insertEquipmentLink(link); // 장비 연결정보 저장
             }
+
+            List<Map<String, Object>> eqpSoftware = (List<Map<String, Object>>) paramMap.get("eqpSoftware");
+            for (Map<String, Object> software : eqpSoftware) {
+                software.put("hw_manage_id", eqp_manage_id); // H/W 관리번호
+                software.put("sw_manage_id", software.get("eqp_manage_id")); // S/W 관리번호
+                hwMapper.insertEquipmentSoftware(software); // 장비 연결정보 저장
+            }
+
 
             returnMap.put("errorCode",true);
 
