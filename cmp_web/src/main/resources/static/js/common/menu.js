@@ -91,14 +91,16 @@ function buildSideMenu(menuData, currentUrl) {
     const sideMenuHtml = filteredMenu
         .map(menu => {
             const isActive = menu.menu_id === currentMenu.menu_id ? ' active' : '';
-            return `<a href="${menu.url}" class="side-menu-item${isActive}"><img src="/images/icon/folder.png" alt="icon" class="menu-icon" />${menu.menu_name}</a>`;
+            // return `<a href="${menu.url}" class="side-menu-item${isActive}"><img src="/images/icon/folder.png" alt="icon" class="menu-icon" />${menu.menu_name}</a>`;
+            return `<a href="${menu.url}" class="side-menu-item${isActive}"><img src="${menu.icon}" alt="icon" class="menu-icon" />${menu.menu_name}</a>`;
         })
         .join('');
 
     const sideToggleMenuHtml = filteredMenu
         .map(menu => {
             const isActive = menu.menu_id === currentMenu.menu_id ? ' active' : '';
-            return `<a href="${menu.url}" class="side-menu-item${isActive}"><img src="/images/icon/folder.png" alt="icon" class="menu-icon" /></a>`;
+            // return `<a href="${menu.url}" class="side-menu-item${isActive}"><img src="/images/icon/folder.png" alt="icon" class="menu-icon" /></a>`;
+            return `<a href="${menu.url}" class="side-menu-item${isActive}"><img src="${menu.icon}" alt="icon" class="menu-icon" /></a>`;
         })
         .join('');
 

@@ -274,11 +274,12 @@ header {
 }
 
 .side-menu a {
-    display: block;
+    display: flex;
     padding: 15px 20px;
     color: #fff;
     text-decoration: none;
     border-bottom: 1px solid #495057;
+    align-items: center;
 }
 
 .side-menu a:hover {
@@ -287,6 +288,7 @@ header {
 
 .side-menu .menu-icon{
     width: 30px;
+    margin-right: 20px;
 }
 
 /* 왼쪽 선택된 메뉴 하이라이트 */

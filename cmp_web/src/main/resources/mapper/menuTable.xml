@@ -16,7 +16,8 @@
             m.menu_name,           /* 메뉴명 */
             m.menu_role,           /* 메뉴 규칙 */
             m.url,                 /* 메뉴 url  */
-            m.menu_order           /* 메뉴 순서 */
+            m.menu_order,          /* 메뉴 순서 */
+            m.icon                 /* 메뉴 아이콘 */
         from
             menu m
         where
