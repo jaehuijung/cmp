@@ -1,4 +1,4 @@
-package sl.qr.mh.service.main.dashboard;
+package sl.qr.mh.service.network.portmap;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class dashboardManageService {
 
-    private final dashboardMapper dashboardMapper;
+    private final sl.qr.mh.service.network.portmap.dashboardMapper dashboardMapper;
 
-    public dashboardManageService(dashboardMapper dashboardMapper) {
+    public dashboardManageService(sl.qr.mh.service.network.portmap.dashboardMapper dashboardMapper) {
         this.dashboardMapper = dashboardMapper;
     }
 

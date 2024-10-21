@@ -4,10 +4,10 @@ import org.apache.ibatis.annotations.Mapper;
 
 
 /**
- * 메인 > 대시보드
+ * 네트워크 > 포트맵
  */
 @Mapper
-public interface dashboardMapper {
+public interface portmapMapper {
 
 
 }
