@@ -38,7 +38,6 @@ public class hwManageController {
         return "views/eqp/hw/view";
     }
 
-
     /**
      * H/W관리 > 장비목록 > 장비목록 데이터
      *
@@ -51,10 +50,28 @@ public class hwManageController {
         return hwManageService.getEquipmentTotalList(paramMap);
     }
 
+    /**
+     * H/W관리 > 장비목록 > 추가/수정 > S/W 장비 목록 리스트
+     *
+     * @param paramMap 요청 파라미터 맵
+     * @return sw 장비 목록 데이터 및 기타 메타 정보
+     */
     @ResponseBody
     @PostMapping("/equipmentSoftwareList")
     public Map<String, Object> getEquipmentSoftwareList(@RequestBody Map<String, Object> paramMap) {
         return hwManageService.getEquipmentSoftwareList(paramMap);
+    }
+
+    /**
+     * H/W관리 > 장비목록 > 수정 / 상세 > 선택된 H/W 장비에 등록된 S/W 장비 목록 리스트
+     *
+     * @param paramMap 요청 파라미터 맵
+     * @return sw 장비 목록 데이터 및 기타 메타 정보
+     */
+    @ResponseBody
+    @PostMapping("/equipmentDetailSoftwareList")
+    public Map<String, Object> getEquipmentDetailSoftwareList(@RequestBody Map<String, Object> paramMap) {
+        return hwManageService.getEquipmentDetailSoftwareList(paramMap);
     }
 
     /**

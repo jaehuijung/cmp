@@ -169,6 +169,35 @@ public class hwManageService {
         return returnMap;
     };
 
+    /**
+     * H/W관리 > 장비목록 > 수정 / 상세 > 선택된 H/W 장비에 등록된 S/W 장비 목록 리스트
+     *
+     * @param paramMap 요청 파라미터 맵
+     * @return sw 장비 목록 데이터 및 기타 메타 정보
+     */
+    @SuppressWarnings("unchecked")
+    public Map<String, Object> getEquipmentDetailSoftwareList(Map<String, Object> paramMap){
+        Map<String, Object> returnMap = new HashMap<>();
+        returnMap.put("errorCode",false);
+
+        try{
+            if (paramMap.containsKey("searchData")) {
+                paramMap.putAll((Map<String, Object>) paramMap.get("searchData"));
+            }
+
+            List<Map<String, Object>> rows = hwMapper.getEquipmentDetailSoftwareList(paramMap);
+            int total = hwMapper.getEquipmentDetailSoftwareListCnt(paramMap);
+            returnMap.put("rows", rows);
+            returnMap.put("total", total);
+            returnMap.put("errorCode",true);
+        }
+        catch (Exception e){
+            log.error(e.getMessage());
+        }
+
+        return returnMap;
+    };
+
 
 
     /**
