@@ -4,9 +4,12 @@
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="~{layouts/layout}">
 
-<style>
+<head>
+	<style>
+		.custom-width { width: 1500px; }
+	</style>
+</head>
 
-</style>
 <div layout:fragment="content">
 	<main id="main" class="equipment">
 
@@ -266,6 +269,10 @@
 			<div id="section-equipment-software-select-info">
 				<div class="section-line-title">
 					<h2>소프트웨어 등록정보</h2>
+					<div style="margin-left: 20px;">
+						<button type="button" style="width: 40px; height: 30px; font-size: 12px; padding: 0;" onclick="addEqpSwRow()">추가</button>
+						<button type="button" style="width: 40px; height: 30px; font-size: 12px; padding: 0;" onclick="deleteEqpSwRow()">삭제</button>
+					</div>
 				</div>
 				<div style="display: flex; justify-content: space-between;">
 					<div style="display: flex; align-items: flex-end;">
@@ -288,6 +295,7 @@
 
 
 			<!-- 장비연결정보2 -->
+			<!--
 			<div id="section-equipment-connection-info2">
 				<div class="section-equipment-title">
 					<h2>장비연결정보 선택</h2>
@@ -296,11 +304,16 @@
 					<table id="eqpHardwareTable"></table>
 				</div>
 			</div>
+			-->
 
 			<!-- 선택된 장비 등록정보2 -->
 			<div id="section-equipment-connection-select-info">
 				<div class="section-line-title">
 					<h2>장비연결정보</h2>
+					<div style="margin-left: 20px;">
+						<button type="button" style="width: 40px; height: 30px; font-size: 12px; padding: 0;" onclick="addEqpHardwareRow()">추가</button>
+						<button type="button" style="width: 40px; height: 30px; font-size: 12px; padding: 0;" onclick="deleteEqpHardwareRow()">삭제</button>
+					</div>
 				</div>
 				<div style="display: flex; justify-content: space-between;">
 					<div style="display: flex; align-items: flex-end;">

@@ -7,7 +7,7 @@ let eqpLinkColumn = [
 
 
 // cable table column creation function
-function createColumn(field, checkbox = false, title, type = 'default') {
+function createColumn(field, checkbox = false, title, type = 'default', formatter = '') {
     let column = {
         title: title,
         field: field,
@@ -20,6 +20,10 @@ function createColumn(field, checkbox = false, title, type = 'default') {
         column.class = 'nowrap underline';
     } else {
         column.class = 'nowrap';
+    }
+
+    if(formatter != ''){
+        formatter: formatter
     }
 
     return column;
@@ -35,7 +39,6 @@ let eqpHardwareColumn = [
     createColumn('eqp_name',                    false, '구성자원명'),
     createColumn('primary_operator',            false, '운영담당자'),
     createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
-    createColumn('',                            false, '위탁운영담당자'),
 ];
 
 let eqpSoftwareColumn = [
@@ -276,13 +279,95 @@ $(function(){
 function setDefaultDates() {
     const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD 형식의 현재 날짜
 
-    // ['asset_acquisition_date', 'asset_disposal_date', 'eol_status', 'eos_status'].forEach(id => {
     ['asset_acquisition_date', 'eol_status', 'eos_status'].forEach(id => {
         const element = document.getElementById(id);
         if (!element.value) {
             element.value = today;
         }
     });
+}
+
+
+
+
+
+function addEqpHardwareRow(){
+    Swal.fire({
+        title: 'H/W 장비 연결정보',
+        html: generateEqpHardwareRowHTML(),
+        focusConfirm: false,
+        confirmButtonText: '저장',
+        cancelButtonText: '취소',
+        showCancelButton: true,
+        customClass: {
+            popup: 'custom-width'
+        },
+        didOpen: () => {
+            // 모달이 열렸을 때 부트스트랩 테이블 초기화
+            $('#eqpHardwareTable').bootstrapTable({
+                url: '/eqp/hw/equipmentHardwareList',
+                method: 'post',
+                queryParams: function(params) {
+                    let searchInput = $("#searchInput").val();
+                    params.searchData = { searchInput };
+                    return params;
+                },
+                pageSize: 5, columns: eqpHardwareColumn, cache: false, undefinedText: "",
+                pagination: true, sidePagination: 'server', checkboxHeader: true,
+                classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
+                responseHandler: function(res) {
+                    return {
+                        rows: res.rows,
+                        total: res.total,
+                        errorCode: res.errorCode
+                    }
+                },
+                onLoadSuccess: function(res) {
+                    let errorCode = res.errorCode;
+                    if (!errorCode) {
+                        alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+                        return false;
+                    }
+
+                    $("#eqpHardwareTotalCnt").text("총 " + res.total + "건")
+
+                },
+                onClickCell: function(field, value, row, $element) {
+
+                }
+            });
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // 저장 처리
+        }
+    });
+}
+
+function generateEqpHardwareRowHTML(){
+    return `
+        <div id="section-equipment-connection-info2">
+            <div class="section-equipment-title">
+                <h2>장비연결정보 선택</h2>
+            </div>
+            <div class="tbl-bootstrap-wrap">
+                <table id="eqpHardwareTable"></table>
+            </div>
+        </div>
+    `;
+}
+
+
+function deleteEqpHardwareRow(){
+
+}
+
+function addEqpSwRow(){
+
+}
+
+function deleteEqpSwRow(){
+
 }
 
 
