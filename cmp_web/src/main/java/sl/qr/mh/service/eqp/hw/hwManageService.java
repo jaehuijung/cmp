@@ -254,7 +254,7 @@ public class hwManageService {
      */
     @SuppressWarnings("unchecked")
     @Transactional
-    public Map<String, Object> insertEqpList(Map<String, Object> paramMap) {
+    public Map<String, Object> saveEquipmentInfo(Map<String, Object> paramMap) {
         Map<String, Object> returnMap = new HashMap<>();
         returnMap.put("errorCode",false);
 
@@ -265,6 +265,7 @@ public class hwManageService {
             hwMapper.insertEquipmentBasic(paramMap); // 장비 기본정보 저장
             hwMapper.insertEquipmentDetail(paramMap); // 장비 세부정보 저장
 
+            /*
             List<Map<String, Object>> eqpLink = (List<Map<String, Object>>) paramMap.get("eqpLink");
             for (Map<String, Object> link : eqpLink) {
                 link.put("eqp_manage_id", eqp_manage_id);
@@ -277,7 +278,7 @@ public class hwManageService {
                 software.put("sw_manage_id", software.get("eqp_manage_id")); // S/W 관리번호
                 hwMapper.insertEquipmentSoftware(software); // 장비 연결정보 저장
             }
-
+             */
 
             returnMap.put("errorCode",true);
 

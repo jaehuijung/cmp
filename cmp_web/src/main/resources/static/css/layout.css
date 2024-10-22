@@ -578,7 +578,8 @@ header {
 #section-equipment-category,
 #section-equipment-operation-info,
 #section-equipment-details,
-#section-equipment-connection-info {
+#section-equipment-connection-select-info,
+#section-equipment-software-select-info {
     margin-bottom: 20px;
 }
 

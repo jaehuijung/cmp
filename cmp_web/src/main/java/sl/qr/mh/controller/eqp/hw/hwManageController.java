@@ -129,7 +129,7 @@ public class hwManageController {
     @ResponseBody
     @PostMapping("/saveEquipmentInfo")
     public Map<String, Object> saveEquipmentInfo(@RequestBody Map<String, Object> paramMap) {
-        return hwManageService.insertEqpList(paramMap);
+        return hwManageService.saveEquipmentInfo(paramMap);
     }
 
     /**
