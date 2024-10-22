@@ -122,6 +122,72 @@
             detail_id
     </select>
 
+    <select id="getEquipmentHardwareList" parameterType="Map" resultType="Map">
+        /* getEquipmentHardwareList ...
+            H/W관리 > 장비목록 > 추가/수정 > H/W 장비 목록 리스트  */
+        select
+            A.eqp_manage_id , /* 관리번호 */
+            A.eqp_name , /* 구성자원명 */
+            A.model_name , /* 모델명 */
+            A.host_name , /* 호스트명 */
+            A.m_company , /* 제조사 */
+            A.primary_operator , /* 운영담당자 */
+            A.primary_outsourced_operator , /* 위탁운영담당자 */
+            ec.config_category ,  /* 구성분류 */
+            ec.asset_category , /* 자산분류 */
+            ec.sub_category , /* 자산세부분류 */
+            ec.detail_category , /* 자산상세분류 */
+            ed.installation_coordinates /* 설치좌표 */
+        from
+            equipment_basic A
+        join
+            equipment_detail ed
+            on A.eqp_manage_id = ed.eqp_manage_id
+        join
+            equipment_categories ec
+            on A.config_id = ec.config_id
+            and A.asset_id = ec.asset_id
+            and A.sub_id = ec.sub_id
+            and A.detail_id = ec.detail_id
+        where 1=1
+        <include refid="getEquipmentTotalCommon"/>
+        ORDER BY
+            A.eqp_manage_id desc
+        LIMIT
+            #{offset},#{limit}
+    </select>
+
+    <select id="getEquipmentHardwareListCnt" parameterType="Map" resultType="int">
+        /* getEquipmentHardwareListCnt ...
+            H/W관리 > 장비목록 > 추가/수정 > H/W 장비 목록 리스트 개수 */
+        select
+            count(A.eqp_manage_id)
+        from
+            equipment_basic A
+        join
+            equipment_detail ed
+            on A.eqp_manage_id = ed.eqp_manage_id
+        join
+            equipment_categories ec
+            on A.config_id = ec.config_id
+            and A.asset_id = ec.asset_id
+            and A.sub_id = ec.sub_id
+            and A.detail_id = ec.detail_id
+        where 1=1
+        <include refid="getEquipmentTotalCommon"/>
+    </select>
+
+    <select id="getEquipmentDetailHardwareList" parameterType="Map" resultType="Map">
+        /* getEquipmentDetailHardwareList ...
+            H/W관리 > 장비목록 > 수정 / 상세 > 선택된 H/W 장비에 등록된 H/W 장비 목록 리스트 개수 */
+
+    </select>
+
+    <select id="getEquipmentDetailHardwareListCnt" parameterType="Map" resultType="int">
+        /* getEquipmentDetailHardwareListCnt ...
+            H/W관리 > 장비목록 > 수정 / 상세 > 선택된 H/W 장비에 등록된 H/W 장비 목록 리스트 개수 */
+    </select>
+
 
     <select id="getEquipmentSoftwareList" parameterType="Map" resultType="Map">
         /* getEquipmentSoftwareList ...

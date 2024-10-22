@@ -145,6 +145,52 @@ public class hwManageService {
         return returnMap;
     }
 
+    /**
+     * H/W관리 > 장비목록 > 추가/수정 > H/W 장비 목록 리스트
+     *
+     * @return H/W 장비 목록 리스트
+     */
+    public Map<String, Object> getEquipmentHardwareList(Map<String, Object> paramMap){
+        Map<String, Object> returnMap = new HashMap<>();
+        returnMap.put("errorCode",false);
+
+        try{
+            List<Map<String, Object>> rows = hwMapper.getEquipmentHardwareList(paramMap);
+            int total = hwMapper.getEquipmentHardwareListCnt(paramMap);
+            returnMap.put("rows", rows);
+            returnMap.put("total", total);
+            returnMap.put("errorCode",true);
+        }
+        catch (Exception e){
+            log.error(e.getMessage());
+        }
+
+        return returnMap;
+    };
+
+    /**
+     * H/W관리 > 장비목록 > 추가/수정 > 선택된 H/W 장비에 등록된 H/W 장비 목록 리스트
+     *
+     * @return H/W 장비 목록 리스트
+     */
+    public Map<String, Object> getEquipmentDetailHardwareList(Map<String, Object> paramMap){
+        Map<String, Object> returnMap = new HashMap<>();
+        returnMap.put("errorCode",false);
+
+        try{
+            List<Map<String, Object>> rows = hwMapper.getEquipmentDetailHardwareList(paramMap);
+            int total = hwMapper.getEquipmentDetailHardwareListCnt(paramMap);
+            returnMap.put("rows", rows);
+            returnMap.put("total", total);
+            returnMap.put("errorCode",true);
+        }
+        catch (Exception e){
+            log.error(e.getMessage());
+        }
+
+        return returnMap;
+    };
+
 
     /**
      * H/W관리 > 장비목록 > 추가/수정 > S/W 장비 목록 리스트

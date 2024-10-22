@@ -25,6 +25,19 @@ function createColumn(field, checkbox = false, title, type = 'default') {
     return column;
 }
 
+let eqpHardwareColumn = [
+    createColumn('asset_category',              false, '자산분류'),
+    createColumn('installation_coordinates',    false, '설치좌표'),
+    createColumn('eqp_manage_id',               false, '관리번호'),
+    createColumn('m_company',                   false, '제조사'),
+    createColumn('model_name',                  false, '모델명'),
+    createColumn('host_name',                   false, '호스트명'),
+    createColumn('eqp_name',                    false, '구성자원명'),
+    createColumn('primary_operator',            false, '운영담당자'),
+    createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
+    createColumn('',                            false, '위탁운영담당자'),
+];
+
 let eqpSoftwareColumn = [
     createColumn('asset_category',              false, '자산분류'),
     createColumn('eqp_manage_id',               false, '관리번호'),
@@ -37,7 +50,25 @@ let eqpSoftwareColumn = [
     createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
 ];
 
+let selectedHardwareRows = new Map();
 let selectedSoftwareRows = new Map();
+
+function updateEqpHardwareTable() {
+    let data = Array.from(selectedHardwareRows.values()).map(row => ({
+        asset_category: row.asset_category,
+        installation_coordinates: row.installation_coordinates,
+        eqp_manage_id: row.eqp_manage_id,
+        m_company: row.m_company,
+        model_name: row.model_name,
+        host_name: row.host_name,
+        eqp_name: row.eqp_name,
+        primary_operator: row.primary_operator,
+        primary_outsourced_operator: row.primary_outsourced_operator,
+    }));
+
+    $('#eqpHardwareSelectTable').bootstrapTable('load', data);
+    $("#eqpHardwareSelectTotalCnt").text("총 " + selectedHardwareRows.size + "건")
+}
 
 function updateEqpSoftwareTable() {
     let data = Array.from(selectedSoftwareRows.values()).map(row => ({
@@ -85,6 +116,83 @@ $(function(){
         columns: eqpLinkColumn
     });
 
+
+    $('#eqpHardwareTable').bootstrapTable({
+        url: '/eqp/hw/equipmentHardwareList',
+        method: 'post',
+        queryParams: function(params) {
+            let searchInput = $("#searchInput").val();
+            params.searchData = {
+                searchInput
+            }
+            return params;
+        },
+        pageSize: 5, columns: eqpHardwareColumn, cache: false, undefinedText: "",
+        pagination: true, sidePagination: 'server', checkboxHeader: true,
+        classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
+        responseHandler: function(res) {
+            return {
+                rows: res.rows,
+                total: res.total,
+                errorCode: res.errorCode
+            }
+        },
+        onLoadSuccess: function(res) {
+            let errorCode = res.errorCode;
+            if (!errorCode) {
+                alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+                return false;
+            }
+
+            $("#eqpHardwareTotalCnt").text("총 " + res.total + "건")
+
+            res.rows.forEach((row, index) => {
+                if (selectedHardwareRows.has(row.eqp_manage_id)) {
+                    $('#eqpHardwareTable').find('tr[data-index="' + index + '"]').addClass('selected-row');
+                }
+            });
+
+            $('#eqpHardwareTable').find('tr').each(function() {
+                let dataIndex = $(this).data('index');
+                let rowData = res.rows;
+                if (selectedHardwareRows.has(rowData.eqp_manage_id)) {
+                    $(this).addClass('selected-row');
+                }
+            });
+
+        },
+        onClickCell: function(field, value, row, $element) {
+            const rowIndex = findRowIndexById($('#eqpHardwareTable').bootstrapTable('getData'), row.eqp_manage_id);
+            if (selectedHardwareRows.has(row.eqp_manage_id)) {
+                selectedHardwareRows.delete(row.eqp_manage_id);
+                if (rowIndex !== -1) {
+                    $('#eqpHardwareTable').find('tr[data-index="' + rowIndex + '"]').removeClass('selected-row');
+                }
+            } else {
+                selectedHardwareRows.set(row.eqp_manage_id, row);
+                if (rowIndex !== -1) {
+                    $('#eqpHardwareTable').find('tr[data-index="' + rowIndex + '"]').addClass('selected-row');
+                }
+            }
+            updateEqpHardwareTable();
+        }
+    });
+
+
+    $('#eqpHardwareSelectTable').bootstrapTable({
+        columns: eqpHardwareColumn,
+        data: [],
+        pageSize: 5, pagination: true,
+        onClickCell: function(field, value, row, $element) {
+            selectedHardwareRows.delete(row.eqp_manage_id);
+            updateEqpHardwareTable();
+            const rowIndex = findRowIndexById($('#eqpHardwareTable').bootstrapTable('getData'), row.eqp_manage_id);
+            if (rowIndex !== -1) {
+                $('#eqpHardwareTable').find('tr[data-index="' + rowIndex + '"]').removeClass('selected-row');
+            }
+        }
+    });
+
     $('#eqpSoftwareTable').bootstrapTable({
         url: '/eqp/hw/equipmentSoftwareList',
         method: 'post',
@@ -114,7 +222,12 @@ $(function(){
 
             $("#eqpSoftwareTotalCnt").text("총 " + res.total + "건")
 
-            // 로드가 완료되면 선택된 행을 반영
+            res.rows.forEach((row, index) => {
+                if (selectedSoftwareRows.has(row.eqp_manage_id)) {
+                    $('#eqpSoftwareTable').find('tr[data-index="' + index + '"]').addClass('selected-row');
+                }
+            });
+
             $('#eqpSoftwareTable').find('tr').each(function() {
                 let dataIndex = $(this).data('index');
                 let rowData = res.rows;
@@ -123,12 +236,6 @@ $(function(){
                 }
             });
 
-            // 로드가 완료되면 선택된 행을 반영
-            res.rows.forEach((row, index) => {
-                if (selectedSoftwareRows.has(row.eqp_manage_id)) {
-                    $('#eqpSoftwareTable').find('tr[data-index="' + index + '"]').addClass('selected-row');
-                }
-            });
         },
         onClickCell: function(field, value, row, $element) {
             const rowIndex = findRowIndexById($('#eqpSoftwareTable').bootstrapTable('getData'), row.eqp_manage_id);

@@ -57,6 +57,36 @@ public interface hwMapper {
     List<Map<String, Object>> getSelectDetailData(Map<String, Object> paramMap);
 
     /**
+     * H/W관리 > 장비목록 > 추가/수정 > H/W 장비 목록 리스트
+     *
+     * @return H/W 장비 목록 리스트
+     */
+    List<Map<String, Object>> getEquipmentHardwareList(Map<String, Object> paramMap);
+
+    /**
+     * H/W관리 > 장비목록 > 추가/수정 > H/W 장비 목록 리스트 개수
+     *
+     * @return H/W 장비 목록 리스트 개수
+     */
+    int getEquipmentHardwareListCnt(Map<String, Object> paramMap);
+
+    /**
+     * H/W관리 > 장비목록 > 수정 / 상세 > 선택된 H/W 장비에 등록된 H/W 장비 목록 리스트
+     *
+     * @param paramMap 요청 파라미터 맵
+     * @return 선택된 H/W 장비에 등록된 H/W 장비 목록 리스트
+     */
+    List<Map<String, Object>> getEquipmentDetailHardwareList(Map<String, Object> paramMap);
+
+    /**
+     * H/W관리 > 장비목록 > 수정 / 상세 > 선택된 H/W 장비에 등록된 H/W 장비 목록 리스트 개수
+     *
+     * @param paramMap 요청 파라미터 맵
+     * @return 선택된 H/W 장비에 등록된 H/W 장비 목록 리스트 개수
+     */
+    int getEquipmentDetailHardwareListCnt(Map<String, Object> paramMap);
+
+    /**
      * H/W관리 > 장비목록 > 추가/수정 > S/W 장비 목록 리스트
      *
      * @return S/W 장비 목록 리스트
@@ -76,7 +106,7 @@ public interface hwMapper {
      * @param paramMap 요청 파라미터 맵
      * @return 선택된 H/W 장비에 등록된 S/W 장비 목록 리스트
      */
-    public List<Map<String, Object>> getEquipmentDetailSoftwareList(Map<String, Object> paramMap);
+    List<Map<String, Object>> getEquipmentDetailSoftwareList(Map<String, Object> paramMap);
 
     /**
      * H/W관리 > 장비목록 > 수정 / 상세 > 선택된 H/W 장비에 등록된 S/W 장비 목록 리스트 개수
@@ -84,7 +114,7 @@ public interface hwMapper {
      * @param paramMap 요청 파라미터 맵
      * @return 선택된 H/W 장비에 등록된 S/W 장비 목록 리스트 개수
      */
-    public int getEquipmentDetailSoftwareListCnt(Map<String, Object> paramMap);
+    int getEquipmentDetailSoftwareListCnt(Map<String, Object> paramMap);
 
     /**
      * H/W관리 > 장비목록 > 추가 > 장비 저장 : 장비관리번호 생성
