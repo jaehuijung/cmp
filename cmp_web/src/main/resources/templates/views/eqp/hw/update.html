@@ -273,6 +273,54 @@
                     <table id="eqpLinkTable"></table>
                 </div>
             </div>
+
+
+            <!-- 소프트웨어 등록정보 -->
+            <div id="section-equipment-software-info">
+                <div class="section-equipment-title">
+                    <h2>소프트웨어 등록정보 선택 (팝업으로 변경예정)</h2>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <div style="display: flex; align-items: flex-end;">
+                        <p class="totalCnt" id="eqpSoftwareTotalCnt"></p>
+                    </div>
+                    <div class="searchWordWrap" style="display: flex; align-items: center; margin-bottom: 10px;">
+                        <div class="searchTitle">검색어</div>
+                        <div class="searchWordInput">
+                            <input type="text" id="searchInput" style="width:300px;" placeholder="검색어를 입력하세요"/>
+                            <button type="button"  onclick="searchEqpList();">검색</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="tbl-bootstrap-wrap">
+                    <table id="eqpSoftwareTable"></table>
+                </div>
+            </div>
+
+            <!-- 선택된 소프트웨어 등록정보 -->
+            <div id="section-equipment-software-select-info">
+                <div class="section-line-title">
+                    <h2>소프트웨어 등록정보</h2>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <div style="display: flex; align-items: flex-end;">
+                        <p class="totalCnt" id="eqpSoftwareSelectTotalCnt">총 0건</p>
+                    </div>
+                    <div class="searchWordWrap" style="display: flex; align-items: center; margin-bottom: 10px;">
+                        <div class="searchTitle">검색어</div>
+                        <div class="searchWordInput">
+                            <input type="text" id="searchInput" style="width:300px;" placeholder="검색어를 입력하세요"/>
+                            <button type="button"  onclick="searchEqpList();">검색</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="tbl-bootstrap-wrap">
+                    <div class="tbl-bootstrap-wrap">
+                        <table id="eqpSoftwareSelectTable"></table>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <div>

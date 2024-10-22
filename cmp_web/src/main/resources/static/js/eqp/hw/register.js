@@ -56,6 +56,10 @@ function updateEqpSoftwareTable() {
     $("#eqpSoftwareSelectTotalCnt").text("총 " + selectedSoftwareRows.size + "건")
 }
 
+function findRowIndexById(data, id) {
+    return data.findIndex(row => row.eqp_manage_id === id);
+}
+
 $(function(){
     setDefaultDates(); // 화면 렌더링 시 날짜 컬럼들 현재날짜로 세팅
     getSelectConfig(); // 화면 렌더링 시 구성분류 선택박스 세팅
@@ -157,10 +161,6 @@ $(function(){
         }
     });
 });
-
-function findRowIndexById(data, id) {
-    return data.findIndex(row => row.eqp_manage_id === id);
-}
 
 /**
  * 장비관리 > 장비목록 > 장비추가
