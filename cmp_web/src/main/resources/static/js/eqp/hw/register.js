@@ -252,6 +252,7 @@ function deleteEquipmentHardwareRow(){
     소프트웨어 등록정보 관련 ... 나중에 주석 추가
 */
 function addEquipmentSoftwareRow(){
+    let selectedEqpSoftware = [];
     Swal.fire({
         title: 'S/W 장비 연결정보',
         html: generateEquipmentSoftwareRowHTML(),
@@ -301,22 +302,36 @@ function addEquipmentSoftwareRow(){
                             }
                         });
                     }
+
+                    res.rows.forEach((row, index) => {
+                        if (selectedEqpSoftware.find(selected => selected.eqp_manage_id === row.eqp_manage_id)) {
+                            $('#eqpSoftwareTable').bootstrapTable('check', index);
+                        }
+                    });
                 },
                 onClickCell: function(field, value, row, $element) {
                     let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
                     if (($checkbox.length) && (field != 'port_number')) {
                         $checkbox.click();
                     }
+                },
+                onCheck: function (row) {
+                    if (!selectedEqpSoftware.some(selected => selected.eqp_manage_id === row.eqp_manage_id)) {
+                        selectedEqpSoftware.push(row);
+                    }
+                },
+                onUncheck: function (row) {
+                    selectedEqpSoftware = selectedEqpSoftware.filter(selected => selected.eqp_manage_id !== row.eqp_manage_id);
                 }
             });
         }
     }).then((result) => {
         if (result.isConfirmed) {
-            let selectedRows = $('#eqpSoftwareTable').bootstrapTable('getSelections');
-            if (selectedRows.length > 0) {
-                $('#eqpSoftwareSelectTable').bootstrapTable('append', selectedRows);
+            if (selectedEqpSoftware.length > 0) {
+                $('#eqpSoftwareSelectTable').bootstrapTable('removeAll');
+                $('#eqpSoftwareSelectTable').bootstrapTable('append', selectedEqpSoftware);
                 $('#eqpSoftwareSelectTable').bootstrapTable('uncheckAll');
-                $("#eqpSoftwareSelectTableCnt").text("총 " + selectedRows.length + "건");
+                $("#eqpSoftwareSelectTableCnt").text("총 " + selectedEqpSoftware.length + "건");
             } else {
                 alert2('알림', '선택된 항목이 없습니다.', 'error', '확인');
             }
