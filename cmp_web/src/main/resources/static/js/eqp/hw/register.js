@@ -193,12 +193,14 @@ function addEquipmentHardwareRow(){
                         $checkbox.click();
                     }
                 },
-                onCheck: function(row) {
-                    selectedEqpHardware.push(row);
+                onCheck: function (row) {
+                    if (!selectedEqpHardware.some(selected => selected.eqp_manage_id === row.eqp_manage_id)) {
+                        selectedEqpHardware.push(row);
+                    }
                 },
-                onUncheck: function(row) {
+                onUncheck: function (row) {
                     selectedEqpHardware = selectedEqpHardware.filter(selected => selected.eqp_manage_id !== row.eqp_manage_id);
-                },
+                }
             });
         }
     }).then((result) => {
