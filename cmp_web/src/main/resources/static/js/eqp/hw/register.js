@@ -21,32 +21,38 @@ function createColumn(field, checkbox = false, title, type = '', formatter = '')
     return column;
 }
 
-let eqpHardwareColumn = [
-    createColumn('',                            true,  ''),
-    createColumn('asset_category',              false, '자산분류'),
-    createColumn('installation_coordinates',    false, '설치좌표'),
-    createColumn('eqp_manage_id',               false, '관리번호'),
-    createColumn('m_company',                   false, '제조사'),
-    createColumn('model_name',                  false, '모델명'),
-    createColumn('host_name',                   false, '호스트명'),
-    createColumn('eqp_name',                    false, '구성자원명'),
-    createColumn('primary_operator',            false, '운영담당자'),
-    createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
-    createColumn('port_number',                 false, '포트번호', '', eqpHardwarePortFormatter)
-];
-
-function eqpHardwarePortFormatter(value, row, index) {
-    return `<input type="text" class="form-control" value="${value || ''}"
-            data-row-index="${index}" data-field="port_number"
-            oninput="updateEqpHardwarePortInputData(this, ${index}, 'port_number')">`;
+function createCommonEqpHardwareColumns(portFormatter, tableId) {
+    return [
+        createColumn('', true, ''),
+        createColumn('asset_category', false, '자산분류'),
+        createColumn('installation_coordinates', false, '설치좌표'),
+        createColumn('eqp_manage_id', false, '관리번호'),
+        createColumn('m_company', false, '제조사'),
+        createColumn('model_name', false, '모델명'),
+        createColumn('host_name', false, '호스트명'),
+        createColumn('eqp_name', false, '구성자원명'),
+        createColumn('primary_operator', false, '운영담당자'),
+        createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
+        createColumn('port_number', false, '포트번호', '', (value, row, index) => portFormatter(value, row, index, tableId))
+    ];
 }
 
-function updateEqpHardwarePortInputData(input, index, field) {
-    let $table = $('#eqpHardwareTable');
+let eqpHardwareColumn = createCommonEqpHardwareColumns(eqpHardwarePortFormatter, '#eqpHardwareTable');
+let eqpHardwareSelectColumn = createCommonEqpHardwareColumns(eqpHardwarePortFormatter, '#eqpHardwareSelectTable');
+
+function eqpHardwarePortFormatter(value, row, index, tableId) {
+    return `<input type="text" class="form-control" value="${value || ''}"
+            data-row-index="${index}" data-field="port_number"
+            oninput="updateEqpHardwarePortInputData(this, ${index}, 'port_number', '${tableId}')">`;
+}
+
+function updateEqpHardwarePortInputData(input, index, field, tableId) {
+    let $table = $(tableId);
     let data = $table.bootstrapTable('getData');
 
     data[index][field] = input.value;
 }
+
 
 let eqpSoftwareColumn = [
     createColumn('',                            true,  ''),
@@ -78,7 +84,7 @@ $(function(){
     })
 
     $('#eqpHardwareSelectTable').bootstrapTable({
-        columns: eqpHardwareColumn,
+        columns: eqpHardwareSelectColumn,
         data: [],
         pageSize: 5, pagination: true,
         onClickCell: function(field, value, row, $element) {
@@ -161,6 +167,16 @@ function addEquipmentHardwareRow(){
 
                     $("#eqpHardwareTotalCnt").text("총 " + res.total + "건")
 
+                    let selectedRows = $('#eqpHardwareSelectTable').bootstrapTable('getData');
+                    if (selectedRows.length > 0) {
+                        res.rows.forEach((row, index) => {
+                            let matchedRow = selectedRows.find(selected => selected.eqp_manage_id === row.eqp_manage_id);
+                            if (matchedRow) {
+                                $('#eqpHardwareTable').bootstrapTable('updateRow', { index: index, row: matchedRow });
+                                $('#eqpHardwareTable').bootstrapTable('check', index);
+                            }
+                        });
+                    }
                 },
                 onClickCell: function(field, value, row, $element) {
                     let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');

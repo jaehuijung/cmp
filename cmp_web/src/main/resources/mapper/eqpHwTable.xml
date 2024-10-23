@@ -126,18 +126,19 @@
         /* getEquipmentHardwareList ...
             H/W관리 > 장비목록 > 추가/수정 > H/W 장비 목록 리스트  */
         select
-            A.eqp_manage_id , /* 관리번호 */
-            A.eqp_name , /* 구성자원명 */
-            A.model_name , /* 모델명 */
-            A.host_name , /* 호스트명 */
-            A.m_company , /* 제조사 */
-            A.primary_operator , /* 운영담당자 */
+            A.eqp_manage_id ,               /* 관리번호 */
+            A.eqp_name ,                    /* 구성자원명 */
+            A.model_name ,                  /* 모델명 */
+            A.host_name ,                   /* 호스트명 */
+            A.m_company ,                   /* 제조사 */
+            A.primary_operator ,            /* 운영담당자 */
             A.primary_outsourced_operator , /* 위탁운영담당자 */
-            ec.config_category ,  /* 구성분류 */
-            ec.asset_category , /* 자산분류 */
-            ec.sub_category , /* 자산세부분류 */
-            ec.detail_category , /* 자산상세분류 */
-            ed.installation_coordinates /* 설치좌표 */
+            ec.config_category ,            /* 구성분류 */
+            ec.asset_category ,             /* 자산분류 */
+            ec.sub_category ,               /* 자산세부분류 */
+            ec.detail_category ,            /* 자산상세분류 */
+            ed.installation_coordinates,    /* 설치좌표 */
+            '' port_number                  /* 포트번호 */
         from
             equipment_basic A
         join
