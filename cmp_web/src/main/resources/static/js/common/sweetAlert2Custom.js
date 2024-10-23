@@ -13,7 +13,8 @@ function alert2(title, html, icon, confirmButtonText, callback) {
         title: title,
         html: html,
         icon: icon,
-        confirmButtonText: confirmButtonText
+        confirmButtonText: confirmButtonText,
+        heightAuto: false,
     }).then((result) => {
         if(result.isConfirmed){
             if (typeof callback === 'function') {
@@ -52,7 +53,8 @@ function alert3(type) {
         title: title,
         html: html,
         allowOutsideClick: false,
-        showConfirmButton: false
+        showConfirmButton: false,
+        heightAuto: false
     });
 }
 
