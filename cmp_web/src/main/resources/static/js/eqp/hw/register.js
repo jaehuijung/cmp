@@ -123,10 +123,13 @@ function setDefaultDates() {
     });
 }
 
+
+
 /*
     하드웨어 등록정보 관련 ... 나중에 주석 추가
 */
 function addEquipmentHardwareRow(){
+    let selectedEqpHardware = [];
     Swal.fire({
         title: 'H/W 장비 연결정보',
         html: generateEquipmentHardwareRowHTML(),
@@ -148,7 +151,7 @@ function addEquipmentHardwareRow(){
                     params.searchData = { searchInput };
                     return params;
                 },
-                pageSize: 5, columns: eqpHardwareColumn, cache: false, undefinedText: "",
+                pageSize: 10, columns: eqpHardwareColumn, cache: false, undefinedText: "",
                 pagination: true, sidePagination: 'server', checkboxHeader: true,
                 classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
                 responseHandler: function(res) {
@@ -177,22 +180,34 @@ function addEquipmentHardwareRow(){
                             }
                         });
                     }
+
+                    res.rows.forEach((row, index) => {
+                        if (selectedEqpHardware.find(selected => selected.eqp_manage_id === row.eqp_manage_id)) {
+                            $('#eqpHardwareTable').bootstrapTable('check', index);
+                        }
+                    });
                 },
                 onClickCell: function(field, value, row, $element) {
                     let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
                     if (($checkbox.length) && (field != 'port_number')) {
                         $checkbox.click();
                     }
-                }
+                },
+                onCheck: function(row) {
+                    selectedEqpHardware.push(row);
+                },
+                onUncheck: function(row) {
+                    selectedEqpHardware = selectedEqpHardware.filter(selected => selected.eqp_manage_id !== row.eqp_manage_id);
+                },
             });
         }
     }).then((result) => {
         if (result.isConfirmed) {
-            let selectedRows = $('#eqpHardwareTable').bootstrapTable('getSelections');
-            if (selectedRows.length > 0) {
-                $('#eqpHardwareSelectTable').bootstrapTable('append', selectedRows);
+            if (selectedEqpHardware.length > 0) {
+                $('#eqpHardwareSelectTable').bootstrapTable('removeAll');
+                $('#eqpHardwareSelectTable').bootstrapTable('append', selectedEqpHardware);
                 $('#eqpHardwareSelectTable').bootstrapTable('uncheckAll');
-                $("#eqpHardwareSelectTotalCnt").text("총 " + selectedRows.length + "건")
+                $("#eqpHardwareSelectTotalCnt").text("총 " + selectedEqpHardware.length + "건");
             } else {
                 alert2('알림', '선택된 항목이 없습니다.', 'error', '확인');
             }
@@ -256,7 +271,7 @@ function addEquipmentSoftwareRow(){
                     params.searchData = { searchInput };
                     return params;
                 },
-                pageSize: 5, columns: eqpSoftwareColumn, cache: false, undefinedText: "",
+                pageSize: 10, columns: eqpSoftwareColumn, cache: false, undefinedText: "",
                 pagination: true, sidePagination: 'server', checkboxHeader: true,
                 classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
                 responseHandler: function(res) {
@@ -275,6 +290,15 @@ function addEquipmentSoftwareRow(){
 
                     $("#eqpSoftwareTotalCnt").text("총 " + res.total + "건")
 
+                    let selectedRows = $('#eqpSoftwareSelectTable').bootstrapTable('getData');
+                    if (selectedRows.length > 0) {
+                        res.rows.forEach((row, index) => {
+                            let matchedRow = selectedRows.find(selected => selected.eqp_manage_id === row.eqp_manage_id);
+                            if (matchedRow) {
+                                $('#eqpSoftwareTable').bootstrapTable('check', index);
+                            }
+                        });
+                    }
                 },
                 onClickCell: function(field, value, row, $element) {
                     let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
@@ -289,6 +313,8 @@ function addEquipmentSoftwareRow(){
             let selectedRows = $('#eqpSoftwareTable').bootstrapTable('getSelections');
             if (selectedRows.length > 0) {
                 $('#eqpSoftwareSelectTable').bootstrapTable('append', selectedRows);
+                $('#eqpSoftwareSelectTable').bootstrapTable('uncheckAll');
+                $("#eqpSoftwareSelectTableCnt").text("총 " + selectedRows.length + "건");
             } else {
                 alert2('알림', '선택된 항목이 없습니다.', 'error', '확인');
             }
@@ -319,6 +345,9 @@ function deleteEquipmentSoftwareRow(){
             field: 'eqp_manage_id',
             values: eqp_manage_id
         });
+
+        let rows = $table.bootstrapTable('getData');
+        $("#eqpSoftwareSelectTableCnt").text("총 " + rows.length + "건")
     } else {
         alert2('알림', '선택된 항목이 없습니다.', 'error', '확인');
     }
