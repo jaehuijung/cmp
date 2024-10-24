@@ -152,4 +152,17 @@ public class lineManageController {
     public Map<String, Object> delete(@RequestBody List<Map<String, Object>> deleteList) {
         return lineManageService.deleteLineList(deleteList);
     }
+
+
+    /**
+     *
+     * @param selections
+     * @param model
+     * @return
+     */
+    @PostMapping("/qr-print")
+    public String qrPrint(@RequestBody List<Map<String, Object>> paramMap, Model model) {
+        model.addAttribute("selections", paramMap);
+        return "qrPrint :: content";
+    }
 }

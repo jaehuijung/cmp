@@ -460,3 +460,28 @@ function QRMinusFunction(){
 	document.getElementById('printRange').value = zoom;
 }
 
+
+
+// qr page loading
+function QRLoad(){
+    let labelList = $("#lineTable").bootstrapTable("getSelections");
+
+    if(labelList.length === 0){
+        alert('알림', 'pdf로 출력할 선번장을 선택해주세요.', 'info', '확인');
+        return false;
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "/rack/line/qrLoad",
+        contentType: "application/json",
+        data: JSON.stringify(labelList),
+        success: function(result){
+            let newWindow = window.open("", "_blank", "width=900,height=800,menubar=no,toolbar=no,location=no,status=no");
+            newWindow.document.write(result);
+        },
+        error: function(err){
+            console.error('Error:', err);
+        }
+    });
+}
