@@ -303,9 +303,7 @@ function saveData() {
         confirmButtonText: '저장',
         cancelButtonText: '취소',
         showCancelButton: true,
-        customClass: {
-            popup: 'custom-width'
-        },
+        heightAuto: false,
     }).then((result) => {
         if (result.isConfirmed) {
             alert3("save");
