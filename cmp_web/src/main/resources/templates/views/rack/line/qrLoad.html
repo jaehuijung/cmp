@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>QR Print</title>
+        <style>
+            .printWrap {
+                display: flex;
+                align-items: center;
+                margin-bottom: 10px;
+            }
+            .printImgWrap {
+                display: flex;
+                align-items: center;
+                background: yellow;
+            }
+            .printImg {
+                width: 50px;
+                height: 50px;
+                margin: 0 5px;
+            }
+            .printInfoWrap {
+                margin: 0 10px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <header>
+            <hr id="sep">
+            <div id="QRPrintHead">
+                <input type="button" class="printBtn" value="-" onClick="QRMinusFunction();">
+                <input type="range"  id="printRange" value="1" min="1" max="3" step="0.01" oninput="QRPlusMinusFunction(this.value);"/>
+                <input type="button" class="printBtn" value="+" onClick="QRPlusFunction();">
+                <input type="button" class="printBtn" value="저장" onClick="QRPrintFunction();">
+            </div>
+            <hr id="sep" style="margin:20px 0px;">
+        </header>
+        <div class="QRPrintWrap" id="QRPrintWrap">
+            <div th:each="item : ${selections}">
+                <div class="printWrap">
+                    <div class="printImgWrap">
+                        <img src="/images/char_S.png" alt="start 이미지" class="printImg">
+                        <img th:src="@{${item.qr_image_location}}" alt="QR 이미지" class="printImg">
+                        <div class="printInfoWrap">
+                            <div class="infoLabel">
+                                <span th:text="'[' + ${item.s_installation_coordinates} + ']' + ' ' + ${item.s_eqp_manage_id} + ' - ' + ${item.s_host_name} + ' - Fe1'"></span>
+                            </div>
+                        </div>
+                        <img src="/images/char_split.png" alt="split 이미지" class="printImg">
+                        <div class="printInfoWrap">
+                            <div class="infoLabel">
+                                <span th:text="'[' + ${item.e_installation_coordinates} + ']' + ' ' + ${item.e_eqp_manage_id} + ' - ' + ${item.e_host_name} + ' - Fe1'"></span>
+                            </div>
+                        </div>
+                        <img th:src="@{${item.qr_image_location}}" alt="QR 이미지" class="printImg">
+                        <img src="/images/char_E.png" alt="end 이미지" class="printImg">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <th:block layout:fragment="script">
+        <script th:src="@{/assets/vendor/jquery/jquery.min.js}"></script>
+        <script th:src="@{/js/rack/line/qrLoad.js}"></script>
+    </th:block>
+
+    </body>
+
+</html>

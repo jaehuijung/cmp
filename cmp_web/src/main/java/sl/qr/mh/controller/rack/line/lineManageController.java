@@ -156,13 +156,10 @@ public class lineManageController {
 
     /**
      *
-     * @param selections
-     * @param model
-     * @return
      */
-    @PostMapping("/qr-print")
+    @PostMapping("/qrLoad")
     public String qrPrint(@RequestBody List<Map<String, Object>> paramMap, Model model) {
         model.addAttribute("selections", paramMap);
-        return "qrPrint :: content";
+        return "views/rack/line/qrLoad";
     }
 }
