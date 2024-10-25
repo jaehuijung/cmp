@@ -10,6 +10,9 @@
         /* getEquipmentTotalCommon...
            장비 목록 리스트 검색용 쿼리 */
         AND A.is_deleted = 'N'
+        <if test="eqp_manage_id != null and eqp_manage_id != ''">
+            AND A.eqp_manage_id = #{eqp_manage_id}
+        </if>
         <if test="searchInput != null and searchInput != ''">
             AND (
             BINARY A.eqp_manage_id                  Like CONCAT('%', #{searchInput}, '%') OR
@@ -181,12 +184,63 @@
     <select id="getEquipmentDetailHardwareList" parameterType="Map" resultType="Map">
         /* getEquipmentDetailHardwareList ...
             H/W관리 > 장비목록 > 수정 / 상세 > 선택된 H/W 장비에 등록된 H/W 장비 목록 리스트 개수 */
-
+        select
+            A.eqp_manage_id ,               /* 관리번호 */
+            A.eqp_name ,                    /* 구성자원명 */
+            A.model_name ,                  /* 모델명 */
+            A.host_name ,                   /* 호스트명 */
+            A.m_company ,                   /* 제조사 */
+            A.primary_operator ,            /* 운영담당자 */
+            A.primary_outsourced_operator , /* 위탁운영담당자 */
+            ec.config_category ,            /* 구성분류 */
+            ec.asset_category ,             /* 자산분류 */
+            ec.sub_category ,               /* 자산세부분류 */
+            ec.detail_category ,            /* 자산상세분류 */
+            ed.installation_coordinates,    /* 설치좌표 */
+            erh.port_number                 /* 포트번호 */
+        from
+            equipment_basic A
+        join
+            equipment_detail ed
+            on A.eqp_manage_id = ed.eqp_manage_id
+        join
+            equipment_categories ec
+            on A.config_id = ec.config_id
+            and A.asset_id = ec.asset_id
+            and A.sub_id = ec.sub_id
+            and A.detail_id = ec.detail_id
+        join
+            equipment_regist_hw erh
+            on A.eqp_manage_id = erh.eqp_manage_id
+        where 1=1
+            <include refid="getEquipmentTotalCommon"/>
+        ORDER BY
+            A.eqp_manage_id desc
+        LIMIT
+            #{offset},#{limit}
     </select>
 
     <select id="getEquipmentDetailHardwareListCnt" parameterType="Map" resultType="int">
         /* getEquipmentDetailHardwareListCnt ...
             H/W관리 > 장비목록 > 수정 / 상세 > 선택된 H/W 장비에 등록된 H/W 장비 목록 리스트 개수 */
+        select
+            count(A.eqp_manage_id)
+        from
+            equipment_basic A
+        join
+            equipment_detail ed
+            on A.eqp_manage_id = ed.eqp_manage_id
+        join
+            equipment_categories ec
+            on A.config_id = ec.config_id
+            and A.asset_id = ec.asset_id
+            and A.sub_id = ec.sub_id
+            and A.detail_id = ec.detail_id
+        join
+            equipment_regist_hw erh
+            on A.eqp_manage_id = erh.eqp_manage_id
+        where 1=1
+        <include refid="getEquipmentTotalCommon"/>
     </select>
 
 
@@ -236,47 +290,44 @@
             AND A.detail_id = ec.detail_id
         WHERE 1=1
         <include refid="getEquipmentTotalCommon"/>
-        ORDER BY
-            A.eqp_manage_id desc
     </select>
 
     <select id="getEquipmentDetailSoftwareList" parameterType="Map" resultType="Map">
         /* getEquipmentDetailSoftwareList ...
             H/W관리 > 장비목록 > 수정 / 상세 > 선택된 H/W 장비에 등록된 S/W 장비 목록 리스트  */
         select
-            A.eqp_manage_id                   /* 장비 관리번호 */
-            , A.eqp_name                      /* 장비명 */
-            , A.host_name                     /* 호스트명 */
-            , A.model_name                    /* 모델명 */
-            , A.m_company                     /* 제조사 */
+            esb.eqp_manage_id                   /* 장비 관리번호 */
+            , esb.eqp_name                      /* 장비명 */
+            , esb.host_name                     /* 호스트명 */
+            , esb.model_name                    /* 모델명 */
+            , esb.m_company                     /* 제조사 */
             , case
-                when A.dependent_config = '1' then '공개'
-                when A.dependent_config = '2' then '상용'
+                when esb.dependent_config = '1' then '공개'
+                when esb.dependent_config = '2' then '상용'
              end dependent_config /* 종속 SW 여부 */
             , ec.asset_category               /* 자산분류 */
-            , A.primary_operator              /* 운영담당자(정) */
-            , A.secondary_operator            /* 운영담당자(부) */
-            , A.primary_outsourced_operator   /* 위탁운영사용자(정) */
-            , A.secondary_outsourced_operator /* 위탁운영사용자(부) */
+            , esb.primary_operator              /* 운영담당자(정) */
+            , esb.secondary_operator            /* 운영담당자(부) */
+            , esb.primary_outsourced_operator   /* 위탁운영사용자(정) */
+            , esb.secondary_outsourced_operator /* 위탁운영사용자(부) */
         from
-            equipment_basic eb
+            equipment_basic A
+        join
+            equipment_regist_sw ers
+            on A.eqp_manage_id = ers.hw_manage_id
+        join
+            equipment_sw_basic esb
+            on ers.sw_manage_id = esb.eqp_manage_id
         join
             equipment_categories ec
-            on eb.config_id  = ec.config_id
-            AND eb.asset_id  = ec.asset_id
-            AND eb.sub_id    = ec.sub_id
-            AND eb.detail_id = ec.detail_id
-        join
-            equipment_regist_sw  ers
-            on eb.eqp_manage_id = ers.hw_manage_id
-        join
-            equipment_sw_basic A
-            on ers.sw_manage_id = A.eqp_manage_id
+            on  esb.config_id  = ec.config_id
+            AND esb.asset_id  = ec.asset_id
+            AND esb.sub_id    = ec.sub_id
+            AND esb.detail_id = ec.detail_id
         WHERE 1=1
-            AND eb.eqp_manage_id = #{eqp_manage_id}
         <include refid="getEquipmentTotalCommon"/>
         ORDER BY
-            A.eqp_manage_id desc
+            esb.eqp_manage_id desc
         LIMIT
             #{offset},#{limit}
     </select>
@@ -301,7 +352,6 @@
             equipment_sw_basic A
             on ers.sw_manage_id = A.eqp_manage_id
         WHERE 1=1
-            AND eb.eqp_manage_id = #{eqp_manage_id}
             <include refid="getEquipmentTotalCommon"/>
     </select>
 
@@ -415,15 +465,15 @@
     <insert id="insertEquipmentHardware" parameterType="map">
         /* insertEquipmentHardware...
             H/W관리 > 장비목록 > 추가/수정 > 장비 저장 : 연결정보 */
-        insert into equipment_connect (
+        insert into equipment_regist_hw (
             eqp_manage_id,
             eqp_link_manage_id,
-            port
+            port_number
         )
         values(
             #{eqp_manage_id},
             #{eqp_link_manage_id},
-            #{port}
+            #{port_number}
         )
     </insert>
 

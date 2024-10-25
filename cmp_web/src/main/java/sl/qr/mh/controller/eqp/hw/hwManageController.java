@@ -63,7 +63,7 @@ public class hwManageController {
     }
 
     /**
-     * H/W관리 > 장비목록 > 수정 / 상세 > 선택된 H/W 장비에 등록된 h/W 장비 목록 리스트
+     * H/W관리 > 장비목록 > 수정 / 상세 > 선택된 H/W 장비에 등록된 H/W 장비 목록 리스트
      *
      * @param paramMap 요청 파라미터 맵
      * @return sw 장비 목록 데이터 및 기타 메타 정보
@@ -76,18 +76,6 @@ public class hwManageController {
 
 
     /**
-     * H/W관리 > 장비목록 > 추가/수정 > S/W 장비 목록 리스트
-     *
-     * @param paramMap 요청 파라미터 맵
-     * @return sw 장비 목록 데이터 및 기타 메타 정보
-     */
-    @ResponseBody
-    @PostMapping("/equipmentSoftwareList")
-    public Map<String, Object> getEquipmentSoftwareList(@RequestBody Map<String, Object> paramMap) {
-        return hwManageService.getEquipmentSoftwareList(paramMap);
-    }
-
-    /**
      * H/W관리 > 장비목록 > 수정 / 상세 > 선택된 H/W 장비에 등록된 S/W 장비 목록 리스트
      *
      * @param paramMap 요청 파라미터 맵
@@ -97,6 +85,18 @@ public class hwManageController {
     @PostMapping("/equipmentDetailSoftwareList")
     public Map<String, Object> getEquipmentDetailSoftwareList(@RequestBody Map<String, Object> paramMap) {
         return hwManageService.getEquipmentDetailSoftwareList(paramMap);
+    }
+
+    /**
+     * H/W관리 > 장비목록 > 추가/수정 > S/W 장비 목록 리스트
+     *
+     * @param paramMap 요청 파라미터 맵
+     * @return sw 장비 목록 데이터 및 기타 메타 정보
+     */
+    @ResponseBody
+    @PostMapping("/equipmentSoftwareList")
+    public Map<String, Object> getEquipmentSoftwareList(@RequestBody Map<String, Object> paramMap) {
+        return hwManageService.getEquipmentSoftwareList(paramMap);
     }
 
     /**
@@ -148,18 +148,6 @@ public class hwManageController {
             return "views/error/error";
         }
     }
-
-    /**
-     * H/W관리 > 장비목록 > 수정 / 상세 > 장비 연결정보 데이터
-     *
-     * @return 장비 연걸정보 리스트
-     */
-    @ResponseBody
-    @PostMapping("/selectEqpLinkList")
-    public Map<String, Object> getEquipmentLinkList(@RequestBody Map<String, Object> paramMap) {
-        return hwManageService.getEqpLinkList(paramMap);
-    }
-
 
     /**
      * H/W관리 > 장비목록 > 수정 뷰 페이지

@@ -1,11 +1,5 @@
-let eqpLinkColumn = [
-    { field: 'host',         title: '호스트명'  , formatter: inputEqpLinkFormatter },
-    { field: 'ip_address',   title: 'IP 주소'   , formatter: inputEqpLinkFormatter },
-    { field: 'port',         title: '포트'      , formatter: inputEqpLinkFormatter }
-];
 
-// cable table column creation function
-function createColumn(field, checkbox = false, title, type = 'default') {
+function createColumn(field, checkbox = false, title, type = '', formatter = '') {
     let column = {
         title: title,
         field: field,
@@ -23,6 +17,20 @@ function createColumn(field, checkbox = false, title, type = 'default') {
     return column;
 }
 
+let eqpHardwareColumn = [
+    createColumn('', true, ''),
+    createColumn('asset_category', false, '자산분류'),
+    createColumn('installation_coordinates', false, '설치좌표'),
+    createColumn('eqp_manage_id', false, '관리번호'),
+    createColumn('m_company', false, '제조사'),
+    createColumn('model_name', false, '모델명'),
+    createColumn('host_name', false, '호스트명'),
+    createColumn('eqp_name', false, '구성자원명'),
+    createColumn('primary_operator', false, '운영담당자'),
+    createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
+    createColumn('port_number', false, '포트번호', '')
+];
+
 let eqpSoftwareColumn = [
     createColumn('asset_category',              false, '자산분류'),
     createColumn('eqp_manage_id',               false, '관리번호'),
@@ -39,8 +47,8 @@ $(function(){
 
     addComma(document.getElementById("acquisition_cost")); // 도입금액 콤마처리
 
-    $('#eqpLinkTable').bootstrapTable({
-        url: '/eqp/hw/selectEqpLinkList',
+    $('#eqpHardwareSelectTable').bootstrapTable({
+        url: '/eqp/hw/equipmentDetailHardwareList',
         method: 'post',
         queryParams: function(params) {
             let eqp_manage_id = $("#eqp_manage_id").val();
@@ -49,7 +57,7 @@ $(function(){
             }
             return params;
         },
-        pageSize: 5, columns: eqpLinkColumn, cache: false, undefinedText: "",
+        pageSize: 5, columns: eqpHardwareColumn, cache: false, undefinedText: "",
         pagination: true, sidePagination: 'server', checkboxHeader: true,
         classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
         responseHandler: function(res) {
@@ -63,9 +71,13 @@ $(function(){
             let errorCode = res.errorCode;
             if (!errorCode){
                 alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+                return;
             }
+
+            old_eqpLinkData = JSON.parse(JSON.stringify(res.rows));
         },
     });
+
 
     $('#eqpSoftwareSelectTable').bootstrapTable({
         url: '/eqp/hw/equipmentDetailSoftwareList',
