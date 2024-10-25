@@ -483,6 +483,10 @@ function saveData() {
     data["categories"] = $("#categories").val(); // 장비 추가 시 서버에서 관리번호 생성할 때 자산세부분류 사용
     data["config_id"] = "1"; // 구성분류 : H/W
 
+    // 얘네는 있을 수도 있고 없을 수도 있고
+    data["eqpHardwareSelectList"] = $("#eqpHardwareSelectTable").bootstrapTable("getData"); // 장비연결정보
+    data["eqpSoftwareSelectList"] = $("#eqpSoftwareSelectTable").bootstrapTable("getData");  // 소프트웨어 등록정보
+
     Swal.fire({
         title: '알림',
         html : '저장하시겠습니까?',

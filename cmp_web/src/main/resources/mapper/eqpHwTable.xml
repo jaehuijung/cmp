@@ -412,19 +412,17 @@
         )
     </insert>
 
-    <insert id="insertEquipmentLink" parameterType="map">
-        /* insertEquipmentLink...
+    <insert id="insertEquipmentHardware" parameterType="map">
+        /* insertEquipmentHardware...
             H/W관리 > 장비목록 > 추가/수정 > 장비 저장 : 연결정보 */
-        insert into equipment_link (
+        insert into equipment_connect (
             eqp_manage_id,
-            host,
-            ip_address,
+            eqp_link_manage_id,
             port
         )
         values(
             #{eqp_manage_id},
-            #{host},
-            #{ip_address},
+            #{eqp_link_manage_id},
             #{port}
         )
     </insert>

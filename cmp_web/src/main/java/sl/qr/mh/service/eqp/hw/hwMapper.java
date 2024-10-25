@@ -143,7 +143,7 @@ public interface hwMapper {
      *
      * @param paramMap 저장할 장비 데이터
      */
-    void insertEquipmentLink(Map<String, Object> paramMap);
+    void insertEquipmentHardware(Map<String, Object> paramMap);
 
     /**
      * H/W관리 > 장비목록 > 추가/수정 > 장비 저장 : 소프트웨어 정보

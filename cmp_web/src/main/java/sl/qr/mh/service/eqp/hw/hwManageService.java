@@ -265,6 +265,24 @@ public class hwManageService {
             hwMapper.insertEquipmentBasic(paramMap); // 장비 기본정보 저장
             hwMapper.insertEquipmentDetail(paramMap); // 장비 세부정보 저장
 
+            List<Map<String, Object>> eqpHardwareSelectList = (List<Map<String, Object>>) paramMap.get("eqpHardwareSelectList"); // 장비연결정보
+            if(eqpHardwareSelectList != null) {
+                for(Map<String, Object> selectList : eqpHardwareSelectList) {
+                    selectList.put("eqp_manage_id", paramMap.get("eqp_manage_id"));
+                    selectList.put("eqp_link_manage_id", selectList.get("eqp_manage_id"));
+                    hwMapper.insertEquipmentHardware(selectList);
+                }
+            }
+
+            List<Map<String, Object>> eqpSoftwareSelectList = (List<Map<String, Object>>) paramMap.get("eqpSoftwareSelectList"); // 소프트웨어 등록정보
+            if(eqpSoftwareSelectList != null) {
+                for(Map<String, Object> selectList : eqpSoftwareSelectList) {
+                    selectList.put("hw_manage_id", paramMap.get("eqp_manage_id"));
+                    selectList.put("sw_manage_id", selectList.get("eqp_manage_id"));
+                    hwMapper.insertEquipmentSoftware(selectList);
+                }
+            }
+
             /*
             List<Map<String, Object>> eqpLink = (List<Map<String, Object>>) paramMap.get("eqpLink");
             for (Map<String, Object> link : eqpLink) {
@@ -343,7 +361,7 @@ public class hwManageService {
             if(eqpLinkAdd != null) {
                 for(Map<String, Object> link : eqpLinkAdd) {
                     link.put("eqp_manage_id", paramMap.get("eqp_manage_id"));
-                    hwMapper.insertEquipmentLink(link);
+                    // hwMapper.insertEquipmentLink(link);
                 }
             }
             if(eqpLinkUpdate != null) {
