@@ -1,92 +1,128 @@
+
+/* 공통 */
+
+/* 부트스트랩 테이블 기본 */
 table {
     border-collapse: collapse;
     width: 100%;
 }
 
+/* 부트스트랩 테이블의 헤더와 본문의 모든 셀 스타일 설정 */
 th, td {
     border: 1px solid #ddd;
     padding: 8px;
 }
 
+/* 부트스트랩 테이블 헤더 셀 설정 */
 th {
     background-color: #f2f2f2;
     text-align: center;
+    font-weight: 500 !important;
+    color: #000;
+    text-decoration: none !important;
+    cursor: default !important;
 }
 
-tr:nth-child(even) {
-    background-color: #f9f9f9;
+/* 부트스트랩 테이블 좌측 끝 border 제거 */
+th:first-child,
+td:first-child {
+    border-left: none;
 }
 
+/* 부트스트랩 테이블 우측 끝 border 제거 */
+th:last-child,
+td:last-child {
+    border-right: none;
+}
+
+/* 부트스트랩 테이블 행 hover 효과 */
 tr:hover {
     background-color: #ddd;
 }
 
+/* 부트스트랩 설정된 width랑 상관없이 줄바꿈되지 않도록 해주는 클래스 */
 .nowrap {
     white-space: nowrap;
 }
 
+/* 부트스트랩 밑줄 클래스 */
 .underline {
     text-decoration: underline;
     transition: color 0.3s, filter 0.3s; font-weight 0.3s /* 부드러운 애니메이션 효과 추가 */
 }
 
 .underline:hover { /* 마우스 올림 */
-    color: blue;
-    font-weight: bold; /* 글자 굵게 */
-    cursor: pointer;   /* 마우스 커서를 클릭 모양으로 변경 */
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .underline:active { /* 마우스 클릭 */
     color: red;
 }
 
+/* 부트스트랩 선택된 row에 색을 입혀주는 클래스 */
 .selected-row {
     background-color: #FAE9A4 !important;
 }
 
+/* 부트스트랩 테이블 건 수 클래스 */
 .totalCnt {
     font-size: 14px;
     margin: 0px 0px 10px 0px;
     padding: 3px 8px;
 }
 
-.custom-width {
-    width: max-content;
-}
-
-
 /* 부트스트랩 체크박스 디자인 */
-.bs-checkbox input[type="checkbox"] {
-    appearance: none;         /* 기본 브라우저 스타일 제거 */
-    width: 20px;              /* 너비 설정 */
-    height: 20px;             /* 높이 설정 */
-    border: 1px solid #DADADA; /* 테두리 설정 */
-    position: relative;       /* 상대적 위치 */
-    cursor: pointer;          /* 커서 모양 */
-    outline: none;            /* 윤곽선 제거 */
+.bs-checkbox input[type="checkbox"] { /* 기본 브라우저 스타일 제거 */
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #DADADA;
+    position: relative;
+    cursor: pointer;
+    outline: none;
 }
 
-.bs-checkbox input[type="checkbox"]:checked {
-    background-color: #014188; /* 체크된 상태의 배경색 */
-    border: 2px solid #014188; /* 체크된 상태의 테두리색 */
+.bs-checkbox input[type="checkbox"]:checked { /* 체크된 상태 */
+    background-color: #014188;
+    border: 2px solid #014188;
 }
 
-.bs-checkbox input[type="checkbox"]:checked::after {
-    content: '';              /* 체크 표시 */
+.bs-checkbox input[type="checkbox"]:checked::after { /* 체크박스 내부에 v 표시 */
+    content: '';
     position: absolute;
-    top: 2px;                /* 체크 표시의 위치 설정 */
-    left: 5px;               /* 체크 표시의 위치 설정 */
-    width: 6px;              /* 체크 표시의 너비 */
-    height: 10px;            /* 체크 표시의 높이 */
-    border: solid white;     /* 체크 표시의 색상 */
-    border-width: 0 2px 2px 0; /* 체크 표시의 두께 */
-    transform: rotate(45deg); /* 체크 표시의 회전 각도 */
+    top: 2px;
+    left: 5px;
+    width: 6px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
 }
 
 
+/* 선번장관리 */
 
+/* 선번장관리 구분 필드 컬럼명 색상 변경 */
+#lineTable thead tr:first-child th:nth-child(1) {
+    background: #D7DBE3;
+    color: #000;
+}
 
+/* 선번장관리 출발지 필드 컬럼명 색상 변경 */
+#lineTable thead tr:first-child th:nth-child(2) {
+    background: #1CA1A5;
+    color: #fff;
+}
 
+/* 선번장관리 목적지 필드 컬럼명 색상 변경 */
+#lineTable thead tr:first-child th:nth-child(3) {
+    background: #3F95BE;
+    color: #fff;
+}
 
-
-
+/* 선번장관리 회선 필드 컬럼명 색상 변경 */
+#lineTable thead tr:first-child th:nth-child(4) {
+    background: #7B8BA2;
+    color: #fff;
+}
