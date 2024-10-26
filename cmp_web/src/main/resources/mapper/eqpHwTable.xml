@@ -151,6 +151,9 @@
             and A.sub_id = ec.sub_id
             and A.detail_id = ec.detail_id
         where 1=1
+        <if test="eqp_manage_id != null and eqp_manage_id != ''">
+            and A.eqp_manage_id != #{eqp_manage_id}
+        </if>
         <include refid="getEquipmentTotalCommon"/>
         ORDER BY
             A.eqp_manage_id desc
@@ -175,6 +178,9 @@
             and A.sub_id = ec.sub_id
             and A.detail_id = ec.detail_id
         where 1=1
+        <if test="eqp_manage_id != null and eqp_manage_id != ''">
+            and A.eqp_manage_id != #{eqp_manage_id}
+        </if>
         <include refid="getEquipmentTotalCommon"/>
     </select>
 

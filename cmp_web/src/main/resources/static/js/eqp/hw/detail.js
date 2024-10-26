@@ -18,7 +18,6 @@ function createColumn(field, checkbox = false, title, type = '', formatter = '')
 }
 
 let eqpHardwareColumn = [
-    createColumn('', true, ''),
     createColumn('asset_category', false, '자산분류'),
     createColumn('installation_coordinates', false, '설치좌표'),
     createColumn('eqp_manage_id', false, '관리번호'),

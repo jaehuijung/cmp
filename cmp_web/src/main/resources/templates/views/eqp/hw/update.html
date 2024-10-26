@@ -18,15 +18,6 @@
                 </div>
                 <div>
                     <div class="equipment-wrap">
-<!--                        <div class="equipment-item">-->
-<!--                            <label for="config_id">구성분류:</label>-->
-<!--                            <select id="config_id" name="config_id">-->
-<!--                                <option th:each="category : ${config_category}"-->
-<!--                                        th:value="${category['id']}"-->
-<!--                                        th:text="${category['name']}"-->
-<!--                                        th:selected="${category['id'] == equipment.config_id}"></option>-->
-<!--                            </select>-->
-<!--                        </div>-->
                         <div class="equipment-item">
                             <label for="asset_id">자산분류:</label>
                             <select id="asset_id" name="asset_id">
@@ -235,54 +226,21 @@
                             <input type="date" id="eos_status" name="eos_status" th:value="${equipment.eos_status}" />
                         </div>
                     </div>
-                    <!--
-                    <div class="equipment-wrap">
-                        <div class="equipment-item">
-                            <label for="asset_acquisition_date">자산취득일자:</label>
-                            <input type="date" id="asset_acquisition_date" name="asset_acquisition_date" th:value="${equipment.asset_acquisition_date}" />
-                        </div>
-                        <div class="equipment-item">
-                            <label for="eol_status">단종상태(EOL):</label>
-                            <input type="date" id="eol_status" name="eol_status" th:value="${equipment.eol_status}" />
-                        </div>
-                    </div>
-                    <div class="equipment-wrap">
-                        <div class="equipment-item">
-                            <label for="asset_disposal_date">자산폐기일자:</label>
-                            <input type="date" id="asset_disposal_date" name="asset_disposal_date" th:value="${equipment.asset_disposal_date}" />
-                        </div>
-                        <div class="equipment-item">
-                            <label for="eos_status">단종상태(EOS):</label>
-                            <input type="date" id="eos_status" name="eos_status" th:value="${equipment.eos_status}" />
-                        </div>
-                    </div>
-                    -->
                 </div>
             </div>
 
-            <!-- 장비연결정보 -->
-            <div id="section-equipment-connection-info">
-                <div class="section-equipment-title">
+            <!-- 선택된 하드웨어 등록정보 -->
+            <div id="section-equipment-connection-select-info">
+                <div class="section-line-title">
                     <h2>장비연결정보</h2>
                     <div style="margin-left: 20px;">
-                        <button type="button" style="width: 40px; height: 30px; font-size: 12px; padding: 0;" onclick="addEqpLinkRow()">추가</button>
-                        <button type="button" style="width: 40px; height: 30px; font-size: 12px; padding: 0;" onclick="deleteEqpLinkRow()">삭제</button>
+                        <button type="button" style="width: 40px; height: 30px; font-size: 12px; padding: 0;" onclick="addEquipmentHardwareRow()">추가</button>
+                        <button type="button" style="width: 40px; height: 30px; font-size: 12px; padding: 0;" onclick="deleteEquipmentHardwareRow()">삭제</button>
                     </div>
-                </div>
-                <div class="tbl-bootstrap-wrap">
-                    <table id="eqpLinkTable"></table>
-                </div>
-            </div>
-
-
-            <!-- 소프트웨어 등록정보 -->
-            <div id="section-equipment-software-info">
-                <div class="section-equipment-title">
-                    <h2>소프트웨어 등록정보 선택 (팝업으로 변경예정)</h2>
                 </div>
                 <div style="display: flex; justify-content: space-between;">
                     <div style="display: flex; align-items: flex-end;">
-                        <p class="totalCnt" id="eqpSoftwareTotalCnt"></p>
+                        <p class="totalCnt" id="eqpHardwareSelectTotalCnt">총 0건</p>
                     </div>
                     <div class="searchWordWrap" style="display: flex; align-items: center; margin-bottom: 10px;">
                         <div class="searchTitle">검색어</div>
@@ -293,7 +251,9 @@
                     </div>
                 </div>
                 <div class="tbl-bootstrap-wrap">
-                    <table id="eqpSoftwareTable"></table>
+                    <div class="tbl-bootstrap-wrap">
+                        <table id="eqpHardwareSelectTable"></table>
+                    </div>
                 </div>
             </div>
 
@@ -301,6 +261,10 @@
             <div id="section-equipment-software-select-info">
                 <div class="section-line-title">
                     <h2>소프트웨어 등록정보</h2>
+                    <div style="margin-left: 20px;">
+                        <button type="button" style="width: 40px; height: 30px; font-size: 12px; padding: 0;" onclick="addEquipmentSoftwareRow()">추가</button>
+                        <button type="button" style="width: 40px; height: 30px; font-size: 12px; padding: 0;" onclick="deleteEquipmentSoftwareRow()">삭제</button>
+                    </div>
                 </div>
                 <div style="display: flex; justify-content: space-between;">
                     <div style="display: flex; align-items: flex-end;">

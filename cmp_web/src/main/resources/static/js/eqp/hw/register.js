@@ -84,9 +84,10 @@ $(function(){
     })
 
     $('#eqpHardwareSelectTable').bootstrapTable({
-        columns: eqpHardwareSelectColumn,
         data: [],
-        pageSize: 5, pagination: true,
+        columns: eqpHardwareSelectColumn, pageSize: 5, pagination: true,
+        sidePagination: 'server', checkboxHeader: true, cache: false, undefinedText: "",
+        classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
         onClickCell: function(field, value, row, $element) {
             let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
             if (($checkbox.length) && (field != 'port_number')) {
@@ -96,9 +97,10 @@ $(function(){
     });
 
     $('#eqpSoftwareSelectTable').bootstrapTable({
-        columns: eqpSoftwareColumn,
         data: [],
-        pageSize: 5, pagination: true,
+        columns: eqpSoftwareColumn, pageSize: 5, pagination: true,
+        sidePagination: 'server', checkboxHeader: true, cache: false, undefinedText: "",
+        classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
         onClickCell: function(field, value, row, $element) {
             let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
             if (($checkbox.length) && (field != 'port_number')) {
@@ -200,6 +202,18 @@ function addEquipmentHardwareRow(){
                 },
                 onUncheck: function (row) {
                     selectedEqpHardware = selectedEqpHardware.filter(selected => selected.eqp_manage_id !== row.eqp_manage_id);
+                },
+                onCheckAll: function(rows) {
+                    rows.forEach(row => {
+                        if (!selectedEqpHardware.some(selected => selected.eqp_manage_id === row.eqp_manage_id)) {
+                            selectedEqpHardware.push(row);
+                        }
+                    });
+                },
+                onUncheckAll: function(rows) {
+                    rows.forEach(row => {
+                        selectedEqpHardware = selectedEqpHardware.filter(selected => selected.eqp_manage_id !== row.eqp_manage_id);
+                    });
                 }
             });
         }
@@ -322,6 +336,18 @@ function addEquipmentSoftwareRow(){
                 },
                 onUncheck: function (row) {
                     selectedEqpSoftware = selectedEqpSoftware.filter(selected => selected.eqp_manage_id !== row.eqp_manage_id);
+                },
+                onCheckAll: function(rows) {
+                    rows.forEach(row => {
+                        if (!selectedEqpSoftware.some(selected => selected.eqp_manage_id === row.eqp_manage_id)) {
+                            selectedEqpSoftware.push(row);
+                        }
+                    });
+                },
+                onUncheckAll: function(rows) {
+                    rows.forEach(row => {
+                        selectedEqpSoftware = selectedEqpSoftware.filter(selected => selected.eqp_manage_id !== row.eqp_manage_id);
+                    });
                 }
             });
         }
