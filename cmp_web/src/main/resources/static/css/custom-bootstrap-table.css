@@ -86,52 +86,7 @@ tr:hover {
 
 
 
-/* 페이지네이션 CSS */
-.pagination-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
 
-.pagination {
-    display: flex;
-    flex-wrap: wrap;
-    list-style: none;
-    padding: 0;
-}
 
-.pagination li {
-    margin: 0 2px;
-}
 
-.pagination li a {
-    color: #007bff;
-    text-decoration: none;
-    padding: 8px 12px;
-    border: 1px solid transparent;
-    border-radius: 0.25rem;
-    transition: background-color 0.2s;
-}
 
-.pagination li a:hover {
-    background-color: #ddd;
-    border-color: #ddd;
-}
-
-.pagination li a:focus {
-    outline: none;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-
-.pagination li.active a {
-    color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
-}
-
-.pagination li.disabled a {
-    color: #6c757d;
-    pointer-events: none;
-    background-color: inherit;
-    border-color: transparent;
-}
