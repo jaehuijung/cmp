@@ -249,7 +249,13 @@ function addEquipmentHardwareRow(){
             if (selectedEqpHardware.length > 0) {
                 $('#eqpHardwareSelectTable').bootstrapTable('removeAll');
                 $('#eqpHardwareSelectTable').bootstrapTable('append', selectedEqpHardware);
-                $('#eqpHardwareSelectTable').bootstrapTable('uncheckAll');
+
+                let totalPages = Math.ceil(selectedEqpHardware.length / $('#eqpHardwareSelectTable').bootstrapTable('getOptions').pageSize);
+                for (let page = totalPages; page > 0; page--) {
+                    $('#eqpHardwareSelectTable').bootstrapTable('selectPage', page);
+                    $('#eqpHardwareSelectTable').bootstrapTable('uncheckAll');
+                }
+
                 $("#eqpHardwareSelectTotalCnt").text("총 " + selectedEqpHardware.length + "건");
             } else {
                 alert2('알림', '선택된 항목이 없습니다.', 'error', '확인');
@@ -383,8 +389,14 @@ function addEquipmentSoftwareRow(){
             if (selectedEqpSoftware.length > 0) {
                 $('#eqpSoftwareSelectTable').bootstrapTable('removeAll');
                 $('#eqpSoftwareSelectTable').bootstrapTable('append', selectedEqpSoftware);
-                $('#eqpSoftwareSelectTable').bootstrapTable('uncheckAll');
-                $("#eqpSoftwareSelectTableCnt").text("총 " + selectedEqpSoftware.length + "건");
+
+                let totalPages = Math.ceil(selectedEqpSoftware.length / $('#eqpSoftwareSelectTable').bootstrapTable('getOptions').pageSize);
+                for (let page = totalPages; page > 0; page--) {
+                    $('#eqpSoftwareSelectTable').bootstrapTable('selectPage', page);
+                    $('#eqpSoftwareSelectTable').bootstrapTable('uncheckAll');
+                }
+
+                $("#eqpSoftwareSelectTotalCnt").text("총 " + selectedEqpSoftware.length + "건");
             } else {
                 alert2('알림', '선택된 항목이 없습니다.', 'error', '확인');
             }
@@ -417,7 +429,7 @@ function deleteEquipmentSoftwareRow(){
         });
 
         let rows = $table.bootstrapTable('getData');
-        $("#eqpSoftwareSelectTableCnt").text("총 " + rows.length + "건")
+        $("#eqpSoftwareSelectTotalCnt").text("총 " + rows.length + "건")
     } else {
         alert2('알림', '선택된 항목이 없습니다.', 'error', '확인');
     }
