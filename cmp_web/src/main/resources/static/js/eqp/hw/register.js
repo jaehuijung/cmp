@@ -220,7 +220,6 @@ function addEquipmentHardwareRow(){
             if (selectedEqpHardware.length > 0) {
                 $('#eqpHardwareSelectTable').bootstrapTable('removeAll');
                 $('#eqpHardwareSelectTable').bootstrapTable('append', selectedEqpHardware);
-                // $('#eqpHardwareSelectTable').bootstrapTable('uncheckAll');
 
                 let totalPages = Math.ceil(selectedEqpHardware.length / $('#eqpHardwareSelectTable').bootstrapTable('getOptions').pageSize);
                 for (let page = totalPages; page > 0; page--) {
@@ -361,7 +360,13 @@ function addEquipmentSoftwareRow(){
             if (selectedEqpSoftware.length > 0) {
                 $('#eqpSoftwareSelectTable').bootstrapTable('removeAll');
                 $('#eqpSoftwareSelectTable').bootstrapTable('append', selectedEqpSoftware);
-                $('#eqpSoftwareSelectTable').bootstrapTable('uncheckAll');
+
+                let totalPages = Math.ceil(selectedEqpSoftware.length / $('#eqpSoftwareSelectTable').bootstrapTable('getOptions').pageSize);
+                for (let page = totalPages; page > 0; page--) {
+                    $('#eqpSoftwareSelectTable').bootstrapTable('selectPage', page);
+                    $('#eqpSoftwareSelectTable').bootstrapTable('uncheckAll');
+                }
+
                 $("#eqpSoftwareSelectTableCnt").text("총 " + selectedEqpSoftware.length + "건");
             } else {
                 alert2('알림', '선택된 항목이 없습니다.', 'error', '확인');
