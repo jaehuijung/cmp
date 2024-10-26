@@ -367,7 +367,7 @@ function addEquipmentSoftwareRow(){
                     $('#eqpSoftwareSelectTable').bootstrapTable('uncheckAll');
                 }
 
-                $("#eqpSoftwareSelectTableCnt").text("총 " + selectedEqpSoftware.length + "건");
+                $("#eqpSoftwareSelectTotalCnt").text("총 " + selectedEqpSoftware.length + "건");
             } else {
                 alert2('알림', '선택된 항목이 없습니다.', 'error', '확인');
             }
@@ -400,7 +400,7 @@ function deleteEquipmentSoftwareRow(){
         });
 
         let rows = $table.bootstrapTable('getData');
-        $("#eqpSoftwareSelectTableCnt").text("총 " + rows.length + "건")
+        $("#eqpSoftwareSelectTotalCnt").text("총 " + rows.length + "건")
     } else {
         alert2('알림', '선택된 항목이 없습니다.', 'error', '확인');
     }
