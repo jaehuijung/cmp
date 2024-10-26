@@ -10,9 +10,6 @@
         /* getEquipmentTotalCommon...
            장비 목록 리스트 검색용 쿼리 */
         AND A.is_deleted = 'N'
-        <if test="eqp_manage_id != null and eqp_manage_id != ''">
-            AND A.eqp_manage_id = #{eqp_manage_id}
-        </if>
         <if test="searchInput != null and searchInput != ''">
             AND (
             BINARY A.eqp_manage_id                  Like CONCAT('%', #{searchInput}, '%') OR
@@ -211,9 +208,10 @@
             and A.detail_id = ec.detail_id
         join
             equipment_regist_hw erh
-            on A.eqp_manage_id = erh.eqp_manage_id
+            on A.eqp_manage_id = erh.eqp_link_manage_id
         where 1=1
-            <include refid="getEquipmentTotalCommon"/>
+            AND A.is_deleted = 'N'
+            AND erh.eqp_manage_id = #{eqp_manage_id}
         ORDER BY
             A.eqp_manage_id desc
         LIMIT
@@ -238,9 +236,10 @@
             and A.detail_id = ec.detail_id
         join
             equipment_regist_hw erh
-            on A.eqp_manage_id = erh.eqp_manage_id
+            on A.eqp_manage_id = erh.eqp_link_manage_id
         where 1=1
-        <include refid="getEquipmentTotalCommon"/>
+            AND A.is_deleted = 'N'
+            AND erh.eqp_manage_id = #{eqp_manage_id}
     </select>
 
 
@@ -325,7 +324,8 @@
             AND esb.sub_id    = ec.sub_id
             AND esb.detail_id = ec.detail_id
         WHERE 1=1
-        <include refid="getEquipmentTotalCommon"/>
+            AND A.is_deleted = 'N'
+            AND A.eqp_manage_id = #{eqp_manage_id}
         ORDER BY
             esb.eqp_manage_id desc
         LIMIT
@@ -352,7 +352,8 @@
             equipment_sw_basic A
             on ers.sw_manage_id = A.eqp_manage_id
         WHERE 1=1
-            <include refid="getEquipmentTotalCommon"/>
+            AND eb.is_deleted = 'N'
+            AND eb.eqp_manage_id = #{eqp_manage_id}
     </select>
 
     <select id="generateEquipmentManageId" parameterType="map" resultType="String">

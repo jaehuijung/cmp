@@ -273,8 +273,8 @@ public class hwManageService {
             List<Map<String, Object>> eqpHardwareSelectList = (List<Map<String, Object>>) paramMap.get("eqpHardwareSelectList"); // 장비연결정보
             if(eqpHardwareSelectList != null) {
                 for(Map<String, Object> selectList : eqpHardwareSelectList) {
-                    selectList.put("eqp_manage_id", paramMap.get("eqp_manage_id"));
                     selectList.put("eqp_link_manage_id", selectList.get("eqp_manage_id"));
+                    selectList.put("eqp_manage_id", paramMap.get("eqp_manage_id"));
                     hwMapper.insertEquipmentHardware(selectList);
                 }
             }

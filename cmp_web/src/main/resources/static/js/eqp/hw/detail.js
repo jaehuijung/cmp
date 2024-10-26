@@ -74,7 +74,7 @@ $(function(){
                 return;
             }
 
-            old_eqpLinkData = JSON.parse(JSON.stringify(res.rows));
+            $("#eqpHardwareSelectTotalCnt").text("총 " + res.total + "건")
         },
     });
 
