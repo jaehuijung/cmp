@@ -86,8 +86,6 @@ $(function(){
     $('#eqpHardwareSelectTable').bootstrapTable({
         data: [],
         columns: eqpHardwareSelectColumn, pageSize: 5, pagination: true,
-        sidePagination: 'server', checkboxHeader: true, cache: false, undefinedText: "",
-        classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
         onClickCell: function(field, value, row, $element) {
             let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
             if (($checkbox.length) && (field != 'port_number')) {
@@ -99,8 +97,6 @@ $(function(){
     $('#eqpSoftwareSelectTable').bootstrapTable({
         data: [],
         columns: eqpSoftwareColumn, pageSize: 5, pagination: true,
-        sidePagination: 'server', checkboxHeader: true, cache: false, undefinedText: "",
-        classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
         onClickCell: function(field, value, row, $element) {
             let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
             if (($checkbox.length) && (field != 'port_number')) {
@@ -132,6 +128,7 @@ function setDefaultDates() {
 */
 function addEquipmentHardwareRow(){
     let selectedEqpHardware = [];
+    let initLoadChk = false;
     Swal.fire({
         title: 'H/W 장비 연결정보',
         html: generateEquipmentHardwareRowHTML(),
@@ -188,6 +185,7 @@ function addEquipmentHardwareRow(){
                             $('#eqpHardwareTable').bootstrapTable('check', index);
                         }
                     });
+
                 },
                 onClickCell: function(field, value, row, $element) {
                     let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
@@ -222,7 +220,14 @@ function addEquipmentHardwareRow(){
             if (selectedEqpHardware.length > 0) {
                 $('#eqpHardwareSelectTable').bootstrapTable('removeAll');
                 $('#eqpHardwareSelectTable').bootstrapTable('append', selectedEqpHardware);
-                $('#eqpHardwareSelectTable').bootstrapTable('uncheckAll');
+                // $('#eqpHardwareSelectTable').bootstrapTable('uncheckAll');
+
+                let totalPages = Math.ceil(selectedEqpHardware.length / $('#eqpHardwareSelectTable').bootstrapTable('getOptions').pageSize);
+                for (let page = totalPages; page > 0; page--) {
+                    $('#eqpHardwareSelectTable').bootstrapTable('selectPage', page);
+                    $('#eqpHardwareSelectTable').bootstrapTable('uncheckAll');
+                }
+
                 $("#eqpHardwareSelectTotalCnt").text("총 " + selectedEqpHardware.length + "건");
             } else {
                 alert2('알림', '선택된 항목이 없습니다.', 'error', '확인');
