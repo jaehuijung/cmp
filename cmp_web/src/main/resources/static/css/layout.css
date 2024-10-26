@@ -478,20 +478,14 @@ header {
     flex-direction: column;
     align-items: flex-start;
     border-top: 1px solid #D4D9E0;
-    padding: 0px 0px 10px 10px;
+    padding: 20px 0px 20px 10px;
     background-color: #F7F8FB;
 }
 
-.searchSelectWrap,
-.searchWordWrap {
+.searchSelectWrap {
     display: flex;
     align-items: center;
     margin: 10px;
-}
-
-.searchWordInput {
-    display: flex;
-    align-items: center;
 }
 
 .searchSelect {
@@ -508,6 +502,18 @@ header {
     border-radius: 5px 0 0 5px;
 }
 
+.searchWordWrap {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    width: 60%;
+}
+
+.searchWordInput {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
 
 #searchInput {
     width: 500px;
@@ -516,6 +522,7 @@ header {
     border-radius: 5px 0 0 5px;
     height: 36px;
     font-size: 16px;
+    width: calc(100% - 120px);
 }
 
 #searchInput::placeholder {
