@@ -3,7 +3,11 @@
 /**
  * 선번장 목록 테이블(lineTable)을 새로고침하는 함수
  */
-function tableRefresh(){
+function tableRefresh(type = ''){
+    if (type === 'reset'){
+        $("#searchInput").val('');
+    }
+
     $("#lineTable").bootstrapTable('refresh');
 }
 

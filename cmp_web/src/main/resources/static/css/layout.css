@@ -525,7 +525,7 @@ header {
     color: #999;
 }
 
-.searchWordInput button {
+#searchButton {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -538,17 +538,51 @@ header {
     border-radius: 0 20px 20px 0;
     height: 36px;
     font-size: 16px;
-    width: 120px;
+    width: 130px;
 }
 
-.searchWordInput button::before {
+#searchButton:hover {
+    background-color: #1E5B9E;
+}
+
+#searchButton::before {
     content: '';
     display: inline-block;
-    // background: url('/images/icon/search2.png') no-repeat center;
     background: url('/images/icon/btn/search.svg') no-repeat center;
     background-size: contain;
     width: 20px;
     height: 20px;
+    margin-right: 10px;
+}
+
+#resetButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    padding: 0 15px;
+    background: #fff;
+    border: 1px solid #CACDDB;
+    outline: none;
+    cursor: pointer;
+    border-radius: 20px;
+    height: 36px;
+    font-size: 16px;
+    width: 150px;
+    margin-left: 10px;
+}
+
+#resetButton:hover {
+    background-color: #F0F0F0;
+}
+
+#resetButton::before {
+    content: '';
+    display: inline-block;
+    background: url('/images/icon/btn/reset.svg') no-repeat center;
+    background-size: contain;
+    width: 17px;
+    height: 17px;
     margin-right: 10px;
 }
 

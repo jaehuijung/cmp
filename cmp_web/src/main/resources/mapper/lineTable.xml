@@ -6,11 +6,42 @@
 
 <mapper namespace="sl.qr.mh.service.rack.line.lineMapper">
 
+    <sql id="getLineTotalCommon">
+        /* getLineTotalCommon...
+        장비 목록 리스트 검색용 쿼리 */
+        AND lb.is_deleted = 'N'
+        <if test="searchInput != null and searchInput != ''">
+            AND (
+            BINARY lb.line_manage_id                 Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY sec.asset_category            Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY sed.installation_coordinates      Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY seb.eqp_manage_id                 Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY seb.eqp_name                      Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY seb.model_name                    Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY seb.host_name                     Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY seb.m_company                     Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY lb.start_eqp_port                 Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY seb.primary_outsourced_operator   Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY seb.secondary_outsourced_operator Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY eec.asset_category                Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY eed.installation_coordinates      Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY eeb.eqp_manage_id                 Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY eeb.eqp_name                      Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY eeb.model_name                    Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY eeb.host_name                     Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY eeb.m_company                     Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY lb.end_eqp_port                   Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY eeb.primary_operator              Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY eeb.primary_outsourced_operator   Like CONCAT('%', #{searchInput}, '%')
+            )
+        </if>
+    </sql>
+
     <select id="getLineTotalList" parameterType="map" resultType="map">
         /** getLineTotalList ...
             선번장관리 > 선번장목록 > 리스트 목록 */
         select
-            lb.line_manage_id, /* 선번장 관리번호 */
+            lb.line_manage_id, /* 선번장 케이블 관리번호 */
             lb.qr_image_location, /* 선번장 이미지 */
             /* 출발지 */
             seb.asset_id s_asset_id,                                        /* 자산분류 */
@@ -81,8 +112,8 @@
         join
             line_category lclr /* 회선색상 */
             on lclr.category = 3 and lb.line_color = lclr.id
-        where
-            lb.is_deleted = 'N'
+        where 1=1
+        <include refid="getLineTotalCommon"/>
         ORDER BY lb.line_manage_id desc
         LIMIT #{offset},#{limit};
     </select>
@@ -133,8 +164,8 @@
         join
             line_category lclr /* 회선색상 */
             on lclr.category = 3 and lb.line_color = lclr.id
-        where
-            lb.is_deleted = 'N'
+        where 1=1
+        <include refid="getLineTotalCommon"/>
     </select>
 
     <select id="getLineEquipmentList" parameterType="map" resultType="map">

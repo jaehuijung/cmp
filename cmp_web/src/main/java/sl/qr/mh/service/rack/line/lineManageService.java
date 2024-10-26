@@ -27,12 +27,16 @@ public class lineManageService {
 	 * @param paramMap 요청 파라미터 맵
 	 * @return 선번장 목록 데이터 및 기타 메타 정보
 	 */
+	@SuppressWarnings("unchecked")
 	public Map<String, Object> getLineList(Map<String, Object> paramMap){
 
 		Map<String, Object> returnMap = new HashMap<>();
 		returnMap.put("errorCode", false);
 
 		try {
+			if (paramMap.containsKey("searchData")) {
+				paramMap.putAll((Map<String, Object>) paramMap.get("searchData"));
+			}
 
 			List<Map<String, Object>> rows = lineMapper.getLineTotalList(paramMap);
 			int total = lineMapper.getLineTotalListCnt(paramMap);
