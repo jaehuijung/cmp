@@ -26,7 +26,7 @@ let lineStartColumn = [
     createColumn('model_name',                  false, '모델명'),
     createColumn('host_name',                   false, '호스트명'),
     createColumn('eqp_name',                    false, '구성자원명'),
-    createColumn('port',                        false, '포트번호'),
+    createColumn('port_number',                 false, '포트번호'),
     createColumn('primary_operator',            false, '운영담당자'),
     createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
 ];
@@ -39,7 +39,7 @@ let lineEndColumn = [
     createColumn('model_name',                  false, '모델명'),
     createColumn('host_name',                   false, '호스트명'),
     createColumn('eqp_name',                    false, '구성자원명'),
-    createColumn('port',                        false, '포트번호'),
+    createColumn('port_number',                 false, '포트번호'),
     createColumn('primary_operator',            false, '운영담당자'),
     createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
 ];
@@ -86,7 +86,7 @@ function updateSelectTable() {
         s_model_name: selectedStartRow ? selectedStartRow.model_name : "",
         s_host_name: selectedStartRow ? selectedStartRow.host_name : "",
         s_eqp_name: selectedStartRow ? selectedStartRow.eqp_name : "",
-        s_port: selectedStartRow ? selectedStartRow.port : "",
+        s_port: selectedStartRow ? selectedStartRow.port_number : "",
         s_primary_operator: selectedStartRow ? selectedStartRow.primary_operator : "",
         s_primary_outsourced_operator: selectedStartRow ? selectedStartRow.primary_outsourced_operator : "",
 
@@ -97,7 +97,7 @@ function updateSelectTable() {
         e_model_name: selectedEndRow ? selectedEndRow.model_name : "",
         e_host_name: selectedEndRow ? selectedEndRow.host_name : "",
         e_eqp_name: selectedEndRow ? selectedEndRow.eqp_name : "",
-        e_port: selectedEndRow ? selectedEndRow.port : "",
+        e_port: selectedEndRow ? selectedEndRow.port_number : "",
         e_primary_operator: selectedEndRow ? selectedEndRow.primary_operator : "",
         e_primary_outsourced_operator: selectedEndRow ? selectedEndRow.primary_outsourced_operator : "",
     }];
