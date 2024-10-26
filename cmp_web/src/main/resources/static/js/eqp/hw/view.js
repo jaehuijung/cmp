@@ -30,12 +30,12 @@ function createColumn(field, checkbox = false, title, type = 'default') {
         column.class = 'nowrap';
     }
 
-    if (type === 'formatted') {
+    if (field === 'operating_status') {
         column.formatter = function(value, row, index) {
             if (value === '1') {
-                return 'Y';
+                return '사용';
             } else {
-                return 'N';
+                return '정지';
             }
         };
     }
@@ -53,7 +53,7 @@ var equColumns = [
     createColumn('host_name',                       false, '호스트명'               ),
     createColumn('model_name',                      false, '모델명'                 ),
     createColumn('m_company',                       false, '제조사'                 ),
-    createColumn('operating_status',                false, '운영상태',  'formatted' ),
+    createColumn('operating_status',                false, '운영상태'               ),
     createColumn('operating_department',            false, '운영부서'               ),
     createColumn('primary_operator',                false, '운영담당자(정)'          ),
     createColumn('secondary_operator',              false, '운영담당자(부)'          ),
