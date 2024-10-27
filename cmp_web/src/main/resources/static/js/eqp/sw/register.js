@@ -79,10 +79,7 @@ function saveData() {
     let errorMessage = "";
 
     document.querySelectorAll(
-        `#section-equipment-basic-info input, #section-equipment-basic-info select,
-        #section-equipment-category input, #section-equipment-category select,
-        #section-equipment-operation-info input, #section-equipment-operation-info select,
-        #section-equipment-details input, #section-equipment-details select`,
+        `.contentCardWrap input, .contentCardWrap select`,
     ).forEach(input => {
         let value = input.value.trim();
         let name = input.name;
