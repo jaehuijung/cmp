@@ -76,11 +76,11 @@
         /* generateEquipmentManageId...
             S/W관리 > 장비목록 > 추가 > 장비 저장 : 장비관리번호 생성 */
         SELECT
-            CONCAT(#{categories}, YEAR(CURDATE()), LPAD(IFNULL(MAX(CAST(SUBSTRING(eqp_manage_id, -4) AS UNSIGNED)) + 1, 1), 4, '0'))
+            CONCAT(#{categories}, YEAR(#{asset_acquisition_date}), LPAD(IFNULL(MAX(CAST(SUBSTRING(eqp_manage_id, -4) AS UNSIGNED)) + 1, 1), 4, '0'))
         FROM
             equipment_sw_basic
         WHERE
-            eqp_manage_id LIKE CONCAT(#{categories}, YEAR(CURDATE()), '%')
+            eqp_manage_id LIKE CONCAT(#{categories}, YEAR(#{asset_acquisition_date}), '%')
     </select>
 
     <insert id="insertEquipmentBasic" parameterType="map">
