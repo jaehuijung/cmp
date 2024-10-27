@@ -97,10 +97,12 @@ header {
 
 #left-logo-img {
     width: 125px;
+    cursor: pointer;
 }
 
 #left-logo-toggle-img {
     width: 25px;
+    cursor: pointer;
     display: none;
 }
 
@@ -253,7 +255,6 @@ header {
 .menu-section {
     display: flex;
     flex-direction: column;
-    padding: 20px 20px 0 20px;
 }
 
 /* 왼쪽 바 > 상단 영역 > 메뉴 항목 */
@@ -265,12 +266,14 @@ header {
 #menu-items {
     display: flex;
     flex-direction: column;
+    padding: 20px 20px 0 20px;
 }
 
 #menu-toggle-items {
     display: none;
     align-items: end;
     width: 100%;
+    padding: 20px 15px 0px 0px;
 }
 
 .side-menu a {
@@ -288,7 +291,7 @@ header {
 
 .side-menu .menu-icon{
     width: 30px;
-    margin-right: 20px;
+    // margin-right: 20px;
 }
 
 /* 왼쪽 선택된 메뉴 하이라이트 */
