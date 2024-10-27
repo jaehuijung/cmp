@@ -100,7 +100,7 @@ function buildSideMenu(menuData, currentUrl) {
         .map(menu => {
             const isActive = menu.menu_id === currentMenu.menu_id ? ' active' : '';
             // return `<a href="${menu.url}" class="side-menu-item${isActive}"><img src="/images/icon/folder.png" alt="icon" class="menu-icon" /></a>`;
-            return `<a href="${menu.url}" class="side-menu-item${isActive}"><img src="${menu.icon}" alt="icon" class="menu-icon" /></a>`;
+            return `<a href="${menu.url}" class="side-menu-item${isActive}"><img src="${menu.icon}" alt="icon" class="menu-toggle-icon" /></a>`;
         })
         .join('');
 
