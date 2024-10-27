@@ -40,6 +40,46 @@ tr:hover {
     background-color: #ddd;
 }
 
+
+/* 부트스트랩 테이블에 마우스 올렸을 때 hover 되지 않도록 해주는 클래스 */
+.table-hover-delete tr:hover {
+    background-color: transparent;
+}
+
+
+/* 테이블이 페이지 밖으로 튀어나가지 않도록 설정 */
+.tbl-bootstrap-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* 테이블 셀이 너무 작아지지 않도록 설정 */
+.table-hover-delete td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 반응형 브레이크포인트 추가 */
+@media (max-width: 768px) {
+    .tbl-bootstrap-wrap {
+        width: 100%;
+    }
+
+    .table-hover-delete td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .table-hover-delete tr {
+        display: block;
+        margin-bottom: 10px;
+    }
+}
+
+
+
 /* 부트스트랩 설정된 width랑 상관없이 줄바꿈되지 않도록 해주는 클래스 */
 .nowrap {
     white-space: nowrap;
@@ -206,8 +246,4 @@ tr:hover {
     background: #DDE8F2;
 }
 
-/* 선번장관리 회선 테이블에 마우스 올렸을 때 hover 되지 않도록 */
-#lineCategoryTable tr:hover {
-    background-color: transparent;
-}
 

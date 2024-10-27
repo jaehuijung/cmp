@@ -446,10 +446,7 @@ function saveData() {
     let errorMessage = "";
 
     document.querySelectorAll(
-        `#section-equipment-basic-info input, #section-equipment-basic-info select,
-        #section-equipment-category input, #section-equipment-category select,
-        #section-equipment-operation-info input, #section-equipment-operation-info select,
-        #section-equipment-details input, #section-equipment-details select`,
+        `.contentCardWrap input, .contentCardWrap select`,
     ).forEach(input => {
         let value = input.value.trim();
         let name = input.name;
@@ -470,26 +467,28 @@ function saveData() {
             data[name] = acquisition_cost;
         }
         else{
-            if (["eqp_name", "hostname", "model", "m_company", "primary_operator", "primary_outsourced_operator",
-                "secondary_operator", "secondary_outsourced_operator", "operating_department", "cpu", "mem",
-                "disk", "os_version", "dbrain_number", "serial_number", "installation_coordinates"].includes(name)) {
-                // 글자수 변경필요!!!
-                if (value.length > 50) {
-                    errorMessage += `${labelName} 50글자 초과할 수 없습니다.</br>`;
+            if(name != ""){
+                if (["eqp_name", "hostname", "model", "m_company",
+                     "primary_operator", "primary_outsourced_operator",
+                     "secondary_operator", "secondary_outsourced_operator",
+                     "operating_department", "cpu", "mem", "disk", "os_version",
+                     "dbrain_number", "serial_number", "installation_coordinates"].includes(name)) {
+                    // 글자수 변경필요!!!
+                    if (value.length > 50) {
+                        errorMessage += `${labelName} 50글자 초과할 수 없습니다.</br>`;
+                        isValid = false;
+                    }
+                }
+                if ((name === "installation_units" || name === "equipment_size_units") && (isNaN(value) || Number(value) > 1000)) {
+                    errorMessage += `${labelName} 숫자만 입력가능하며, 1000 이하입니다.</br>`;
                     isValid = false;
                 }
-            }
-            if ((name === "installation_units" || name === "equipment_size_units") && (isNaN(value) || Number(value) > 1000)) {
-                errorMessage += `${labelName} 숫자만 입력가능하며, 1000 이하입니다.</br>`;
-                isValid = false;
-            }
 
-            if (name.includes("date") && !isValidDate(value)) {
-                errorMessage += `${labelName} 유효한 날짜여야 합니다.</br>`;
-                isValid = false;
-            }
+                if (name.includes("date") && !isValidDate(value)) {
+                    errorMessage += `${labelName} 유효한 날짜여야 합니다.</br>`;
+                    isValid = false;
+                }
 
-            if(name != ""){
                 if ((name === "installation_units") && (value === '')){
                     value = 0;
                 }

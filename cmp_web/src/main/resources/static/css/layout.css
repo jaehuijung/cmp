@@ -635,68 +635,6 @@ header {
     padding-top: 10px;
 }
 
-/* equipment-wrap의 스타일 */
-.equipment-wrap {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 10px;
-}
-
-.equipment-item {
-    display: flex;
-    flex-direction: row;
-    box-sizing: border-box;
-    margin-right: 20px;
-}
-
-.ip-address {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: baseline;
-}
-
-/* 레이블 스타일 */
-.equipment-wrap label {
-    min-width: 150px;
-    margin-right: 10px;
-    font-size: 14px;
-    margin-bottom: 5px;
-    line-height: 28px;
-}
-
-/* 입력란 스타일 */
-.equipment-wrap input[type="text"],
-.equipment-wrap input[type="number"],
-.equipment-wrap input[type="date"],
-.equipment-wrap select {
-    width: 200px;
-    padding: 5px 10px;
-    font-size: 14px;
-    height: 35px;
-    margin-bottom: 10px;
-    border: 1px solid #DADADA;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.equipment-wrap input[type="text"]:read-only,
-.equipment-wrap input[type="number"]:read-only,
-.equipment-wrap input[type="date"]:read-only,
-.equipment-wrap select:read-only {
-    color: gray;
-}
-
-/* 특수한 값을 위한 input 스타일 */
-.equipment-wrap input#ip_block1,
-.equipment-wrap input#ip_block2,
-.equipment-wrap input#ip_block3,
-.equipment-wrap input#ip_block4 {
-    width: 47px;
-    margin-bottom: 0;
-}
-
-
-
 /* 커스텀 버튼 영역 스타일 */
 .custom-button-wrap{
     display: flex; flex-direction: row;
@@ -764,8 +702,16 @@ header {
     border-left: 0;
 }
 
+.custom-width-min {
+    min-width: 50px;
+}
+
 .custom-width-nowrap {
     white-space: nowrap;
+}
+
+.custom-width-45px{
+    width: 45px;
 }
 
 .custom-width-10per {
@@ -782,4 +728,8 @@ header {
 
 .custom-font-weight-500 {
     font-weight: 500;
+}
+
+.custom-flex {
+    display: flex;
 }
