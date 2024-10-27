@@ -46,8 +46,8 @@ let lineEndColumn = [
 
 let lineSelectColumn = [
     [
-        { title: '출발지', align: 'center', valign: 'middle', colspan: 10 },
-        { title: '목적지', align: 'center', valign: 'middle', colspan: 10 },
+        { title: '출발지(Start)', align: 'center', valign: 'middle', colspan: 10 },
+        { title: '목적지(End)',   align: 'center', valign: 'middle', colspan: 10 },
     ],
     [
         createColumn('s_asset_category',              false, '자산분류'),

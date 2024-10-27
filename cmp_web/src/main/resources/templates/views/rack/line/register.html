@@ -17,22 +17,22 @@
 
     <main class="main" id="line">
         <div class="contentCard">
-            <div class="linkEquipmentWrap" style="display: flex; width: 100%; justify-content: space-around;">
+            <div class="linkEquipmentWrap">
                 <!-- 출발지정보 -->
-                <div id="section-line-start-info" style="width: 49%; padding-right: 10px;">
+                <div id="section-line-start-info">
                     <div>
                         <h2>출발지</h2>
                     </div>
 
-                    <div style="display: flex; justify-content: space-between;">
-                        <div style="display: flex; align-items: flex-end;">
+                    <div>
+                        <div>
                             <p class="totalCnt" id="lineStartTotalCnt"></p>
                         </div>
-                        <div class="searchWordWrap" style="display: flex; align-items: center; margin-bottom: 10px;">
-                            <div class="searchTitle">검색어</div>
+                        <div class="searchWordWrap">
                             <div class="searchWordInput">
-                                <input type="text" id="searchInput" style="width:300px;" placeholder="검색어를 입력하세요"/>
-                                <button type="button"  onclick="searchEqpList();">검색</button>
+                                <label class="searchTitle" for="searchStartInput">검색어</label>
+                                <input type="text"    class="searchInput" id="searchStartInput" placeholder="검색어를 입력하세요"/>
+                                <button type="button" class="searchButton" onclick="searchEqpList();">검색</button>
                             </div>
                         </div>
                     </div>
@@ -40,21 +40,23 @@
                         <table id="lineStartTable"></table>
                     </div>
                 </div>
+            </div>
 
+            <div class="linkEquipmentWrap">
                 <!-- 목적지정보 -->
-                <div id="section-line-end-info" style="width:49%; ">
+                <div id="section-line-end-info">
                     <div>
                         <h2>목적지</h2>
                     </div>
-                    <div style="display: flex; justify-content: space-between;">
-                        <div style="display: flex; align-items: flex-end;">
+                    <div>
+                        <div>
                             <p class="totalCnt" id="lineEndTotalCnt"></p>
                         </div>
-                        <div class="searchWordWrap" style="display: flex; align-items: center; margin-bottom: 10px;">
-                            <div class="searchTitle">검색어</div>
+                        <div class="searchWordWrap">
                             <div class="searchWordInput">
-                                <input type="text" id="searchInput" style="width:300px;" placeholder="검색어를 입력하세요"/>
-                                <button type="button"  onclick="searchEqpList();">검색</button>
+                                <label class="searchTitle" for="searchEndInput">검색어</label>
+                                <input type="text"    class="searchInput"  id="searchEndInput" placeholder="검색어를 입력하세요"/>
+                                <button type="button" class="searchButton" onclick="searchEqpList();">검색</button>
                             </div>
                         </div>
                     </div>
@@ -64,7 +66,9 @@
                     </div>
                 </div>
             </div>
+        </div>
 
+        <div class="contentCard">
             <!-- 선택된 출발지, 목적지 테이블 -->
             <div id="section-line-select-info">
                 <div class="section-line-title">

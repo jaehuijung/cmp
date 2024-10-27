@@ -103,26 +103,108 @@ tr:hover {
 
 /* 선번장관리 */
 
-/* 선번장관리 구분 필드 컬럼명 색상 변경 */
+/* 선번장관리 조회 - 구분 필드 컬럼명 색상 변경 */
 #lineTable thead tr:first-child th:nth-child(1) {
     background: #D7DBE3;
     color: #000;
 }
 
-/* 선번장관리 출발지 필드 컬럼명 색상 변경 */
+#lineTable thead th:nth-child(1),
+#lineTable thead th:nth-child(2),
+#lineTable thead th:nth-child(3) {
+    background: #EBECF1;
+}
+
+
+/* 선번장관리 조회 - 출발지 필드 컬럼명 색상 변경 */
 #lineTable thead tr:first-child th:nth-child(2) {
     background: #1CA1A5;
     color: #fff;
 }
 
-/* 선번장관리 목적지 필드 컬럼명 색상 변경 */
+#lineTable thead th:nth-child(4),
+#lineTable thead th:nth-child(5),
+#lineTable thead th:nth-child(6),
+#lineTable thead th:nth-child(7),
+#lineTable thead th:nth-child(8),
+#lineTable thead th:nth-child(9),
+#lineTable thead th:nth-child(10),
+#lineTable thead th:nth-child(11),
+#lineTable thead th:nth-child(12),
+#lineTable thead th:nth-child(13) {
+    background: #DEEFF1;
+}
+
+
+/* 선번장관리 조회 - 목적지 필드 컬럼명 색상 변경 */
 #lineTable thead tr:first-child th:nth-child(3) {
     background: #3F95BE;
     color: #fff;
 }
 
-/* 선번장관리 회선 필드 컬럼명 색상 변경 */
+#lineTable thead th:nth-child(14),
+#lineTable thead th:nth-child(15),
+#lineTable thead th:nth-child(16),
+#lineTable thead th:nth-child(17),
+#lineTable thead th:nth-child(18),
+#lineTable thead th:nth-child(19),
+#lineTable thead th:nth-child(20),
+#lineTable thead th:nth-child(21),
+#lineTable thead th:nth-child(22),
+#lineTable thead th:nth-child(23) {
+    background: #DDE8F2;
+}
+
+
+/* 선번장관리 조회 - 회선 필드 컬럼명 색상 변경 */
 #lineTable thead tr:first-child th:nth-child(4) {
     background: #7B8BA2;
     color: #fff;
 }
+
+#lineTable thead th:nth-child(24),
+#lineTable thead th:nth-child(25),
+#lineTable thead th:nth-child(26) {
+    background: #DDE4EE;
+}
+
+/* 선번장관리 추가/수정/상세 출발지 필드 컬럼명 색상 변경 */
+#lineSelectTable thead tr:first-child th:nth-child(1) {
+    background: #1CA1A5;
+    color: #fff;
+}
+
+#lineSelectTable thead th:nth-child(1),
+#lineSelectTable thead th:nth-child(2),
+#lineSelectTable thead th:nth-child(4),
+#lineSelectTable thead th:nth-child(3),
+#lineSelectTable thead th:nth-child(5),
+#lineSelectTable thead th:nth-child(6),
+#lineSelectTable thead th:nth-child(7),
+#lineSelectTable thead th:nth-child(8),
+#lineSelectTable thead th:nth-child(9),
+#lineSelectTable thead th:nth-child(10) {
+    background: #DEEFF1;
+}
+
+/* 선번장관리 추가/수정/상세 목적지 필드 컬럼명 색상 변경 */
+#lineSelectTable thead tr:first-child th:nth-child(2) {
+    background: #3F95BE;
+    color: #fff;
+}
+
+#lineSelectTable thead th:nth-child(11),
+#lineSelectTable thead th:nth-child(12),
+#lineSelectTable thead th:nth-child(13),
+#lineSelectTable thead th:nth-child(14),
+#lineSelectTable thead th:nth-child(15),
+#lineSelectTable thead th:nth-child(16),
+#lineSelectTable thead th:nth-child(17),
+#lineSelectTable thead th:nth-child(18),
+#lineSelectTable thead th:nth-child(19),
+#lineSelectTable thead th:nth-child(20) {
+    background: #DDE8F2;
+}
+
+
+

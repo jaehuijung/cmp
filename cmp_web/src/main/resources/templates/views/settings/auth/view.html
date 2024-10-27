@@ -9,11 +9,13 @@
 	<main id="main" class="main">
 
 		<div class="contentCard">
-			<div class="searchWordWrap">
-				<div class="searchTitle">검색어</div>
-				<div class="searchWordInput">
-					<input type="text" id="searchInput" placeholder="검색어를 입력하세요"/>
-					<button type="button"  onclick="searchEqpList();">검색</button>
+			<div class="searchWrap">
+				<div class="searchWordWrap">
+					<div class="searchWordInput">
+						<label class="searchTitle" for="searchInput">검색어</label>
+						<input type="text"    class="searchInput"  id="searchInput" placeholder="검색어를 입력하세요"/>
+						<button type="button" class="searchButton" onclick="tableRefresh();">검색</button>
+					</div>
 				</div>
 			</div>
 		</div>
