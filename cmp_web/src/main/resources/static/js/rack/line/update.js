@@ -319,6 +319,7 @@ function saveData() {
     const line_speed    = $("#line_speed").val();
     const line_color    = $("#line_color").val();
 
+    data["lineManageId"]   = $("#line_manage_id").val();
     data["lineStartId"]    = line_start_id;
     data["lineEndId"]      = line_end_id;
     data["lineStartPort"]  = line_start_port;
@@ -326,7 +327,6 @@ function saveData() {
     data["line_category"]  = line_category;
     data["line_speed"]     = line_speed;
     data["line_color"]     = line_color;
-    data["line_installation_year"] = $("#line_installation_year").val();
 
     Swal.fire({
         title: '알림',
@@ -336,28 +336,20 @@ function saveData() {
         confirmButtonText: '저장',
         cancelButtonText: '취소',
         showCancelButton: true,
-        customClass: {
-            popup: 'custom-width'
-        },
+        heightAuto: false,
     }).then((result) => {
         if (result.isConfirmed) {
             alert3("save");
 
             $.ajax({
                 type: "POST",
-                url: "/rack/line/saveLineInfo",
+                url: "/rack/line/updateLineInfo",
                 data: JSON.stringify(data),
                 contentType: "application/json",
                 success: function(res) {
                     alert3Close();
                     if(!res.errorCode){
                         alert2("알림", "저장 중 오류가 발생했습니다. <br>관리자에게 문의하세요", "error", "확인");
-                        return false;
-                    }
-
-                    let isContain = res.isContain;
-                    if(isContain != 0){
-                        alert2("알림", "이미 등록된 선번장입니다.", "error", "확인");
                         return false;
                     }
 

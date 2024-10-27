@@ -451,4 +451,24 @@
             line_manage_id = #{deleteLineTarget}
     </update>
 
+    <update id="updateLineInfo" parameterType="map">
+        /* updateLineInfo...
+            선번장관리 > 선번장목록 > 수정 페이지 > 저장 > 선번장 정보 저장
+        */
+        update
+            line_basic
+        set
+            start_eqp_id   = #{lineStartId},
+            end_eqp_id     = #{lineEndId},
+            line_speed     = #{line_speed},
+            line_category  = #{line_category},
+            line_color     = #{line_color},
+            start_eqp_port = #{lineStartPort},
+            end_eqp_port   = #{lineEndPort},
+            updated_at     = now()
+        where
+            line_manage_id = #{lineManageId}
+    </update>
+
+
 </mapper>

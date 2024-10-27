@@ -150,7 +150,7 @@ public class lineManageService {
 	/**
 	 * 선번장관리 > 선번장목록 > 상세 > 선택한 선번장 정보 (포설년도, 회선정보)
 	 *
-	 * @param cableManageId 선번장 관리번호
+	 * @param lineManageId 선번장 관리번호
 	 * @return 선번장 정보
 	 */
 	public Map<String, Object> getEquipmentDetailTotalList(String lineManageId){
@@ -222,6 +222,25 @@ public class lineManageService {
 		return returnMap;
 	}
 
+	/**
+	 * 선번장관리 > 선번장목록 > 수정 > 저장
+	 *
+	 * @return 저장결과
+	 */
+	public Map<String, Object> updateLineInfo(Map<String, Object> paramMap){
+		Map<String, Object> returnMap = new HashMap<>();
+		returnMap.put("errorCode", false);
+		try{
+			lineMapper.updateLineInfo(paramMap);
+			returnMap.put("errorCode", true);
+		} catch (Exception e){
+			log.error(e.getMessage());
+		}
+
+		return returnMap;
+	}
+
+	
 	/**
 	 * 장비관리 > 장비목록 > 삭제 > 선택한 장비 정보 리스트 삭제 (기본정보, 세부정보, 연결정보)
 	 *

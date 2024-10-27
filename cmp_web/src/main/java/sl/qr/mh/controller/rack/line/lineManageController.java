@@ -142,6 +142,18 @@ public class lineManageController {
     }
 
     /**
+     * 선번장관리 > 선번장목록 > 수정 > 저장
+     * 선번장 정보 저장
+     *
+     * @return 선번장 저장 결과
+     */
+    @ResponseBody
+    @PostMapping("/updateLineInfo")
+    public Map<String, Object> updateLineInfo(@RequestBody Map<String, Object> paramMap) {
+        return lineManageService.updateLineInfo(paramMap);
+    }
+
+    /**
      * 선번장관리 > 선번장목록 > 선번장 목록 삭제
      *
      * @param deleteList 삭제할 장비 목록
