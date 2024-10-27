@@ -142,13 +142,12 @@ header {
     padding: 15px 20px;
     color: #959AA6;
     text-decoration: none;
-    border-bottom: 1px solid #495057;
+    margin-right: 10px;
 }
 
 .top-menu a:hover {
     font-weight: bold;
     color: #2A79C4;
-    border-bottom: 3px solid #2A79C4;
 }
 
 /* 상단 선택된 메뉴 하이라이트 */
@@ -160,6 +159,7 @@ header {
 .top-menu-item.active {
     font-weight: bold;
     color: #000;
+    border-bottom: 3px solid #495057;
 }
 
 
