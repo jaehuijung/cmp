@@ -17,11 +17,11 @@
 
     <main class="main" id="line">
         <div class="contentCard">
-            <div class="linkEquipmentWrap">
-                <!-- 출발지정보 -->
-                <div id="section-line-start-info">
+            <!-- 출발지정보 -->
+            <div class="contentCardWrap">
+
                     <div>
-                        <h2>출발지 선택</h2>
+                        <h2>▪️ 출발지 선택</h2>
                     </div>
 
                     <div style='display: flex; justify-content: space-between; align-items: flex-end;'>
@@ -39,14 +39,13 @@
                     <div class="tbl-bootstrap-wrap">
                         <table id="lineStartTable"></table>
                     </div>
-                </div>
             </div>
 
-            <div class="linkEquipmentWrap">
-                <!-- 목적지정보 -->
-                <div id="section-line-end-info">
+            <!-- 목적지정보 -->
+            <div class="contentCardWrap">
+
                     <div>
-                        <h2>목적지 선택</h2>
+                        <h2>▪️ 목적지 선택</h2>
                     </div>
                     <div style='display: flex; justify-content: space-between; align-items: flex-end;'>
                         <div>
@@ -65,14 +64,13 @@
                         <table id="lineEndTable"></table>
                     </div>
                 </div>
-            </div>
         </div>
 
         <div class="contentCard">
             <!-- 선택된 출발지, 목적지 테이블 -->
-            <div id="section-line-select-info">
+            <div class="contentCardWrap">
                 <div class="section-line-title">
-                    <h2>선번장 구성</h2>
+                    <h2>▪️ 선번장 구성</h2>
                 </div>
                 <div class="tbl-bootstrap-wrap">
                     <div class="tbl-bootstrap-wrap">
@@ -82,9 +80,10 @@
             </div>
 
             <!-- 회선 -->
-            <div id="section-line-category-info">
+            <div class="contentCardWrap">
+
                 <div class="section-line-title">
-                    <h2>회선</h2>
+                    <h2>▪️ 회선</h2>
                 </div>
                 <div class="tbl-bootstrap-wrap">
                     <table id="lineCategoryTable">
@@ -113,18 +112,17 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
 
-        </div>
+            <div class="contentCardWrap">
+                <button type='button' class="btn btn-outline-secondary custom-normal-btn"
+                        onclick="saveData()">저장
+                </button>
+                <button type='button' class="btn btn-outline-secondary custom-normal-btn"
+                        onclick="back()">취소
+                </button>
+            </div>
 
-        <div>
-            <button type='button' class="btn btn-outline-secondary custom-normal-btn"
-                    onclick="saveData()">저장
-            </button>
-            <button type='button' class="btn btn-outline-secondary custom-normal-btn"
-                    onclick="back()">취소
-            </button>
         </div>
     </main>
 

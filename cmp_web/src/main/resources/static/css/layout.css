@@ -617,17 +617,8 @@ header {
     flex-direction: column;
 }
 
-#section-rack-start-info,
-#section-rack-end-info,
-#section-rack-cable-info,
-#section-rack-select-info,
-#section-equipment-basic-info,
-#section-equipment-category,
-#section-equipment-operation-info,
-#section-equipment-details,
-#section-equipment-connection-select-info,
-#section-equipment-software-select-info {
-    margin-bottom: 20px;
+.contentCardWrap {
+    margin: 15px 10px 20px 0px;
 }
 
 /* h2 태그의 기본 스타일 */
