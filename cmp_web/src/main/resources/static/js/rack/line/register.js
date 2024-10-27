@@ -1,5 +1,4 @@
 
-// cable table column creation function
 function createColumn(field, checkbox = false, title, type = 'default') {
     let column = {
         title: title,

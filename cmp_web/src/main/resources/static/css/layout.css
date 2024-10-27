@@ -596,6 +596,12 @@ header {
     margin-right: 10px;
 }
 
+/* 중앙콘텐츠 - 메인 */
+#main {
+    display: flex;
+    flex-direction: column;
+}
+
 /* 중앙 콘텐츠 카드영역 */
 .contentCard {
     background-color: #ffffff;
@@ -606,35 +612,28 @@ header {
     margin-bottom: 30px;
 }
 
-/*
-중앙 콘텐츠 > 선번장관리 > 추가 / 수정 / 상세 페이지
-중앙 콘텐츠 > 장비관리 > 추가 / 수정 / 상세 페이지
-*/
-#main .line,
-#main .equipment,
-#main .user {
-    display: flex;
-    flex-direction: column;
-}
-
 .contentCardWrap {
     margin: 15px 10px 20px 0px;
 }
 
-/* h2 태그의 기본 스타일 */
+/* contentCard h2 태그 스타일 */
 .contentCard h2 {
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 10px;
     font-family: "Pretendard", sans-serif;
 }
 
-.section-line-title,
-.section-equipment-title {
+.contentCardTitle{
     margin: 0px 0px 10px 0px;
     display: flex;
     align-items: center;
 }
 
+.contentCardButton {
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+}
 
 /* equipment-wrap의 스타일 */
 .equipment-wrap {
@@ -728,6 +727,13 @@ header {
     background-color: #014188;
 }
 
+.custom-card-btn {
+    width: 120px;
+    height: 45px;
+    margin-left: 10px;
+}
+
+
 /* 커스텀 버튼 내부 이미지 스타일 */
 .btn-icon {
     margin-left: 6px;
@@ -740,3 +746,36 @@ header {
 }
 
 
+/* 기타 공통 커스텀 항목들 */
+
+.custom-background-lightblue {
+    background-color: #F6F9FE;
+}
+
+.custom-border-top-solid {
+    border-top: 1px solid #000;
+}
+
+.custom-border-right {
+    border-right: 0;
+}
+
+.custom-border-left {
+    border-left: 0;
+}
+
+.custom-width-10per {
+    width: 10%;
+}
+
+.custom-width-15per {
+    width: 15%
+}
+
+.custom-margin-left-10 {
+    margin-left: 10px;
+}
+
+.custom-font-weight-500 {
+    font-weight: 500;
+}

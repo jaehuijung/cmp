@@ -4,14 +4,6 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 
-<head>
-    <style>
-        #lineCategoryTable tr:hover {
-            background-color: transparent;
-        }
-    </style>
-</head>
-
 <div layout:fragment="content">
 
 
@@ -19,57 +11,53 @@
         <div class="contentCard">
             <!-- 출발지정보 -->
             <div class="contentCardWrap">
-
+                <div class="contentCardTitle">
+                    <h2>▪️ 출발지 선택</h2>
+                </div>
+                <div style='display: flex; justify-content: space-between; align-items: flex-end;'>
                     <div>
-                        <h2>▪️ 출발지 선택</h2>
+                        <p class="totalCnt" id="lineStartTotalCnt"></p>
                     </div>
-
-                    <div style='display: flex; justify-content: space-between; align-items: flex-end;'>
-                        <div>
-                            <p class="totalCnt" id="lineStartTotalCnt"></p>
-                        </div>
-                        <div class="searchWordWrap">
-                            <div class="searchWordInput">
-                                <label class="searchTitle" for="searchStartInput">검색어</label>
-                                <input type="text"    class="searchInput" id="searchStartInput" placeholder="검색어를 입력하세요"/>
-                                <button type="button" class="searchButton" onclick="searchEqpList();">검색</button>
-                            </div>
+                    <div class="searchWordWrap">
+                        <div class="searchWordInput">
+                            <label class="searchTitle" for="searchStartInput">검색어</label>
+                            <input type="text"    class="searchInput" id="searchStartInput" placeholder="검색어를 입력하세요"/>
+                            <button type="button" class="searchButton" onclick="searchEqpList();">검색</button>
                         </div>
                     </div>
-                    <div class="tbl-bootstrap-wrap">
-                        <table id="lineStartTable"></table>
-                    </div>
+                </div>
+                <div class="tbl-bootstrap-wrap">
+                    <table id="lineStartTable"></table>
+                </div>
             </div>
 
             <!-- 목적지정보 -->
             <div class="contentCardWrap">
-
+                <div class="contentCardTitle">
+                    <h2>▪️ 목적지 선택</h2>
+                </div>
+                <div style='display: flex; justify-content: space-between; align-items: flex-end;'>
                     <div>
-                        <h2>▪️ 목적지 선택</h2>
+                        <p class="totalCnt" id="lineEndTotalCnt"></p>
                     </div>
-                    <div style='display: flex; justify-content: space-between; align-items: flex-end;'>
-                        <div>
-                            <p class="totalCnt" id="lineEndTotalCnt"></p>
+                    <div class="searchWordWrap">
+                        <div class="searchWordInput">
+                            <label class="searchTitle" for="searchEndInput">검색어</label>
+                            <input type="text"    class="searchInput"  id="searchEndInput" placeholder="검색어를 입력하세요"/>
+                            <button type="button" class="searchButton" onclick="searchEqpList();">검색</button>
                         </div>
-                        <div class="searchWordWrap">
-                            <div class="searchWordInput">
-                                <label class="searchTitle" for="searchEndInput">검색어</label>
-                                <input type="text"    class="searchInput"  id="searchEndInput" placeholder="검색어를 입력하세요"/>
-                                <button type="button" class="searchButton" onclick="searchEqpList();">검색</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tbl-bootstrap-wrap">
-                        <table id="lineEndTable"></table>
                     </div>
                 </div>
+                <div class="tbl-bootstrap-wrap">
+                    <table id="lineEndTable"></table>
+                </div>
+            </div>
         </div>
 
         <div class="contentCard">
-            <!-- 선택된 출발지, 목적지 테이블 -->
+            <!-- 선택된 출발지와 목적지 정보 -->
             <div class="contentCardWrap">
-                <div class="section-line-title">
+                <div class="contentCardTitle">
                     <h2>▪️ 선번장 구성</h2>
                 </div>
                 <div class="tbl-bootstrap-wrap">
@@ -79,48 +67,50 @@
                 </div>
             </div>
 
-            <!-- 회선 -->
+            <!-- 회선 정보-->
             <div class="contentCardWrap">
-
-                <div class="section-line-title">
+                <div class="contentCardTitle">
                     <h2>▪️ 회선</h2>
                 </div>
-                <div class="tbl-bootstrap-wrap">
+                <div class="tbl-bootstrap-wrap custom-border-top-solid">
                     <table id="lineCategoryTable">
                         <tbody>
-                        <tr>
-                            <td><label for="line_installation_year">포설년도</label></td>
-                            <td>
-                                <input type="date" id="line_installation_year" name="line_installation_year"/>
-                            </td>
-                            <td><label for="line_category">구분</label></td>
-                            <td>
-                                <select id="line_category" name="line_category" class="form-control">
-                                </select>
-                            </td>
-                            <td><label for="line_speed">속도</label></td>
-                            <td>
-                                <select id="line_speed" name="line_speed" class="form-control">
-                                </select>
-                            </td>
-                            <td><label for="line_color">색상</label></td>
-                            <td>
-                                <select id="line_color" name="line_color" class="form-control">
-                                </select>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                                    <label for="line_installation_year" class="custom-margin-left-10 custom-font-weight-500">포설년도</label></td>
+                                <td class="custom-border-left custom-width-15per">
+                                    <input type="date" id="line_installation_year" name="line_installation_year" class="form-control"/>
+                                </td>
+                                <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                                    <label for="line_category" class="custom-margin-left-10 custom-font-weight-500">구분</label></td>
+                                <td class="custom-border-left custom-width-15per">
+                                    <select id="line_category" name="line_category" class="form-control"></select>
+                                </td>
+                                <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                                    <label for="line_speed" class="custom-margin-left-10 custom-font-weight-500">속도</label></td>
+                                <td class="custom-border-left custom-width-15per">
+                                    <select id="line_speed" name="line_speed" class="form-control"></select>
+                                </td>
+                                <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                                    <label for="line_color" class="custom-margin-left-10 custom-font-weight-500">색상</label></td>
+                                <td class="custom-border-left custom-width-15per">
+                                    <select id="line_color" name="line_color" class="form-control"></select>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
             <div class="contentCardWrap">
-                <button type='button' class="btn btn-outline-secondary custom-normal-btn"
-                        onclick="saveData()">저장
-                </button>
-                <button type='button' class="btn btn-outline-secondary custom-normal-btn"
-                        onclick="back()">취소
-                </button>
+                <div class="contentCardButton">
+                    <button type='button' class="btn btn-outline-secondary custom-card-btn custom-blue-btn"
+                            onclick="saveData()">저장
+                    </button>
+                    <button type='button' class="btn btn-outline-secondary custom-card-btn custom-normal-btn"
+                            onclick="back()">취소
+                    </button>
+                </div>
             </div>
 
         </div>

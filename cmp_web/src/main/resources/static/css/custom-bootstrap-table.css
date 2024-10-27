@@ -206,5 +206,8 @@ tr:hover {
     background: #DDE8F2;
 }
 
-
+/* 선번장관리 회선 테이블에 마우스 올렸을 때 hover 되지 않도록 */
+#lineCategoryTable tr:hover {
+    background-color: transparent;
+}
 
