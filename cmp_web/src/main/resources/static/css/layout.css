@@ -695,26 +695,41 @@ header {
     margin-bottom: 0;
 }
 
-/* 버튼 스타일 */
-.custom-normal-btn {
-    font-size: 14px;
+
+
+/* 커스텀 버튼 영역 스타일 */
+.custom-button-wrap{
+    display: flex; flex-direction: row;
+}
+
+/* 커스텀 버튼 공통 스타일 */
+.custom-btn {
+    font-size: 16px;
     font-weight: 500;
     color: #014188;
     border: 1px solid #014188;
     border-radius: 5px;
-    margin: 0px 0px 10px 5px;
-    padding: 3px 8px;
+    margin: 0px 0px 10px 10px;
+    padding: 4px 10px;
+    display: flex; /* flexbox를 사용하여 텍스트와 이미지 정렬 */
+    align-items: center;
+    justify-content: center; /* 가운데 정렬 */
 }
 
+/* 커스텀 버튼 기본 버튼 색 */
+.custom-normal-btn {
+    color: #014188;
+}
+
+/* 커스텀 버튼 파란색 버튼 색 */
 .custom-blue-btn {
-    font-size: 14px;
-    font-weight: 500;
     color: #fff;
     background-color: #014188;
-    border: 1px solid #014188;
-    border-radius: 5px;
-    margin: 0px 0px 10px 5px;
-    padding: 3px 8px;
+}
+
+/* 커스텀 버튼 내부 이미지 스타일 */
+.btn-icon {
+    margin-left: 6px;
 }
 
 /* 중앙 콘텐츠 > 화면 하단 copyright */
