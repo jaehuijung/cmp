@@ -2,7 +2,11 @@
 /**
  * 장비 목록 테이블(eqpTable)을 새로고침하는 함수
  */
-function tableRefresh(){
+function tableRefresh(type = ''){
+    if (type === 'reset'){
+        $("#searchInput").val('');
+    }
+
     $("#eqpTable").bootstrapTable('refresh');
 }
 
