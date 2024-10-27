@@ -6,6 +6,23 @@
 
 <mapper namespace="sl.qr.mh.service.settings.user.userMapper">
 
+    <sql id="getUserTotalCommon">
+        /* getUserTotalCommon...
+            사용자 목록 리스트 검색용 쿼리 */
+        AND is_deleted = 'N'
+        <if test="searchInput != null and searchInput != ''">
+            AND (
+            BINARY id                  Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY name                Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY email               Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY phone               Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY d.department_name   Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY p.position_name     Like CONCAT('%', #{searchInput}, '%') OR
+            BINARY g.group_name        Like CONCAT('%', #{searchInput}, '%')
+            )
+        </if>
+    </sql>
+
     <select id="getUserList" parameterType="map" resultType="map">
         /**
         getUserList...
@@ -34,8 +51,8 @@
         join
             `group` g
             on u.`group` = g.group_idx
-        WHERE
-            is_deleted = 'N'
+        WHERE 1=1
+        <include refid="getUserTotalCommon"/>
         order by idx desc
         LIMIT #{offset},#{limit}
     </select>
@@ -58,8 +75,8 @@
         join
             `group` g
             on u.`group` = g.group_idx
-        WHERE
-            is_deleted = 'N'
+        WHERE 1=1
+        <include refid="getUserTotalCommon"/>
     </select>
 
     <select id="getSelectUserList" parameterType="map" resultType="map">

@@ -22,11 +22,16 @@ public class userService {
     }
 
     // 사용자 정보 리스트
+    @SuppressWarnings("unchecked")
     public Map<String, Object> getAllUserList(Map<String, Object> paramMap){
         Map<String, Object> returnMap = new HashMap<>();
         returnMap.put("errorCode", false);
 
         try{
+            if (paramMap.containsKey("searchData")) {
+                paramMap.putAll((Map<String, Object>) paramMap.get("searchData"));
+            }
+
             List<Map<String, Object>> rows = userMapper.getUserList(paramMap);
             int total = userMapper.getUserListCnt(paramMap);
 

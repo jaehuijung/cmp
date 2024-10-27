@@ -37,7 +37,7 @@
 					<div class="searchTitle">검색어</div>
 					<div class="searchWordInput">
 						<input type="text" id="searchInput" placeholder="검색어를 입력하세요"/>
-						<button type="button"  onclick="searchUserList();">검색</button>
+						<button type="button" id="searchButton" onclick="tableRefresh();">검색</button>
 					</div>
 				</div>
 			</div>
@@ -48,15 +48,18 @@
 				<div>
 					<p class="totalCnt" id="userTotalCnt"></p>
 				</div>
-				<div>
-					<button type='button' class="btn btn-outline-secondary custom-normal-btn"
+				<div class="custom-button-wrap">
+					<button type='button' class="btn btn-outline-secondary custom-btn custom-normal-btn"
 							onclick="userCreate()">추가
+						<img src='/images/icon/btn/plus.svg' alt='추가' class='btn-icon'>
 					</button>
-					<button type='button' class="btn btn-outline-secondary custom-normal-btn"
+					<button type='button' class="btn btn-outline-secondary custom-btn custom-normal-btn"
 							onclick="userUpdate()">수정
+						<img src='/images/icon/btn/check.svg' alt='수정' class='btn-icon'>
 					</button>
-					<button type='button' class="btn btn-outline-secondary custom-normal-btn"
+					<button type='button' class="btn btn-outline-secondary custom-btn custom-normal-btn"
 							onclick="userDelete()">삭제
+						<img src='/images/icon/btn/minus.svg' alt='삭제' class='btn-icon'>
 					</button>
 				</div>
 			</div>
