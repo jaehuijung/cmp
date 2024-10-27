@@ -4,14 +4,6 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 
-<head>
-    <style>
-        #lineCategoryTable tr:hover {
-            background-color: transparent;
-        }
-    </style>
-</head>
-
 <div layout:fragment="content">
     <main id="main" class="line">
 
@@ -19,9 +11,9 @@
             <input type="hidden" id="line_manage_id" name="line_manage_id" th:value="${line.line_manage_id}"/>
 
             <!-- 선택된 출발지, 목적지 테이블 -->
-            <div id="section-line-select-info">
-                <div class="section-line-title">
-                    <h2>선번장 구성</h2>
+            <div class="contentCardWrap">
+                <div class="contentCardTitle">
+                    <h2>▪️ 선번장 구성</h2>
                 </div>
                 <div class="tbl-bootstrap-wrap">
                     <div class="tbl-bootstrap-wrap">
@@ -31,43 +23,51 @@
             </div>
 
             <!-- 회선 -->
-            <div id="section-line-category-info">
-                <div class="section-line-title">
-                    <h2>회선</h2>
+            <div class="contentCardWrap">
+                <div class="contentCardTitle">
+                    <h2>▪️ 회선</h2>
                 </div>
-                <div class="tbl-bootstrap-wrap">
+                <div class="tbl-bootstrap-wrap custom-border-top-solid">
                     <table id="lineCategoryTable">
                         <tbody>
                         <tr>
-                            <td><label for="line_installation_year">포설년도</label></td>
-                            <td>
-                                <input type="date" id="line_installation_year" name="line_installation_year" th:value="${line.line_installation_year}" readonly/>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                                <label for="line_installation_year" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">포설년도</label></td>
+                            <td class="custom-border-left custom-width-15per">
+                                <input type="date" id="line_installation_year" name="line_installation_year" class="form-control" th:value="${line.line_installation_year}" readonly/>
                             </td>
-                            <td><label for="line_category">구분</label></td>
-                            <td>
-                                <input type="text" id="line_category" name="line_category" th:value="${line.line_category}" readonly>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                                <label for="line_category" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">구분</label></td>
+                            <td class="custom-border-left custom-width-15per">
+                                <input type="text" id="line_category" name="line_category" class="form-control" th:value="${line.line_category}" readonly>
                             </td>
-                            <td><label for="line_speed">속도</label></td>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                                <label for="line_speed" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">속도</label></td>
                             <td>
-                                <input type="text" id="line_speed" name="line_speed" th:value="${line.line_speed}" readonly>
+                                <input type="text" id="line_speed" name="line_speed" class="form-control" th:value="${line.line_speed}" readonly>
                             </td>
-                            <td><label for="line_color">색상</label></td>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                                <label for="line_color" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">색상</label></td>
                             <td>
-                                <input type="text" id="line_color" name="line_color" th:value="${line.line_color}" readonly>
+                                <input type="text" id="line_color" name="line_color" class="form-control" th:value="${line.line_color}" readonly>
                             </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-        </div>
 
-        <div>
-            <button type="button" onclick="updateData()">수정</button>
-            <button type="button" onclick="deleteData()">삭제</button>
-            <button type="button" onclick="back()">취소</button>
+            <div class="contentCardWrap">
+                <div class="contentCardButton">
+                    <button type="button" class="btn btn-outline-secondary custom-card-btn custom-blue-btn"
+                            onclick="updateData()">수정</button>
+                    <button type="button" class="btn btn-outline-secondary custom-card-btn custom-blue-btn"
+                            onclick="deleteData()">삭제</button>
+                    <button type="button" class="btn btn-outline-secondary custom-card-btn custom-normal-btn"
+                            onclick="back()">취소</button>
+                </div>
+            </div>
         </div>
-
     </main>
 
     <th:block layout:fragment="script">

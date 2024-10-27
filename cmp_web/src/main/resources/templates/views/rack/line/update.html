@@ -13,92 +13,89 @@
 </head>
 
 <div layout:fragment="content">
+
+
     <main class="main" id="line">
+        <input type="hidden" id="line_manage_id" name="line_manage_id" th:value="${line.line_manage_id}"/>
+        <input type="hidden" id="start_eqp_id" name="start_eqp_id" th:value="${line.start_eqp_id}"/>
+        <input type="hidden" id="start_eqp_port" name="start_eqp_port" th:value="${line.start_eqp_port}"/>
+        <input type="hidden" id="end_eqp_id" name="end_eqp_id" th:value="${line.end_eqp_id}"/>
+        <input type="hidden" id="end_eqp_port" name="end_eqp_port" th:value="${line.end_eqp_port}"/>
 
         <div class="contentCard">
-            <input type="hidden" id="line_manage_id" name="line_manage_id" th:value="${line.line_manage_id}"/>
-            <input type="hidden" id="start_eqp_id" name="start_eqp_id" th:value="${line.start_eqp_id}"/>
-            <input type="hidden" id="start_eqp_port" name="start_eqp_port" th:value="${line.start_eqp_port}"/>
-            <input type="hidden" id="end_eqp_id" name="end_eqp_id" th:value="${line.end_eqp_id}"/>
-            <input type="hidden" id="end_eqp_port" name="end_eqp_port" th:value="${line.end_eqp_port}"/>
-
-            <div class="linkEquipmentWrap" style="display: flex; width: 100%; justify-content: space-around;">
-                <!-- 출발지정보 -->
-                <div id="section-line-start-info" style="width: 49%; padding-right: 10px;">
+            <!-- 출발지정보 -->
+            <div class="contentCardWrap">
+                <div class="contentCardTitle">
+                    <h2>▪️ 출발지 선택</h2>
+                </div>
+                <div style='display: flex; justify-content: space-between; align-items: flex-end;'>
                     <div>
-                        <h2>출발지</h2>
+                        <p class="totalCnt" id="lineStartTotalCnt"></p>
                     </div>
-
-                    <div style="display: flex; justify-content: space-between;">
-                        <div style="display: flex; align-items: flex-end;">
-                            <p class="totalCnt" id="lineStartTotalCnt"></p>
+                    <div class="searchWordWrap">
+                        <div class="searchWordInput">
+                            <label class="searchTitle" for="searchStartInput">검색어</label>
+                            <input type="text"    class="searchInput" id="searchStartInput" placeholder="검색어를 입력하세요"/>
+                            <button type="button" class="searchButton" onclick="searchEqpList();">검색</button>
                         </div>
-                        <div class="searchWordWrap" style="display: flex; align-items: center; margin-bottom: 10px;">
-                            <div class="searchTitle">검색어</div>
-                            <div class="searchWordInput">
-                                <input type="text" id="searchInput" style="width:300px;" placeholder="검색어를 입력하세요"/>
-                                <button type="button"  onclick="searchEqpList();">검색</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tbl-bootstrap-wrap">
-                        <table id="lineStartTable"></table>
                     </div>
                 </div>
-
-                <!-- 목적지정보 -->
-                <div id="section-line-end-info" style="width:49%; ">
-                    <div>
-                        <h2>목적지</h2>
-                    </div>
-                    <div style="display: flex; justify-content: space-between;">
-                        <div style="display: flex; align-items: flex-end;">
-                            <p class="totalCnt" id="lineEndTotalCnt"></p>
-                        </div>
-                        <div class="searchWordWrap" style="display: flex; align-items: center; margin-bottom: 10px;">
-                            <div class="searchTitle">검색어</div>
-                            <div class="searchWordInput">
-                                <input type="text" id="searchInput" style="width:300px;" placeholder="검색어를 입력하세요"/>
-                                <button type="button"  onclick="searchEqpList();">검색</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div style='display: flex; justify-content: space-between;'>
-                    </div>
-                    <div class="tbl-bootstrap-wrap">
-                        <table id="lineEndTable"></table>
-                    </div>
+                <div class="tbl-bootstrap-wrap">
+                    <table id="lineStartTable"></table>
                 </div>
             </div>
 
-            <!-- 선택된 출발지, 목적지 테이블 -->
-            <div id="section-line-select-info">
-                <div class="section-line-title">
-                    <h2>선번장 구성</h2>
+            <!-- 목적지정보 -->
+            <div class="contentCardWrap">
+                <div class="contentCardTitle">
+                    <h2>▪️ 목적지 선택</h2>
+                </div>
+                <div style='display: flex; justify-content: space-between; align-items: flex-end;'>
+                    <div>
+                        <p class="totalCnt" id="lineEndTotalCnt"></p>
+                    </div>
+                    <div class="searchWordWrap">
+                        <div class="searchWordInput">
+                            <label class="searchTitle" for="searchEndInput">검색어</label>
+                            <input type="text"    class="searchInput"  id="searchEndInput" placeholder="검색어를 입력하세요"/>
+                            <button type="button" class="searchButton" onclick="searchEqpList();">검색</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="tbl-bootstrap-wrap">
-                    <div class="tbl-bootstrap-wrap">
-                        <table id="lineSelectTable"></table>
-                    </div>
+                    <table id="lineEndTable"></table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 선택된 출발지, 목적지 테이블 -->
+        <div class="contentCard">
+            <div class="contentCardTitle">
+                <h2>▪️ 선번장 구성</h2>
+            </div>
+            <div class="tbl-bootstrap-wrap">
+                <div class="tbl-bootstrap-wrap">
+                    <table id="lineSelectTable"></table>
                 </div>
             </div>
 
             <!-- 회선 -->
-            <div id="section-line-category-info">
-                <div class="section-line-title">
-                    <h2>회선</h2>
+            <div class="contentCardWrap">
+                <div class="contentCardTitle">
+                    <h2>▪️ 회선</h2>
                 </div>
-                <div class="tbl-bootstrap-wrap">
+                <div class="tbl-bootstrap-wrap custom-border-top-solid">
                     <table id="lineCategoryTable">
                         <tbody>
                         <tr>
-                            <td><label for="line_installation_year">포설년도</label></td>
-                            <td>
-                                <input type="date" id="line_installation_year" name="line_installation_year" th:value="${line.line_installation_year}"/>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                                <label for="line_installation_year" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">포설년도</label></td>
+                            <td class="custom-border-left custom-width-15per">
+                                <input type="date" id="line_installation_year" name="line_installation_year" class="form-control" th:value="${line.line_installation_year}"/>
                             </td>
-                            <td><label for="line_category">구분</label></td>
-                            <td>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                                <label for="line_category" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">구분</label></td>
+                            <td class="custom-border-left custom-width-15per">
                                 <select id="line_category" name="line_category" class="form-control">
                                     <option th:each="category : ${link_category}"
                                             th:value="${category['id']}"
@@ -106,8 +103,9 @@
                                             th:selected="${category['name'] == line.line_category}"></option>
                                 </select>
                             </td>
-                            <td><label for="line_speed">속도</label></td>
-                            <td>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                                <label for="line_speed" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">속도</label></td>
+                            <td class="custom-border-left custom-width-15per">
                                 <select id="line_speed" name="line_speed" class="form-control">
                                     <option th:each="category : ${link_speed}"
                                             th:value="${category['id']}"
@@ -115,8 +113,9 @@
                                             th:selected="${category['name'] == line.line_speed}"></option>
                                 </select>
                             </td>
-                            <td><label for="line_color">색상</label></td>
-                            <td>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                                <label for="line_color" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">색상</label></td>
+                            <td class="custom-border-left custom-width-15per">
                                 <select id="line_color" name="line_color" class="form-control">
                                     <option th:each="category : ${link_color}"
                                             th:value="${category['id']}"
@@ -128,15 +127,20 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
 
+            <div class="contentCardWrap">
+                <div class="contentCardButton">
+                    <button type='button' class="btn btn-outline-secondary custom-card-btn custom-blue-btn"
+                            onclick="saveData()">저장
+                    </button>
+                    <button type='button' class="btn btn-outline-secondary custom-card-btn custom-normal-btn"
+                            onclick="back()">취소
+                    </button>
+                </div>
+            </div>
         </div>
 
-        <div>
-            <button type="button" onclick="saveData()">저장</button>
-            <button type="button" onclick="back()">취소</button>
-        </div>
     </main>
 
 
