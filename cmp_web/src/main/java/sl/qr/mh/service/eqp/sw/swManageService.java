@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sl.qr.mh.service.eqp.hw.hwMapper;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class swManageService {
 
     private final hwMapper hwMapper;
     private final swMapper swMapper;
-    private final String sep = "/";
+    private final String sep = File.separator;
     private final String staticPath = System.getProperty("user.dir") + sep + "src" + sep + "main" + sep + "resources" + sep + "static" + sep + "excelTemplate" + sep;
 
     public swManageService(hwMapper hwMapper, swMapper swMapper) {

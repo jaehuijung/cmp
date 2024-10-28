@@ -57,4 +57,7 @@ public interface lineMapper {
      * @param deleteLineTarget 장비관리번호
      */
     void deleteLineList(String deleteLineTarget);
+
+    // 선번장관리 > 선번장목록 > 선번장 목록 다운로드 > 전체 선번장 목록 다운로드
+    List<Map<String, Object>> getExcelLineTotalList();
 }

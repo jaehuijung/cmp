@@ -303,11 +303,41 @@ function lineDelete() {
  * 선번장관리 > 선번장목록 > 선번장 목록 다운로드 버튼
  * 선택된 하나 또는 여러 개의 장비를 다운로드함
 */
-function selectRackDownload(){
-    console.log("엑셀 다운로드")
+function selectLineDownload(){
+    alert3("save");
+
+    $.ajax({
+        url: "/rack/line/downloadLineInfo",
+        method: "post",
+        xhrFields: {
+            responseType: 'blob'
+        }
+    }).done(function(res) {
+        alert3Close();
+    }).then(function(res) {
+        downloadFileFunction(res, 'lineList.xlsx');
+        alert2('알림', '선번장 목록이 다운로드되었습니다.', 'info', '확인');
+    }).catch(function() {
+        alert2('알림', '엑셀 파일을 다운로드하는 중 오류가 발생했습니다. 관리자에게 문의하세요.', 'error', '확인');
+    });
 }
 
-
+/**
+ * 장비관리 > 장비목록 > 엑셀 업로드 버튼
+ * 9. 다운로드한 파일을 사용자에게 저장하도록 하는 함수로 엑셀 양식 / 검증 / 결과파일 다운로드에서 사용됨
+ * @param {Blob} res - 서버에서 응답받은 파일 데이터
+ * @param {string} fileName - 저장할 파일의 이름
+ */
+function downloadFileFunction(res, fileName){
+    const url = window.URL.createObjectURL(res);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
+}
 
 
 // 엑셀 download

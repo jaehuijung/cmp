@@ -1,13 +1,16 @@
 package sl.qr.mh.controller.rack.line;
 
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import sl.qr.mh.service.rack.line.lineManageService;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -167,11 +170,27 @@ public class lineManageController {
 
 
     /**
-     *
+     * 선번장관리 > 선번장목록 > PDF
      */
     @PostMapping("/qrLoad")
     public String qrPrint(@RequestBody List<Map<String, Object>> paramMap, Model model) {
         model.addAttribute("selections", paramMap);
         return "views/rack/line/qrLoad";
     }
+
+    /**
+     * 선번장관리 > 선번장목록 > 선번장 목록 다운로드
+     */
+    @ResponseBody
+    @PostMapping("/downloadLineInfo")
+    public void downloadLineInfo(HttpServletResponse response) throws IOException {
+
+        Workbook wb = lineManageService.downloadLineList();
+        response.setContentType("ms-vnd/excel");
+        response.setHeader("Content-Disposition", "attachment;filename=equipmentListTemplate.xlsx");
+
+        wb.write(response.getOutputStream());
+        wb.close();
+    }
+
 }
