@@ -29,7 +29,7 @@ public class statisticsController {
      */
     @GetMapping("/view")
     public String view() {
-        return "views/main/notice/view";
+        return "views/main/statistics/view";
     }
 
 }

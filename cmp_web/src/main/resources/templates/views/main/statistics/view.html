@@ -4,53 +4,191 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 
-    <div layout:fragment="content">
+<div layout:fragment="content">
 
-        <main id="main" class="equipment">
+    <main id="main" class="statistics">
 
-            <div class="contentCard">
+        <div class="contentCard">
+            <h2>통계 페이지</h2>
 
-                <div class="searchWrap">
-                    <div class="searchWordWrap">
-                        <div class="searchWordInput">
-                            <label class="searchTitle" for="searchInput">검색어</label>
-                            <input type="text"    class="searchInput"  id="searchInput" placeholder="검색어를 입력하세요"/>
-                            <button type="button" class="searchButton" onclick="tableRefresh();">검색</button>
-                        </div>
-                    </div>
-                </div>
-
+            <!-- 케이블 종류 그룹별 개수 (도넛 차트) -->
+            <div id="chartContainer1" style="height: 400px; width: 100%;">
+                <h3>케이블 종류 그룹별 개수</h3>
+                <canvas id="cableTypeChart"></canvas>
             </div>
 
-            <div class="contentCard">
-                <div style='display: flex; justify-content: space-between;'>
-                    <div>
-                        <p class="totalCnt" id="eqpTotalCnt"></p>
-                    </div>
-                    <div>
-                        <button type='button' class="btn btn-outline-secondary custom-normal-btn"
-                                onclick="eqpCreate()">추가
-                        </button>
-                        <button type='button' class="btn btn-outline-secondary custom-normal-btn"
-                                onclick="eqpUpdate()">수정
-                        </button>
-                        <button type='button' class="btn btn-outline-secondary custom-normal-btn"
-                                onclick="eqpDelete()">삭제
-                        </button>
-                    </div>
-                </div>
-
-                <div class="tbl-bootstrap-wrap">
-                    <table id="statisticsTable"></table>
-                </div>
+            <div id="tableContainer1">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>케이블 종류</th>
+                        <th>개수</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>광</td>
+                        <td>50</td>
+                    </tr>
+                    <tr>
+                        <td>UTP</td>
+                        <td>100</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
 
-        </main>
+            <!-- 케이블 속도 그룹별 개수 (라인 차트) -->
+            <div id="chartContainer2" style="height: 400px; width: 100%;">
+                <h3>케이블 속도 그룹별 개수</h3>
+                <canvas id="cableSpeedChart"></canvas>
+            </div>
 
-        <th:block layout:fragment="script">
-            <script th:src="@{/js/main/statistics/view.js}"></script>
-        </th:block>
-    </div>
+            <div id="tableContainer2">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>케이블 속도</th>
+                        <th>개수</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>100mb</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <td>1gb</td>
+                        <td>40</td>
+                    </tr>
+                    <tr>
+                        <td>10gb</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>100gb</td>
+                        <td>10</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
+            <!-- 케이블 색상 그룹별 개수 (레이더 차트) -->
+            <div id="chartContainer3" style="height: 400px; width: 100%;">
+                <h3>케이블 색상 그룹별 개수</h3>
+                <canvas id="cableColorChart"></canvas>
+            </div>
+
+            <div id="tableContainer3">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>케이블 색상</th>
+                        <th>개수</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>흰색</td>
+                        <td>50</td>
+                    </tr>
+                    <tr>
+                        <td>주황색</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <td>파란색</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>초록색</td>
+                        <td>25</td>
+                    </tr>
+                    <tr>
+                        <td>갈색</td>
+                        <td>10</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 장비 분류 그룹별 개수 (파이 차트) -->
+            <div id="chartContainer4" style="height: 400px; width: 100%;">
+                <h3>장비 분류 그룹별 개수</h3>
+                <canvas id="equipmentCategoryChart"></canvas>
+            </div>
+
+            <div id="tableContainer4">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>장비 분류</th>
+                        <th>개수</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>하드웨어</td>
+                        <td>70</td>
+                    </tr>
+                    <tr>
+                        <td>소프트웨어</td>
+                        <td>30</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 장비 자산 그룹별 개수 (바 차트) -->
+            <div id="chartContainer5" style="height: 400px; width: 100%;">
+                <h3>장비 자산 그룹별 개수</h3>
+                <canvas id="equipmentAssetChart"></canvas>
+            </div>
+
+            <div id="tableContainer5">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>장비 자산</th>
+                        <th>개수</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>서버</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <td>네트워크</td>
+                        <td>25</td>
+                    </tr>
+                    <tr>
+                        <td>보안</td>
+                        <td>15</td>
+                    </tr>
+                    <tr>
+                        <td>스토리지</td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <td>백업</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td>기타</td>
+                        <td>10</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </main>
+
+    <th:block layout:fragment="script">
+        <script th:src="@{/js/main/statistics/view.js}"></script>
+    </th:block>
+</div>
 
 </html>
