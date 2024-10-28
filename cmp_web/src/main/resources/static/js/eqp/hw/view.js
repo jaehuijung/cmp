@@ -246,7 +246,6 @@ function eqpDelete() {
                             alert2('알림', '데이터를 삭제하는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
                         }
                         else{
-                        alert2('알림', '삭제되었습니다.', 'info', '확인', tableRefresh());
                             let errorTarget = res.errorTarget;
                             if(errorTarget.length == 0){
                                 alert2('알림', '삭제되었습니다.', 'info', '확인', tableRefresh());
