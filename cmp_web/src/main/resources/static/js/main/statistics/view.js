@@ -1,70 +1,56 @@
 
 document.addEventListener('DOMContentLoaded', function() {
-    var cableTypeCtx = document.getElementById('cableTypeChart').getContext('2d');
-    new Chart(cableTypeCtx, {
-        type: 'doughnut',
+    var ctx1 = document.getElementById('cableChart').getContext('2d');
+
+    var cableChart = new Chart(ctx1, {
+        type: 'bar',
         data: {
-            labels: ['광', 'UTP'],
+            labels: ['1G-흰색', '1G-파란색', '1G-노란색', '1G-주황색', '1G-갈색',
+                     '10G-흰색', '10G-파란색', '10G-노란색', '10G-주황색', '10G-갈색',
+                     '100G-흰색', '100G-파란색', '100G-노란색', '100G-주황색', '100G-갈색'],
             datasets: [{
-                label: '케이블 종류',
-                data: [50, 100],
+                label: '케이블 수량',
+                data: [15, 10, 5, 7, 8, 12, 9, 6, 11, 4, 3, 8, 5, 2, 1],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)'
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)'
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)'
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)'
                 ],
                 borderWidth: 1
             }]
         },
         options: {
-            responsive: true
-        }
-    });
-
-    var cableSpeedCtx = document.getElementById('cableSpeedChart').getContext('2d');
-    new Chart(cableSpeedCtx, {
-        type: 'line',
-        data: {
-            labels: ['100mb', '1gb', '10gb', '100gb'],
-            datasets: [{
-                label: '케이블 속도',
-                data: [20, 40, 30, 10],
-                backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                borderColor: 'rgba(153, 102, 255, 1)',
-                borderWidth: 1,
-                fill: true
-            }]
-        },
-        options: {
-            responsive: true,
             scales: {
                 y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-
-    var cableColorCtx = document.getElementById('cableColorChart').getContext('2d');
-    new Chart(cableColorCtx, {
-        type: 'radar',
-        data: {
-            labels: ['흰색', '주황색', '파란색', '초록색', '갈색'],
-            datasets: [{
-                label: '케이블 색상',
-                data: [50, 20, 30, 25, 10],
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                r: {
                     beginAtZero: true
                 }
             }
