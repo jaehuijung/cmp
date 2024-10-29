@@ -7,189 +7,249 @@
 <head>
     <style>
         /* 기본 스타일 및 레이아웃 */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f2f5;
-    margin: 0;
-    padding: 0;
-}
+        body {
+            font-family: Pretendard, sans-serif;
+            font-weight: 500;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
 
-#main.dashboard {
-    padding: 20px;
-}
+        #main.dashboard {
+            padding: 20px;
+        }
 
-.contentCard {
-    background: #fff;
-    padding: 20px;
-    margin: 20px 0;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+        .section-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
 
-h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
+        .section {
+            background: #fff;
+            padding: 30px 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 350px;
+            height: 350px;
+        }
 
-section {
-    margin-bottom: 40px;
-}
+        /* 사용자 정보 섹션 스타일 */
+        #userInfoSection {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            gap: 15px;
+        }
 
-section h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
-}
+        .user-icon-container,
+        .user-info-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
 
-/* 사용자 정보 섹션 */
-#userInfoSection {
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 4px;
-}
+        .user-icon-container {
+            margin-bottom: 20px;
+        }
 
-/* 공지사항 및 승인 알림 섹션 */
-#noticeSection, #approvalNotificationsSection {
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 4px;
-}
+        .user-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
 
-#noticeSection ul, #approvalNotificationsSection ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
+        .user-info-container p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
 
-#noticeSection li, #approvalNotificationsSection li {
-    padding: 5px 0;
-}
+        /* 승인 알림 섹션 스타일 */
+        #approvalNotificationSection {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
 
-/* 달력 섹션 */
-#calendarSection {
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 4px;
-}
+        .notification-header {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
 
-#calendar {
-    max-width: 100%;
-    margin: 0 auto;
-}
+        .notification-count {
+            font-size: 16px;
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 25px; /* 이미지 크기에 맞게 조정 */
+        }
 
-/* 장비 그룹별 통계 섹션 */
-#equipmentGroupStatsSection {
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 4px;
-}
+        .notification-count img {
+            width: 20px; /* 이미지 크기를 텍스트 크기에 맞춰 조정 */
+            height: 20px;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
 
-#equipmentGroupStatsSection .table {
-    width: 100%;
-    margin-top: 20px;
-    border-collapse: collapse;
-}
+        .notification-count span {
+            color: red;
+            text-decoration: underline;
+        }
 
-#equipmentGroupStatsSection .table thead th {
-    border-bottom: 2px solid #ddd;
-    padding: 10px;
-    text-align: left;
-}
+        .notification-list {
+            width: 100%;
+            text-align: left;
+        }
 
-#equipmentGroupStatsSection .table tbody td {
-    border-bottom: 1px solid #ddd;
-    padding: 10px;
-}
+        .notification-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 5px 0;
+            font-size: 14px;
+            position: relative;
+        }
+
+        .notification-item img {
+            width: 16px; /* 이미지 크기를 텍스트 크기에 맞춰 조정 */
+            height: 16px;
+            margin-right: 10px;
+        }
+
+        .notification-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .btn-approve {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .btn-reject {
+            background-color: #f44336;
+            color: white;
+        }
+
+        /* 달력 섹션 스타일 */
+        #calendarSection {
+            width: 350px;
+            height: 350px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            text-align: left;
+        }
+
+        #calendar {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .pika-lendar{
+            width: 100%;
+            height: 100%;
+        }
     </style>
+
+    <!-- Pikaday CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
 </head>
+
+<body>
 <div layout:fragment="content">
 
     <main id="main" class="dashboard">
-
-        <div class="contentCard">
-            <h2>대시보드</h2>
-
-            <!-- 현재 로그인 한 사용자의 정보 섹션 -->
-            <section id="userInfoSection">
-                <h3>사용자 정보</h3>
-                <p>사용자 이름: <span id="userName">홍길동</span></p>
-                <p>이메일: <span id="userEmail">hong@gmail.com</span></p>
-            </section>
-
-            <!-- 공지사항 섹션 -->
-            <section id="noticeSection">
-                <h3>공지사항</h3>
-                <ul>
-                    <li>공지사항 1</li>
-                    <li>공지사항 2</li>
-                    <li>공지사항 3</li>
-                </ul>
-            </section>
+        <div class="section-container">
+            <div id="userInfoSection" class="section">
+                <div class="user-icon-container">
+                    <img src="/images/icon/menu_user.png" alt="User Icon" class="user-icon" />
+                </div>
+                <div class="user-info-container">
+                    <p><span id="userName">구명회</span></p>
+                    <p><span id="userDept">기술지원 1팀</span></p>
+                    <p><span id="userEmail">gumh@seolimict.co.kr</span></p>
+                </div>
+            </div>
 
             <!-- 승인 알림 섹션 -->
-            <section id="approvalNotificationsSection">
-                <h3>승인 알림</h3>
-                <ul>
-                    <li>승인 요청 1</li>
-                    <li>승인 요청 2</li>
-                    <li>승인 요청 3</li>
-                </ul>
-            </section>
+            <div id="approvalNotificationSection" class="section">
+                <div class="notification-header">포설 승인 알림</div>
+                <div class="notification-count">
+                    <img src="/images/icon/page/alarm.svg" alt="Alarm Icon" />
+                    총 <span>3건</span>의 승인 요청이 있습니다.
+                </div>
+                <div class="notification-list">
+                    <div class="notification-item">
+                        <img src="/images/icon/page/check.svg" alt="Alarm Icon" />
+                        "엄태건" 님의 승인 요청
+                        <div class="notification-buttons">
+                            <button class="btn btn-approve">승인</button>
+                            <button class="btn btn-reject">반려</button>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <img src="/images/icon/page/check.svg" alt="Alarm Icon" />
+                        "김강현" 님의 승인 요청
+                        <div class="notification-buttons">
+                            <button class="btn btn-approve">승인</button>
+                            <button class="btn btn-reject">반려</button>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <img src="/images/icon/page/check.svg" alt="Alarm Icon" />
+                        "박준호" 님의 승인 요청
+                        <div class="notification-buttons">
+                            <button class="btn btn-approve">승인</button>
+                            <button class="btn btn-reject">반려</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- 달력 섹션 -->
-            <section id="calendarSection">
-                <h3>달력</h3>
-                <!-- 간단한 달력을 임의로 배치, 실제 달력 라이브러리를 사용할 수도 있음 -->
+            <div id="calendarSection" class="section">
                 <div id="calendar"></div>
-            </section>
-
-            <!-- 등록되어 있는 장비 그룹별 개수 통계 -->
-            <section id="equipmentGroupStatsSection">
-                <h3>장비 그룹별 개수 통계</h3>
-                <canvas id="equipmentGroupChart"></canvas>
-                <div id="equipmentGroupTableContainer">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>장비 그룹</th>
-                            <th>개수</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>서버</td>
-                            <td>20</td>
-                        </tr>
-                        <tr>
-                            <td>네트워크</td>
-                            <td>25</td>
-                        </tr>
-                        <tr>
-                            <td>보안</td>
-                            <td>15</td>
-                        </tr>
-                        <tr>
-                            <td>스토리지</td>
-                            <td>10</td>
-                        </tr>
-                        <tr>
-                            <td>백업</td>
-                            <td>5</td>
-                        </tr>
-                        <tr>
-                            <td>기타</td>
-                            <td>10</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
+            </div>
         </div>
     </main>
 
+    <!-- Pikaday JS -->
+    <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+
     <th:block layout:fragment="script">
-        <script th:src="@{/js/main/dashboard/view.js}"></script>
+        <!-- <script th:src="@{/js/main/dashboard/view.js}"></script> -->
+        <!-- Pikaday 초기화 스크립트 -->
+        <script>
+            var picker = new Pikaday({
+                field: document.getElementById('calendar'),
+                bound: false,  // 상시 표시되도록 설정
+                container: document.getElementById('calendar'),
+                format: 'YYYY-MM-DD'
+            });
+        </script>
     </th:block>
 </div>
+</body>
 
 </html>
