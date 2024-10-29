@@ -9,171 +9,47 @@
     <main id="main" class="statistics">
 
         <div class="contentCard">
-            <h2>통계 페이지</h2>
+            <h2>케이블 포설 현황</h2>
 
-            <!-- 케이블 정보 (테이블 및 바 차트) -->
-            <div id="chartContainer1" style="height: 400px; width: 100%;">
-                <h3>케이블 정보</h3>
-                <canvas id="cableChart"></canvas>
-            </div>
+            <div id="container">
+                <div id="chartContainer">
+                    <h3>파이 차트 (광/UTF)</h3>
+                    <canvas id="cableChart"></canvas>
+                </div>
 
-            <div id="tableContainer1">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>케이블 구분</th>
-                        <th>색상</th>
-                        <th>개수</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>1G</td>
-                        <td>흰색</td>
-                        <td>15</td>
-                    </tr>
-                    <tr>
-                        <td>1G</td>
-                        <td>파란색</td>
-                        <td>10</td>
-                    </tr>
-                    <tr>
-                        <td>1G</td>
-                        <td>노란색</td>
-                        <td>5</td>
-                    </tr>
-                    <tr>
-                        <td>1G</td>
-                        <td>주황색</td>
-                        <td>7</td>
-                    </tr>
-                    <tr>
-                        <td>1G</td>
-                        <td>갈색</td>
-                        <td>8</td>
-                    </tr>
-                    <tr>
-                        <td>10G</td>
-                        <td>흰색</td>
-                        <td>12</td>
-                    </tr>
-                    <tr>
-                        <td>10G</td>
-                        <td>파란색</td>
-                        <td>9</td>
-                    </tr>
-                    <tr>
-                        <td>10G</td>
-                        <td>노란색</td>
-                        <td>6</td>
-                    </tr>
-                    <tr>
-                        <td>10G</td>
-                        <td>주황색</td>
-                        <td>11</td>
-                    </tr>
-                    <tr>
-                        <td>10G</td>
-                        <td>갈색</td>
-                        <td>4</td>
-                    </tr>
-                    <tr>
-                        <td>100G</td>
-                        <td>흰색</td>
-                        <td>3</td>
-                    </tr>
-                    <tr>
-                        <td>100G</td>
-                        <td>파란색</td>
-                        <td>8</td>
-                    </tr>
-                    <tr>
-                        <td>100G</td>
-                        <td>노란색</td>
-                        <td>5</td>
-                    </tr>
-                    <tr>
-                        <td>100G</td>
-                        <td>주황색</td>
-                        <td>2</td>
-                    </tr>
-                    <tr>
-                        <td>100G</td>
-                        <td>갈색</td>
-                        <td>1</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- 장비 분류 그룹별 개수 (파이 차트) -->
-            <div id="chartContainer4" style="height: 400px; width: 100%;">
-                <h3>장비 분류 그룹별 개수</h3>
-                <canvas id="equipmentCategoryChart"></canvas>
-            </div>
-
-            <div id="tableContainer4">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>장비 분류</th>
-                        <th>개수</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>하드웨어</td>
-                        <td>70</td>
-                    </tr>
-                    <tr>
-                        <td>소프트웨어</td>
-                        <td>30</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- 장비 자산 그룹별 개수 (바 차트) -->
-            <div id="chartContainer5" style="height: 400px; width: 100%;">
-                <h3>장비 자산 그룹별 개수</h3>
-                <canvas id="equipmentAssetChart"></canvas>
-            </div>
-
-            <div id="tableContainer5">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>장비 자산</th>
-                        <th>개수</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>서버</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>네트워크</td>
-                        <td>25</td>
-                    </tr>
-                    <tr>
-                        <td>보안</td>
-                        <td>15</td>
-                    </tr>
-                    <tr>
-                        <td>스토리지</td>
-                        <td>10</td>
-                    </tr>
-                    <tr>
-                        <td>백업</td>
-                        <td>5</td>
-                    </tr>
-                    <tr>
-                        <td>기타</td>
-                        <td>10</td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div id="tableContainer">
+                    <h3>테이블</h3>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>100MB</th>
+                            <th>1GB</th>
+                            <th>10GB</th>
+                            <th>100GB</th>
+                            <th>합계</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>광</td>
+                            <td>50</td>
+                            <td>60</td>
+                            <td>70</td>
+                            <td>80</td>
+                            <td>260</td>
+                        </tr>
+                        <tr>
+                            <td>UTF</td>
+                            <td>30</td>
+                            <td>40</td>
+                            <td>50</td>
+                            <td>60</td>
+                            <td>180</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
         </div>
@@ -182,7 +58,64 @@
 
     <th:block layout:fragment="script">
         <script th:src="@{/js/main/statistics/view.js}"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var ctx = document.getElementById('cableChart').getContext('2d');
+
+                var cableChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['광', 'UTF'],
+                        datasets: [{
+                            data: [260, 180],
+                            backgroundColor: ['rgba(75, 192, 192, 0.6)', 'rgba(255, 159, 64, 0.6)'],
+                            borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 159, 64, 1)'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: '광 vs UTF 용량 분포'
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
     </th:block>
+
+    <style>
+        #container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        #chartContainer, #tableContainer {
+            flex: 1 1 400px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .table th {
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+    </style>
 </div>
 
 </html>
