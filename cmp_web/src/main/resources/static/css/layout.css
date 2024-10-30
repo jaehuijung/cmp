@@ -83,6 +83,7 @@ header {
     display: flex;
     align-items: center;
     flex-grow: 1;
+    white-space: nowrap;
 }
 
 #left-logo {
@@ -550,6 +551,7 @@ header {
     height: 36px;
     font-size: 16px;
     width: 130px;
+    white-space: nowrap;
 }
 
 .searchButton:hover {
@@ -580,6 +582,7 @@ header {
     height: 36px;
     font-size: 16px;
     width: 150px;
+    white-space: nowrap;
     margin-left: 10px;
 }
 
@@ -687,50 +690,77 @@ header {
 
 /* 기타 공통 커스텀 항목들 */
 
-.custom-background-lightblue {
-    background-color: #F6F9FE;
-}
+/* custom-background */
+.custom-background-lightblue { background-color: #F6F9FE; }
 
-.custom-border-top-solid {
-    border-top: 1px solid #000;
-}
+/* custom width */
+.custom-width-10per { width: 10%; }
+.custom-width-15per { width: 15% }
+.custom-width-100per { width: 100%; }
 
-.custom-border-right {
-    border-right: 0;
-}
+.custom-width-45 { width: 45px; }
+.custom-width-350 { width: 350px; }
+.custom-width-400 { width: 400px; }
+.custom-width-450 { width: 450px; }
 
-.custom-border-left {
-    border-left: 0;
-}
+.custom-width-min-50 { min-width: 50px; }
+.custom-width-nowrap { white-space: nowrap; }
 
-.custom-width-min {
-    min-width: 50px;
-}
+/* custom margin */
+.custom-margin-left-10 { margin-left: 10px; }
+.custom-margin-right-10 { margin-right: 10px; }
+.custom-margin-tb-20 { margin: 20px 0px; }
+.custom-margin-t-30 { margin-top: 30px; }
+.custom-margin-b-15 { margin-bottom: 15px; }
+.custom-margin-b-5 { margin-bottom: 5px; }
+.custom-margin-b-20 { margin-bottom: 20px; }
 
-.custom-width-nowrap {
-    white-space: nowrap;
-}
+/* custom padding */
+.custom-padding-left-25 { padding-left: 25px; }
+.custom-padding-lr-20 { padding: 0px 20px;}
 
-.custom-width-45px{
-    width: 45px;
-}
+/* custom position */
+.custom-position-relative { position: relative; }
+.custom-position-absolute { position: absolute; }
 
-.custom-width-10per {
-    width: 10%;
-}
+/* custom font size */
+.custom-font-size-12 { font-size: 12px; }
+.custom-font-size-14 { font-size: 14px; }
+.custom-font-size-16 { font-size: 16px; }
+.custom-font-size-18 { font-size: 18px; }
+.custom-font-size-22 { font-size: 22px; }
 
-.custom-width-15per {
-    width: 15%
-}
+/* custom font weight */
+.custom-font-weight-500 { font-weight: 500; }
 
-.custom-margin-left-10 {
-    margin-left: 10px;
-}
+/* custom gap */
+.custom-gap-5 { gap: 5px; }
 
-.custom-font-weight-500 {
-    font-weight: 500;
-}
+/* custom Flexbox utility classes */
+.flex { display: flex; }
+.flex-column { display: flex; flex-direction: column; }
+.flex-column-center { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.flex-row-center { display: flex; align-items: center; justify-content: space-between; }
+.flex-wrap-center { display: flex; flex-wrap: wrap; justify-content: center; }
 
-.custom-flex {
-    display: flex;
-}
+/* custom border */
+.custom-border-right { border-right: 0; }
+.custom-border-left { border-left: 0; }
+.custom-border-top-solid { border-top: 1px solid #000; }
+.custom-border-radius-4 { border-radius: 4px; }
+
+/* custom location */
+.custom-top-50 { top: 50%; }
+.custom-left-0 { left: 0; }
+
+/* custom text location */
+.custom-text-left { text-align: left; }
+
+/* custom text color */
+.custom-color-red { color: red; }
+
+/* custom text etc */
+.custom-text-underline { text-decoration: underline; }
+
+/* custom transform */
+.custom-transform-translate-y-50 { transform: translateY(-50%); }
