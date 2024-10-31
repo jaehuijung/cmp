@@ -165,6 +165,12 @@
                         </tr>
                         <tr>
                             <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                                <label for="operating_department" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영부서</label>
+                            </td>
+                            <td class="custom-border-left custom-width-15per">
+                                <input type="text" id="operating_department" name="operating_department" th:value="${equipment.operating_department}" class="form-control"/>
+                            </td>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
                                 <label for="secondary_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영담당자(부)</label>
                             </td>
                             <td class="custom-border-left custom-width-15per">
@@ -175,12 +181,6 @@
                             </td>
                             <td class="custom-border-left custom-width-15per">
                                 <input type="text" id="secondary_outsourced_operator" name="secondary_outsourced_operator" th:value="${equipment.secondary_outsourced_operator}" class="form-control"/>
-                            </td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
-                                <label for="operating_department" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영부서</label>
-                            </td>
-                            <td class="custom-border-left custom-width-15per">
-                                <input type="text" id="operating_department" name="operating_department" th:value="${equipment.operating_department}" class="form-control"/>
                             </td>
                         </tr>
                         <tr>
