@@ -29,7 +29,7 @@ public class hwManageController {
     }
 
     /**
-     * H/W관리 > 장비목록 > 조회 뷰 페이지
+     * 조회 뷰 페이지
      *
      * @return 장비 목록 뷰 페이지
      */
@@ -39,7 +39,7 @@ public class hwManageController {
     }
 
     /**
-     * H/W관리 > 장비목록 > 장비목록 데이터
+     * 조회 > 장비목록 데이터
      *
      * @param paramMap 요청 파라미터 맵
      * @return 장비 목록 데이터 및 기타 메타 정보
@@ -51,7 +51,7 @@ public class hwManageController {
     }
 
     /**
-     * H/W관리 > 장비목록 > 추가/수정 > h/W 장비 목록 리스트
+     * 추가/수정 > H/W 장비 목록 리스트
      *
      * @param paramMap 요청 파라미터 맵
      * @return sw 장비 목록 데이터 및 기타 메타 정보
@@ -63,7 +63,19 @@ public class hwManageController {
     }
 
     /**
-     * H/W관리 > 장비목록 > 수정 / 상세 > 선택된 H/W 장비에 등록된 H/W 장비 목록 리스트
+     * 추가/수정 > S/W 장비 목록 리스트
+     *
+     * @param paramMap 요청 파라미터 맵
+     * @return sw 장비 목록 데이터 및 기타 메타 정보
+     */
+    @ResponseBody
+    @PostMapping("/equipmentSoftwareList")
+    public Map<String, Object> getEquipmentSoftwareList(@RequestBody Map<String, Object> paramMap) {
+        return hwManageService.getEquipmentSoftwareList(paramMap);
+    }
+
+    /**
+     * 수정/상세 > 선택된 H/W 장비에 등록된 H/W 장비 목록 리스트
      *
      * @param paramMap 요청 파라미터 맵
      * @return sw 장비 목록 데이터 및 기타 메타 정보
@@ -76,7 +88,7 @@ public class hwManageController {
 
 
     /**
-     * H/W관리 > 장비목록 > 수정 / 상세 > 선택된 H/W 장비에 등록된 S/W 장비 목록 리스트
+     * 수정/상세 > 선택된 H/W 장비에 등록된 S/W 장비 목록 리스트
      *
      * @param paramMap 요청 파라미터 맵
      * @return sw 장비 목록 데이터 및 기타 메타 정보
@@ -88,19 +100,7 @@ public class hwManageController {
     }
 
     /**
-     * H/W관리 > 장비목록 > 추가/수정 > S/W 장비 목록 리스트
-     *
-     * @param paramMap 요청 파라미터 맵
-     * @return sw 장비 목록 데이터 및 기타 메타 정보
-     */
-    @ResponseBody
-    @PostMapping("/equipmentSoftwareList")
-    public Map<String, Object> getEquipmentSoftwareList(@RequestBody Map<String, Object> paramMap) {
-        return hwManageService.getEquipmentSoftwareList(paramMap);
-    }
-
-    /**
-     * H/W관리 > 장비목록 > 장비 삭제
+     * 조회/상세 > 장비 삭제
      *
      * @param deleteList 삭제할 장비 목록
      * @return 삭제 결과
@@ -112,7 +112,7 @@ public class hwManageController {
     }
 
     /**
-     * H/W관리 > 장비목록 > 추가 뷰 페이지
+     * 추가 뷰 페이지
      *
      * @return 장비 추가 뷰 페이지
      */
@@ -122,7 +122,7 @@ public class hwManageController {
     }
 
     /**
-     * H/W관리 > 장비목록 > 추가 > 장비 정보 저장
+     * 추가 > 장비 정보 저장
      *
      * @return 장비 저장 결과
      */
@@ -133,7 +133,7 @@ public class hwManageController {
     }
 
     /**
-     * H/W관리 > 장비목록 > 상세 뷰 페이지
+     * 상세 뷰 페이지
      *
      * @return 장비 상세 뷰 페이지
      */
@@ -150,7 +150,7 @@ public class hwManageController {
     }
 
     /**
-     * H/W관리 > 장비목록 > 수정 뷰 페이지
+     * 수정 뷰 페이지
      *
      * @return 장비 수정 뷰 페이지
      */
@@ -172,7 +172,7 @@ public class hwManageController {
     }
 
     /**
-     * H/W관리 > 장비목록 > 수정 > 장비 정보 수정
+     * 수정 > 장비 정보 수정
      *
      * @return 장비 수정 결과
      */
@@ -182,10 +182,8 @@ public class hwManageController {
         return hwManageService.updateEqpList(paramMap);
     }
 
-
-
     /**
-     * H/W관리 > 장비목록 > 장비 목록 다운로드
+     * 조회 > 장비 목록 다운로드
      * wb : 모든 장비 목록 리스트
      */
     @ResponseBody
@@ -201,7 +199,7 @@ public class hwManageController {
 
 
     /**
-     * H/W관리 > 장비목록 > 장비 목록 업로드 > 엑셀 양식 다운로드
+     * 조회 > 장비 목록 업로드 > 엑셀 양식 다운로드
      *
      * @param response HTTP 응답 객체
      * @throws NumberFormatException 숫자 형식 오류
@@ -220,7 +218,7 @@ public class hwManageController {
 
 
     /**
-     * H/W관리 > 장비목록 > 장비 목록 업로드 > 검증 > 업로드된 엑셀 파일의 유효성 검사
+     * 조회 > 장비 목록 업로드 > 검증 > 업로드된 엑셀 파일의 유효성 검사
      *
      * @param file 업로드된 엑셀 파일
      * @param response HTTP 응답 객체
@@ -239,7 +237,7 @@ public class hwManageController {
 
 
     /**
-     * H/W관리 > 장비목록 > 장비 목록 업로드 > 업로드된 엑셀 파일 데이터 저장
+     * 조회 > 장비 목록 업로드 > 업로드된 엑셀 파일 데이터 저장
      *
      * @param file 업로드된 엑셀 파일
      * @return 삽입 결과
@@ -253,7 +251,7 @@ public class hwManageController {
 
 
     /**
-     * H/W관리 > 장비목록 > 장비 목록 업로드 > 저장 결과가 담긴 엑셀 파일 반환
+     * 조회 > 장비 목록 업로드 > 저장 결과가 담긴 엑셀 파일 반환
      *
      * @param paramMap 저장결과 파라미터 맵
      * @param response HTTP 응답 객체
