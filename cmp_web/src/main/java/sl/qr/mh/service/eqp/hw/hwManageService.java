@@ -34,7 +34,7 @@ public class hwManageService {
     }
 
     /**
-     * H/W관리 > 장비목록 > 장비 목록 데이터
+     * 조회 > 장비 목록 데이터
      *
      * @param paramMap 요청 파라미터 맵
      * @return 장비 목록 데이터
@@ -66,7 +66,7 @@ public class hwManageService {
     }
 
     /**
-     * H/W관리 > 장비목록 > 추가/수정/상세 장비분류 선택박스 > 장비분류 데이터 : 구성분류
+     * 추가/수정/상세 장비분류 선택박스 > 장비분류 데이터 : 구성분류
      *
      * @return 구성분류 데이터
      */
@@ -86,7 +86,7 @@ public class hwManageService {
     }
 
     /**
-     * H/W관리 > 장비목록 > 추가/수정/상세 장비분류 선택박스 > 장비분류 데이터 : 자산분류
+     * 추가/수정/상세 장비분류 선택박스 > 장비분류 데이터 : 자산분류
      *
      * @return 자산분류 데이터
      */
@@ -106,7 +106,7 @@ public class hwManageService {
     }
 
     /**
-     * H/W관리 > 장비목록 > 추가/수정/상세 장비분류 선택박스 > 장비분류 데이터 : 자산세부
+     * 추가/수정/상세 장비분류 선택박스 > 장비분류 데이터 : 자산세부
      *
      * @return 자산세부 데이터
      */
@@ -127,7 +127,7 @@ public class hwManageService {
     }
 
     /**
-     * H/W관리 > 장비목록 > 추가/수정/상세 장비분류 선택박스 > 장비분류 데이터 : 자산상세
+     * 추가/수정/상세 장비분류 선택박스 > 장비분류 데이터 : 자산상세
      *
      * @return 자산상세 데이터
      */
@@ -147,7 +147,7 @@ public class hwManageService {
     }
 
     /**
-     * H/W관리 > 장비목록 > 추가/수정 > H/W 장비 목록 리스트
+     * 추가/수정 > H/W 장비 목록 리스트
      *
      * @return H/W 장비 목록 리스트
      */
@@ -175,7 +175,7 @@ public class hwManageService {
     };
 
     /**
-     * H/W관리 > 장비목록 > 추가/수정 > 선택된 H/W 장비에 등록된 H/W 장비 목록 리스트
+     * 수정/상세 > 선택된 H/W 장비에 등록된 H/W 장비 목록 리스트
      *
      * @return H/W 장비 목록 리스트
      */
@@ -204,7 +204,7 @@ public class hwManageService {
 
 
     /**
-     * H/W관리 > 장비목록 > 추가/수정 > S/W 장비 목록 리스트
+     * 추가/수정 > S/W 장비 목록 리스트
      *
      * @return S/W 장비 목록 리스트
      */
@@ -227,7 +227,7 @@ public class hwManageService {
     };
 
     /**
-     * H/W관리 > 장비목록 > 수정 / 상세 > 선택된 H/W 장비에 등록된 S/W 장비 목록 리스트
+     * 수정/상세 > 선택된 H/W 장비에 등록된 S/W 장비 목록 리스트
      *
      * @param paramMap 요청 파라미터 맵
      * @return sw 장비 목록 데이터 및 기타 메타 정보
@@ -258,7 +258,7 @@ public class hwManageService {
 
 
     /**
-     * H/W관리 > 장비목록 > 추가 > 장비 저장 : 기본정보, 세부정보, 연결정보
+     * 추가 > 장비 저장 : 기본정보, 세부정보, 장비연결정보, 소프트웨어 등록정보
      *
      * @param paramMap 저장할 장비 데이터
      * @return 저장 결과
@@ -305,37 +305,7 @@ public class hwManageService {
     }
 
     /**
-     * H/W관리 > 장비목록 > 수정/상세 > 장비연결정보 데이터
-     *
-     * @return 장비 연결정보 리스트
-     */
-    @SuppressWarnings("unchecked")
-    public Map<String, Object> getEqpLinkList(Map<String, Object> paramMap){
-        Map<String, Object> returnMap = new HashMap<>();
-        returnMap.put("errorCode",false);
-
-        try {
-
-            if (paramMap.containsKey("searchData")) {
-                paramMap.putAll((Map<String, Object>) paramMap.get("searchData"));
-            }
-
-            List<Map<String, Object>> rows = hwMapper.getEquipmentDetailLinkList(paramMap);
-            int total = hwMapper.getEquipmentDetailLinkListCnt(paramMap);
-
-            returnMap.put("rows", rows);
-            returnMap.put("total", total);
-            returnMap.put("errorCode",true);
-
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
-
-        return returnMap;
-    }
-
-    /**
-     * H/W관리 > 장비목록 > 수정 > 선택한 장비 정보 수정 : 기본정보, 세부정보, 연결정보
+     * 수정 > 선택한 장비 정보 수정 : 기본정보, 세부정보, 장비연결정보, 소프트웨어 등록정보
      *
      * @param paramMap 수정할 장비 데이터
      * @return 수정 결과
@@ -405,7 +375,7 @@ public class hwManageService {
     }
 
     /**
-     * H/W관리 > 장비목록 > 상세 > 선택한 장비 정보 : 기본정보, 세부정보, 연결정보
+     * 상세 > 선택한 장비 정보 : 기본정보, 세부정보
      *
      * @param eqp_manage_id 장비 관리번호
      * @return 장비 정보 리스트
@@ -429,7 +399,7 @@ public class hwManageService {
     }
 
     /**
-     * H/W관리 > 장비목록 > 수정 > 선택한 장비 정보 : 기본정보, 세부정보, 연결정보
+     * 수정 > 선택한 장비 정보 : 기본정보, 세부정보
      *
      * @param eqp_manage_id 장비 관리번호
      * @return 장비 정보 리스트
@@ -461,7 +431,7 @@ public class hwManageService {
     }
     
     /**
-     * H/W관리 > 장비목록 > 삭제 > 선택한 장비 정보 삭제 : 기본정보, 세부정보, 연결정보
+     * 삭제 > 선택한 장비 정보 삭제
      *
      * @param deleteList 삭제할 장비 데이터
      * @return 삭제 결과
@@ -496,7 +466,7 @@ public class hwManageService {
     }
 
     /**
-     * H/W관리 > 장비목록 > 장비 목록 다운로드 > 장비목록 전체 리스트
+     * 조회 > 장비 목록 다운로드 > 장비목록 전체 리스트
      *
      * @return 장비 목록 데이터
      */
@@ -530,7 +500,7 @@ public class hwManageService {
     }
 
     /**
-     * H/W관리 > 장비목록 > 장비 목록 다운로드 : 엑셀 시트에 장비목록 데이터 입력
+     * 조회 > 장비 목록 다운로드 : 엑셀 시트에 장비목록 데이터 입력
      *
      * @param workbook 엑셀 워크북 객체
      * @param sheetIndex 시트 인덱스
@@ -581,238 +551,16 @@ public class hwManageService {
             setCellValue(sheetIndex, 34, workbook, dataRow, data.get("serial_number")); // 시리얼 번호
             setCellValue(sheetIndex, 35, workbook, dataRow, data.get("created_at")); // 생성일
         }
-        else{ // 장비연결정보
-            setCellValue(sheetIndex, 0,  workbook, dataRow, data.get("eqp_manage_id")); // 관리번호
-            setCellValue(sheetIndex, 1,  workbook, dataRow, data.get("host")); // 호스트명
-            setCellValue(sheetIndex, 2,  workbook, dataRow, data.get("ip_address")); // IP ADDRESS
-            setCellValue(sheetIndex, 3,  workbook, dataRow, data.get("port")); // 포트번호
-        }
+        // else{ // 장비연결정보
+        //     setCellValue(sheetIndex, 0,  workbook, dataRow, data.get("eqp_manage_id")); // 관리번호
+        //     setCellValue(sheetIndex, 1,  workbook, dataRow, data.get("host")); // 호스트명
+        //     setCellValue(sheetIndex, 2,  workbook, dataRow, data.get("ip_address")); // IP ADDRESS
+        //     setCellValue(sheetIndex, 3,  workbook, dataRow, data.get("port")); // 포트번호
+        // }
     }
 
     /**
-     * H/W관리 > 장비목록 > 장비 목록 업로드 > 엑셀 양식 다운로드 > 업로드 양식 엑셀 파일 생성
-     *
-     * @return 엑셀 워크북 객체
-     * @throws IOException 입력/출력 예외
-     */
-    public Workbook excelTemplate() throws IOException {
-        String uploadPath = staticPath + "equipmentUploadTemplate.xlsx";
-        FileInputStream file = new FileInputStream(uploadPath);
-        return new XSSFWorkbook(file);
-    }
-
-    /**
-     * H/W관리 > 장비목록 > 장비 목록 업로드 > 업로드된 엑셀 파일 데이터 저장
-     *
-     * @param file 업로드된 엑셀 파일
-     * @return 삽입 결과
-     * @throws IOException 입력/출력 예외
-     */
-    @Transactional
-    public Map<String, Object> insertExcelList(MultipartFile file) throws IOException {
-        Map<String, Object> returnMap = new HashMap<>();
-        List<Map<String, Object>> successList = new ArrayList<>();
-        List<Map<String, Object>> failList = new ArrayList<>();
-
-        Workbook wb = new XSSFWorkbook(file.getInputStream());
-        Sheet sheet = wb.getSheetAt(1);
-        int sheetRowNumber = sheet.getPhysicalNumberOfRows();
-
-        Row rowHeader = sheet.getRow(0);
-
-        for(int rowIndex=3; rowIndex < sheetRowNumber; rowIndex++) {
-            Map<String, Object> insertExcelMap = new HashMap<>();
-            try {
-                Row row = sheet.getRow(rowIndex);
-
-                if (row != null) {
-                    for (int cnt = 1; cnt < 41; cnt++) {
-                        Cell cellHeader = rowHeader.getCell(cnt);
-                        Cell cellValue = row.getCell(cnt);
-
-                        insertExcelMap.putAll(excelCellProcess(cellHeader, cellValue));
-                    }
-                }
-
-                // 장비 기본정보 상세정보 연결정보 3개로 변경해야함!!
-                // hwMapper.insertEqpList(insertExcelMap);
-                successList.add(insertExcelMap);
-
-            } catch (Exception e) {
-                failList.add(insertExcelMap);
-            }
-        }
-
-        returnMap.put("successList", successList);
-        returnMap.put("failList", failList);
-
-        return returnMap;
-    }
-
-    /**
-     * H/W관리 > 장비목록 > 장비 목록 업로드 > 업로드된 엑셀 파일 데이터 저장 후 결과파일 생성
-     *
-     * @param paramMap 저장결과 파라미터 맵
-     * @return 엑셀 워크북 객체
-     * @throws IOException 입력/출력 예외
-     */
-    public Workbook saveResultEquipment(Map<String, Object> paramMap) throws IOException {
-        String resultPath = staticPath + "equipmentResultTemplate.xlsx";
-        FileInputStream file = new FileInputStream(resultPath);
-        Workbook wb = new XSSFWorkbook(file);
-
-        // 결과파일 생성 시 데이터 받아와서 엑셀 생성
-        // 장비추가/수정/상세/삭제 기능 개발 완료 후 개발
-        return wb;
-    }
-
-    /**
-     * H/W관리 > 장비목록 > 장비 목록 업로드 > 검증 > 업로드된 엑셀 파일의 유효성 검사
-     *
-     * @param file 업로드된 엑셀 파일
-     * @return 엑셀 워크북 객체
-     * @throws IOException 입력/출력 예외
-     */
-    public Workbook excelValidation(MultipartFile file) throws IOException {
-        Workbook wb = new XSSFWorkbook(file.getInputStream());
-        Sheet sheet = wb.getSheetAt(1);
-        int sheetRowNumber = sheet.getPhysicalNumberOfRows();
-
-        Row rowHeader = sheet.getRow(0);
-
-        for(int rowIndex=3; rowIndex < sheetRowNumber; rowIndex++){
-            Row row = sheet.getRow(rowIndex);
-
-            Map<String, Object> excelCellProcessMap = new HashMap<>();
-            excelCellProcessMap.put("errorCode", true);
-
-            if (row != null) {
-                for (int cnt = 1; cnt < 41; cnt++) {
-                    Cell cellHeader = rowHeader.getCell(cnt);
-                    Cell cellValue = row.getCell(cnt);
-
-                    excelCellProcessMap.putAll(excelCellProcess(cellHeader, cellValue));
-                }
-            }
-
-            if((boolean) excelCellProcessMap.get("errorCode")) {
-                validDataToSheet(wb, 2, excelCellProcessMap);
-            }
-            else {
-                validDataToSheet(wb, 3, excelCellProcessMap);
-            }
-        }
-
-        return wb;
-    }
-
-    /**
-     * H/W관리 > 장비목록 > 장비 목록 업로드 > 검증용 메서드1 : 문자/숫자 셀 형식 찾기
-     *
-     * @param cellHeader 셀 헤더
-     * @param cellValue 셀 값
-     * @return 처리된 셀 데이터와 관련된 맵
-     */
-    private Map<String, Object> excelCellProcess(Cell cellHeader, Cell cellValue) {
-        Map<String, Object> processMap = new HashMap<>();
-
-        String cellHeaderStr = cellHeader.getStringCellValue();
-        if (cellValue != null) {
-            if (isNumericColumn(cellHeaderStr)) {
-                processNumericColumn(cellHeaderStr, cellValue, processMap);
-            } else {
-                processStringColumn(cellHeaderStr, cellValue, processMap);
-            }
-        } else {
-            processEmptyCell(cellHeaderStr, processMap);
-        }
-
-        return processMap;
-    }
-
-    /**
-     * H/W관리 > 장비목록 > 장비 목록 업로드 > 검증용 메서드2 : 숫자만 들어가야 하는 컬럼들
-     *
-     * @param cellHeaderStr 셀 헤더 문자열
-     * @return 셀이 숫자여야 하는 경우 true, 그렇지 않으면 false
-     */
-    private boolean isNumericColumn(String cellHeaderStr) {
-        return cellHeaderStr.equals("acquisition_cost")
-                || cellHeaderStr.equals("dbrain_number")
-                || cellHeaderStr.equals("installation_units")
-                || cellHeaderStr.equals("equipment_size_units");
-    }
-
-    /**
-     * H/W관리 > 장비목록 > 장비 목록 업로드 > 검증용 메서드3 : 셀이 숫자여야 할 때
-     *
-     * @param cellHeaderStr 셀 헤더 문자열
-     * @param cellValue 셀 값
-     * @param processMap 처리된 셀 데이터와 관련된 맵
-     */
-    private void processNumericColumn(String cellHeaderStr, Cell cellValue, Map<String, Object> processMap) {
-        switch (cellValue.getCellType()) {
-            case NUMERIC:
-                processMap.put(cellHeaderStr, cellValue.getNumericCellValue());
-                break;
-            case BOOLEAN:
-                processMap.put(cellHeaderStr, cellValue.getBooleanCellValue());
-                processMap.put("errorCode", false);
-                break;
-            case FORMULA:
-                processMap.put(cellHeaderStr, cellValue.getCellFormula());
-                processMap.put("errorCode", false);
-                break;
-            default:
-                processMap.put(cellHeaderStr, cellValue.getStringCellValue());
-                processMap.put("errorCode", false);
-                break;
-        }
-    }
-
-    /**
-     * H/W관리 > 장비목록 > 장비 목록 업로드 > 검증용 메서드4 : 셀이 문자여야 할 때
-     *
-     * @param cellHeaderStr 셀 헤더 문자열
-     * @param cellValue 셀 값
-     * @param processMap 처리된 셀 데이터와 관련된 맵
-     */
-    private void processStringColumn(String cellHeaderStr, Cell cellValue, Map<String, Object> processMap) {
-        switch (cellValue.getCellType()) {
-            case STRING:
-                processMap.put(cellHeaderStr, cellValue.getStringCellValue());
-                break;
-            case NUMERIC:
-                processMap.put(cellHeaderStr, String.valueOf(cellValue.getNumericCellValue()));
-                break;
-            case BOOLEAN:
-                processMap.put(cellHeaderStr, String.valueOf(cellValue.getBooleanCellValue()));
-                break;
-            case FORMULA:
-                processMap.put(cellHeaderStr, cellValue.getCellFormula());
-                break;
-            default:
-                processMap.put(cellHeaderStr, "");
-                break;
-        }
-    }
-
-    /**
-     * H/W관리 > 장비목록 > 장비 목록 업로드 > 검증용 메서드5 : 셀이 비었을 때 처리
-     *
-     * @param cellHeaderStr 셀 헤더 문자열
-     * @param processMap 처리된 셀 데이터와 관련된 맵
-     */
-    private void processEmptyCell(String cellHeaderStr, Map<String, Object> processMap) {
-        if (isNumericColumn(cellHeaderStr)) {
-            processMap.put(cellHeaderStr, 0);
-        } else {
-            processMap.put(cellHeaderStr, "");
-        }
-    }
-
-    /**
-     * H/W관리 > 장비목록 > 장비 목록 업로드 > 검증용 메서드6 : workbook 시트에 셀 값 지정
+     * 조회 > 장비 목록 다운로드/업로드 > 검증용 메서드1 : workbook 시트에 셀 값 지정
      *
      * @param workbook 엑셀 워크북 객체
      * @param sheetIndex 시트 인덱스
@@ -867,7 +615,7 @@ public class hwManageService {
     }
 
     /**
-     * H/W관리 > 장비목록 > 장비 목록 업로드 > 검증용 메서드7 : 문자인지 숫자인지 구분해서 셀 값 지정
+     * 조회 > 장비 목록 다운로드/업로드 > 검증용 메서드2 : 문자인지 숫자인지 구분해서 셀 값 지정
      *
      * @param sheetIndex 시트 인덱스
      * @param cellIndex 셀 인덱스
@@ -897,4 +645,233 @@ public class hwManageService {
         //     firstCell.setCellStyle(style);
         // }
     }
+
+
+
+
+
+    /* 업로드 기능 개발중단 */
+
+    /**
+     * 조회 > 장비 목록 업로드 > 엑셀 양식 다운로드 > 업로드 양식 엑셀 파일 생성
+     *
+     * @return 엑셀 워크북 객체
+     * @throws IOException 입력/출력 예외
+     */
+    public Workbook excelTemplate() throws IOException {
+        String uploadPath = staticPath + "equipmentUploadTemplate.xlsx";
+        FileInputStream file = new FileInputStream(uploadPath);
+        return new XSSFWorkbook(file);
+    }
+
+    /**
+     * 조회 > 장비 목록 업로드 > 업로드된 엑셀 파일 데이터 저장
+     *
+     * @param file 업로드된 엑셀 파일
+     * @return 삽입 결과
+     * @throws IOException 입력/출력 예외
+     */
+    @Transactional
+    public Map<String, Object> insertExcelList(MultipartFile file) throws IOException {
+        Map<String, Object> returnMap = new HashMap<>();
+        List<Map<String, Object>> successList = new ArrayList<>();
+        List<Map<String, Object>> failList = new ArrayList<>();
+
+        Workbook wb = new XSSFWorkbook(file.getInputStream());
+        Sheet sheet = wb.getSheetAt(1);
+        int sheetRowNumber = sheet.getPhysicalNumberOfRows();
+
+        Row rowHeader = sheet.getRow(0);
+
+        for(int rowIndex=3; rowIndex < sheetRowNumber; rowIndex++) {
+            Map<String, Object> insertExcelMap = new HashMap<>();
+            try {
+                Row row = sheet.getRow(rowIndex);
+
+                if (row != null) {
+                    for (int cnt = 1; cnt < 41; cnt++) {
+                        Cell cellHeader = rowHeader.getCell(cnt);
+                        Cell cellValue = row.getCell(cnt);
+
+                        insertExcelMap.putAll(excelCellProcess(cellHeader, cellValue));
+                    }
+                }
+
+                // 장비 기본정보 상세정보 연결정보 3개로 변경해야함!!
+                // hwMapper.insertEqpList(insertExcelMap);
+                successList.add(insertExcelMap);
+
+            } catch (Exception e) {
+                failList.add(insertExcelMap);
+            }
+        }
+
+        returnMap.put("successList", successList);
+        returnMap.put("failList", failList);
+
+        return returnMap;
+    }
+
+    /**
+     * 조회 > 장비 목록 업로드 > 업로드된 엑셀 파일 데이터 저장 후 결과파일 생성
+     *
+     * @param paramMap 저장결과 파라미터 맵
+     * @return 엑셀 워크북 객체
+     * @throws IOException 입력/출력 예외
+     */
+    public Workbook saveResultEquipment(Map<String, Object> paramMap) throws IOException {
+        String resultPath = staticPath + "equipmentResultTemplate.xlsx";
+        FileInputStream file = new FileInputStream(resultPath);
+        Workbook wb = new XSSFWorkbook(file);
+
+        // 결과파일 생성 시 데이터 받아와서 엑셀 생성
+        // 장비추가/수정/상세/삭제 기능 개발 완료 후 개발
+        return wb;
+    }
+
+    /**
+     * 조회 > 장비 목록 업로드 > 검증 > 업로드된 엑셀 파일의 유효성 검사
+     *
+     * @param file 업로드된 엑셀 파일
+     * @return 엑셀 워크북 객체
+     * @throws IOException 입력/출력 예외
+     */
+    public Workbook excelValidation(MultipartFile file) throws IOException {
+        Workbook wb = new XSSFWorkbook(file.getInputStream());
+        Sheet sheet = wb.getSheetAt(1);
+        int sheetRowNumber = sheet.getPhysicalNumberOfRows();
+
+        Row rowHeader = sheet.getRow(0);
+
+        for(int rowIndex=3; rowIndex < sheetRowNumber; rowIndex++){
+            Row row = sheet.getRow(rowIndex);
+
+            Map<String, Object> excelCellProcessMap = new HashMap<>();
+            excelCellProcessMap.put("errorCode", true);
+
+            if (row != null) {
+                for (int cnt = 1; cnt < 41; cnt++) {
+                    Cell cellHeader = rowHeader.getCell(cnt);
+                    Cell cellValue = row.getCell(cnt);
+
+                    excelCellProcessMap.putAll(excelCellProcess(cellHeader, cellValue));
+                }
+            }
+
+            if((boolean) excelCellProcessMap.get("errorCode")) {
+                validDataToSheet(wb, 2, excelCellProcessMap);
+            }
+            else {
+                validDataToSheet(wb, 3, excelCellProcessMap);
+            }
+        }
+
+        return wb;
+    }
+
+    /**
+     * 조회 > 장비 목록 업로드 > 검증용 메서드1 : 문자/숫자 셀 형식 찾기
+     *
+     * @param cellHeader 셀 헤더
+     * @param cellValue 셀 값
+     * @return 처리된 셀 데이터와 관련된 맵
+     */
+    private Map<String, Object> excelCellProcess(Cell cellHeader, Cell cellValue) {
+        Map<String, Object> processMap = new HashMap<>();
+
+        String cellHeaderStr = cellHeader.getStringCellValue();
+        if (cellValue != null) {
+            if (isNumericColumn(cellHeaderStr)) {
+                processNumericColumn(cellHeaderStr, cellValue, processMap);
+            } else {
+                processStringColumn(cellHeaderStr, cellValue, processMap);
+            }
+        } else {
+            processEmptyCell(cellHeaderStr, processMap);
+        }
+
+        return processMap;
+    }
+
+    /**
+     * 조회 > 장비 목록 업로드 > 검증용 메서드2 : 숫자만 들어가야 하는 컬럼들
+     *
+     * @param cellHeaderStr 셀 헤더 문자열
+     * @return 셀이 숫자여야 하는 경우 true, 그렇지 않으면 false
+     */
+    private boolean isNumericColumn(String cellHeaderStr) {
+        return cellHeaderStr.equals("acquisition_cost")
+                || cellHeaderStr.equals("dbrain_number")
+                || cellHeaderStr.equals("installation_units")
+                || cellHeaderStr.equals("equipment_size_units");
+    }
+
+    /**
+     * 조회 > 장비 목록 업로드 > 검증용 메서드3 : 셀이 숫자여야 할 때
+     *
+     * @param cellHeaderStr 셀 헤더 문자열
+     * @param cellValue 셀 값
+     * @param processMap 처리된 셀 데이터와 관련된 맵
+     */
+    private void processNumericColumn(String cellHeaderStr, Cell cellValue, Map<String, Object> processMap) {
+        switch (cellValue.getCellType()) {
+            case NUMERIC:
+                processMap.put(cellHeaderStr, cellValue.getNumericCellValue());
+                break;
+            case BOOLEAN:
+                processMap.put(cellHeaderStr, cellValue.getBooleanCellValue());
+                processMap.put("errorCode", false);
+                break;
+            case FORMULA:
+                processMap.put(cellHeaderStr, cellValue.getCellFormula());
+                processMap.put("errorCode", false);
+                break;
+            default:
+                processMap.put(cellHeaderStr, cellValue.getStringCellValue());
+                processMap.put("errorCode", false);
+                break;
+        }
+    }
+
+    /**
+     * 조회 > 장비 목록 업로드 > 검증용 메서드4 : 셀이 문자여야 할 때
+     *
+     * @param cellHeaderStr 셀 헤더 문자열
+     * @param cellValue 셀 값
+     * @param processMap 처리된 셀 데이터와 관련된 맵
+     */
+    private void processStringColumn(String cellHeaderStr, Cell cellValue, Map<String, Object> processMap) {
+        switch (cellValue.getCellType()) {
+            case STRING:
+                processMap.put(cellHeaderStr, cellValue.getStringCellValue());
+                break;
+            case NUMERIC:
+                processMap.put(cellHeaderStr, String.valueOf(cellValue.getNumericCellValue()));
+                break;
+            case BOOLEAN:
+                processMap.put(cellHeaderStr, String.valueOf(cellValue.getBooleanCellValue()));
+                break;
+            case FORMULA:
+                processMap.put(cellHeaderStr, cellValue.getCellFormula());
+                break;
+            default:
+                processMap.put(cellHeaderStr, "");
+                break;
+        }
+    }
+
+    /**
+     * 조회 > 장비 목록 업로드 > 검증용 메서드5 : 셀이 비었을 때 처리
+     *
+     * @param cellHeaderStr 셀 헤더 문자열
+     * @param processMap 처리된 셀 데이터와 관련된 맵
+     */
+    private void processEmptyCell(String cellHeaderStr, Map<String, Object> processMap) {
+        if (isNumericColumn(cellHeaderStr)) {
+            processMap.put(cellHeaderStr, 0);
+        } else {
+            processMap.put(cellHeaderStr, "");
+        }
+    }
+
 }
