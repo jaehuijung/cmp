@@ -222,15 +222,19 @@ function checkIPBlock(input) {
         return;
     }
 
+    if (input.value.length >= 2 && input.value.charAt(0) === '0') {
+        input.value = input.value.substring(1);
+    }
+
     if (!/^\d+$/.test(input.value)) {
         alert2("알림", "ip주소는 숫자로만 구성되어야 합니다.", "info", "확인");
-        input.value = '';
+        input.value = input.value.substring(0, input.value.length - 1);
         return;
     }
 
     if (parseInt(input.value) > 255) {
         alert2("알림", "IP 블록의 값은 0에서 255 사이여야 합니다.", "info", "확인");
-        input.value = '';
+        input.value = input.value.substring(0, input.value.length - 1);
     }
 }
 

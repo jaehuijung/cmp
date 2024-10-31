@@ -67,85 +67,99 @@ let eqpSoftwareColumn = [
     createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
 ];
 
-$(function(){
+let eqpHardwareOldData = [];
+let eqpSoftwareOldData = [];
+
+$(function() {
 
     addComma(document.getElementById("acquisition_cost")); // 도입금액 콤마처리
 
-
-    $('#eqpHardwareSelectTable').bootstrapTable({
+    // 하드웨어 데이터 요청 후 테이블 설정
+    $.ajax({
         url: '/eqp/hw/equipmentDetailHardwareList',
         method: 'post',
-        queryParams: function(params) {
-            let eqp_manage_id = $("#eqp_manage_id").val();
-            params.searchData = {
-                eqp_manage_id
-            }
-            return params;
-        },
-        pageSize: 5, columns: eqpHardwareColumn, cache: false, undefinedText: "",
-        pagination: true, sidePagination: 'server', checkboxHeader: true,
-        classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
-        responseHandler: function(res) {
-            return {
-                rows: res.rows,
-                total: res.total,
-                errorCode: res.errorCode
-            }
-        },
-        onLoadSuccess: function(res) {
-            let errorCode = res.errorCode;
-            if (!errorCode){
-                alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify({
+            eqp_manage_id: $("#eqp_manage_id").val()
+        }),
+        success: function(res) {
+            if (!res.errorCode) {
+                alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. 관리자에게 문의해주세요.', 'error', '확인');
                 return;
             }
+            $('#eqpHardwareSelectTable').bootstrapTable({
+                data: res.rows, // ajax 요청으로 가져온 데이터 사용
+                pageSize: 5,
+                columns: eqpHardwareColumn,
+                cache: false,
+                undefinedText: "",
+                pagination: true,
+                sidePagination: 'client', // 클라이언트 측에서 페이지네이션 처리
+                checkboxHeader: true,
+                classes: "txt-pd",
+                clickToSelect: false,
+                sortOrder: 'desc',
+                sortName: 'ORDER',
+                onClickCell: function(field, value, row, $element) {
+                    let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
+                    if ($checkbox.length && field != 'port_number') {
+                        $checkbox.click();
+                    }
+                }
+            });
 
-            $("#eqpHardwareSelectTotalCnt").text("총 " + res.total + "건")
+            $("#eqpHardwareSelectTotalCnt").text("총 " + res.total + "건");
+            eqpHardwareOldData = res.rows;
         },
-        onClickCell: function(field, value, row, $element) {
-            let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
-            if (($checkbox.length) && (field != 'port_number')) {
-                $checkbox.click();
-            }
+        error: function(err) {
+            alert2('알림', '데이터를 불러오는 데 오류가 발생하였습니다.', 'error', '확인');
         }
     });
 
-
-    $('#eqpSoftwareSelectTable').bootstrapTable({
+    // 소프트웨어 데이터 요청 후 테이블 설정
+    $.ajax({
         url: '/eqp/hw/equipmentDetailSoftwareList',
         method: 'post',
-        queryParams: function(params) {
-            let eqp_manage_id = $("#eqp_manage_id").val();
-            params.searchData = {
-                eqp_manage_id
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify({
+            eqp_manage_id: $("#eqp_manage_id").val()
+        }),
+        success: function(res) {
+            if (!res.errorCode) {
+                alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. 관리자에게 문의해주세요.', 'error', '확인');
+                return;
             }
-            return params;
-        },
-        pageSize: 5, columns: eqpSoftwareColumn, cache: false, undefinedText: "",
-        pagination: true, sidePagination: 'server', checkboxHeader: true,
-        classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
-        responseHandler: function(res) {
-            return {
-                rows: res.rows,
-                total: res.total,
-                errorCode: res.errorCode
-            }
-        },
-        onLoadSuccess: function(res) {
-            let errorCode = res.errorCode;
-            if (!errorCode){
-                alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
-            }
+            $('#eqpSoftwareSelectTable').bootstrapTable({
+                data: res.rows, // ajax 요청으로 가져온 데이터 사용
+                pageSize: 5,
+                columns: eqpSoftwareColumn,
+                cache: false,
+                undefinedText: "",
+                pagination: true,
+                sidePagination: 'client', // 클라이언트 측에서 페이지네이션 처리
+                checkboxHeader: true,
+                classes: "txt-pd",
+                clickToSelect: false,
+                sortOrder: 'desc',
+                sortName: 'ORDER',
+                onClickCell: function(field, value, row, $element) {
+                    let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
+                    if ($checkbox.length && field != 'port_number') {
+                        $checkbox.click();
+                    }
+                }
+            });
 
-            $("#eqpSoftwareSelectTotalCnt").text("총 " + res.total + "건")
+
+            $("#eqpSoftwareSelectTotalCnt").text("총 " + res.total + "건");
+            eqpSoftwareOldData = res.rows;
         },
-        onClickCell: function(field, value, row, $element) {
-            let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
-            if (($checkbox.length) && (field != 'port_number')) {
-                $checkbox.click();
-            }
+        error: function(err) {
+            alert2('알림', '데이터를 불러오는 데 오류가 발생하였습니다.', 'error', '확인');
         }
     });
-
 });
 
 // 장비분류 선택 시 선택박스 세팅
@@ -187,7 +201,7 @@ function addEquipmentHardwareRow(){
                     return params;
                 },
                 pageSize: 10, columns: eqpHardwareColumn, cache: false, undefinedText: "",
-                pagination: true, sidePagination: 'server', checkboxHeader: true,
+                pagination: true, sidePagination: 'client', checkboxHeader: true,
                 classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
                 responseHandler: function(res) {
                     return {
@@ -328,7 +342,7 @@ function addEquipmentSoftwareRow(){
                     return params;
                 },
                 pageSize: 10, columns: eqpSoftwareColumn, cache: false, undefinedText: "",
-                pagination: true, sidePagination: 'server', checkboxHeader: true,
+                pagination: true, sidePagination: 'client', checkboxHeader: true,
                 classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
                 responseHandler: function(res) {
                     return {
@@ -531,6 +545,8 @@ function saveData() {
         }
     });
 
+    data["ip_address"] = combineIP(); // ip_block1 ~ ip_block4까지 구분자 붙여서 ip_address 문자열 생성
+
 
     $('select').each(function() {
         const selectedId = $(this).attr('id');
@@ -548,9 +564,11 @@ function saveData() {
     data["config_id"] = "1"; // 구성분류 : H/W
 
     // 얘네는 있을 수도 있고 없을 수도 있고
-    data["eqpHardwareSelectList"] = $("#eqpHardwareSelectTable").bootstrapTable("getData"); // 장비연결정보
-    data["eqpSoftwareSelectList"] = $("#eqpSoftwareSelectTable").bootstrapTable("getData");  // 소프트웨어 등록정보
+    // data["eqpHardwareSelectList"] = $("#eqpHardwareSelectTable").bootstrapTable("getData"); // 장비연결정보
+    // data["eqpSoftwareSelectList"] = $("#eqpSoftwareSelectTable").bootstrapTable("getData");  // 소프트웨어 등록정보
 
+    let eqpHardwareSelectList = $("#eqpHardwareSelectTable").bootstrapTable("getData"); // 장비연결정보
+    let eqpSoftwareSelectList = $("#eqpSoftwareSelectTable").bootstrapTable("getData");  // 소프트웨어 등록정보
 
     Swal.fire({
         title: '알림',

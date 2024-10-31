@@ -151,7 +151,7 @@ function addEquipmentHardwareRow(){
                     return params;
                 },
                 pageSize: 10, columns: eqpHardwareColumn, cache: false, undefinedText: "",
-                pagination: true, sidePagination: 'server', checkboxHeader: true,
+                pagination: true, sidePagination: 'client', checkboxHeader: true,
                 classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
                 responseHandler: function(res) {
                     return {
@@ -293,7 +293,7 @@ function addEquipmentSoftwareRow(){
                     return params;
                 },
                 pageSize: 10, columns: eqpSoftwareColumn, cache: false, undefinedText: "",
-                pagination: true, sidePagination: 'server', checkboxHeader: true,
+                pagination: true, sidePagination: 'client', checkboxHeader: true,
                 classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
                 responseHandler: function(res) {
                     return {
@@ -499,10 +499,9 @@ function saveData() {
                 data[name] = value;
             }
         }
-
-        data["ip_address"] = combineIP(); // ip_block1 ~ ip_block4까지 구분자 붙여서 ip_address 문자열 생성
     });
 
+    data["ip_address"] = combineIP(); // ip_block1 ~ ip_block4까지 구분자 붙여서 ip_address 문자열 생성
 
     $('select').each(function() {
         const selectedId = $(this).attr('id');
