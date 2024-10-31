@@ -139,18 +139,36 @@ public interface hwMapper {
     void insertEquipmentDetail(Map<String, Object> paramMap);
 
     /**
-     * H/W관리 > 장비목록 > 추가/수정 > 장비 저장 : 연결정보
+     * H/W관리 > 장비목록 > 추가/수정 > 장비 저장 : 장비연결정보 추가
      *
      * @param paramMap 저장할 장비 데이터
      */
     void insertEquipmentHardware(Map<String, Object> paramMap);
+    /**
+     * H/W관리 > 장비목록 > 추가/수정 > 장비 저장 : 장비연결정보 수정
+     *
+     * @param paramMap 저장할 장비 데이터
+     */
+    void updateEquipmentHardware(Map<String, Object> paramMap);
+    /**
+     * H/W관리 > 장비목록 > 추가/수정 > 장비 저장 : 장비연결정보 삭제
+     *
+     * @param paramMap 저장할 장비 데이터
+     */
+    void deleteEquipmentHardware(Map<String, Object> paramMap);
 
     /**
-     * H/W관리 > 장비목록 > 추가/수정 > 장비 저장 : 소프트웨어 정보
+     * H/W관리 > 장비목록 > 추가/수정 > 장비 저장 : 소프트웨어 정보 추가
      *
      * @param paramMap 저장할 장비 데이터
      */
     void insertEquipmentSoftware(Map<String, Object> paramMap);
+    /**
+     * H/W관리 > 장비목록 > 수정 > 장비 저장 : 소프트웨어 정보 삭제
+     *
+     * @param paramMap 저장할 장비 데이터
+     */
+    void deleteEquipmentSoftware(Map<String, Object> paramMap);
 
     /**
      * H/W관리 > 장비목록 > 수정 > 장비 수정 : 연결정보

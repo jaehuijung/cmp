@@ -91,7 +91,7 @@ $(function() {
             $('#eqpHardwareSelectTable').bootstrapTable({
                 data: res.rows, // ajax 요청으로 가져온 데이터 사용
                 pageSize: 5,
-                columns: eqpHardwareColumn,
+                columns: eqpHardwareSelectColumn,
                 cache: false,
                 undefinedText: "",
                 pagination: true,
@@ -567,8 +567,64 @@ function saveData() {
     // data["eqpHardwareSelectList"] = $("#eqpHardwareSelectTable").bootstrapTable("getData"); // 장비연결정보
     // data["eqpSoftwareSelectList"] = $("#eqpSoftwareSelectTable").bootstrapTable("getData");  // 소프트웨어 등록정보
 
+
     let eqpHardwareSelectList = $("#eqpHardwareSelectTable").bootstrapTable("getData"); // 장비연결정보
+
+    let hwAddedRows = [];
+    let hwModifiedRows = [];
+    let hwDeletedRows = [];
+
+    let hwOldDataMap = new Map();
+    eqpHardwareOldData.forEach(item => hwOldDataMap.set(item.eqp_manage_id, item));
+
+    let hwNewDataMap = new Map();
+    eqpHardwareSelectList.forEach(item => hwNewDataMap.set(item.eqp_manage_id, item));
+
+    eqpHardwareSelectList.forEach(newItem => { // 추가, 수정
+        const oldItem = hwOldDataMap.get(newItem.eqp_manage_id);
+        if (!oldItem) {
+            hwAddedRows.push(newItem);
+        } else if (oldItem.port_number !== newItem.port_number) {
+            hwModifiedRows.push(newItem);
+        }
+    });
+
+    eqpHardwareOldData.forEach(oldItem => { // 삭제
+        if (!hwNewDataMap.has(oldItem.eqp_manage_id)) {
+            hwDeletedRows.push(oldItem);
+        }
+    });
+
+    data["hwAddedRows"]    = hwAddedRows;
+    data["hwModifiedRows"] = hwModifiedRows;
+    data["hwDeletedRows"]  = hwDeletedRows;
+
     let eqpSoftwareSelectList = $("#eqpSoftwareSelectTable").bootstrapTable("getData");  // 소프트웨어 등록정보
+
+    let swAddedRows = [];
+    let swDeletedRows = [];
+
+    let swOldDataMap = new Map();
+    eqpSoftwareOldData.forEach(item => swOldDataMap.set(item.eqp_manage_id, item));
+
+    let swNewDataMap = new Map();
+    eqpSoftwareSelectList.forEach(item => swNewDataMap.set(item.eqp_manage_id, item));
+
+    eqpSoftwareSelectList.forEach(newItem => { // 추가
+        const oldItem = swOldDataMap.get(newItem.eqp_manage_id);
+        if (!oldItem) {
+            swAddedRows.push(newItem);
+        }
+    });
+
+    eqpSoftwareOldData.forEach(oldItem => { // 삭제
+        if (!swNewDataMap.has(oldItem.eqp_manage_id)) {
+            swDeletedRows.push(oldItem);
+        }
+    });
+
+    data["swAddedRows"]    = swAddedRows;
+    data["swDeletedRows"]  = swDeletedRows;
 
     Swal.fire({
         title: '알림',

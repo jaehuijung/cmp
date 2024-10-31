@@ -465,7 +465,7 @@
 
     <insert id="insertEquipmentHardware" parameterType="map">
         /* insertEquipmentHardware...
-            H/W관리 > 장비목록 > 추가/수정 > 장비 저장 : 연결정보 */
+            H/W관리 > 장비목록 > 추가/수정 > 장비 저장 : 장비연결정보 추가 */
         insert into equipment_regist_hw (
             eqp_manage_id,
             eqp_link_manage_id,
@@ -478,9 +478,31 @@
         )
     </insert>
 
+    <update id="updateEquipmentHardware" parameterType="map">
+        /* updateEquipmentHardware...
+            H/W관리 > 장비목록 > 추가/수정 > 장비 저장 : 장비연결정보 수정 */
+        update
+            equipment_regist_hw
+        set
+            port_number = #{port_number}
+        where 1=1
+            and eqp_manage_id = #{eqp_manage_id}
+            and eqp_link_manage_id = #{eqp_link_manage_id}
+    </update>
+
+    <delete id="deleteEquipmentHardware" parameterType="map">
+        /* deleteEquipmentHardware...
+            H/W관리 > 장비목록 > 추가/수정 > 장비 저장 : 장비연결정보 삭제 */
+        delete from
+            equipment_regist_hw
+        where 1=1
+            and eqp_manage_id = #{eqp_manage_id}
+            and eqp_link_manage_id = #{eqp_link_manage_id}
+    </delete>
+
     <insert id="insertEquipmentSoftware" parameterType="map">
         /* insertEquipmentSoftware...
-        H/W관리 > 장비목록 > 추가/수정 > 장비 저장 : 소프트웨어 정보 */
+            H/W관리 > 장비목록 > 추가/수정 > 장비 저장 : 소프트웨어 정보 추가 */
         insert into equipment_regist_sw (
             hw_manage_id,
             sw_manage_id
@@ -490,6 +512,16 @@
             #{sw_manage_id}
         )
     </insert>
+
+    <delete id="deleteEquipmentSoftware" parameterType="map">
+        /* deleteEquipmentSoftware...
+            H/W관리 > 장비목록 > 수정 > 장비 저장 : 소프트웨어 정보 삭제 */
+        delete from
+            equipment_regist_sw
+        where 1=1
+            and hw_manage_id = #{hw_manage_id}
+            and sw_manage_id = #{sw_manage_id}
+    </delete>
 
     <update id="updateEquipmentLink" parameterType="map">
         /* updateEquipmentLink...

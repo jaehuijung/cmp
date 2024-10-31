@@ -57,7 +57,7 @@ $(function(){
             return params;
         },
         pageSize: 5, columns: eqpHardwareColumn, cache: false, undefinedText: "",
-        pagination: true, sidePagination: 'server', checkboxHeader: true,
+        pagination: true, sidePagination: 'client', checkboxHeader: true,
         classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
         responseHandler: function(res) {
             return {
@@ -89,7 +89,7 @@ $(function(){
             return params;
         },
         pageSize: 5, columns: eqpSoftwareColumn, cache: false, undefinedText: "",
-        pagination: true, sidePagination: 'server', checkboxHeader: true,
+        pagination: true, sidePagination: 'client', checkboxHeader: true,
         classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
         responseHandler: function(res) {
             return {

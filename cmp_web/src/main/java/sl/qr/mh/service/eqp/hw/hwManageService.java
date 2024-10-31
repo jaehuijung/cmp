@@ -294,21 +294,6 @@ public class hwManageService {
                 }
             }
 
-            /*
-            List<Map<String, Object>> eqpLink = (List<Map<String, Object>>) paramMap.get("eqpLink");
-            for (Map<String, Object> link : eqpLink) {
-                link.put("eqp_manage_id", eqp_manage_id);
-                hwMapper.insertEquipmentLink(link); // 장비 연결정보 저장
-            }
-
-            List<Map<String, Object>> eqpSoftware = (List<Map<String, Object>>) paramMap.get("eqpSoftware");
-            for (Map<String, Object> software : eqpSoftware) {
-                software.put("hw_manage_id", eqp_manage_id); // H/W 관리번호
-                software.put("sw_manage_id", software.get("eqp_manage_id")); // S/W 관리번호
-                hwMapper.insertEquipmentSoftware(software); // 장비 연결정보 저장
-            }
-             */
-
             returnMap.put("errorCode",true);
 
         } catch (Exception e) {
@@ -365,26 +350,48 @@ public class hwManageService {
             hwMapper.updateBasicEqpList(paramMap);
             hwMapper.updateDetailEqpList(paramMap);
 
-            List<Map<String, Object>> eqpLinkAdd = (List<Map<String, Object>>) paramMap.get("eqpLinkAdd");
-            List<Map<String, Object>> eqpLinkUpdate = (List<Map<String, Object>>) paramMap.get("eqpLinkUpdate");
-            List<Map<String, Object>> eqpLinkDelete = (List<Map<String, Object>>) paramMap.get("eqpLinkDelete");
+            List<Map<String, Object>> hwAddedRows    = (List<Map<String, Object>>) paramMap.get("hwAddedRows");
+            List<Map<String, Object>> hwModifiedRows = (List<Map<String, Object>>) paramMap.get("hwModifiedRows");
+            List<Map<String, Object>> hwDeletedRows  = (List<Map<String, Object>>) paramMap.get("hwDeletedRows");
 
-            if(eqpLinkAdd != null) {
-                for(Map<String, Object> link : eqpLinkAdd) {
-                    link.put("eqp_manage_id", paramMap.get("eqp_manage_id"));
-                    // hwMapper.insertEquipmentLink(link);
+            List<Map<String, Object>> swAddedRows   = (List<Map<String, Object>>) paramMap.get("swAddedRows");
+            List<Map<String, Object>> swDeletedRows = (List<Map<String, Object>>) paramMap.get("swDeletedRows");
+
+            if(hwAddedRows != null) {
+                for(Map<String, Object> row : hwAddedRows) {
+                    row.put("eqp_link_manage_id", row.get("eqp_manage_id"));
+                    row.put("eqp_manage_id", paramMap.get("eqp_manage_id"));
+                    hwMapper.insertEquipmentHardware(row);
                 }
             }
-            if(eqpLinkUpdate != null) {
-                for(Map<String, Object> link : eqpLinkUpdate) {
-                    link.put("eqp_manage_id", paramMap.get("eqp_manage_id"));
-                    hwMapper.updateEquipmentLink(link);
+            if(hwModifiedRows != null) {
+                for(Map<String, Object> row : hwModifiedRows) {
+                    row.put("eqp_link_manage_id", row.get("eqp_manage_id"));
+                    row.put("eqp_manage_id", paramMap.get("eqp_manage_id"));
+                    hwMapper.updateEquipmentHardware(row);
                 }
             }
-            if(eqpLinkDelete != null) {
-                for(Map<String, Object> link : eqpLinkDelete) {
-                    link.put("eqp_manage_id", paramMap.get("eqp_manage_id"));
-                    hwMapper.deleteEquipmentLink(link);
+            if(hwDeletedRows != null) {
+                for(Map<String, Object> row : hwDeletedRows) {
+                    row.put("eqp_link_manage_id", row.get("eqp_manage_id"));
+                    row.put("eqp_manage_id", paramMap.get("eqp_manage_id"));
+                    hwMapper.deleteEquipmentHardware(row);
+                }
+            }
+
+            if(swAddedRows != null) {
+                for(Map<String, Object> row : swAddedRows) {
+                    row.put("sw_manage_id", row.get("eqp_manage_id"));
+                    row.put("hw_manage_id", paramMap.get("eqp_manage_id"));
+                    hwMapper.insertEquipmentSoftware(row);
+                }
+            }
+
+            if(swDeletedRows != null) {
+                for(Map<String, Object> row : swDeletedRows) {
+                    row.put("sw_manage_id", row.get("eqp_manage_id"));
+                    row.put("hw_manage_id", paramMap.get("eqp_manage_id"));
+                    hwMapper.deleteEquipmentSoftware(row);
                 }
             }
 
