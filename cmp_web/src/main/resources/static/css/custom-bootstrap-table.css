@@ -209,40 +209,40 @@ tr:hover {
 }
 
 /* 선번장관리 추가/수정/상세 출발지 필드 컬럼명 색상 변경 */
-#lineSelectTable thead tr:first-child th:nth-child(1) {
+#lineStartSelectTable thead tr:first-child th:nth-child(1) {
     background: #1CA1A5;
     color: #fff;
 }
 
-#lineSelectTable thead th:nth-child(1),
-#lineSelectTable thead th:nth-child(2),
-#lineSelectTable thead th:nth-child(4),
-#lineSelectTable thead th:nth-child(3),
-#lineSelectTable thead th:nth-child(5),
-#lineSelectTable thead th:nth-child(6),
-#lineSelectTable thead th:nth-child(7),
-#lineSelectTable thead th:nth-child(8),
-#lineSelectTable thead th:nth-child(9),
-#lineSelectTable thead th:nth-child(10) {
+#lineStartSelectTable thead th:nth-child(1),
+#lineStartSelectTable thead th:nth-child(2),
+#lineStartSelectTable thead th:nth-child(4),
+#lineStartSelectTable thead th:nth-child(3),
+#lineStartSelectTable thead th:nth-child(5),
+#lineStartSelectTable thead th:nth-child(6),
+#lineStartSelectTable thead th:nth-child(7),
+#lineStartSelectTable thead th:nth-child(8),
+#lineStartSelectTable thead th:nth-child(9),
+#lineStartSelectTable thead th:nth-child(10) {
     background: #DEEFF1;
 }
 
 /* 선번장관리 추가/수정/상세 목적지 필드 컬럼명 색상 변경 */
-#lineSelectTable thead tr:first-child th:nth-child(2) {
+#lineEndSelectTable thead tr:first-child th:nth-child(1) {
     background: #3F95BE;
     color: #fff;
 }
 
-#lineSelectTable thead th:nth-child(11),
-#lineSelectTable thead th:nth-child(12),
-#lineSelectTable thead th:nth-child(13),
-#lineSelectTable thead th:nth-child(14),
-#lineSelectTable thead th:nth-child(15),
-#lineSelectTable thead th:nth-child(16),
-#lineSelectTable thead th:nth-child(17),
-#lineSelectTable thead th:nth-child(18),
-#lineSelectTable thead th:nth-child(19),
-#lineSelectTable thead th:nth-child(20) {
+#lineEndSelectTable thead th:nth-child(1),
+#lineEndSelectTable thead th:nth-child(2),
+#lineEndSelectTable thead th:nth-child(3),
+#lineEndSelectTable thead th:nth-child(4),
+#lineEndSelectTable thead th:nth-child(5),
+#lineEndSelectTable thead th:nth-child(6),
+#lineEndSelectTable thead th:nth-child(7),
+#lineEndSelectTable thead th:nth-child(8),
+#lineEndSelectTable thead th:nth-child(9),
+#lineEndSelectTable thead th:nth-child(10) {
     background: #DDE8F2;
 }
 
