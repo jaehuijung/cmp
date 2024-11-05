@@ -18,10 +18,9 @@ function createColumn(field, checkbox = false, title, type = 'default') {
     return column;
 }
 
-let lineSelectColumn = [
+let lineStartSelectColumn = [
     [
-        { title: '출발지', align: 'center', valign: 'middle', colspan: 10 },
-        { title: '목적지', align: 'center', valign: 'middle', colspan: 10 },
+        { title: '출발지(Start)', align: 'center', valign: 'middle', colspan: 10 },
     ],
     [
         createColumn('s_asset_category',              false, '자산분류'),
@@ -34,7 +33,14 @@ let lineSelectColumn = [
         createColumn('s_port',                        false, '포트번호'),
         createColumn('s_primary_operator',            false, '운영담당자'),
         createColumn('s_primary_outsourced_operator', false, '위탁운영담당자'),
+    ]
+];
 
+let lineEndSelectColumn = [
+    [
+        { title: '목적지(End)',   align: 'center', valign: 'middle', colspan: 10 },
+    ],
+    [
         createColumn('e_asset_category',              false, '자산분류'),
         createColumn('e_installation_coordinates',    false, '설치좌표'),
         createColumn('e_eqp_manage_id',               false, '관리번호'),
@@ -48,9 +54,13 @@ let lineSelectColumn = [
     ]
 ];
 
+
 $(function(){
 
-    $('#lineSelectTable').bootstrapTable({
+    /*
+        ajax로 가져와서 한 번에 테이블 구성하도록
+    */
+    $('#lineStartSelectTable').bootstrapTable({
         url: '/rack/line/getLineDetailInfo',
         method: 'post',
         queryParams: function(params) {
@@ -60,7 +70,36 @@ $(function(){
             }
             return params;
         },
-        pageSize: 5, columns: lineSelectColumn, cache: false, undefinedText: "",
+        pageSize: 5, columns: lineStartSelectColumn, cache: false, undefinedText: "",
+        pagination: true, sidePagination: 'server', checkboxHeader: true,
+        classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
+        responseHandler: function(res) {
+            return {
+                rows: res.rows,
+                total: res.total,
+                errorCode: res.errorCode
+            }
+        },
+        onLoadSuccess: function(res) {
+            let errorCode = res.errorCode;
+            if (!errorCode) {
+                alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+                return false;
+            }
+        },
+    });
+
+    $('#lineEndSelectTable').bootstrapTable({
+        url: '/rack/line/getLineDetailInfo',
+        method: 'post',
+        queryParams: function(params) {
+            let line_manage_id = $("#line_manage_id").val();
+            params.searchData = {
+                line_manage_id
+            }
+            return params;
+        },
+        pageSize: 5, columns: lineEndSelectColumn, cache: false, undefinedText: "",
         pagination: true, sidePagination: 'server', checkboxHeader: true,
         classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
         responseHandler: function(res) {

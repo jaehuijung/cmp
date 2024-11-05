@@ -10,14 +10,23 @@
         <div class="contentCard">
             <input type="hidden" id="line_manage_id" name="line_manage_id" th:value="${line.line_manage_id}"/>
 
-            <!-- 선택된 출발지, 목적지 테이블 -->
+            <!-- 선택된 출발지와 목적지 정보 -->
             <div class="contentCardWrap">
                 <div class="contentCardTitle">
                     <h2>▪️ 선번장 구성</h2>
                 </div>
+            </div>
+            <div class="contentCardWrap">
                 <div class="tbl-bootstrap-wrap">
                     <div class="tbl-bootstrap-wrap">
-                        <table id="lineSelectTable"></table>
+                        <table class="lineSelectTable" id="lineStartSelectTable"></table>
+                    </div>
+                </div>
+            </div>
+            <div class="contentCardWrap">
+                <div class="tbl-bootstrap-wrap">
+                    <div class="tbl-bootstrap-wrap">
+                        <table class="lineSelectTable" id="lineEndSelectTable"></table>
                     </div>
                 </div>
             </div>

@@ -43,12 +43,8 @@ let lineEndColumn = [
     createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
 ];
 
-
-
 let selectedStartRow = null;
 let selectedEndRow = null;
-
-
 
 let lineStartSelectColumn = [
     [
