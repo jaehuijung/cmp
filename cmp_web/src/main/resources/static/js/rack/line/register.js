@@ -43,66 +43,11 @@ let lineEndColumn = [
     createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
 ];
 
-let lineSelectColumn = [
-    [
-        { title: '출발지(Start)', align: 'center', valign: 'middle', colspan: 10 },
-        { title: '목적지(End)',   align: 'center', valign: 'middle', colspan: 10 },
-    ],
-    [
-        createColumn('s_asset_category',              false, '자산분류'),
-        createColumn('s_installation_coordinates',    false, '설치좌표'),
-        createColumn('s_eqp_manage_id',               false, '관리번호'),
-        createColumn('s_m_company',                   false, '제조사'),
-        createColumn('s_model_name',                  false, '모델명'),
-        createColumn('s_host_name',                   false, '호스트명'),
-        createColumn('s_eqp_name',                    false, '구성자원명'),
-        createColumn('s_port',                        false, '포트번호'),
-        createColumn('s_primary_operator',            false, '운영담당자'),
-        createColumn('s_primary_outsourced_operator', false, '위탁운영담당자'),
 
-        createColumn('e_asset_category',              false, '자산분류'),
-        createColumn('e_installation_coordinates',    false, '설치좌표'),
-        createColumn('e_eqp_manage_id',               false, '관리번호'),
-        createColumn('e_m_company',                   false, '제조사'),
-        createColumn('e_model_name',                  false, '모델명'),
-        createColumn('e_host_name',                   false, '호스트명'),
-        createColumn('e_eqp_name',                    false, '구성자원명'),
-        createColumn('e_port',                        false, '포트번호'),
-        createColumn('e_primary_operator',            false, '운영담당자'),
-        createColumn('e_primary_outsourced_operator', false, '위탁운영담당자'),
-    ]
-];
 
 let selectedStartRow = null;
 let selectedEndRow = null;
 
-function updateSelectTable() {
-    let data = [{
-        s_asset_category: selectedStartRow ? selectedStartRow.asset_category : "",
-        s_installation_coordinates: selectedStartRow ? selectedStartRow.installation_coordinates : "",
-        s_eqp_manage_id: selectedStartRow ? selectedStartRow.eqp_manage_id : "",
-        s_m_company: selectedStartRow ? selectedStartRow.m_company : "",
-        s_model_name: selectedStartRow ? selectedStartRow.model_name : "",
-        s_host_name: selectedStartRow ? selectedStartRow.host_name : "",
-        s_eqp_name: selectedStartRow ? selectedStartRow.eqp_name : "",
-        s_port: selectedStartRow ? selectedStartRow.port_number : "",
-        s_primary_operator: selectedStartRow ? selectedStartRow.primary_operator : "",
-        s_primary_outsourced_operator: selectedStartRow ? selectedStartRow.primary_outsourced_operator : "",
-
-        e_asset_category: selectedEndRow ? selectedEndRow.asset_category : "",
-        e_installation_coordinates: selectedEndRow ? selectedEndRow.installation_coordinates : "",
-        e_eqp_manage_id: selectedEndRow ? selectedEndRow.eqp_manage_id : "",
-        e_m_company: selectedEndRow ? selectedEndRow.m_company : "",
-        e_model_name: selectedEndRow ? selectedEndRow.model_name : "",
-        e_host_name: selectedEndRow ? selectedEndRow.host_name : "",
-        e_eqp_name: selectedEndRow ? selectedEndRow.eqp_name : "",
-        e_port: selectedEndRow ? selectedEndRow.port_number : "",
-        e_primary_operator: selectedEndRow ? selectedEndRow.primary_operator : "",
-        e_primary_outsourced_operator: selectedEndRow ? selectedEndRow.primary_outsourced_operator : "",
-    }];
-
-    $('#lineSelectTable').bootstrapTable('load', data);
-}
 
 
 let lineStartSelectColumn = [
@@ -229,7 +174,6 @@ $(function(){
                 // 새로운 선택된 행에 클래스 추가
                 $('#lineStartTable').find('tr[data-index="' + $('#lineStartTable').bootstrapTable('getData').indexOf(selectedStartRow) + '"]').addClass('selected-row');
 
-                // updateSelectTable();
                 updateStartSelectTable();
             }
         },
@@ -284,7 +228,6 @@ $(function(){
                 // 새로운 선택된 행에 클래스 추가
                 $('#lineEndTable').find('tr[data-index="' + $('#lineEndTable').bootstrapTable('getData').indexOf(selectedEndRow) + '"]').addClass('selected-row');
 
-                // updateSelectTable();
                 updateEndSelectTable();
             }
         },
@@ -328,10 +271,10 @@ function saveData() {
     let errorMessage = "";
 
     // 출발지
-    const lineStartData = $("#lineSelectTable").bootstrapTable("getData")[0];
+    const lineStartData = $("#lineStartSelectTable").bootstrapTable("getData")[0];
     const line_start_id  = lineStartData.s_eqp_manage_id;
     // 목적지
-    const lineEndData   = $("#lineSelectTable").bootstrapTable("getData")[0];
+    const lineEndData   = $("#lineEndSelectTable").bootstrapTable("getData")[0];
     const line_end_id    = lineEndData.e_eqp_manage_id;
 
     if(line_start_id === undefined || line_start_id === ""){
