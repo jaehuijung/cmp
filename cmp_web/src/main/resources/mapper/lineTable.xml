@@ -192,7 +192,7 @@
             on eb.eqp_manage_id = ed.eqp_manage_id
         join
             equipment_regist_hw erh
-            on eb.eqp_manage_id = erh.eqp_manage_id
+            on eb.eqp_manage_id = erh.eqp_link_manage_id
         join
             equipment_categories ec
             on eb.config_id = ec.config_id
