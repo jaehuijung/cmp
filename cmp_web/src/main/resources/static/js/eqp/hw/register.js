@@ -305,7 +305,7 @@ function deleteEquipmentHardwareRow(){
 }
 
 /*
-    소프트웨어 등록정보 관련 ... 나중에 주석 추가
+    소프트웨어 등록정보 관련
 */
 function addEquipmentSoftwareRow(){
     let selectedEqpSoftware = [];

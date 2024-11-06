@@ -46,10 +46,10 @@
             BINARY A.host_name                      Like CONCAT('%', #{searchSoftwareInput}, '%') OR
             BINARY A.model_name                     Like CONCAT('%', #{searchSoftwareInput}, '%') OR
             BINARY A.m_company                      Like CONCAT('%', #{searchSoftwareInput}, '%') OR
-            <if test="searchInput2 == '공개'">
+            <if test="searchSoftwareInput == '공개'">
                 BINARY A.dependent_config           Like CONCAT('%', '1', '%') OR
             </if>
-            <if test="searchInput2 == '상용'">
+            <if test="searchSoftwareInput == '상용'">
                 BINARY A.dependent_config           Like CONCAT('%', '2', '%') OR
             </if>
             BINARY A.operating_department           Like CONCAT('%', #{searchSoftwareInput}, '%') OR
