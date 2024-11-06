@@ -50,7 +50,6 @@ var equColumns = [
     createColumn('',                                true,  ''                      ),
     createColumn('eqp_manage_id',                   false, '관리번호',   'underline' ),
     createColumn('eqp_name',                        false, '구성자원명', 'underline' ),
-    createColumn('host_name',                       false, '호스트명'               ),
     createColumn('model_name',                      false, '모델명'                 ),
     createColumn('m_company',                       false, '제조사'                 ),
     createColumn('operating_status',                false, '운영상태',              ),
@@ -126,7 +125,6 @@ function searchState(type, isChecked){
     let columnsToToggle = [
         'eqp_manage_id',
         'eqp_name',
-        'host_name',
         'model_name',
         'm_company',
         'operating_status',

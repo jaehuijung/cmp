@@ -101,7 +101,7 @@ function saveData() {
         }
         else{
             if(name != ""){
-                if (["eqp_name", "hostname", "model", "m_company",
+                if (["eqp_name", "model", "m_company",
                      "primary_operator", "primary_outsourced_operator",
                      "secondary_operator", "secondary_outsourced_operator",
                      "operating_department", "os_version", "dbrain_number", "license_number"].includes(name)) {

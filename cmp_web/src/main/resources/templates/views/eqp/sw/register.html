@@ -13,28 +13,27 @@
 		<div class="contentCard">
 			<input type="hidden" id="categories" name="categories"/>
 
-			<!-- 장비분류 -->
 			<div class="contentCardWrap">
 				<div class="contentCardTitle">
-					<h2>▪️ 장비분류</h2>
+					<h2>▪️ 소프트웨어 분류</h2>
 				</div>
 				<div class="tbl-bootstrap-wrap custom-border-top-solid">
 					<table class="table-hover-delete" id="equipmentCategoryTable">
 						<tbody>
 						<tr>
-							<td class="custom-background-lightblue custom-border-right custom-width-10per">
+							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
 								<label for="asset_id" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">자산분류</label></td>
-							<td class="custom-border-left custom-width-15per">
+							<td class="custom-border-left custom-width-15per custom-width-min-150">
 								<select id="asset_id" name="asset_id" class="form-control"></select>
 							</td>
-							<td class="custom-background-lightblue custom-border-right custom-width-10per">
+							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
 								<label for="sub_id" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">세부분류</label></td>
-							<td class="custom-border-left custom-width-15per">
+							<td class="custom-border-left custom-width-15per custom-width-min-150">
 								<select id="sub_id" name="sub_id" class="form-control"></select>
 							</td>
-							<td class="custom-background-lightblue custom-border-right custom-width-10per">
+							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
 								<label for="detail_id" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">상세분류</label></td>
-							<td class="custom-border-left custom-width-15per">
+							<td class="custom-border-left custom-width-15per custom-width-min-150">
 								<select id="detail_id" name="detail_id" class="form-control"></select>
 							</td>
 						</tr>
@@ -43,211 +42,184 @@
 				</div>
 			</div>
 
-			<!-- 장비기본정보 -->
 			<div class="contentCardWrap">
 				<div class="contentCardTitle">
-					<h2>▪️ 장비기본정보</h2>
+					<h2>▪️ 소프트웨어 기본정보</h2>
 				</div>
 				<div class="tbl-bootstrap-wrap custom-border-top-solid">
 					<table class="table-hover-delete">
 						<tbody>
 						<tr>
-							<td class="custom-background-lightblue custom-border-right custom-width-10per">
+							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
 								<label for="eqp_name" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">구성자원명</label>
 							</td>
-							<td class="custom-border-left custom-width-15per">
+							<td class="custom-border-left custom-width-15per custom-width-min-150">
 								<input type="text" id="eqp_name" name="eqp_name" class="form-control"/>
 							</td>
-							<td class="custom-background-lightblue custom-border-right custom-width-10per">
-								<label for="host_name" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">호스트명</label>
-							</td>
-							<td class="custom-border-left custom-width-15per">
-								<input type="text" id="host_name" name="host_name" class="form-control"/>
-							</td>
-							<td class="custom-background-lightblue custom-border-right custom-width-10per">
+							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
 								<label for="model_name" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">모델명</label>
 							</td>
-							<td class="custom-border-left custom-width-15per">
+							<td class="custom-border-left custom-width-15per custom-width-min-150">
 								<input type="text" id="model_name" name="model_name" class="form-control"/>
 							</td>
-							<td class="custom-background-lightblue custom-border-right custom-width-10per">
+							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
 								<label for="m_company" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">제조사</label>
 							</td>
-							<td class="custom-border-left custom-width-15per">
+							<td class="custom-border-left custom-width-15per custom-width-min-150">
 								<input type="text" id="m_company" name="m_company" class="form-control"/>
 							</td>
 						</tr>
 						<tr>
-							<td class="custom-background-lightblue custom-border-right custom-width-10per">
+							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
 								<label for="domestic" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">국산여부</label>
 							</td>
-							<td class="custom-border-left custom-width-15per">
+							<td class="custom-border-left custom-width-15per custom-width-min-150">
 								<select id="domestic" name="domestic" class="form-control">
 									<option value="1">국산</option>
 									<option value="2">외산</option>
 								</select>
 							</td>
-							<td class="custom-background-lightblue custom-border-right custom-width-10per">
+							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
 								<label for="dependent_config" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">종속 SW여부</label>
 							</td>
-							<td class="custom-border-left custom-width-15per">
+							<td class="custom-border-left custom-width-15per custom-width-min-150">
 								<select id="dependent_config" name="dependent_config" class="form-control">
 									<option value="1">공개</option>
 									<option value="2">상용</option>
 								</select>
 							</td>
-							<td class="custom-background-lightblue custom-border-right custom-width-10per">
+							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
 								<label for="maintenance_contract_target" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">유지관리</br>계약대상여부</label>
 							</td>
-							<td class="custom-border-left custom-width-15per">
+							<td class="custom-border-left custom-width-15per custom-width-min-150">
 								<select id="maintenance_contract_target" name="maintenance_contract_target" class="form-control">
 									<option value="1">Y</option>
 									<option value="2">N</option>
 								</select>
 							</td>
-							<td class="custom-background-lightblue custom-border-right custom-width-10per"></td>
-							<td class="custom-border-left custom-width-15per"></td>
 						</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
 
-			<!-- 장비운영정보 -->
 			<div class="contentCardWrap">
 				<div class="contentCardTitle">
-					<h2>▪️ 장비운영정보</h2>
+					<h2>▪️ 소프트웨어 운영정보</h2>
 				</div>
 				<div class="tbl-bootstrap-wrap custom-border-top-solid">
 					<table class="table-hover-delete">
 						<tbody>
 						<tr>
-							<td class="custom-background-lightblue custom-border-right custom-width-10per">
-								<label for="network_operation_type" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영구분</label>
+							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
+								<label for="operating_department" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영부서</label>
 							</td>
-							<td class="custom-border-left custom-width-15per">
-								<select id="network_operation_type" name="network_operation_type" class="form-control">
-									<option value="1">인터넷망</option>
-									<option value="2">업무망</option>
-									<option value="3">운영망</option>
-								</select>
+							<td class="custom-border-left custom-width-15per custom-width-min-150">
+								<input type="text" id="operating_department" name="operating_department" class="form-control"/>
 							</td>
-							<td class="custom-background-lightblue custom-border-right custom-width-10per">
+							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
 								<label for="primary_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영담당자(정)</label>
 							</td>
-							<td class="custom-border-left custom-width-15per">
+							<td class="custom-border-left custom-width-15per custom-width-min-150">
 								<input type="text" id="primary_operator" name="primary_operator" class="form-control"/>
 							</td>
-							<td class="custom-background-lightblue custom-border-right custom-width-10per">
+							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
 								<label for="primary_outsourced_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">위탁운영사용자(정)</label>
 							</td>
-							<td class="custom-border-left custom-width-15per">
+							<td class="custom-border-left custom-width-15per custom-width-min-150">
 								<input type="text" id="primary_outsourced_operator" name="primary_outsourced_operator" class="form-control"/>
 							</td>
 						</tr>
 						<tr>
-							<td class="custom-background-lightblue custom-border-right custom-width-10per">
-								<label for="operating_department" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영부서</label>
-							</td>
-							<td class="custom-border-left custom-width-15per">
-								<input type="text" id="operating_department" name="operating_department" class="form-control"/>
-							</td>
-							<td class="custom-background-lightblue custom-border-right custom-width-10per">
-								<label for="secondary_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영담당자(부)</label>
-							</td>
-							<td class="custom-border-left custom-width-15per">
-								<input type="text" id="secondary_operator" name="secondary_operator" class="form-control"/>
-							</td>
-							<td class="custom-background-lightblue custom-border-right custom-width-10per">
-								<label for="secondary_outsourced_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">위탁운영사용자(부)</label>
-							</td>
-							<td class="custom-border-left custom-width-15per">
-								<input type="text" id="secondary_outsourced_operator" name="secondary_outsourced_operator" class="form-control"/>
-							</td>
-						</tr>
-						<tr>
-							<td class="custom-background-lightblue custom-border-right custom-width-10per">
+							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
 								<label for="operating_status" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영상태</label>
 							</td>
-							<td class="custom-border-left custom-width-15per">
+							<td class="custom-border-left custom-width-15per custom-width-min-150">
 								<select id="operating_status" name="operating_status" class="form-control">
 									<option value="1">사용</option>
 									<option value="2">정지</option>
 								</select>
 							</td>
-							<td class="custom-background-lightblue custom-border-right custom-width-10per"></td>
-							<td class="custom-border-left custom-width-15per"></td>
-							<td class="custom-background-lightblue custom-border-right custom-width-10per"></td>
-							<td class="custom-border-left custom-width-15per"></td>
+							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
+								<label for="secondary_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영담당자(부)</label>
+							</td>
+							<td class="custom-border-left custom-width-15per custom-width-min-150">
+								<input type="text" id="secondary_operator" name="secondary_operator" class="form-control"/>
+							</td>
+							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
+								<label for="secondary_outsourced_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">위탁운영사용자(부)</label>
+							</td>
+							<td class="custom-border-left custom-width-15per custom-width-min-150">
+								<input type="text" id="secondary_outsourced_operator" name="secondary_outsourced_operator" class="form-control"/>
+							</td>
 						</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
 
-			<!-- 장비상세정보 -->
 			<div class="contentCardWrap">
 				<div class="contentCardTitle">
-					<h2>▪️ 장비상세정보</h2>
+					<h2>▪️ 소프트웨어 상세정보</h2>
 				</div>
 				<div class="tbl-bootstrap-wrap custom-border-top-solid">
 					<table class="table-hover-delete">
 						<tbody>
 							<tr>
-								<td class="custom-background-lightblue custom-border-right custom-width-10per">
+								<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
 									<label for="os_version" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">OS</label>
 								</td>
-								<td class="custom-border-left custom-width-15per">
+								<td class="custom-border-left custom-width-15per custom-width-min-150">
 									<input type="text" id="os_version" name="os_version" class="form-control"/>
 								</td>
-								<td class="custom-background-lightblue custom-border-right custom-width-10per">
+								<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
 									<label for="acquisition_cost" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">도입금액</label>
 								</td>
-								<td class="custom-border-left custom-width-15per">
+								<td class="custom-border-left custom-width-15per custom-width-min-150">
 									<input type="text" id="acquisition_cost" name="acquisition_cost" class="form-control" oninput="formatCurrency(this)"/>
 								</td>
-								<td class="custom-background-lightblue custom-border-right custom-width-10per">
+								<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
 									<label for="acquisition_cost" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">수량</label>
 								</td>
-								<td class="custom-border-left custom-width-15per">
+								<td class="custom-border-left custom-width-15per custom-width-min-150">
 									<input type="number" id="amount" name="amount" class="form-control"/>
 								</td>
 							</tr>
 							<tr>
-								<td class="custom-background-lightblue custom-border-right custom-width-10per">
+								<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
 									<label for="dbrain_number" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">디브레인번호</label>
 								</td>
-								<td class="custom-border-left custom-width-15per">
+								<td class="custom-border-left custom-width-15per custom-width-min-150">
 									<input type="text" id="dbrain_number" name="dbrain_number" class="form-control"/>
 								</td>
-								<td class="custom-background-lightblue custom-border-right custom-width-10per">
+								<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
 									<label for="license_number" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">라이센스번호</label>
 								</td>
-								<td class="custom-border-left custom-width-15per">
+								<td class="custom-border-left custom-width-15per custom-width-min-150">
 									<input type="text" id="license_number" name="license_number" class="form-control"/>
 								</td>
-								<td class="custom-background-lightblue custom-border-right custom-width-10per">
+								<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
 									<label for="asset_acquisition_date" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">자산취득일자</label>
 								</td>
-								<td class="custom-border-left custom-width-15per">
+								<td class="custom-border-left custom-width-15per custom-width-min-150">
 									<input type="date" id="asset_acquisition_date" name="asset_acquisition_date" class="form-control"/>
 								</td>
 							</tr>
 							<tr>
-								<td class="custom-background-lightblue custom-border-right custom-width-10per">
+								<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
 									<label for="eol_status" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">단종상태(EOL)</label>
 								</td>
-								<td class="custom-border-left custom-width-15per">
+								<td class="custom-border-left custom-width-15per custom-width-min-150">
 									<input type="date" id="eol_status" name="eol_status" class="form-control"/>
 								</td>
-								<td class="custom-background-lightblue custom-border-right custom-width-10per">
+								<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
 									<label for="eos_status" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">단종상태(EOS)</label>
 								</td>
-								<td class="custom-border-left custom-width-15per">
+								<td class="custom-border-left custom-width-15per custom-width-min-150">
 									<input type="date" id="eos_status" name="eos_status" class="form-control"/>
 								</td>
-								<td class="custom-background-lightblue custom-border-right custom-width-10per"></td>
-								<td class="custom-border-left custom-width-15per"></td>
+								<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150"></td>
+								<td class="custom-border-left custom-width-15per custom-width-min-150"></td>
 							</tr>
 						</tbody>
 					</table>

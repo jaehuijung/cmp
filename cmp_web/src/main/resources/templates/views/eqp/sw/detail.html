@@ -10,31 +10,30 @@
         <div class="contentCard">
             <input type="hidden" id="eqp_manage_id" name="eqp_manage_id" th:value="${equipment.eqp_manage_id}"/>
 
-            <!-- 장비분류 -->
             <div class="contentCardWrap">
                 <div class="contentCardTitle">
-                    <h2>▪️ 장비분류</h2>
+                    <h2>▪️ 소프트웨어 분류</h2>
                 </div>
                 <div class="tbl-bootstrap-wrap custom-border-top-solid">
                     <table class="table-hover-delete" id="equipmentCategoryTable">
                         <tbody>
                         <tr>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
                                 <label for="asset_category" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">자산분류</label>
                             </td>
-                            <td class="custom-border-left custom-width-15per">
+                            <td class="custom-border-left custom-width-15per custom-width-min-150">
                                 <input type="text" id="asset_category" name="asset_category" th:value="${equipment.asset_category}" readonly class="form-control"/>
                             </td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
                                 <label for="sub_category" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">세부분류</label>
                             </td>
-                            <td class="custom-border-left custom-width-15per">
+                            <td class="custom-border-left custom-width-15per custom-width-min-150">
                                 <input type="text" id="sub_category" name="sub_category" th:value="${equipment.sub_category}" readonly class="form-control"/>
                             </td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
                                 <label for="detail_category" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">상세분류</label>
                             </td>
-                            <td class="custom-border-left custom-width-15per">
+                            <td class="custom-border-left custom-width-15per custom-width-min-150">
                                 <input type="text" id="detail_category" name="detail_category" th:value="${equipment.containsKey('detail_category')} ? ${equipment['detail_category']} : ''" readonly class="form-control"/>
                             </td>
                         </tr>
@@ -43,197 +42,174 @@
                 </div>
             </div>
 
-            <!-- 장비기본정보 -->
             <div class="contentCardWrap">
                 <div class="contentCardTitle">
-                    <h2>▪️ 장비기본정보</h2>
+                    <h2>▪️ 소프트웨어 기본정보</h2>
                 </div>
                 <div class="tbl-bootstrap-wrap custom-border-top-solid">
                     <table class="table-hover-delete">
                         <tbody>
                         <tr>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
                                 <label for="eqp_name" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">구성자원명</label>
                             </td>
-                            <td class="custom-border-left custom-width-15per">
+                            <td class="custom-border-left custom-width-15per custom-width-min-150">
                                 <input type="text" id="eqp_name" name="eqp_name" th:value="${equipment.eqp_name}" readonly class="form-control"/>
                             </td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
-                                <label for="host_name" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">호스트명</label>
-                            </td>
-                            <td class="custom-border-left custom-width-15per">
-                                <input type="text" id="host_name" name="host_name" th:value="${equipment.host_name}" readonly class="form-control"/>
-                            </td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
                                 <label for="model_name" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">모델명</label>
                             </td>
-                            <td class="custom-border-left custom-width-15per">
+                            <td class="custom-border-left custom-width-15per custom-width-min-150">
                                 <input type="text" id="model_name" name="model_name" th:value="${equipment.model_name}" readonly class="form-control"/>
                             </td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
                                 <label for="m_company" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">제조사</label>
                             </td>
-                            <td class="custom-border-left custom-width-15per">
+                            <td class="custom-border-left custom-width-15per custom-width-min-150">
                                 <input type="text" id="m_company" name="m_company" th:value="${equipment.m_company}" readonly class="form-control"/>
                             </td>
                         </tr>
                         <tr>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
                                 <label for="domestic" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">국산여부</label>
                             </td>
-                            <td class="custom-border-left custom-width-15per">
+                            <td class="custom-border-left custom-width-15per custom-width-min-150">
                                 <input type="text" id="domestic" name="domestic" th:value="${equipment.domestic == '1' ? '국산' : '외산'}" readonly class="form-control"/>
                             </td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
                                 <label for="dependent_config" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">종속 SW 여부</label>
                             </td>
-                            <td class="custom-border-left custom-width-15per">
+                            <td class="custom-border-left custom-width-15per custom-width-min-150">
                                 <input type="text" id="dependent_config" name="dependent_config" th:value="${equipment.dependent_config == '1' ? '공개' : '상용'}" readonly class="form-control"/>
                             </td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
                                 <label for="maintenance_contract_target" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">유지관리 계약대상여부</label>
                             </td>
-                            <td class="custom-border-left custom-width-15per">
+                            <td class="custom-border-left custom-width-15per custom-width-min-150">
                                 <input type="text" id="maintenance_contract_target" name="maintenance_contract_target" th:value="${equipment.maintenance_contract_target == '1' ? 'Y' : 'N'}" readonly class="form-control"/>
                             </td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per"></td>
-                            <td class="custom-border-left custom-width-15per"></td>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150"></td>
+                            <td class="custom-border-left custom-width-15per custom-width-min-150"></td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-
-
-            <!-- 장비운영정보 -->
             <div class="contentCardWrap">
                 <div class="contentCardTitle">
-                    <h2>▪️ 장비운영정보</h2>
+                    <h2>▪️ 소프트웨어 운영정보</h2>
                 </div>
                 <div class="tbl-bootstrap-wrap custom-border-top-solid">
                     <table class="table-hover-delete">
                         <tbody>
                         <tr>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
-                                <label for="network_operation_type" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영구분</label>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
+                                <label for="operating_department" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영부서</label>
                             </td>
-                            <td class="custom-border-left custom-width-15per">
-                                <input type="text" id="network_operation_type" name="network_operation_type" th:value="${equipment.network_operation_type == '1' ? '인터넷망' : (equipment.network_operation_type == '2' ? '업무망' : '운영망')}" readonly class="form-control"/>
+                            <td class="custom-border-left custom-width-15per custom-width-min-150">
+                                <input type="text" id="operating_department" name="operating_department" th:value="${equipment.operating_department}" readonly class="form-control"/>
                             </td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
                                 <label for="primary_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영담당자(정)</label>
                             </td>
-                            <td class="custom-border-left custom-width-15per">
+                            <td class="custom-border-left custom-width-15per custom-width-min-150">
                                 <input type="text" id="primary_operator" name="primary_operator" th:value="${equipment.primary_operator}" readonly class="form-control"/>
                             </td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
                                 <label for="primary_outsourced_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">위탁운영사용자(정)</label>
                             </td>
-                            <td class="custom-border-left custom-width-15per">
+                            <td class="custom-border-left custom-width-15per custom-width-min-150">
                                 <input type="text" id="primary_outsourced_operator" name="primary_outsourced_operator" th:value="${equipment.primary_outsourced_operator}" readonly class="form-control"/>
                             </td>
                         </tr>
                         <tr>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
-                                <label for="operating_department" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영부서</label>
-                            </td>
-                            <td class="custom-border-left custom-width-15per">
-                                <input type="text" id="operating_department" name="operating_department" th:value="${equipment.operating_department}" readonly class="form-control"/>
-                            </td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
-                                <label for="secondary_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영담당자(부)</label>
-                            </td>
-                            <td class="custom-border-left custom-width-15per">
-                                <input type="text" id="secondary_operator" name="secondary_operator" th:value="${equipment.secondary_operator}" readonly class="form-control"/>
-                            </td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
-                                <label for="secondary_outsourced_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">위탁운영사용자(부)</label>
-                            </td>
-                            <td class="custom-border-left custom-width-15per">
-                                <input type="text" id="secondary_outsourced_operator" name="secondary_outsourced_operator" th:value="${equipment.secondary_outsourced_operator}" readonly class="form-control"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
                                 <label for="operating_status" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영상태</label>
                             </td>
-                            <td class="custom-border-left custom-width-15per">
+                            <td class="custom-border-left custom-width-15per custom-width-min-150">
                                 <input type="text" id="operating_status" name="operating_status" th:value="${equipment.operating_status == '1' ? '사용' : '정지'}" readonly class="form-control"/>
                             </td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per"></td>
-                            <td class="custom-border-left custom-width-15per"></td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per"></td>
-                            <td class="custom-border-left custom-width-15per"></td>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
+                                <label for="secondary_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영담당자(부)</label>
+                            </td>
+                            <td class="custom-border-left custom-width-15per custom-width-min-150">
+                                <input type="text" id="secondary_operator" name="secondary_operator" th:value="${equipment.secondary_operator}" readonly class="form-control"/>
+                            </td>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
+                                <label for="secondary_outsourced_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">위탁운영사용자(부)</label>
+                            </td>
+                            <td class="custom-border-left custom-width-15per custom-width-min-150">
+                                <input type="text" id="secondary_outsourced_operator" name="secondary_outsourced_operator" th:value="${equipment.secondary_outsourced_operator}" readonly class="form-control"/>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- 장비상세정보 -->
             <div class="contentCardWrap">
                 <div class="contentCardTitle">
-                    <h2>▪️ 장비상세정보</h2>
+                    <h2>▪️ 소프트웨어 상세정보</h2>
                 </div>
                 <div class="tbl-bootstrap-wrap custom-border-top-solid">
                     <table class="table-hover-delete">
                         <tbody>
                         <tr>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
-                                <label for="dbrain_number" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">디브레인번호</label>
-                            </td>
-                            <td class="custom-border-left custom-width-15per">
-                                <input type="text" id="dbrain_number" name="dbrain_number" th:value="${equipment.dbrain_number}" readonly class="form-control"/>
-                            </td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
                                 <label for="os_version" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">OS</label>
                             </td>
-                            <td class="custom-border-left custom-width-15per">
+                            <td class="custom-border-left custom-width-15per custom-width-min-150">
                                 <input type="text" id="os_version" name="os_version" th:value="${equipment.OS}" readonly class="form-control"/>
                             </td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
-                                <label for="license_number" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">라이센스번호</label>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
+                                <label for="acquisition_cost" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">도입금액</label>
                             </td>
-                            <td class="custom-border-left custom-width-15per">
-                                <input type="text" id="license_number" name="license_number" th:value="${equipment.license_number}" readonly class="form-control"/>
+                            <td class="custom-border-left custom-width-15per custom-width-min-150">
+                                <input type="text" id="acquisition_cost" name="acquisition_cost" th:value="${equipment.acquisition_cost}" oninput="formatCurrency(this)" readonly class="form-control"/>
+                            </td>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
+                                <label for="amount" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">수량</label>
+                            </td>
+                            <td class="custom-border-left custom-width-15per custom-width-min-150">
+                                <input type="number" id="amount" name="amount" th:value="${equipment.amount}" readonly class="form-control"/>
                             </td>
                         </tr>
                         <tr>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
-                                <label for="acquisition_cost" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">도입금액</label>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
+                                <label for="dbrain_number" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">디브레인번호</label>
                             </td>
-                            <td class="custom-border-left custom-width-15per">
-                                <input type="text" id="acquisition_cost" name="acquisition_cost" th:value="${equipment.acquisition_cost}" oninput="formatCurrency(this)" readonly class="form-control"/>
+                            <td class="custom-border-left custom-width-15per custom-width-min-150">
+                                <input type="text" id="dbrain_number" name="dbrain_number" th:value="${equipment.dbrain_number}" readonly class="form-control"/>
                             </td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
-                                <label for="amount" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">수량</label>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
+                                <label for="license_number" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">라이센스번호</label>
                             </td>
-                            <td class="custom-border-left custom-width-15per">
-                                <input type="number" id="amount" name="amount" th:value="${equipment.amount}" readonly class="form-control"/>
+                            <td class="custom-border-left custom-width-15per custom-width-min-150">
+                                <input type="text" id="license_number" name="license_number" th:value="${equipment.license_number}" readonly class="form-control"/>
                             </td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
                                 <label for="asset_acquisition_date" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">자산취득일자</label>
                             </td>
-                            <td class="custom-border-left custom-width-15per">
+                            <td class="custom-border-left custom-width-15per custom-width-min-150">
                                 <input type="date" id="asset_acquisition_date" name="asset_acquisition_date" th:value="${equipment.asset_acquisition_date}" readonly class="form-control"/>
                             </td>
                         </tr>
                         <tr>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
                                 <label for="eol_status" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">단종상태(EOL)</label>
                             </td>
-                            <td class="custom-border-left custom-width-15per">
+                            <td class="custom-border-left custom-width-15per custom-width-min-150">
                                 <input type="date" id="eol_status" name="eol_status" th:value="${equipment.eol_status}" readonly class="form-control"/>
                             </td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
                                 <label for="eos_status" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">단종상태(EOS)</label>
                             </td>
-                            <td class="custom-border-left custom-width-15per">
+                            <td class="custom-border-left custom-width-15per custom-width-min-150">
                                 <input type="date" id="eos_status" name="eos_status" th:value="${equipment.eos_status}" readonly class="form-control"/>
                             </td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per"></td>
-                            <td class="custom-border-left custom-width-15per"></td>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150"></td>
+                            <td class="custom-border-left custom-width-15per custom-width-min-150"></td>
                         </tr>
                         </tbody>
                     </table>

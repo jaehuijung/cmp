@@ -14,7 +14,6 @@
             AND (
             BINARY A.eqp_manage_id                  Like CONCAT('%', #{searchInput}, '%') OR
             BINARY A.eqp_name                       Like CONCAT('%', #{searchInput}, '%') OR
-            BINARY A.host_name                      Like CONCAT('%', #{searchInput}, '%') OR
             BINARY A.model_name                     Like CONCAT('%', #{searchInput}, '%') OR
             BINARY A.m_company                      Like CONCAT('%', #{searchInput}, '%') OR
             BINARY A.operating_department           Like CONCAT('%', #{searchInput}, '%') OR
@@ -32,7 +31,6 @@
         SELECT
             A.eqp_manage_id                   /* 장비 관리번호 */
             , A.eqp_name                      /* 장비명 */
-            , A.host_name                     /* 호스트명 */
             , A.model_name                    /* 모델명 */
             , A.m_company                     /* 제조사 */
             , A.domestic                      /* 국산여부 */
@@ -42,7 +40,6 @@
             , A.asset_id                      /* 자산분류 */
             , A.sub_id                        /* 자산세부분류 */
             , A.detail_id                     /* 자산상세분류 */
-            , A.network_operation_type        /* 네트워크 운영 구분 */
             , A.operating_status              /* 운영상태 */
             , A.operating_department          /* 운영부서 */
             , A.primary_operator              /* 운영담당자(정) */
@@ -89,7 +86,6 @@
         INSERT INTO equipment_sw_basic (
             eqp_manage_id,
             eqp_name,
-            host_name,
             model_name,
             m_company,
             domestic,
@@ -99,7 +95,6 @@
             asset_id,
             sub_id,
             detail_id,
-            network_operation_type,
             operating_status,
             operating_department,
             primary_operator,
@@ -114,7 +109,6 @@
         VALUES (
             #{eqp_manage_id},
             #{eqp_name},
-            #{host_name},
             #{model_name},
             #{m_company},
             #{domestic},
@@ -124,7 +118,6 @@
             #{asset_id},
             #{sub_id},
             #{detail_id},
-            #{network_operation_type},
             #{operating_status},
             #{operating_department},
             #{primary_operator},
@@ -176,7 +169,6 @@
         select
             eb.eqp_manage_id,
             eb.eqp_name,
-            eb.host_name,
             eb.model_name,
             eb.m_company,
             eb.domestic,
@@ -186,7 +178,6 @@
             eb.asset_id,
             eb.sub_id,
             eb.detail_id,
-            eb.network_operation_type,
             eb.operating_status,
             eb.operating_department,
             eb.primary_operator,
@@ -238,9 +229,6 @@
             equipment_sw_basic
         SET
             eqp_name = #{eqp_name}
-            <if test="host_name != null and host_name != ''">
-                , host_name = #{host_name}
-            </if>
             <if test="model_name != null and model_name != ''">
                 , model_name = #{model_name}
             </if>
@@ -267,9 +255,6 @@
             </if>
             <if test="detail_id != null">
                 , detail_id = #{detail_id}
-            </if>
-            <if test="network_operation_type != null and network_operation_type != ''">
-                , network_operation_type = #{network_operation_type}
             </if>
             <if test="operating_status != null and operating_status != ''">
                 , operating_status = #{operating_status}
@@ -348,7 +333,6 @@
             select
             eb.eqp_manage_id,
             eb.eqp_name,
-            eb.host_name,
             eb.m_company,
             eb.model_name,
             ec.config_category ,
@@ -367,11 +351,6 @@
                 WHEN eb.maintenance_contract_target = 1 THEN 'Y'
                 WHEN eb.maintenance_contract_target = 2 THEN 'N'
             END maintenance_contract_target,
-            CASE
-                WHEN eb.network_operation_type = 1 THEN '인터넷망'
-                WHEN eb.network_operation_type = 2 THEN '업무망'
-                WHEN eb.network_operation_type = 3 THEN '운영망'
-            END network_operation_type,
             CASE
                 WHEN eb.operating_status = 1 THEN '사용'
                 WHEN eb.operating_status = 2 THEN '정지'

@@ -703,6 +703,7 @@ header {
 .custom-width-450 { width: 450px; }
 
 .custom-width-min-50 { min-width: 50px; }
+.custom-width-min-150 { min-width: 150px; }
 .custom-width-nowrap { white-space: nowrap; }
 
 /* custom margin */
