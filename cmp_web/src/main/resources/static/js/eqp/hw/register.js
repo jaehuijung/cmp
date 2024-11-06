@@ -1,4 +1,11 @@
 
+/**
+ * 장비 연결정보, 소프트웨어 등록정보 테이블을 새로고침하는 함수
+ */
+function tableRefresh(id){
+    $(id).bootstrapTable('refresh');
+}
+
 function createColumn(field, checkbox = false, title, type = '', formatter = '') {
     let column = {
         title: title,
@@ -12,6 +19,16 @@ function createColumn(field, checkbox = false, title, type = '', formatter = '')
         column.class = 'nowrap underline';
     } else {
         column.class = 'nowrap';
+    }
+
+    if (field === 'dependent_config') {
+        column.formatter = function(value, row, index) {
+            if (value === '1') {
+                return '공개';
+            } else {
+                return '상용';
+            }
+        };
     }
 
     if (formatter != '') {
@@ -142,12 +159,19 @@ function addEquipmentHardwareRow(){
             popup: 'custom-width'
         },
         didOpen: () => {
+
+            $('#searchHardwareInput').keyup(function(e) {
+                if(e.which == 13) {
+                    $('#eqpHardwareTable').bootstrapTable('refresh');
+                }
+            });
+
             $('#eqpHardwareTable').bootstrapTable({
                 url: '/eqp/hw/equipmentHardwareList',
                 method: 'post',
                 queryParams: function(params) {
-                    let searchInput = $("#searchInput").val();
-                    params.searchData = { searchInput };
+                    let searchHardwareInput = $("#searchHardwareInput").val();
+                    params.searchData = { searchHardwareInput };
                     return params;
                 },
                 pageSize: 10, columns: eqpHardwareColumn, cache: false, undefinedText: "",
@@ -237,12 +261,26 @@ function addEquipmentHardwareRow(){
 
 function generateEquipmentHardwareRowHTML(){
     return `
-        <div id="equipment-connection-info">
-            <div class="equipment-connection-title">
-                <h2>H/W 장비연결정보 선택</h2>
-            </div>
-            <div class="tbl-bootstrap-wrap">
-                <table id="eqpHardwareTable"></table>
+        <div class="contentCard">
+            <div class="contentCardWrap">
+                <div class="contentCardTitle">
+                    <h2>▪️ 장비 연결정보 선택</h2>
+                </div>
+                <div style='display: flex; justify-content: space-between; align-items: flex-end;'>
+                    <div>
+                        <p class="totalCnt" id="eqpHardwareTotalCnt"></p>
+                    </div>
+                    <div class="searchWordWrap">
+                        <div class="searchWordInput">
+                            <label class="searchTitle" for="searchHardwareInput">검색어</label>
+                            <input type="text"    class="searchInput" id="searchHardwareInput" placeholder="검색어를 입력하세요"/>
+                            <button type="button" class="searchButton" onclick="tableRefresh('#eqpHardwareTable');">검색</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="tbl-bootstrap-wrap">
+                    <table id="eqpHardwareTable"></table>
+                </div>
             </div>
         </div>
     `;
@@ -272,7 +310,6 @@ function deleteEquipmentHardwareRow(){
 function addEquipmentSoftwareRow(){
     let selectedEqpSoftware = [];
     Swal.fire({
-        title: 'S/W 장비 연결정보',
         html: generateEquipmentSoftwareRowHTML(),
         focusConfirm: false,
         confirmButtonText: '저장',
@@ -284,12 +321,18 @@ function addEquipmentSoftwareRow(){
             popup: 'custom-width'
         },
         didOpen: () => {
+            $('#searchSoftwareInput').keyup(function(e) {
+                if(e.which == 13) {
+                    $('#eqpSoftwareTable').bootstrapTable('refresh');
+                }
+            });
+
             $('#eqpSoftwareTable').bootstrapTable({
                 url: '/eqp/hw/equipmentSoftwareList',
                 method: 'post',
                 queryParams: function(params) {
-                    let searchInput = $("#searchInput").val();
-                    params.searchData = { searchInput };
+                    let searchSoftwareInput = $("#searchSoftwareInput").val();
+                    params.searchData = { searchSoftwareInput };
                     return params;
                 },
                 pageSize: 10, columns: eqpSoftwareColumn, cache: false, undefinedText: "",
@@ -377,12 +420,26 @@ function addEquipmentSoftwareRow(){
 
 function generateEquipmentSoftwareRowHTML(){
     return `
-        <div id="equipment-connection-info">
-            <div class="equipment-connection-title">
-                <h2>S/W 장비연결정보 선택</h2>
-            </div>
-            <div class="tbl-bootstrap-wrap">
-                <table id="eqpSoftwareTable"></table>
+        <div class="contentCard">
+            <div class="contentCardWrap">
+                <div class="contentCardTitle">
+                    <h2>▪️ 소프트웨어 등록정보 선택</h2>
+                </div>
+                <div style='display: flex; justify-content: space-between; align-items: flex-end;'>
+                    <div>
+                        <p class="totalCnt" id="eqpSoftwareTotalCnt"></p>
+                    </div>
+                    <div class="searchWordWrap">
+                        <div class="searchWordInput">
+                            <label class="searchTitle" for="searchSoftwareInput">검색어</label>
+                            <input type="text"    class="searchInput" id="searchSoftwareInput" placeholder="검색어를 입력하세요"/>
+                            <button type="button" class="searchButton" onclick="tableRefresh('#eqpSoftwareTable');">검색</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="tbl-bootstrap-wrap">
+                    <table id="eqpSoftwareTable"></table>
+                </div>
             </div>
         </div>
     `;

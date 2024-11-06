@@ -24,6 +24,39 @@
             BINARY A.secondary_outsourced_operator  Like CONCAT('%', #{searchInput}, '%')
             )
         </if>
+        <if test="searchHardwareInput != null and searchHardwareInput != ''">
+            AND (
+            BINARY A.eqp_manage_id                  Like CONCAT('%', #{searchHardwareInput}, '%') OR
+            BINARY ec.asset_category                Like CONCAT('%', #{searchHardwareInput}, '%') OR
+            BINARY ed.installation_coordinates      Like CONCAT('%', #{searchHardwareInput}, '%') OR
+            BINARY A.eqp_name                       Like CONCAT('%', #{searchHardwareInput}, '%') OR
+            BINARY A.host_name                      Like CONCAT('%', #{searchHardwareInput}, '%') OR
+            BINARY A.model_name                     Like CONCAT('%', #{searchHardwareInput}, '%') OR
+            BINARY A.m_company                      Like CONCAT('%', #{searchHardwareInput}, '%') OR
+            BINARY A.operating_department           Like CONCAT('%', #{searchHardwareInput}, '%') OR
+            BINARY A.primary_operator               Like CONCAT('%', #{searchHardwareInput}, '%') OR
+            BINARY A.primary_outsourced_operator    Like CONCAT('%', #{searchHardwareInput}, '%')
+            )
+        </if>
+        <if test="searchSoftwareInput != null and searchSoftwareInput != ''">
+            AND (
+            BINARY ec.asset_category                Like CONCAT('%', #{searchSoftwareInput}, '%') OR
+            BINARY A.eqp_manage_id                  Like CONCAT('%', #{searchSoftwareInput}, '%') OR
+            BINARY A.eqp_name                       Like CONCAT('%', #{searchSoftwareInput}, '%') OR
+            BINARY A.host_name                      Like CONCAT('%', #{searchSoftwareInput}, '%') OR
+            BINARY A.model_name                     Like CONCAT('%', #{searchSoftwareInput}, '%') OR
+            BINARY A.m_company                      Like CONCAT('%', #{searchSoftwareInput}, '%') OR
+            <if test="searchInput2 == '공개'">
+                BINARY A.dependent_config           Like CONCAT('%', '1', '%') OR
+            </if>
+            <if test="searchInput2 == '상용'">
+                BINARY A.dependent_config           Like CONCAT('%', '2', '%') OR
+            </if>
+            BINARY A.operating_department           Like CONCAT('%', #{searchSoftwareInput}, '%') OR
+            BINARY A.primary_operator               Like CONCAT('%', #{searchSoftwareInput}, '%') OR
+            BINARY A.primary_outsourced_operator    Like CONCAT('%', #{searchSoftwareInput}, '%')
+            )
+        </if>
     </sql>
 
     <select id="getEquipmentTotalList" parameterType="Map" resultType="Map">
@@ -185,7 +218,7 @@
 
     <select id="getEquipmentDetailHardwareList" parameterType="Map" resultType="Map">
         /* getEquipmentDetailHardwareList ...
-            H/W관리 > 장비목록 > 수정 / 상세 > 선택된 H/W 장비에 등록된 H/W 장비 목록 리스트 개수 */
+            H/W관리 > 장비목록 > 수정 / 상세 > 선택된 H/W 장비에 등록된 H/W 장비 목록 리스트 */
         select
             A.eqp_manage_id ,               /* 관리번호 */
             A.eqp_name ,                    /* 구성자원명 */

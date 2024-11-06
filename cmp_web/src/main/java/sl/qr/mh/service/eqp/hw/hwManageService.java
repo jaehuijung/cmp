@@ -208,11 +208,16 @@ public class hwManageService {
      *
      * @return S/W 장비 목록 리스트
      */
+    @SuppressWarnings("unchecked")
     public Map<String, Object> getEquipmentSoftwareList(Map<String, Object> paramMap){
         Map<String, Object> returnMap = new HashMap<>();
         returnMap.put("errorCode",false);
 
         try{
+            if (paramMap.containsKey("searchData")) {
+                paramMap.putAll((Map<String, Object>) paramMap.get("searchData"));
+            }
+
             List<Map<String, Object>> rows = hwMapper.getEquipmentSoftwareList(paramMap);
             int total = hwMapper.getEquipmentSoftwareListCnt(paramMap);
             returnMap.put("rows", rows);
