@@ -44,10 +44,14 @@ let lineEndColumn = [
     createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
 ];
 
-let lineSelectColumn = [
+let selectedStartRow = null;
+let selectedEndRow = null;
+let selectInitStartRow = false;
+let selectInitEndRow = false;
+
+let lineStartSelectColumn = [
     [
-        { title: '출발지', align: 'center', valign: 'middle', colspan: 10 },
-        { title: '목적지', align: 'center', valign: 'middle', colspan: 10 },
+        { title: '출발지(Start)', align: 'center', valign: 'middle', colspan: 10 },
     ],
     [
         createColumn('s_asset_category',              false, '자산분류'),
@@ -60,7 +64,14 @@ let lineSelectColumn = [
         createColumn('s_port',                        false, '포트번호'),
         createColumn('s_primary_operator',            false, '운영담당자'),
         createColumn('s_primary_outsourced_operator', false, '위탁운영담당자'),
+    ]
+];
 
+let lineEndSelectColumn = [
+    [
+        { title: '목적지(End)',   align: 'center', valign: 'middle', colspan: 10 },
+    ],
+    [
         createColumn('e_asset_category',              false, '자산분류'),
         createColumn('e_installation_coordinates',    false, '설치좌표'),
         createColumn('e_eqp_manage_id',               false, '관리번호'),
@@ -74,12 +85,7 @@ let lineSelectColumn = [
     ]
 ];
 
-let selectedStartRow = null;
-let selectedEndRow = null;
-let selectInitStartRow = false;
-let selectInitEndRow = false;
-
-function updateSelectTable() {
+function updateStartSelectTable() {
     let data = [{
         s_asset_category: selectedStartRow ? selectedStartRow.asset_category : "",
         s_installation_coordinates: selectedStartRow ? selectedStartRow.installation_coordinates : "",
@@ -90,8 +96,14 @@ function updateSelectTable() {
         s_eqp_name: selectedStartRow ? selectedStartRow.eqp_name : "",
         s_port: selectedStartRow ? selectedStartRow.port_number : "",
         s_primary_operator: selectedStartRow ? selectedStartRow.primary_operator : "",
-        s_primary_outsourced_operator: selectedStartRow ? selectedStartRow.primary_outsourced_operator : "",
+        s_primary_outsourced_operator: selectedStartRow ? selectedStartRow.primary_outsourced_operator : ""
+    }];
 
+    $('#lineStartSelectTable').bootstrapTable('load', data);
+}
+
+function updateEndSelectTable() {
+    let data = [{
         e_asset_category: selectedEndRow ? selectedEndRow.asset_category : "",
         e_installation_coordinates: selectedEndRow ? selectedEndRow.installation_coordinates : "",
         e_eqp_manage_id: selectedEndRow ? selectedEndRow.eqp_manage_id : "",
@@ -101,10 +113,10 @@ function updateSelectTable() {
         e_eqp_name: selectedEndRow ? selectedEndRow.eqp_name : "",
         e_port: selectedEndRow ? selectedEndRow.port_number : "",
         e_primary_operator: selectedEndRow ? selectedEndRow.primary_operator : "",
-        e_primary_outsourced_operator: selectedEndRow ? selectedEndRow.primary_outsourced_operator : "",
+        e_primary_outsourced_operator: selectedEndRow ? selectedEndRow.primary_outsourced_operator : ""
     }];
 
-    $('#lineSelectTable').bootstrapTable('load', data);
+    $('#lineEndSelectTable').bootstrapTable('load', data);
 }
 
 $(function(){
@@ -170,7 +182,7 @@ $(function(){
                 // 새로운 선택된 행에 클래스 추가
                 $('#lineStartTable').find('tr[data-index="' + $('#lineStartTable').bootstrapTable('getData').indexOf(selectedStartRow) + '"]').addClass('selected-row');
 
-                updateSelectTable();
+                updateStartSelectTable();
             }
         },
     });
@@ -235,12 +247,12 @@ $(function(){
                 // 새로운 선택된 행에 클래스 추가
                 $('#lineEndTable').find('tr[data-index="' + $('#lineEndTable').bootstrapTable('getData').indexOf(selectedEndRow) + '"]').addClass('selected-row');
 
-                updateSelectTable();
+                updateEndSelectTable();
             }
         },
     });
 
-    $('#lineSelectTable').bootstrapTable({
+    $('#lineStartSelectTable').bootstrapTable({
         url: '/rack/line/getLineDetailInfo',
         method: 'post',
         queryParams: function(params) {
@@ -250,7 +262,39 @@ $(function(){
             }
             return params;
         },
-        pageSize: 5, columns: lineSelectColumn, cache: false, undefinedText: "",
+        pageSize: 5, columns: lineStartSelectColumn, cache: false, undefinedText: "",
+        pagination: true, sidePagination: 'server', checkboxHeader: true,
+        classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
+        responseHandler: function(res) {
+            return {
+                rows: res.rows,
+                total: res.total,
+                errorCode: res.errorCode
+            }
+        },
+        onLoadSuccess: function(res) {
+            let errorCode = res.errorCode;
+            if (!errorCode) {
+                alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+                return;
+            }
+
+            selectedStartRow = res.rows;
+            selectedEndRow = res.rows;
+        },
+    });
+
+    $('#lineEndSelectTable').bootstrapTable({
+        url: '/rack/line/getLineDetailInfo',
+        method: 'post',
+        queryParams: function(params) {
+            let line_manage_id = $("#line_manage_id").val();
+            params.searchData = {
+                line_manage_id
+            }
+            return params;
+        },
+        pageSize: 5, columns: lineEndSelectColumn, cache: false, undefinedText: "",
         pagination: true, sidePagination: 'server', checkboxHeader: true,
         classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
         responseHandler: function(res) {
@@ -284,10 +328,10 @@ function saveData() {
     let errorMessage = "";
 
     // 출발지
-    const lineStartData = $("#lineSelectTable").bootstrapTable("getData")[0];
+    const lineStartData = $("#lineStartSelectTable").bootstrapTable("getData")[0];
     const line_start_id  = lineStartData.s_eqp_manage_id;
     // 목적지
-    const lineEndData   = $("#lineSelectTable").bootstrapTable("getData")[0];
+    const lineEndData   = $("#lineEndSelectTable").bootstrapTable("getData")[0];
     const line_end_id    = lineEndData.e_eqp_manage_id;
 
     if(line_start_id === undefined || line_start_id === ""){
