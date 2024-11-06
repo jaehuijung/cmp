@@ -41,6 +41,7 @@ function createColumn(field, checkbox = false, title, type = '', formatter = '')
 function createCommonEqpHardwareColumns(portFormatter, tableId) {
     return [
         createColumn('', true, ''),
+        ...(tableId === '#eqpHardwareSelectTable' ? [createColumn('eqp_port', false, '장비포트번호', '', (value, row, index) => portFormatter(value, row, index, tableId))] : []),
         createColumn('asset_category', false, '자산분류'),
         createColumn('installation_coordinates', false, '설치좌표'),
         createColumn('eqp_manage_id', false, '관리번호'),
@@ -105,7 +106,7 @@ $(function(){
         columns: eqpHardwareSelectColumn, pageSize: 5, pagination: true,
         onClickCell: function(field, value, row, $element) {
             let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
-            if (($checkbox.length) && (field != 'port_number')) {
+            if (($checkbox.length) && (field != 'port_number') && (field != 'eqp_port')) {
                 $checkbox.click();
             }
         }
