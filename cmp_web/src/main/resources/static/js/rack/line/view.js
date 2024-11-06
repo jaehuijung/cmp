@@ -21,7 +21,7 @@ function createColumn(field, checkbox = false, title, type = 'default') {
     };
 
     if (type === 'underline') {
-        column.class = 'nowrap underline';
+        column.class = 'nowrap underline custom-width-min-160';
     }
     else if(type === 'formatter'){
         column.formatter = function(value, row, index) {

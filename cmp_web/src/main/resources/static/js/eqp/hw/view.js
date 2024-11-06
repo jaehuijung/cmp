@@ -29,7 +29,7 @@ function createColumn(field, checkbox = false, title, type = 'default') {
     };
 
     if (type === 'underline') {
-        column.class = 'nowrap underline';
+        column.class = 'nowrap underline custom-width-min-160';
     } else {
         column.class = 'nowrap';
     }
@@ -53,7 +53,7 @@ function createColumn(field, checkbox = false, title, type = 'default') {
 var equColumns = [
     createColumn('',                                true,  ''                      ),
     createColumn('eqp_manage_id',                   false, '관리번호',   'underline' ),
-    createColumn('eqp_name',                        false, '구성자원명', 'underline' ),
+    createColumn('eqp_name',                        false, '구성자원명'             ),
     createColumn('host_name',                       false, '호스트명'               ),
     createColumn('model_name',                      false, '모델명'                 ),
     createColumn('m_company',                       false, '제조사'                 ),
@@ -98,7 +98,7 @@ $(function(){
         },
         onClickCell: function (field, value, row, $element){
             if (!$element.hasClass("bs-checkbox")) {
-                if((field == 'eqp_manage_id' || field == 'eqp_name')){
+                if(field == 'eqp_manage_id'){
                     eqpDetail(row.eqp_manage_id)
                 }
                 else{
