@@ -151,27 +151,16 @@ $(function(){
             $("#lineStartTotalCnt").text("총 " + res.total + "건")
         },
         onClickCell: function(field, value, row, $element) {
-            if (!$element.hasClass("bs-checkbox")) {
-                if (selectedStartRow) {
-                    $('#lineStartTable').bootstrapTable('uncheckBy', {
-                        field: 'eqp_manage_id',
-                        values: [selectedStartRow.eqp_manage_id]
-                    });
-
-                    // 기존 선택된 행의 클래스 제거
-                    $('#lineStartTable').find('tr[data-index="' + $('#lineStartTable').bootstrapTable('getData').indexOf(selectedStartRow) + '"]').removeClass('selected-row');
-                }
-                selectedStartRow = row;
-                $('#lineStartTable').bootstrapTable('checkBy', {
-                    field: 'eqp_manage_id',
-                    values: [selectedStartRow.eqp_manage_id]
-                });
-
-                // 새로운 선택된 행에 클래스 추가
-                $('#lineStartTable').find('tr[data-index="' + $('#lineStartTable').bootstrapTable('getData').indexOf(selectedStartRow) + '"]').addClass('selected-row');
-
-                updateStartSelectTable();
+            if (selectedStartRow) {
+                // 기존 선택된 행의 클래스 제거
+                $('#lineStartTable').find('tr[data-index="' + $('#lineStartTable').bootstrapTable('getData').indexOf(selectedStartRow) + '"]').removeClass('selected-row');
             }
+
+            selectedStartRow = row;
+            // 새로운 선택된 행에 클래스 추가
+            $('#lineStartTable').find('tr[data-index="' + $('#lineStartTable').bootstrapTable('getData').indexOf(selectedStartRow) + '"]').addClass('selected-row');
+
+            updateStartSelectTable();
         },
     });
 
@@ -205,27 +194,16 @@ $(function(){
             $("#lineEndTotalCnt").text("총 " + res.total + "건")
         },
         onClickCell: function(field, value, row, $element) {
-            if (!$element.hasClass("bs-checkbox")) {
-                if (selectedEndRow) {
-                    $('#lineEndTable').bootstrapTable('uncheckBy', {
-                        field: 'eqp_manage_id',
-                        values: [selectedEndRow.eqp_manage_id]
-                    });
-
-                    // 기존 선택된 행의 클래스 제거
-                    $('#lineEndTable').find('tr[data-index="' + $('#lineEndTable').bootstrapTable('getData').indexOf(selectedEndRow) + '"]').removeClass('selected-row');
-                }
-                selectedEndRow = row;
-                $('#lineEndTable').bootstrapTable('checkBy', {
-                    field: 'eqp_manage_id',
-                    values: [selectedEndRow.eqp_manage_id]
-                });
-
-                // 새로운 선택된 행에 클래스 추가
-                $('#lineEndTable').find('tr[data-index="' + $('#lineEndTable').bootstrapTable('getData').indexOf(selectedEndRow) + '"]').addClass('selected-row');
-
-                updateEndSelectTable();
+            if (selectedEndRow) {
+                // 기존 선택된 행의 클래스 제거
+                $('#lineEndTable').find('tr[data-index="' + $('#lineEndTable').bootstrapTable('getData').indexOf(selectedEndRow) + '"]').removeClass('selected-row');
             }
+
+            selectedEndRow = row;
+            // 새로운 선택된 행에 클래스 추가
+            $('#lineEndTable').find('tr[data-index="' + $('#lineEndTable').bootstrapTable('getData').indexOf(selectedEndRow) + '"]').addClass('selected-row');
+
+            updateEndSelectTable();
         },
     });
 
