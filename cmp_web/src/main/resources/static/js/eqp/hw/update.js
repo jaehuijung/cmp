@@ -17,7 +17,11 @@ function createColumn(field, checkbox = false, title, type = '', formatter = '')
 
     if (type === 'underline') {
         column.class = 'nowrap underline';
-    } else {
+    }
+    else if (type === 'hidden') {
+        column.visible = false;
+    }
+    else {
         column.class = 'nowrap';
     }
 
@@ -38,9 +42,11 @@ function createColumn(field, checkbox = false, title, type = '', formatter = '')
     return column;
 }
 
-function createCommonEqpHardwareColumns(portFormatter, tableId) {
+function createCommonEqpHardwareColumns(tableId, portFormatter='') {
     return [
-        createColumn('', true, ''),
+        ...(tableId === '#eqpHardwareSelectTable' ? [createColumn('idx', false, '', 'hidden')] : []),
+        ...(tableId === '#eqpHardwareSelectTable' ? [createColumn('', true, '', '')] : []),
+        ...(tableId === '#eqpHardwareSelectTable' ? [createColumn('eqp_port', false, '장비포트번호', '', (value, row, index) => portFormatter(value, row, index, tableId, 'eqp_port'))] : []),
         createColumn('asset_category', false, '자산분류'),
         createColumn('installation_coordinates', false, '설치좌표'),
         createColumn('eqp_manage_id', false, '관리번호'),
@@ -50,18 +56,17 @@ function createCommonEqpHardwareColumns(portFormatter, tableId) {
         createColumn('eqp_name', false, '구성자원명'),
         createColumn('primary_operator', false, '운영담당자'),
         createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
-        createColumn('port_number', false, '포트번호', '', (value, row, index) => portFormatter(value, row, index, tableId))
+        ...(tableId === '#eqpHardwareSelectTable' ? [createColumn('eqp_link_port', false, '연결장비포트번호', '', (value, row, index) => portFormatter(value, row, index, tableId, 'eqp_link_port'))] : []),
     ];
 }
 
+let eqpHardwareColumn = createCommonEqpHardwareColumns('#eqpHardwareTable');
+let eqpHardwareSelectColumn = createCommonEqpHardwareColumns('#eqpHardwareSelectTable', eqpHardwarePortFormatter);
 
-let eqpHardwareColumn = createCommonEqpHardwareColumns(eqpHardwarePortFormatter, '#eqpHardwareTable');
-let eqpHardwareSelectColumn = createCommonEqpHardwareColumns(eqpHardwarePortFormatter, '#eqpHardwareSelectTable');
-
-function eqpHardwarePortFormatter(value, row, index, tableId) {
+function eqpHardwarePortFormatter(value, row, index, tableId, dataField) {
     return `<input type="text" class="form-control" value="${value || ''}"
-            data-row-index="${index}" data-field="port_number"
-            oninput="updateEqpHardwarePortInputData(this, ${index}, 'port_number', '${tableId}')">`;
+            data-row-index="${index}" data-field="${dataField}"
+            oninput="updateEqpHardwarePortInputData(this, ${index}, '${dataField}', '${tableId}')">`;
 }
 
 function updateEqpHardwarePortInputData(input, index, field, tableId) {
@@ -120,7 +125,7 @@ $(function() {
                 sortName: 'ORDER',
                 onClickCell: function(field, value, row, $element) {
                     let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
-                    if ($checkbox.length && field != 'port_number') {
+                    if ($checkbox.length && field != 'eqp_port' && field != 'eqp_link_port') {
                         $checkbox.click();
                     }
                 }
@@ -163,7 +168,7 @@ $(function() {
                 sortName: 'ORDER',
                 onClickCell: function(field, value, row, $element) {
                     let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
-                    if ($checkbox.length && field != 'port_number') {
+                    if ($checkbox.length) {
                         $checkbox.click();
                     }
                 }
@@ -193,6 +198,8 @@ $('#sub_id').change(function(){        // 자산세부분류 > 자산상세분�
 /*
     하드웨어 등록정보 관련 ... 나중에 주석 추가
 */
+let selectedRow = null;
+
 function addEquipmentHardwareRow(){
     let selectedEqpHardware = [];
     Swal.fire({
@@ -240,66 +247,26 @@ function addEquipmentHardwareRow(){
                         return false;
                     }
 
-                    $("#eqpHardwareTotalCnt").text("총 " + res.total + "건")
-
-                    let selectedRows = $('#eqpHardwareSelectTable').bootstrapTable('getData');
-                    if (selectedRows.length > 0) {
-                        res.rows.forEach((row, index) => {
-                            let matchedRow = selectedRows.find(selected => selected.eqp_manage_id === row.eqp_manage_id);
-                            if (matchedRow) {
-                                $('#eqpHardwareTable').bootstrapTable('updateRow', { index: index, row: matchedRow });
-                                $('#eqpHardwareTable').bootstrapTable('check', index);
-                            }
-                        });
-                    }
-
-                    res.rows.forEach((row, index) => {
-                        if (selectedEqpHardware.find(selected => selected.eqp_manage_id === row.eqp_manage_id)) {
-                            $('#eqpHardwareTable').bootstrapTable('check', index);
-                        }
-                    });
+                    $("#eqpHardwareTotalCnt").text("총 " + res.total + "건");
                 },
                 onClickCell: function(field, value, row, $element) {
-                    let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
-                    if (($checkbox.length) && (field != 'port_number')) {
-                        $checkbox.click();
+                    if (selectedRow) {
+                        // 기존 선택된 행의 클래스 제거
+                        $('#eqpHardwareTable').find('tr[data-index="' + $('#eqpHardwareTable').bootstrapTable('getData').indexOf(selectedRow) + '"]').removeClass('selected-row');
                     }
+
+                    selectedRow = row;
+                    // 새로운 선택된 행에 클래스 추가
+                    $('#eqpHardwareTable').find('tr[data-index="' + $('#eqpHardwareTable').bootstrapTable('getData').indexOf(selectedRow) + '"]').addClass('selected-row');
                 },
-                onCheck: function (row) {
-                    if (!selectedEqpHardware.some(selected => selected.eqp_manage_id === row.eqp_manage_id)) {
-                        selectedEqpHardware.push(row);
-                    }
-                },
-                onUncheck: function (row) {
-                    selectedEqpHardware = selectedEqpHardware.filter(selected => selected.eqp_manage_id !== row.eqp_manage_id);
-                },
-                onCheckAll: function(rows) {
-                    rows.forEach(row => {
-                        if (!selectedEqpHardware.some(selected => selected.eqp_manage_id === row.eqp_manage_id)) {
-                            selectedEqpHardware.push(row);
-                        }
-                    });
-                },
-                onUncheckAll: function(rows) {
-                    rows.forEach(row => {
-                        selectedEqpHardware = selectedEqpHardware.filter(selected => selected.eqp_manage_id !== row.eqp_manage_id);
-                    });
-                }
             });
         }
     }).then((result) => {
         if (result.isConfirmed) {
-            if (selectedEqpHardware.length > 0) {
-                $('#eqpHardwareSelectTable').bootstrapTable('removeAll');
-                $('#eqpHardwareSelectTable').bootstrapTable('append', selectedEqpHardware);
-
-                let totalPages = Math.ceil(selectedEqpHardware.length / $('#eqpHardwareSelectTable').bootstrapTable('getOptions').pageSize);
-                for (let page = totalPages; page > 0; page--) {
-                    $('#eqpHardwareSelectTable').bootstrapTable('selectPage', page);
-                    $('#eqpHardwareSelectTable').bootstrapTable('uncheckAll');
-                }
-
-                $("#eqpHardwareSelectTotalCnt").text("총 " + selectedEqpHardware.length + "건");
+            if (selectedRow) {
+                $('#eqpHardwareSelectTable').bootstrapTable('append', selectedRow);
+                let updateLen = $('#eqpHardwareSelectTable').bootstrapTable('getData').length;
+                $("#eqpHardwareSelectTotalCnt").text("총 " + updateLen + "건");
             } else {
                 alert2('알림', '선택된 항목이 없습니다.', 'error', '확인');
             }
@@ -338,11 +305,15 @@ function deleteEquipmentHardwareRow(){
     let $table = $('#eqpHardwareSelectTable');
     let selectedRows = $table.bootstrapTable('getSelections');
 
-    if (selectedRows.length > 0) {
-        let eqp_manage_id = selectedRows.map(row => row.eqp_manage_id); // 각 행에 유일한 ID가 있다고 가정
-        $table.bootstrapTable('remove', {
-            field: 'eqp_manage_id',
-            values: eqp_manage_id
+    if (selectedRows) {
+        let selectedIndices = selectedRows.map(row => $table.bootstrapTable('getData').indexOf(row));
+        selectedIndices.sort((a, b) => b - a);
+
+        selectedIndices.forEach(index => {
+            $table.bootstrapTable('remove', {
+                field: '$index',
+                values: [index]
+            });
         });
 
         let rows = $table.bootstrapTable('getData');
@@ -604,7 +575,6 @@ function saveData() {
 
     data["ip_address"] = combineIP(); // ip_block1 ~ ip_block4까지 구분자 붙여서 ip_address 문자열 생성
 
-
     $('select').each(function() {
         const selectedId = $(this).attr('id');
         const selectedValue = $(this).val();
@@ -626,24 +596,23 @@ function saveData() {
     let hwModifiedRows = [];
     let hwDeletedRows = [];
 
-    let hwOldDataMap = new Map();
-    eqpHardwareOldData.forEach(item => hwOldDataMap.set(item.eqp_manage_id, item));
-
-    let hwNewDataMap = new Map();
-    eqpHardwareSelectList.forEach(item => hwNewDataMap.set(item.eqp_manage_id, item));
-
-    eqpHardwareSelectList.forEach(newItem => { // 추가, 수정
-        const oldItem = hwOldDataMap.get(newItem.eqp_manage_id);
-        if (!oldItem) {
-            hwAddedRows.push(newItem);
-        } else if (oldItem.port_number !== newItem.port_number) {
-            hwModifiedRows.push(newItem);
+    eqpHardwareSelectList.forEach(row => {
+        if (!row.idx) {
+            hwAddedRows.push(row);
+        } else {
+            let originalRow = eqpHardwareOldData.find(oldRow => oldRow.idx === row.idx);
+            if (originalRow) {
+                if (originalRow.eqp_port !== row.eqp_port || originalRow.eqp_link_port !== row.eqp_link_port) {
+                    hwModifiedRows.push(row);
+                }
+            }
         }
     });
 
-    eqpHardwareOldData.forEach(oldItem => { // 삭제
-        if (!hwNewDataMap.has(oldItem.eqp_manage_id)) {
-            hwDeletedRows.push(oldItem);
+    eqpHardwareOldData.forEach(oldRow => {
+        let currentRow = eqpHardwareSelectList.find(newRow => newRow.idx === oldRow.idx);
+        if (!currentRow) {
+            hwDeletedRows.push(oldRow);
         }
     });
 

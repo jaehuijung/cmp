@@ -233,6 +233,7 @@
             ec.sub_category ,               /* 자산세부분류 */
             ec.detail_category ,            /* 자산상세분류 */
             ed.installation_coordinates,    /* 설치좌표 */
+            erh.idx,                        /* 장비 수정페이지에서 사용할 장비연결정보 idx */
             erh.eqp_port,                   /* 장비포트번호 */
             erh.eqp_link_port               /* 연결장비포트번호 */
         from
@@ -253,7 +254,7 @@
             AND A.is_deleted = 'N'
             AND erh.eqp_manage_id = #{eqp_manage_id}
         ORDER BY
-            A.eqp_manage_id desc
+            erh.idx
     </select>
 
     <select id="getEquipmentDetailHardwareListCnt" parameterType="Map" resultType="int">
@@ -521,10 +522,10 @@
         update
             equipment_regist_hw
         set
-            port_number = #{port_number}
+            eqp_port = #{eqp_port},
+            eqp_link_port = #{eqp_link_port}
         where 1=1
-            and eqp_manage_id = #{eqp_manage_id}
-            and eqp_link_manage_id = #{eqp_link_manage_id}
+            and idx = #{idx}
     </update>
 
     <delete id="deleteEquipmentHardware" parameterType="map">
@@ -533,8 +534,7 @@
         delete from
             equipment_regist_hw
         where 1=1
-            and eqp_manage_id = #{eqp_manage_id}
-            and eqp_link_manage_id = #{eqp_link_manage_id}
+            and idx = #{idx}
     </delete>
 
     <insert id="insertEquipmentSoftware" parameterType="map">

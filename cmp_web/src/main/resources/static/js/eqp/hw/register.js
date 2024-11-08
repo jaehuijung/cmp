@@ -106,7 +106,7 @@ $(function(){
         columns: eqpHardwareSelectColumn, pageSize: 5, pagination: true,
         onClickCell: function(field, value, row, $element) {
             let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
-            if (($checkbox.length) && (field != 'port_number') && (field != 'eqp_port')) {
+            if (($checkbox.length) && (field != 'eqp_port') && (field != 'eqp_link_port')) {
                 $checkbox.click();
             }
         }
@@ -194,7 +194,7 @@ function addEquipmentHardwareRow(){
                         return false;
                     }
 
-                    $("#eqpHardwareTotalCnt").text("총 " + res.total + "건")
+                    $("#eqpHardwareTotalCnt").text("총 " + res.total + "건");
                 },
                 onClickCell: function(field, value, row, $element) {
                     if (selectedRow) {
