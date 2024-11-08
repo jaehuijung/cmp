@@ -18,6 +18,7 @@ function createColumn(field, checkbox = false, title, type = '', formatter = '')
 }
 
 let eqpHardwareColumn = [
+    createColumn('eqp_port', false, '장비포트번호', ''),
     createColumn('asset_category', false, '자산분류'),
     createColumn('installation_coordinates', false, '설치좌표'),
     createColumn('eqp_manage_id', false, '관리번호'),
@@ -27,7 +28,7 @@ let eqpHardwareColumn = [
     createColumn('eqp_name', false, '구성자원명'),
     createColumn('primary_operator', false, '운영담당자'),
     createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
-    createColumn('port_number', false, '포트번호', '')
+    createColumn('eqp_link_port', false, '연결장비포트번호', '')
 ];
 
 let eqpSoftwareColumn = [

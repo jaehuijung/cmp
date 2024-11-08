@@ -38,10 +38,10 @@ function createColumn(field, checkbox = false, title, type = '', formatter = '')
     return column;
 }
 
-function createCommonEqpHardwareColumns(portFormatter, tableId) {
+function createCommonEqpHardwareColumns(tableId, portFormatter='') {
     return [
         ...(tableId === '#eqpHardwareSelectTable' ? [createColumn('', true, '', '')] : []),
-        ...(tableId === '#eqpHardwareSelectTable' ? [createColumn('eqp_port', false, '장비포트번호', '', (value, row, index) => portFormatter(value, row, index, tableId))] : []),
+        ...(tableId === '#eqpHardwareSelectTable' ? [createColumn('eqp_port', false, '장비포트번호', '', (value, row, index) => portFormatter(value, row, index, tableId, 'eqp_port'))] : []),
         createColumn('asset_category', false, '자산분류'),
         createColumn('installation_coordinates', false, '설치좌표'),
         createColumn('eqp_manage_id', false, '관리번호'),
@@ -51,17 +51,17 @@ function createCommonEqpHardwareColumns(portFormatter, tableId) {
         createColumn('eqp_name', false, '구성자원명'),
         createColumn('primary_operator', false, '운영담당자'),
         createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
-        ...(tableId === '#eqpHardwareSelectTable' ? [createColumn('port_number', false, '포트번호', '', (value, row, index) => portFormatter(value, row, index, tableId))] : []),
+        ...(tableId === '#eqpHardwareSelectTable' ? [createColumn('eqp_link_port', false, '연결장비포트번호', '', (value, row, index) => portFormatter(value, row, index, tableId, 'eqp_link_port'))] : []),
     ];
 }
 
-let eqpHardwareColumn = createCommonEqpHardwareColumns(eqpHardwarePortFormatter, '#eqpHardwareTable');
-let eqpHardwareSelectColumn = createCommonEqpHardwareColumns(eqpHardwarePortFormatter, '#eqpHardwareSelectTable');
+let eqpHardwareColumn = createCommonEqpHardwareColumns('#eqpHardwareTable');
+let eqpHardwareSelectColumn = createCommonEqpHardwareColumns('#eqpHardwareSelectTable', eqpHardwarePortFormatter);
 
-function eqpHardwarePortFormatter(value, row, index, tableId) {
+function eqpHardwarePortFormatter(value, row, index, tableId, dataField) {
     return `<input type="text" class="form-control" value="${value || ''}"
-            data-row-index="${index}" data-field="port_number"
-            oninput="updateEqpHardwarePortInputData(this, ${index}, 'port_number', '${tableId}')">`;
+            data-row-index="${index}" data-field="${dataField}"
+            oninput="updateEqpHardwarePortInputData(this, ${index}, '${dataField}', '${tableId}')">`;
 }
 
 function updateEqpHardwarePortInputData(input, index, field, tableId) {

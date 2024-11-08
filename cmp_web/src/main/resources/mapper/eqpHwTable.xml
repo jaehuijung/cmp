@@ -172,7 +172,8 @@
             ec.sub_category ,               /* 자산세부분류 */
             ec.detail_category ,            /* 자산상세분류 */
             ed.installation_coordinates,    /* 설치좌표 */
-            '' port_number                  /* 포트번호 */
+            '' eqp_port,                    /* 장비포트번호 */
+            '' eqp_link_port                /* 연결장비포트번호 */
         from
             equipment_basic A
         join
@@ -232,7 +233,8 @@
             ec.sub_category ,               /* 자산세부분류 */
             ec.detail_category ,            /* 자산상세분류 */
             ed.installation_coordinates,    /* 설치좌표 */
-            erh.port_number                 /* 포트번호 */
+            erh.eqp_port,                   /* 장비포트번호 */
+            erh.eqp_link_port               /* 연결장비포트번호 */
         from
             equipment_basic A
         join
@@ -502,12 +504,14 @@
         insert into equipment_regist_hw (
             eqp_manage_id,
             eqp_link_manage_id,
-            port_number
+            eqp_port,
+            eqp_link_port
         )
         values(
             #{eqp_manage_id},
             #{eqp_link_manage_id},
-            #{port_number}
+            #{eqp_port},
+            #{eqp_link_port}
         )
     </insert>
 
