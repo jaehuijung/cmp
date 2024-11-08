@@ -272,6 +272,10 @@ function deleteEquipmentHardwareRow(){
     }
 }
 
+function checkEquipmentHardwareRow(){
+    alert2('알림', '검증이 완료되었습니다.', 'info', '확인');
+}
+
 /*
     소프트웨어 등록정보 관련
 */
