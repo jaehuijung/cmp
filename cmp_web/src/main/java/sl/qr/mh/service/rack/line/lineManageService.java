@@ -60,17 +60,22 @@ public class lineManageService {
 	}
 
 	/**
-	 * 선번장관리 > 선번장목록 > 추가/수정 > 출발지, 목적지 장비 리스트
+	 * 선번장관리 > 선번장목록 > 추가/수정 > 출발지 장비 리스트
 	 *
 	 * @return 장비 리스트
 	 */
-	public Map<String, Object> getLineEquipmentList(Map<String, Object> paramMap){
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> getLineStartEquipmentList(Map<String, Object> paramMap){
 		Map<String, Object> returnMap = new HashMap<>();
 		returnMap.put("errorCode", false);
 
 		try{
-			List<Map<String, Object>> rows = lineMapper.getLineEquipmentList(paramMap);
-			int total = lineMapper.getLineEquipmentListCnt(paramMap);
+			if (paramMap.containsKey("searchData")) {
+				paramMap.putAll((Map<String, Object>) paramMap.get("searchData"));
+			}
+
+			List<Map<String, Object>> rows = lineMapper.getLineStartEquipmentList(paramMap);
+			int total = lineMapper.getLineStartEquipmentListCnt(paramMap);
 
 			returnMap.put("rows", rows);
 			returnMap.put("total", total);
@@ -82,6 +87,36 @@ public class lineManageService {
 
 		return returnMap;
 	}
+
+	/**
+	 * 선번장관리 > 선번장목록 > 추가/수정 > 목적지 장비 리스트
+	 *
+	 * @return 장비 리스트
+	 */
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> getLineEndEquipmentList(Map<String, Object> paramMap){
+		Map<String, Object> returnMap = new HashMap<>();
+		returnMap.put("errorCode", false);
+
+		try{
+			if (paramMap.containsKey("searchData")) {
+				paramMap.putAll((Map<String, Object>) paramMap.get("searchData"));
+			}
+
+			List<Map<String, Object>> rows = lineMapper.getLineEndEquipmentList(paramMap);
+			int total = lineMapper.getLineEndEquipmentListCnt(paramMap);
+
+			returnMap.put("rows", rows);
+			returnMap.put("total", total);
+			returnMap.put("errorCode", true);
+
+		} catch (Exception e){
+			log.error(e.getMessage());
+		}
+
+		return returnMap;
+	}
+
 
 	/**
 	 * 선번장관리 > 선번장목록 > 추가/수정 > 회선정보 리스트

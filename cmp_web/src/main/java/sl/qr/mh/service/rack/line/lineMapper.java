@@ -15,10 +15,23 @@ public interface lineMapper {
     int getLineTotalListCnt(Map<String, Object> paramMap);
 
     // 선번장관리 > 선번장목록 > 추가 > 출발지, 목적지 리스트
-    List<Map<String, Object>> getLineEquipmentList(Map<String, Object> paramMap);
+    // List<Map<String, Object>> getLineEquipmentList(Map<String, Object> paramMap);
 
     // 선번장관리 > 선번장목록 > 추가 > 출발지, 목적지 리스트 개수
-    int getLineEquipmentListCnt(Map<String, Object> paramMap);
+    // int getLineEquipmentListCnt(Map<String, Object> paramMap);
+
+    // 선번장관리 > 선번장목록 > 추가 > 출발지 리스트
+    List<Map<String, Object>> getLineStartEquipmentList(Map<String, Object> paramMap);
+
+    // 선번장관리 > 선번장목록 > 추가 > 출발지 리스트 개수
+    int getLineStartEquipmentListCnt(Map<String, Object> paramMap);
+
+    // 선번장관리 > 선번장목록 > 추가 > 목적지 리스트
+    List<Map<String, Object>> getLineEndEquipmentList(Map<String, Object> paramMap);
+
+    // 선번장관리 > 선번장목록 > 추가 > 목적지 리스트 개수
+    int getLineEndEquipmentListCnt(Map<String, Object> paramMap);
+
 
     // 선번장관리 > 선번장목록 > 추가 > 회선구분, 회선속도, 회선색상 리스트
     List<Map<String, Object>> getLineLinkList(Map<String, Object> paramMap);

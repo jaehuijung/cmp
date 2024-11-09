@@ -62,14 +62,25 @@ public class lineManageController {
     }
 
     /**
-     * 선번장관리 > 선번장목록 > 추가/수정 > 출발지, 목적지 장비 리스트
+     * 선번장관리 > 선번장목록 > 추가/수정 > 출발지 장비 리스트
      *
      * @return 장비 리스트
      */
     @ResponseBody
-    @PostMapping("/equipmentList")
-    public Map<String, Object> getLineEquipmentList(@RequestBody Map<String, Object> paramMap) {
-        return lineManageService.getLineEquipmentList(paramMap);
+    @PostMapping("/startEquipmentList")
+    public Map<String, Object> getLineStartEquipmentList(@RequestBody Map<String, Object> paramMap) {
+        return lineManageService.getLineStartEquipmentList(paramMap);
+    }
+
+    /**
+     * 선번장관리 > 선번장목록 > 추가/수정 > 목적지 장비 리스트
+     *
+     * @return 장비 리스트
+     */
+    @ResponseBody
+    @PostMapping("/endEquipmentList")
+    public Map<String, Object> getLineEndEquipmentList(@RequestBody Map<String, Object> paramMap) {
+        return lineManageService.getLineEndEquipmentList(paramMap);
     }
 
     /**

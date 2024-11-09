@@ -25,12 +25,12 @@ let lineStartColumn = [
     createColumn('model_name',                  false, '모델명'),
     createColumn('host_name',                   false, '호스트명'),
     createColumn('eqp_name',                    false, '구성자원명'),
-    createColumn('port_number',                 false, '포트번호'),
     createColumn('primary_operator',            false, '운영담당자'),
     createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
 ];
 
 let lineEndColumn = [
+    createColumn('eqp_port',                    false, '장비포트번호'),
     createColumn('asset_category',              false, '자산분류'),
     createColumn('installation_coordinates',    false, '설치좌표'),
     createColumn('eqp_manage_id',               false, '관리번호'),
@@ -38,13 +38,13 @@ let lineEndColumn = [
     createColumn('model_name',                  false, '모델명'),
     createColumn('host_name',                   false, '호스트명'),
     createColumn('eqp_name',                    false, '구성자원명'),
-    createColumn('port_number',                 false, '포트번호'),
+    createColumn('eqp_link_port',               false, '연결장비포트번호'),
     createColumn('primary_operator',            false, '운영담당자'),
     createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
 ];
 
-let selectedStartRow = null;
-let selectedEndRow = null;
+let selectedStartRow = [{}];
+let selectedEndRow = [{}];
 
 let lineStartSelectColumn = [
     [
@@ -91,7 +91,8 @@ function updateStartSelectTable() {
         s_model_name: selectedStartRow ? selectedStartRow.model_name : "",
         s_host_name: selectedStartRow ? selectedStartRow.host_name : "",
         s_eqp_name: selectedStartRow ? selectedStartRow.eqp_name : "",
-        s_port: selectedStartRow ? selectedStartRow.port_number : "",
+        // s_port: selectedStartRow ? selectedStartRow.port_number : "",
+        s_port: selectedStartRow ? selectedEndRow.eqp_port : "",
         s_primary_operator: selectedStartRow ? selectedStartRow.primary_operator : "",
         s_primary_outsourced_operator: selectedStartRow ? selectedStartRow.primary_outsourced_operator : ""
     }];
@@ -108,7 +109,8 @@ function updateEndSelectTable() {
         e_model_name: selectedEndRow ? selectedEndRow.model_name : "",
         e_host_name: selectedEndRow ? selectedEndRow.host_name : "",
         e_eqp_name: selectedEndRow ? selectedEndRow.eqp_name : "",
-        e_port: selectedEndRow ? selectedEndRow.port_number : "",
+        // e_port: selectedEndRow ? selectedEndRow.port_number : "",
+        e_port: selectedEndRow ? selectedEndRow.eqp_link_port : "",
         e_primary_operator: selectedEndRow ? selectedEndRow.primary_operator : "",
         e_primary_outsourced_operator: selectedEndRow ? selectedEndRow.primary_outsourced_operator : ""
     }];
@@ -122,12 +124,12 @@ $(function(){
     getSelectLink(); // 화면 렌더링 시 회선 선택박스 세팅
 
     $('#lineStartTable').bootstrapTable({
-        url: '/rack/line/equipmentList',
+        url: '/rack/line/startEquipmentList',
         method: 'post',
         queryParams: function(params) {
-            let eqp_manage_id = $("#searchInput").val();
+            let searchWord = $("#searchInput").val();
             params.searchData = {
-                eqp_manage_id
+                searchWord
             }
             return params;
         },
@@ -151,26 +153,36 @@ $(function(){
             $("#lineStartTotalCnt").text("총 " + res.total + "건")
         },
         onClickCell: function(field, value, row, $element) {
+            // 기존 선택된 행의 클래스 제거
             if (selectedStartRow) {
-                // 기존 선택된 행의 클래스 제거
                 $('#lineStartTable').find('tr[data-index="' + $('#lineStartTable').bootstrapTable('getData').indexOf(selectedStartRow) + '"]').removeClass('selected-row');
             }
 
-            selectedStartRow = row;
             // 새로운 선택된 행에 클래스 추가
+            selectedStartRow = row;
             $('#lineStartTable').find('tr[data-index="' + $('#lineStartTable').bootstrapTable('getData').indexOf(selectedStartRow) + '"]').addClass('selected-row');
 
+            // 선번장 구성 목적지 테이블 데이터 업데이트
+            selectedEndRow = [{}];
+            updateEndSelectTable();
+
+            // 선번장 구성 출발지 테이블 데이터 업데이트 (목적지 row 초기화 먼저 해야 선번장구성 출발지 포트번호 컬럼 초기화 가능)
             updateStartSelectTable();
+
+            // 목적지 선택 테이블 데이터 업데이트
+            $('#lineEndTable').bootstrapTable('refresh');
         },
     });
 
     $('#lineEndTable').bootstrapTable({
-        url: '/rack/line/equipmentList',
+        url: '/rack/line/endEquipmentList',
         method: 'post',
         queryParams: function(params) {
-            let eqp_manage_id = $("#searchInput").val();
+            let eqp_manage_id = selectedStartRow ? selectedStartRow.eqp_manage_id : "";
+            let searchWord = $("#searchInput").val();
+
             params.searchData = {
-                eqp_manage_id
+                eqp_manage_id, searchWord
             }
             return params;
         },
@@ -194,15 +206,19 @@ $(function(){
             $("#lineEndTotalCnt").text("총 " + res.total + "건")
         },
         onClickCell: function(field, value, row, $element) {
+            // 기존 선택된 행의 클래스 제거
             if (selectedEndRow) {
-                // 기존 선택된 행의 클래스 제거
                 $('#lineEndTable').find('tr[data-index="' + $('#lineEndTable').bootstrapTable('getData').indexOf(selectedEndRow) + '"]').removeClass('selected-row');
             }
 
-            selectedEndRow = row;
             // 새로운 선택된 행에 클래스 추가
+            selectedEndRow = row;
             $('#lineEndTable').find('tr[data-index="' + $('#lineEndTable').bootstrapTable('getData').indexOf(selectedEndRow) + '"]').addClass('selected-row');
 
+            // 선번장 구성 출발지 테이블 데이터 업데이트 (포트번호 업데이트용)
+            updateStartSelectTable();
+
+            // 선번장 구성 목적지 테이블 데이터 업데이트
             updateEndSelectTable();
         },
     });
