@@ -103,7 +103,13 @@ $(function(){
 
     $('#eqpHardwareSelectTable').bootstrapTable({
         data: [],
-        columns: eqpHardwareSelectColumn, pageSize: 5, pagination: true,
+        columns: eqpHardwareSelectColumn, pageSize: 5, pagination: true, sidePagination: 'client',
+        onPageChange: function () {
+            reapplySelections(); // 페이지네이션이 변경될 때 선택 상태를 다시 적용
+        },
+        onPostBody: function () {
+            reapplySelections(); // 테이블 바디가 다시 그려질 때도 선택 상태를 다시 적용
+        },
         onClickCell: function(field, value, row, $element) {
             let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
             if (($checkbox.length) && (field != 'eqp_port') && (field != 'eqp_link_port')) {
@@ -114,7 +120,7 @@ $(function(){
 
     $('#eqpSoftwareSelectTable').bootstrapTable({
         data: [],
-        columns: eqpSoftwareColumn, pageSize: 5, pagination: true,
+        columns: eqpSoftwareColumn, pageSize: 5, pagination: true, sidePagination: 'client',
         onClickCell: function(field, value, row, $element) {
             let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
             if (($checkbox.length) && (field != 'port_number')) {
@@ -272,8 +278,103 @@ function deleteEquipmentHardwareRow(){
     }
 }
 
-function checkEquipmentHardwareRow(){
-    alert2('알림', '검증이 완료되었습니다.', 'info', '확인');
+let hwChk = false;
+let finalDuplicateIndexes = [];
+
+function validEquipmentHardwareRow() {
+    let tableData = $("#eqpHardwareSelectTable").bootstrapTable("getData");
+
+    // 모든 row에서 selected-row selected 클래스 제거 및 체크박스 해제
+    $("#eqpHardwareSelectTable").find('tr').each(function () {
+        $(this).removeClass('selected-row selected');
+        let $checkbox = $(this).find('input[type="checkbox"]');
+        if ($checkbox.length) {
+            $checkbox.prop('checked', false);
+        }
+    });
+
+    // 중복된 eqp_port 검증
+    let eqpPortCounts = {};
+    let duplicateEqpPortIndexes = [];
+
+    // 각 행의 eqp_port 카운트 및 중복 인덱스 저장
+    tableData.forEach((row, index) => {
+        let port = row.eqp_port;
+        if (!eqpPortCounts[port]) {
+            eqpPortCounts[port] = [];
+        }
+        eqpPortCounts[port].push(index);
+    });
+
+    Object.keys(eqpPortCounts).forEach(port => {
+        if (eqpPortCounts[port].length > 1) {
+            duplicateEqpPortIndexes = duplicateEqpPortIndexes.concat(eqpPortCounts[port]);
+        }
+    });
+
+    // 중복된 eqp_link_port 검증
+    let eqpLinkPortCounts = {};
+    let duplicateEqpLinkPortIndexes = [];
+
+    // 같은 eqp_manage_id 중 각 행의 eqp_link_port 카운트 및 중복 인덱스 저장
+    tableData.forEach((row, index) => {
+        let linkPortKey = row.eqp_manage_id + "_" + row.eqp_link_port;
+        if (!eqpLinkPortCounts[linkPortKey]) {
+            eqpLinkPortCounts[linkPortKey] = [];
+        }
+        eqpLinkPortCounts[linkPortKey].push(index);
+    });
+
+    Object.keys(eqpLinkPortCounts).forEach(linkPortKey => {
+        if (eqpLinkPortCounts[linkPortKey].length > 1) {
+            duplicateEqpLinkPortIndexes = duplicateEqpLinkPortIndexes.concat(eqpLinkPortCounts[linkPortKey]);
+        }
+    });
+
+    // 두 index 배열 합치기 및 중복 제거
+    finalDuplicateIndexes = Array.from(new Set(duplicateEqpPortIndexes.concat(duplicateEqpLinkPortIndexes)));
+
+    // 중복된 eqp_port 또는 eqp_link_port를 가지는 row에 selected-row selected 클래스 추가 및 체크박스 선택
+    finalDuplicateIndexes.forEach(index => {
+        let $tr = $('#eqpHardwareSelectTable').find('tr[data-index="' + index + '"]');
+        let $checkbox = $tr.find('input[type="checkbox"]');
+
+        if ($checkbox.length) {
+            $checkbox.prop('checked', true);
+        }
+
+        $tr.addClass('selected-row selected');
+    });
+
+    if (finalDuplicateIndexes.length == 0) {
+        hwChk = true;
+    } else if (finalDuplicateIndexes.length > 0) {
+        hwChk = false;
+    }
+}
+
+function checkEquipmentHardwareRow() {
+    validEquipmentHardwareRow();
+
+    if (hwChk) {
+        alert2('알림', '검증이 완료되었습니다.', 'info', '확인');
+    } else {
+        alert2('알림', '중복된 장비포트번호 및 연결장비포트번호가 존재합니다. </br>확인 후 다시 검증해주세요.', 'error', '확인');
+    }
+}
+
+// 페이지네이션 등으로 장비연결정보 테이블이 렌더링될 때 호출되는 함수
+function reapplySelections() {
+    finalDuplicateIndexes.forEach(index => {
+        let $tr = $('#eqpHardwareSelectTable').find('tr[data-index="' + index + '"]');
+        let $checkbox = $tr.find('input[type="checkbox"]');
+
+        if ($checkbox.length) {
+            $checkbox.prop('checked', true);
+        }
+
+        $tr.addClass('selected-row selected');
+    });
 }
 
 /*
@@ -441,6 +542,12 @@ function deleteEquipmentSoftwareRow(){
  * 저장 버튼을 클릭했을 때 호출되는 함수입니다.
  */
 function saveData() {
+    validEquipmentHardwareRow();
+
+    if(!hwChk) {
+        alert2("알림", "장비포트번호 또는 연결장비포트번호가 중복되었습니다. </br>장비연결정보 검증을 완료해주세요.", "info", "확인");
+        return false;
+    }
 
     if($("#eqp_name").val() === ""){
         alert2("알림", "구성자원명을 입력해주세요", "info", "확인");
@@ -548,7 +655,7 @@ function saveData() {
 
     // 얘네는 있을 수도 있고 없을 수도 있고
     data["eqpHardwareSelectList"] = $("#eqpHardwareSelectTable").bootstrapTable("getData"); // 장비연결정보
-    data["eqpSoftwareSelectList"] = $("#eqpSoftwareSelectTable").bootstrapTable("getData");  // 소프트웨어 등록정보
+    data["eqpSoftwareSelectList"] = $("#eqpSoftwareSelectTable").bootstrapTable("getData"); // 소프트웨어 등록정보
 
     Swal.fire({
         title: '알림',
