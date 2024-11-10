@@ -63,6 +63,18 @@ public class hwManageController {
     }
 
     /**
+     * 추가/수정 > 장비연결정보 검증
+     *
+     * @return 장비 리스트
+     */
+    // 검증로직은 나중에 다시...
+    // @ResponseBody
+    // @PostMapping("/validEquipmentRegistInfo")
+    // public Map<String, Object> validEquipmentRegistInfo(@RequestBody Map<String, Object> paramMap) {
+    //     return hwManageService.getLineEndEquipmentList(paramMap);
+    // }
+
+    /**
      * 추가/수정 > S/W 장비 목록 리스트
      *
      * @param paramMap 요청 파라미터 맵

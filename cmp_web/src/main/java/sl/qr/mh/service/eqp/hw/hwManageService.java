@@ -284,8 +284,20 @@ public class hwManageService {
             List<Map<String, Object>> eqpHardwareSelectList = (List<Map<String, Object>>) paramMap.get("eqpHardwareSelectList"); // 장비연결정보
             if(eqpHardwareSelectList != null) {
                 for(Map<String, Object> selectList : eqpHardwareSelectList) {
-                    selectList.put("eqp_link_manage_id", selectList.get("eqp_manage_id"));
-                    selectList.put("eqp_manage_id", paramMap.get("eqp_manage_id"));
+                    String eqp_link_manage_id = selectList.get("eqp_manage_id").toString(); // 장비연결정보
+
+                    selectList.put("eqp_manage_id", eqp_manage_id);
+                    selectList.put("eqp_link_manage_id", eqp_link_manage_id);
+                    hwMapper.insertEquipmentHardware(selectList);
+
+                    // 한쪽이 등록되면 반대쪽도 등록되어야 함
+                    String eqp_port = selectList.get("eqp_port").toString();
+                    String eqp_link_port = selectList.get("eqp_link_port").toString();
+
+                    selectList.put("eqp_manage_id", eqp_link_manage_id);
+                    selectList.put("eqp_link_manage_id", eqp_manage_id);
+                    selectList.put("eqp_port", eqp_link_port);
+                    selectList.put("eqp_link_port", eqp_port);
                     hwMapper.insertEquipmentHardware(selectList);
                 }
             }

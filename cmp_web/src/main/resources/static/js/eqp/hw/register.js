@@ -278,10 +278,9 @@ function deleteEquipmentHardwareRow(){
     }
 }
 
-let hwChk = false;
 let finalDuplicateIndexes = [];
-
-function validEquipmentHardwareRow() {
+let hwClientChk = false;
+function validClientEquipmentHardwareRow() {
     let tableData = $("#eqpHardwareSelectTable").bootstrapTable("getData");
 
     // 모든 row에서 selected-row selected 클래스 제거 및 체크박스 해제
@@ -347,20 +346,53 @@ function validEquipmentHardwareRow() {
     });
 
     if (finalDuplicateIndexes.length == 0) {
-        hwChk = true;
+        hwClientChk = true;
     } else if (finalDuplicateIndexes.length > 0) {
-        hwChk = false;
+        hwClientChk = false;
     }
 }
 
-function checkEquipmentHardwareRow() {
-    validEquipmentHardwareRow();
+let hwServerChk = false;
+function validServerEquipmentHardwareRow(){
+    hwServerChk = true;
+    /*
+    검증로직은 나중에 다시...
+    $.ajax({
+        type: "POST",
+        url: "/eqp/hw/validEquipmentRegistInfo",
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        success: function(res) {
+            alert3Close();
+            if(!res.errorCode){
+                alert2("알림", "저장 중 오류가 발생했습니다. <br>관리자에게 문의하세요", "error", "확인");
+                return false;
+            }
 
-    if (hwChk) {
-        alert2('알림', '검증이 완료되었습니다.', 'info', '확인');
-    } else {
+            alert2("알림", "저장되었습니다.", "info", "확인", back);
+        },
+        error: function(error) {
+            alert2("알림", "저장 중 오류가 발생했습니다. <br>관리자에게 문의하세요", "error", "확인");
+        }
+    });
+    */
+}
+
+function checkEquipmentHardwareRow() {
+    validClientEquipmentHardwareRow();
+
+    if (!hwClientChk) {
         alert2('알림', '중복된 장비포트번호 및 연결장비포트번호가 존재합니다. </br>확인 후 다시 검증해주세요.', 'error', '확인');
+        false;
     }
+
+    validServerEquipmentHardwareRow();
+    if(!hwServerChk){
+        alert2('알림', '이미 등록된 장비포트번호 및 연결장비포트번호가 존재합니다. </br>확인 후 다시 검증해주세요.', 'error', '확인');
+        false;
+    }
+
+    alert2('알림', '검증이 완료되었습니다.', 'info', '확인');
 }
 
 // 페이지네이션 등으로 장비연결정보 테이블이 렌더링될 때 호출되는 함수
@@ -542,10 +574,9 @@ function deleteEquipmentSoftwareRow(){
  * 저장 버튼을 클릭했을 때 호출되는 함수입니다.
  */
 function saveData() {
-    validEquipmentHardwareRow();
 
-    if(!hwChk) {
-        alert2("알림", "장비포트번호 또는 연결장비포트번호가 중복되었습니다. </br>장비연결정보 검증을 완료해주세요.", "info", "확인");
+    if(!hwClientChk || !hwServerChk) {
+        alert2("알림", "장비연결정보 검증을 완료해주세요.", "info", "확인");
         return false;
     }
 
