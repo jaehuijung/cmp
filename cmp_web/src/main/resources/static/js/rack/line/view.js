@@ -26,7 +26,7 @@ function createColumn(field, checkbox = false, title, type = 'default') {
     else if(type === 'formatter'){
         column.formatter = function(value, row, index) {
             let tableOptions = $('#lineTable').bootstrapTable('getOptions');
-            return tableOptions.totalRows - ((tableOptions.pageNumber - 1) * tableOptions.pageSize) - index;
+            return tableOptions.totalRows - index;
         };
     }
     else {
@@ -91,17 +91,9 @@ $(function() {
             }
             return params;
         },
-        pageSize: 10,
-        columns: columns,
-        cache: false,
-        undefinedText: "",
-        pagination: true,
-        sidePagination: 'server',
-        checkboxHeader: true,
-        classes: "txt-pd",
-        clickToSelect: false,
-        sortOrder: 'desc',
-        sortName: 'ORDER',
+        pageSize: 10, columns: columns, cache: false, undefinedText: "",
+        pagination: true, sidePagination: 'client', checkboxHeader: true,
+        classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
         responseHandler: function(res) {
             return {
                 rows: res.rows,

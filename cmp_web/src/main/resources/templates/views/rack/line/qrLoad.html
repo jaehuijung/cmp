@@ -5,43 +5,44 @@
         <title>QR Print</title>
         <style>
             .printWrap {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-            background: yellow;
-        }
-        .printImgWrap {
-            display: flex;
-            align-items: center;
-        }
-        .printImg {
-            width: 50px;
-            height: 50px;
-            margin: 0 5px;
-        }
-        .printInfoWrap {
-            margin: 0 10px;
-        }
-
-        @media print {
-            /* 페이지 크기 설정 */
-            @page {
-                size: 30cm 1.5cm;
-                margin: 0;
-                padding: 5px;
+                display: flex;
+                align-items: center;
+                background: yellow;
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+            .printImgWrap {
+                display: flex;
+                align-items: center;
+            }
+            .printImg {
+                width: 50px;
+                height: 50px;
+                margin: 0 5px;
+            }
+            .printInfoWrap {
+                margin: 0 10px;
             }
 
-            /* 각 .printWrap 요소 높이와 너비를 1cm로 설정 */
-            .printWrap {
-                height: 1cm;
-                page-break-after: always; /* 각 요소가 새로운 페이지에 인쇄되도록 */
-            }
+            @media print {
+                /* 페이지 크기 설정 */
+                @page {
+                    size: 25cm 1.5cm;
+                    margin: 0;
+                    padding: 10px;
+                }
 
-            /* 인쇄시 헤더와 버튼 숨기기 */
-            header, #QRPrintHead {
-                display: none;
+                /* 각 .printWrap 요소 높이와 너비를 1cm로 설정 */
+                .printWrap {
+                    height: 1cm;
+                    page-break-after: always; /* 각 요소가 새로운 페이지에 인쇄되도록 */
+                }
+
+                /* 인쇄시 헤더와 버튼 숨기기 */
+                header, #QRPrintHead {
+                    display: none;
+                }
             }
-        }
         </style>
     </head>
 

@@ -12,27 +12,27 @@
         AND lb.is_deleted = 'N'
         <if test="searchInput != null and searchInput != ''">
             AND (
-            BINARY lb.line_manage_id                 Like CONCAT('%', #{searchInput}, '%') OR
-            BINARY sec.asset_category            Like CONCAT('%', #{searchInput}, '%') OR
-            BINARY sed.installation_coordinates      Like CONCAT('%', #{searchInput}, '%') OR
-            BINARY seb.eqp_manage_id                 Like CONCAT('%', #{searchInput}, '%') OR
-            BINARY seb.eqp_name                      Like CONCAT('%', #{searchInput}, '%') OR
-            BINARY seb.model_name                    Like CONCAT('%', #{searchInput}, '%') OR
-            BINARY seb.host_name                     Like CONCAT('%', #{searchInput}, '%') OR
-            BINARY seb.m_company                     Like CONCAT('%', #{searchInput}, '%') OR
-            BINARY lb.start_eqp_port                 Like CONCAT('%', #{searchInput}, '%') OR
-            BINARY seb.primary_outsourced_operator   Like CONCAT('%', #{searchInput}, '%') OR
-            BINARY seb.secondary_outsourced_operator Like CONCAT('%', #{searchInput}, '%') OR
-            BINARY eec.asset_category                Like CONCAT('%', #{searchInput}, '%') OR
-            BINARY eed.installation_coordinates      Like CONCAT('%', #{searchInput}, '%') OR
-            BINARY eeb.eqp_manage_id                 Like CONCAT('%', #{searchInput}, '%') OR
-            BINARY eeb.eqp_name                      Like CONCAT('%', #{searchInput}, '%') OR
-            BINARY eeb.model_name                    Like CONCAT('%', #{searchInput}, '%') OR
-            BINARY eeb.host_name                     Like CONCAT('%', #{searchInput}, '%') OR
-            BINARY eeb.m_company                     Like CONCAT('%', #{searchInput}, '%') OR
-            BINARY lb.end_eqp_port                   Like CONCAT('%', #{searchInput}, '%') OR
-            BINARY eeb.primary_operator              Like CONCAT('%', #{searchInput}, '%') OR
-            BINARY eeb.primary_outsourced_operator   Like CONCAT('%', #{searchInput}, '%')
+                BINARY lb.line_manage_id                 Like CONCAT('%', #{searchInput}, '%') OR
+                BINARY sec.asset_category               Like CONCAT('%', #{searchInput}, '%') OR
+                BINARY sed.installation_coordinates      Like CONCAT('%', #{searchInput}, '%') OR
+                BINARY seb.eqp_manage_id                 Like CONCAT('%', #{searchInput}, '%') OR
+                BINARY seb.eqp_name                      Like CONCAT('%', #{searchInput}, '%') OR
+                BINARY seb.model_name                    Like CONCAT('%', #{searchInput}, '%') OR
+                BINARY seb.host_name                     Like CONCAT('%', #{searchInput}, '%') OR
+                BINARY seb.m_company                     Like CONCAT('%', #{searchInput}, '%') OR
+                BINARY lb.start_eqp_port                 Like CONCAT('%', #{searchInput}, '%') OR
+                BINARY seb.primary_outsourced_operator   Like CONCAT('%', #{searchInput}, '%') OR
+                BINARY seb.secondary_outsourced_operator Like CONCAT('%', #{searchInput}, '%') OR
+                BINARY eec.asset_category                Like CONCAT('%', #{searchInput}, '%') OR
+                BINARY eed.installation_coordinates      Like CONCAT('%', #{searchInput}, '%') OR
+                BINARY eeb.eqp_manage_id                 Like CONCAT('%', #{searchInput}, '%') OR
+                BINARY eeb.eqp_name                      Like CONCAT('%', #{searchInput}, '%') OR
+                BINARY eeb.model_name                    Like CONCAT('%', #{searchInput}, '%') OR
+                BINARY eeb.host_name                     Like CONCAT('%', #{searchInput}, '%') OR
+                BINARY eeb.m_company                     Like CONCAT('%', #{searchInput}, '%') OR
+                BINARY lb.end_eqp_port                   Like CONCAT('%', #{searchInput}, '%') OR
+                BINARY eeb.primary_operator              Like CONCAT('%', #{searchInput}, '%') OR
+                BINARY eeb.primary_outsourced_operator   Like CONCAT('%', #{searchInput}, '%')
             )
         </if>
     </sql>
@@ -115,7 +115,6 @@
         where 1=1
         <include refid="getLineTotalCommon"/>
         ORDER BY lb.line_manage_id desc
-        LIMIT #{offset},#{limit};
     </select>
 
     <select id="getLineTotalListCnt" parameterType="map" resultType="int">
@@ -167,70 +166,6 @@
         where 1=1
         <include refid="getLineTotalCommon"/>
     </select>
-
-    <!--
-    출발지 목적지 쿼리 변경... 적용되면 삭제
-    <select id="getLineEquipmentList" parameterType="map" resultType="map">
-        /** getLineEquipmentList ...
-            선번장관리 > 선번장목록 > 추가 페이지 > 출발지, 목적지 리스트 */
-        select
-            eb.eqp_manage_id ,                  /* 관리번호 */
-            eb.eqp_name ,                       /* 구성자원명 */
-            eb.model_name ,                     /* 모델명 */
-            eb.host_name ,                      /* 호스트명 */
-            eb.m_company ,                      /* 제조사 */
-            eb.primary_operator ,               /* 운영담당자 */
-            eb.primary_outsourced_operator ,    /* 위탁운영담당자 */
-            ec.config_category ,                /* 구성분류 */
-            ec.asset_category ,                 /* 자산분류 */
-            ec.sub_category ,                   /* 자산세부분류 */
-            ec.detail_category ,                /* 자산상세분류 */
-            ed.installation_coordinates         /* 설치좌표 */
-        from
-            equipment_basic eb
-        join
-            equipment_detail ed
-            on eb.eqp_manage_id = ed.eqp_manage_id
-        join
-            equipment_regist_hw erh
-            on eb.eqp_manage_id = erh.eqp_link_manage_id
-        join
-            equipment_categories ec
-            on eb.config_id = ec.config_id
-            and eb.asset_id = ec.asset_id
-            and eb.sub_id = ec.sub_id
-            and eb.detail_id = ec.detail_id
-        where 1=1
-            and eb.is_deleted = 'N'
-            and ec.categories in ('SV', 'NW')
-        ORDER BY eb.eqp_manage_id desc
-        LIMIT #{offset},#{limit};
-    </select>
-
-    <select id="getLineEquipmentListCnt" parameterType="map" resultType="int">
-        /** getLineEquipmentListCnt ...
-            선번장관리 > 선번장목록 > 추가 페이지 > 출발지, 목적지 리스트 개수 */
-        select
-            count(eb.eqp_manage_id)
-        from
-            equipment_basic eb
-        join
-            equipment_detail ed
-            on eb.eqp_manage_id = ed.eqp_manage_id
-        join
-            equipment_regist_hw erh
-            on eb.eqp_manage_id = erh.eqp_manage_id
-        join
-            equipment_categories ec
-            on eb.config_id = ec.config_id
-            and eb.asset_id = ec.asset_id
-            and eb.sub_id = ec.sub_id
-            and eb.detail_id = ec.detail_id
-        where 1=1
-            and eb.is_deleted = 'N'
-            and ec.categories in ('SV', 'NW')
-    </select>
-    -->
 
     <select id="getLineStartEquipmentList" parameterType="map" resultType="map">
         /** getLineStartEquipmentList ...
