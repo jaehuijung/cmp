@@ -6,18 +6,18 @@
         <style>
             .printWrap {
                 display: flex;
-                align-items: center;
-                background: yellow;
+                justify-content: space-between;
                 margin-top: 10px;
                 margin-bottom: 10px;
             }
-            .printImgWrap {
+            .printArea{
                 display: flex;
                 align-items: center;
             }
+
             .printImg {
-                width: 50px;
-                height: 50px;
+                width: 70px;
+                height: 70px;
                 margin: 0 5px;
             }
             .printInfoWrap {
@@ -27,15 +27,16 @@
             @media print {
                 /* 페이지 크기 설정 */
                 @page {
-                    size: 25cm 1.5cm;
+                    size: 30cm 1.5cm;
+                    font-size: 24pt;
                     margin: 0;
-                    padding: 10px;
                 }
 
                 /* 각 .printWrap 요소 높이와 너비를 1cm로 설정 */
                 .printWrap {
-                    height: 1cm;
                     page-break-after: always; /* 각 요소가 새로운 페이지에 인쇄되도록 */
+                    height: 1cm;
+                    font-size: 24pt;
                 }
 
                 /* 인쇄시 헤더와 버튼 숨기기 */
@@ -61,7 +62,7 @@
         </header>
         <div th:each="item : ${selections}">
             <div class="printWrap">
-                <div class="printImgWrap">
+                <div class="printArea">
                     <img src="/images/char_S.png" alt="start 이미지" class="printImg">
                     <img th:src="@{${item.qr_image_location}}" alt="QR 이미지" class="printImg">
                     <div class="printInfoWrap">
@@ -69,7 +70,13 @@
                             <span th:text="'[' + ${item.s_installation_coordinates} + ']' + ' ' + ${item.s_eqp_manage_id} + ' - ' + ${item.s_host_name} + ' - Fe1'"></span>
                         </div>
                     </div>
+                </div>
+
+                <div class="printArea">
                     <img src="/images/char_split.png" alt="split 이미지" class="printImg">
+                </div>
+
+                <div class="printArea">
                     <div class="printInfoWrap">
                         <div class="infoLabel">
                             <span th:text="'[' + ${item.e_installation_coordinates} + ']' + ' ' + ${item.e_eqp_manage_id} + ' - ' + ${item.e_host_name} + ' - Fe1'"></span>
