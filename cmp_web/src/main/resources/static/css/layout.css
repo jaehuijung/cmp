@@ -698,9 +698,15 @@ header {
 .custom-width-100per { width: 100%; }
 
 .custom-width-45 { width: 45px; }
+.custom-width-100 { width: 100px; }
+.custom-width-150 { width: 150px; }
+.custom-width-200 { width: 200px; }
+.custom-width-250 { width: 250px; }
+.custom-width-300 { width: 300px; }
 .custom-width-350 { width: 350px; }
 .custom-width-400 { width: 400px; }
 .custom-width-450 { width: 450px; }
+.custom-width-500 { width: 500px; }
 .custom-width-550 { width: 550px; }
 
 .custom-width-min-50 { min-width: 50px; }
@@ -714,6 +720,8 @@ header {
 /* custom margin */
 .custom-margin-10 { margin: 10px; }
 .custom-margin-left-10 { margin-left: 10px; }
+.custom-margin-left-20 { margin-left: 20px; }
+.custom-margin-left-30 { margin-left: 30px; }
 .custom-margin-right-10 { margin-right: 10px; }
 .custom-margin-top-20 { margin-top: 20px; }
 .custom-margin-top-30 { margin-top: 30px; }
@@ -750,9 +758,10 @@ header {
 .flex { display: flex; }
 .flex-column { display: flex; flex-direction: column; }
 .flex-column-center { display: flex; flex-direction: column; align-items: center; justify-content: center; }
-.flex-row-center { display: flex; align-items: center; justify-content: space-between; }
+.flex-column-end { display: flex; flex-direction: column; justify-content: flex-end; }
+.flex-row-center-between { display: flex; flex-direction: row; align-items: center; justify-content: space-between; }
 .flex-wrap-center { display: flex; flex-wrap: wrap; justify-content: center; }
-.flex-end { display: flex; align-items: flex-end; }
+.flex-even { display: flex; justify-content: space-evenly;}
 
 /* custom border */
 .custom-border-right { border-right: 0; }
@@ -775,3 +784,10 @@ header {
 
 /* custom transform */
 .custom-transform-translate-y-50 { transform: translateY(-50%); }
+
+/* custom underline */
+.custom-underline {
+    border-bottom: 1px solid black; /* 밑줄 */
+    padding-bottom: 5px; /* 텍스트와 밑줄 간격 조절 */
+    margin-bottom: 10px; /* 밑줄 아래의 요소와의 간격 */
+}
