@@ -11,7 +11,7 @@
             grid-template-areas:
                 'header header header'
                 'chart1 chart2 chart3'
-                'chart4 chart2 chart3'
+                'chart4 chart7 chart7'
                 'chart6 chart7 chart7';
             grid-gap: 20px;
             padding: 20px;
@@ -57,7 +57,6 @@
             <div class="dashboard-header">Dashboard Overview</div>
             <div class="dashboard-chart" id="dashboard-chart1">
                 <h3>케이블 포설 현황</h3>
-                <p>광/UTP</p>
                 <div class="flex-even">
                     <div>
                         <canvas id="chartCable" width="250" height="250"></canvas>
@@ -65,8 +64,12 @@
                 </div>
             </div>
             <div class="dashboard-chart" id="dashboard-chart2">
-                <h3>Detailed Cable Analysis</h3>
-                <p>Example chart data</p>
+                <h3>케이블 포설 상세현황</h3>
+                <div class="flex-even">
+                    <div>
+                        <canvas id="chartCableDetailed" width="500" height="250"></canvas>
+                    </div>
+                </div>
             </div>
             <div class="dashboard-chart" id="dashboard-chart3">
                 <h3>Equipment Registration</h3>
@@ -74,7 +77,6 @@
             </div>
             <div class="dashboard-chart" id="dashboard-chart4">
                 <h3>장비 등록 현황</h3>
-                <p>하드웨어/소프트웨어</p>
                 <div class="flex-even">
                     <div>
                         <canvas id="chartEquipment" width="250" height="250"></canvas>
@@ -83,7 +85,6 @@
             </div>
             <div class="dashboard-chart" id="dashboard-chart6">
                 <h3>장비누적금액</h3>
-                <p>하드웨어/소프트웨어</p>
                 <div class="flex-even">
                     <div>
                         <canvas id="chartEquipmentMoney" width="250" height="250"></canvas>
@@ -108,27 +109,34 @@
             }
 
             $(function(){
-                // 쿼리 결과를 위한 예시 데이터
+                /* 케이블 포설 현황 */
                 const cableData = {
                     광: 35,
                     UTF: 21,
                     TOTAL: 56
                 };
 
-                // 케이블 포설 현황 차트
                 new Chart(document.getElementById('chartCable'), {
                     type: 'pie',
                     data: {
                         labels: ['광', 'UTF'],
                         datasets: [{
                             data: [cableData.광, cableData.UTF],
-                            backgroundColor: ['#4CAF50', '#FFC107'],   // 색상 변경
+                            backgroundColor: [
+                                'rgba(255, 105, 180, 0.2)',
+                                'rgba(64, 224, 208, 0.4)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 105, 180, 0.3)',
+                                'rgba(64, 224, 208, 0.5)'
+                            ],
+                            borderWidth: 1
                         }]
                     },
                     options: {
                         plugins: {
                             datalabels: {
-                                color: '#fff',
+                                color: 'rgba(128, 128, 128, 0.7)', // 회색 (Grey)
                                 font: { weight: 'bold', size: 22 },
                                 formatter: function(value, context) { return context.chart.data.labels[context.dataIndex] + '\n' + calculatePercentage(value, cableData.TOTAL); }
                             },
@@ -143,27 +151,73 @@
                     plugins: [ChartDataLabels] // 내부 라벨을 표시하기 위해 플러그인 추가
                 });
 
-                // 쿼리 결과를 위한 예시 데이터
+                /* 케이블 포설 상세현황 */
+                new Chart(document.getElementById('chartCableDetailed'), {
+                    type: 'bar', // 막대그래프 타입 지정
+                    data: {
+                        labels: ['광', 'UTP'],
+                        datasets: [{
+                            label: '1G',
+                            data: [230, 30],
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)', // Cyan color
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }, {
+                            label: '10G',
+                            data: [67, 22],
+                            backgroundColor: 'rgba(153, 102, 255, 0.2)', // Purple color
+                            borderColor: 'rgba(153, 102, 255, 1)',
+                            borderWidth: 1
+                        }, {
+                            label: '100G',
+                            data: [14, 7],
+                            backgroundColor: 'rgba(255, 159, 64, 0.2)', // Orange color
+                            borderColor: 'rgba(255, 159, 64, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y', // 수평 막대그래프가 되도록 축을 전환
+                        scales: {
+                            x: {
+                                stacked: true,
+                                beginAtZero: true,
+                            },
+                            y: {
+                                stacked: true,
+                            }
+                        }
+                    }
+                });
+
+                /* 장비 등록 현황 */
                 const equipmentData = {
                     HW: 1937,
                     SW: 123,
                     TOTAL: 2060
                 };
 
-                // 케이블 포설 현황 차트
                 new Chart(document.getElementById('chartEquipment'), {
                     type: 'pie',
                     data: {
                         labels: ['HW', 'SW'],
                         datasets: [{
                             data: [equipmentData.HW, equipmentData.SW],
-                            backgroundColor: ['#4CAF50', '#FFC107'],   // 색상 변경
+                            backgroundColor: [
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(211, 211, 211, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 206, 86, 0.6)',
+                                'rgba(211, 211, 211, 0.4)'
+                            ],
+                            borderWidth: 1
                         }]
                     },
                     options: {
                         plugins: {
                             datalabels: {
-                                color: '#fff',
+                                color: 'rgba(128, 128, 128, 0.7)', // 회색 (Grey)
                                 font: { weight: 'bold', size: 22 },
                                 formatter: function(value, context) { return context.chart.data.labels[context.dataIndex] + '\n' + calculatePercentage(value, equipmentData.TOTAL); }
                             },
@@ -179,39 +233,48 @@
                 });
 
 
-                // 쿼리 결과를 위한 예시 데이터
+                /* 장비누적금액 */
                 const equipmentMoneyData = {
                     HW:   1100309000,
                     SW:   337000000,
                     TOTAL:1437309000
                 };
 
-                // 케이블 포설 현황 차트
                 new Chart(document.getElementById('chartEquipmentMoney'), {
-                    type: 'pie',
+                    type: 'doughnut', // 도넛 차트로 변경
                     data: {
                         labels: ['HW', 'SW'],
                         datasets: [{
                             data: [equipmentMoneyData.HW, equipmentMoneyData.SW],
-                            backgroundColor: ['#4CAF50', '#FFC107'],   // 색상 변경
+                            backgroundColor: [
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(0, 0, 128, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(0, 0, 128, 0.2)'
+                            ],
+                            borderWidth: 1
                         }]
                     },
                     options: {
                         plugins: {
                             datalabels: {
-                                color: '#fff',
+                                color: 'rgba(128, 128, 128, 0.7)', // 회색 (Grey)
                                 font: { weight: 'bold', size: 22 },
-                                formatter: function(value, context) { return context.chart.data.labels[context.dataIndex] + '\n' + calculatePercentage(value, equipmentMoneyData.TOTAL); }
+                                formatter: function(value, context) {
+                                    return context.chart.data.labels[context.dataIndex] + '\n' + calculatePercentage(value, equipmentMoneyData.TOTAL);
+                                }
                             },
-                            legend: { // 라벨 제거
+                            legend: {
                                 display: false
-                            },
+                            }
                         },
-                        interaction: { // 마우스 호버 비활성화
+                        interaction: {
                             mode: null
                         }
                     },
-                    plugins: [ChartDataLabels] // 내부 라벨을 표시하기 위해 플러그인 추가
+                    plugins: [ChartDataLabels]
                 });
             });
         </script>
