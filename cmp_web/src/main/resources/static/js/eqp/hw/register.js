@@ -662,6 +662,9 @@ function saveData() {
                 if ((name === "equipment_size_units") && (value=== '')){
                     value = 0;
                 }
+                if ((name === "port_cnt") && (value=== '')){
+                    value = 0;
+                }
 
                 data[name] = value;
             }

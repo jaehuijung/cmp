@@ -309,8 +309,12 @@
                             <td class="custom-border-left custom-width-15per">
                                 <input type="date" id="eos_status" name="eos_status" th:value="${equipment.eos_status}" class="form-control"/>
                             </td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per"></td>
-                            <td class="custom-border-left custom-width-15per"></td>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                                <label for="port_cnt" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">포트개수</label>
+                            </td>
+                            <td class="custom-border-left custom-width-15per">
+                                <input type="number" id="port_cnt" name="port_cnt" class="form-control" th:value="${equipment.port_cnt}" />
+                            </td>
                         </tr>
                         </tbody>
                     </table>

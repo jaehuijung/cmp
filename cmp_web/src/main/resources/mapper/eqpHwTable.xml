@@ -620,6 +620,7 @@
             SUBSTRING_INDEX(ed.ip_address, '.', -1) as ip_block4,
             ed.OS,
             ed.acquisition_cost,
+            ed.port_cnt,
             ed.installation_coordinates,
             ed.installation_units,
             ed.equipment_size_units,
