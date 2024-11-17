@@ -169,10 +169,10 @@
                                 <input type="text" id="acquisition_cost" name="acquisition_cost" th:value="${equipment.acquisition_cost}" oninput="formatCurrency(this)" readonly class="form-control"/>
                             </td>
                             <td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
-                                <label for="amount" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">도입수량</label>
+                                <label for="asset_acquisition_date" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">자산취득일자</label>
                             </td>
                             <td class="custom-border-left custom-width-15per custom-width-min-150">
-                                <input type="number" id="amount" name="amount" th:value="${equipment.amount}" readonly class="form-control"/>
+                                <input type="date" id="asset_acquisition_date" name="asset_acquisition_date" th:value="${equipment.asset_acquisition_date}" readonly class="form-control"/>
                             </td>
                         </tr>
                         <tr>
@@ -189,10 +189,10 @@
                                 <input type="text" id="license_number" name="license_number" th:value="${equipment.license_number}" readonly class="form-control"/>
                             </td>
                             <td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
-                                <label for="asset_acquisition_date" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">자산취득일자</label>
+                                <label for="amount" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">도입수량</label>
                             </td>
                             <td class="custom-border-left custom-width-15per custom-width-min-150">
-                                <input type="date" id="asset_acquisition_date" name="asset_acquisition_date" th:value="${equipment.asset_acquisition_date}" readonly class="form-control"/>
+                                <input type="number" id="amount" name="amount" th:value="${equipment.amount}" readonly class="form-control"/>
                             </td>
                         </tr>
                         <tr>
