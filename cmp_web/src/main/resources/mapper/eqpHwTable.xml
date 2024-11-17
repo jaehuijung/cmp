@@ -776,6 +776,9 @@
         <if test="os_version != null and os_version != ''">
             , OS = #{os_version}
         </if>
+        <if test="port_cnt != null and port_cnt != ''">
+            , port_cnt = #{port_cnt}
+        </if>
         <if test="acquisition_cost != null and acquisition_cost != ''">
             , acquisition_cost = #{acquisition_cost}
         </if>
