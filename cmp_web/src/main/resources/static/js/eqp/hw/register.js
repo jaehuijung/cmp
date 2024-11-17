@@ -87,7 +87,7 @@ let eqpSoftwareColumn = [
 
 $(function(){
     setDefaultDates(); // 화면 렌더링 시 날짜 컬럼들 현재날짜로 세팅
-    getSelectConfig(); // 화면 렌더링 시 구성분류 선택박스 세팅
+    // getSelectConfig(); // 화면 렌더링 시 구성분류 선택박스 세팅
 
     // 장비분류 선택 시 선택박스 세팅
     getSelectAsset("1"); // 구성분류 > 자산분류(H/W에 해당하는 항목만)
