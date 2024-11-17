@@ -24,17 +24,26 @@
 							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
 								<label for="asset_id" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">자산분류</label></td>
 							<td class="custom-border-left custom-width-15per custom-width-min-150">
-								<select id="asset_id" name="asset_id" class="form-control"></select>
+								<select id="asset_id" name="asset_id" class="form-control">
+									<option th:text="선택"></option>
+									<option th:each="category : ${asset_category.selectData}"
+											th:value="${category['id']}"
+											th:text="${category['name']}"></option>
+								</select>
 							</td>
 							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
 								<label for="sub_id" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">세부분류</label></td>
 							<td class="custom-border-left custom-width-15per custom-width-min-150">
-								<select id="sub_id" name="sub_id" class="form-control"></select>
+								<select id="sub_id" name="sub_id" class="form-control">
+									<option th:text="선택"></option>
+								</select>
 							</td>
 							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
 								<label for="detail_id" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">상세분류</label></td>
 							<td class="custom-border-left custom-width-15per custom-width-min-150">
-								<select id="detail_id" name="detail_id" class="form-control"></select>
+								<select id="detail_id" name="detail_id" class="form-control">
+									<option th:text="선택"></option>
+								</select>
 							</td>
 						</tr>
 						</tbody>

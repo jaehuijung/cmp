@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import sl.qr.mh.service.eqp.hw.hwManageService;
-import sl.qr.mh.service.eqp.sw.swManageService;
 
 import java.util.Map;
 

@@ -6,9 +6,11 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import sl.qr.mh.service.eqp.hw.hwManageService;
 import sl.qr.mh.service.eqp.sw.swManageService;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,10 +23,12 @@ import java.util.Map;
 @RequestMapping("/eqp/sw")
 public class swManageController {
 
+    private final hwManageService hwManageService;
     private final swManageService swManageService;
 
-    public swManageController(swManageService swManageService){
+    public swManageController(swManageService swManageService, hwManageService hwManageService){
         this.swManageService = swManageService;
+        this.hwManageService = hwManageService;
     }
 
     /**
@@ -55,7 +59,12 @@ public class swManageController {
      * @return 장비 추가 뷰 페이지
      */
     @GetMapping("/create")
-    public String createEquipmentPage() {
+    public String createEquipmentPage(Model model) {
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("config_id", "2");
+
+        Map<String, Object> asset_category = hwManageService.getSelectAssetData(paramMap);
+        model.addAttribute("asset_category", asset_category);
         return "views/eqp/sw/register";
     }
 
