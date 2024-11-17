@@ -151,7 +151,7 @@ function buildPageNavigation(menuData, currentUrl) {
     // home 링크는 만약 대시보드 만들면 거기로 이동하도록 수정!
     if (breadcrumbElement) {
         breadcrumbElement.innerHTML = `
-            <li class="breadcrumb-item"><a href="/cable/rack/view">Home</a></li>
+            <li class="breadcrumb-item"><a href="/rack/line/view">Home</a></li>
             <li class="breadcrumb-item"><a href="${parentMenu.url}">${parentMenu.menu_name}</a></li>
             <li class="breadcrumb-item active"><a href="${currentMenu.url}">${currentMenu.menu_name}</a></li>
         `;
