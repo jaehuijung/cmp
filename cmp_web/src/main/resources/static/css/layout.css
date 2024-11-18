@@ -340,11 +340,17 @@ header {
     padding: 30px;
     margin-left: 300px;
     transition: margin-left 0.3s, width 0.3s;
-    min-width: 800px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     box-sizing: border-box;
+    min-width: 400px;
+    max-width: 1800px;
+}
+
+/* 중앙 콘텐츠 스크롤바 숨기기 (웹킷 브라우저) */
+.content::-webkit-scrollbar {
+    display: none;
 }
 
 .side-menu.toggled + header {
@@ -720,6 +726,7 @@ header {
 /* custom margin */
 .custom-margin-10 { margin: 10px; }
 .custom-margin-left-10 { margin-left: 10px; }
+.custom-margin-left2-10 { margin: 0px 0px 0px 10px; }
 .custom-margin-left-20 { margin-left: 20px; }
 .custom-margin-left-30 { margin-left: 30px; }
 .custom-margin-right-10 { margin-right: 10px; }
@@ -753,6 +760,9 @@ header {
 .custom-font-weight-500 { font-weight: 500; }
 .custom-font-weight-bold { font-weight: bold; }
 
+/* custom font color */
+.custom-font-color-red { color: red; }
+
 /* custom gap */
 .custom-gap-5 { gap: 5px; }
 
@@ -761,9 +771,11 @@ header {
 .flex-column { display: flex; flex-direction: column; }
 .flex-column-center { display: flex; flex-direction: column; align-items: center; justify-content: center; }
 .flex-column-end { display: flex; flex-direction: column; justify-content: flex-end; }
+.flex-column-left { display: flex; flex-direction: column; align-items: flex-start; }
 .flex-row-center-between { display: flex; flex-direction: row; align-items: center; justify-content: space-between; }
 .flex-wrap-center { display: flex; flex-wrap: wrap; justify-content: center; }
 .flex-even { display: flex; justify-content: space-evenly;}
+
 
 /* custom border */
 .custom-border-right { border-right: 0; }

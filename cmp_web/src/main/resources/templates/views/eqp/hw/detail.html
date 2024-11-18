@@ -50,6 +50,12 @@
                         <tbody>
                         <tr>
                             <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                                <label for="m_company" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">관리ID</label>
+                            </td>
+                            <td class="custom-border-left custom-width-15per">
+                                <input type="text" id="m_company" name="m_company" class="form-control" th:value="${equipment.eqp_manage_id}" readonly/>
+                            </td>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
                                 <label for="eqp_name" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">구성자원명</label>
                             </td>
                             <td class="custom-border-left custom-width-15per">
@@ -67,14 +73,14 @@
                             <td class="custom-border-left custom-width-15per">
                                 <input type="text" id="model_name" name="model_name" class="form-control" th:value="${equipment.model_name}" readonly/>
                             </td>
+                        </tr>
+                        <tr>
                             <td class="custom-background-lightblue custom-border-right custom-width-10per">
                                 <label for="m_company" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">제조사</label>
                             </td>
                             <td class="custom-border-left custom-width-15per">
                                 <input type="text" id="m_company" name="m_company" class="form-control" th:value="${equipment.m_company}" readonly/>
                             </td>
-                        </tr>
-                        <tr>
                             <td class="custom-background-lightblue custom-border-right custom-width-10per">
                                 <label for="domestic" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">국산여부</label>
                             </td>
@@ -93,8 +99,6 @@
                             <td class="custom-border-left custom-width-15per">
                                 <input type="text" id="maintenance_contract_target" name="maintenance_contract_target" class="form-control" th:value="${equipment.maintenance_contract_target == '1' ? 'Y' : 'N'}" readonly/>
                             </td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per"></td>
-                            <td class="custom-border-left custom-width-15per"></td>
                         </tr>
                         </tbody>
                     </table>

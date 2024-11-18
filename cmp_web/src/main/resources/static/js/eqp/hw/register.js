@@ -524,31 +524,31 @@ function addEquipmentSoftwareRow(){
 }
 
 function generateEquipmentSoftwareRowHTML(){
-    return `
-        <div class="contentCard">
-            <div class="contentCardWrap">
-                <div class="contentCardTitle">
-                    <h2>▪️ 소프트웨어 등록정보 선택</h2>
-                </div>
-                <div style='display: flex; justify-content: space-between; align-items: flex-end;'>
-                    <div>
-                        <p class="totalCnt" id="eqpSoftwareTotalCnt"></p>
-                    </div>
-                    <div class="searchWordWrap">
-                        <div class="searchWordInput">
-                            <label class="searchTitle" for="searchSoftwareInput">검색어</label>
-                            <input type="text"    class="searchInput" id="searchSoftwareInput" placeholder="검색어를 입력하세요"/>
-                            <button type="button" class="searchButton" onclick="tableRefresh('#eqpSoftwareTable');">검색</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="tbl-bootstrap-wrap">
-                    <table id="eqpSoftwareTable"></table>
-                </div>
-            </div>
-        </div>
-    `;
-}
+     return `
+         <div class="contentCard">
+             <div class="contentCardWrap">
+                 <div class="contentCardTitle">
+                     <h2>▪️ 소프트웨어 등록정보 선택</h2>
+                 </div>
+                 <div style='display: flex; justify-content: space-between; align-items: flex-end;'>
+                     <div>
+                         <p class="totalCnt" id="eqpSoftwareTotalCnt"></p>
+                     </div>
+                     <div class="searchWordWrap">
+                         <div class="searchWordInput">
+                             <label class="searchTitle" for="searchSoftwareInput">검색어</label>
+                             <input type="text"    class="searchInput" id="searchSoftwareInput" placeholder="검색어를 입력하세요"/>
+                             <button type="button" class="searchButton" onclick="tableRefresh('#eqpSoftwareTable');">검색</button>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="tbl-bootstrap-wrap">
+                     <table id="eqpSoftwareTable"></table>
+                 </div>
+             </div>
+         </div>
+     `;
+ }
 
 function deleteEquipmentSoftwareRow(){
     let $table = $('#eqpSoftwareSelectTable');
@@ -671,7 +671,8 @@ function saveData() {
         }
     });
 
-    data["ip_address"] = combineIP(); // ip_block1 ~ ip_block4까지 구분자 붙여서 ip_address 문자열 생성
+    // data["ip_address"] = combineIP(); // ip_block1 ~ ip_block4까지 구분자 붙여서 ip_address 문자열 생성
+    data["ip_address"] = "0.0.0.0";
 
     $('select').each(function() {
         const selectedId = $(this).attr('id');
