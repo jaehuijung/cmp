@@ -700,7 +700,9 @@ header {
 
 /* custom width */
 .custom-width-10per { width: 10%; }
-.custom-width-15per { width: 15% }
+.custom-width-15per { width: 15%; }
+.custom-width-20per { width: 20%; }
+.custom-width-25per { width: 25%; }
 .custom-width-100per { width: 100%; }
 
 .custom-width-45 { width: 45px; }
@@ -725,8 +727,7 @@ header {
 
 /* custom margin */
 .custom-margin-10 { margin: 10px; }
-.custom-margin-left-10 { margin-left: 10px; }
-.custom-margin-left2-10 { margin: 0px 0px 0px 10px; }
+.custom-margin-left-10 { margin: 0px 0px 0px 10px; }
 .custom-margin-left-20 { margin-left: 20px; }
 .custom-margin-left-30 { margin-left: 30px; }
 .custom-margin-right-10 { margin-right: 10px; }
