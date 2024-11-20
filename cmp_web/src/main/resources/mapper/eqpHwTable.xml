@@ -466,7 +466,6 @@
             CPU,
             MEMORY,
             DISK,
-            ip_address,
             OS,
             port_cnt,
             acquisition_cost,
@@ -485,7 +484,6 @@
             #{cpu},
             #{mem},
             #{disk},
-            #{ip_address},
             #{os_version},
             #{port_cnt},
             #{acquisition_cost},
@@ -500,6 +498,20 @@
             #{eos_status}
         )
     </insert>
+
+    <insert id="insertEquipmentIp" parameterType="map">
+        /* insertEquipmentIp...
+            H/W관리 > 장비목록 > 추가/수정 > 장비 저장 : 장비 Ip정보 추가 */
+        insert into equipment_regist_ip (
+            eqp_manage_id,
+            ip
+        )
+        values(
+            #{eqp_manage_id},
+            #{ip}
+        )
+    </insert>
+
 
     <insert id="insertEquipmentHardware" parameterType="map">
         /* insertEquipmentHardware...
@@ -615,11 +627,6 @@
             ed.CPU,
             ed.MEMORY,
             ed.DISK,
-            ed.ip_address,
-            SUBSTRING_INDEX(ed.ip_address, '.', 1) as ip_block1,
-            SUBSTRING_INDEX(SUBSTRING_INDEX(ed.ip_address, '.', 2), '.', -1) as ip_block2,
-            SUBSTRING_INDEX(SUBSTRING_INDEX(ed.ip_address, '.', 3), '.', -1) as ip_block3,
-            SUBSTRING_INDEX(ed.ip_address, '.', -1) as ip_block4,
             ed.OS,
             ed.acquisition_cost,
             ed.port_cnt,

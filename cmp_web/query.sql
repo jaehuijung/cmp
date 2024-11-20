@@ -247,6 +247,114 @@ select * from equipment_regist_hw ;
 
 select * from equipment_detail;
 
+select * from equipment_regist_hw ;
+select * from equipment_regist_ip;
+
+desc equipment_detail;
+
+select
+    eb.eqp_manage_id,
+    eb.eqp_name,
+    eb.host_name,
+    eb.model_name,
+    eb.m_company,
+    eb.domestic,
+    eb.redundancy_config,
+    eb.maintenance_contract_target,
+    eb.config_id,
+    eb.asset_id,
+    eb.sub_id,
+    eb.detail_id,
+    eb.network_operation_type,
+    eb.operating_status,
+    eb.operating_department,
+    eb.primary_operator,
+    eb.secondary_operator,
+    eb.primary_outsourced_operator,
+    eb.secondary_outsourced_operator,
+    ed.CPU,
+    ed.MEMORY,
+    ed.DISK,
+    ed.OS,
+    ed.acquisition_cost,
+    ed.port_cnt,
+    ed.installation_coordinates,
+    ed.installation_units,
+    ed.equipment_size_units,
+    ed.dbrain_number,
+    ed.serial_number,
+    ed.asset_acquisition_date,
+    ed.asset_disposal_date,
+    ed.eol_status,
+    ed.eos_status
+from
+    equipment_basic eb
+join
+    equipment_detail ed
+    on eb.eqp_manage_id = ed.eqp_manage_id
+where 1=1
+    and eb.eqp_manage_id = 'SE20240001'
+;
+select * from equipment_regist_ip;
+
+SELECT
+    el.ip,
+    eb.eqp_manage_id,
+    eb.eqp_name,
+    eb.host_name,
+    eb.model_name,
+    eb.m_company,
+    eb.domestic,
+    eb.redundancy_config,
+    eb.maintenance_contract_target,
+    eb.config_id,
+    eb.asset_id,
+    eb.sub_id,
+    eb.detail_id,
+    eb.network_operation_type,
+    eb.operating_status,
+    eb.operating_department,
+    eb.primary_operator,
+    eb.secondary_operator,
+    eb.primary_outsourced_operator,
+    eb.secondary_outsourced_operator,
+    ed.CPU,
+    ed.MEMORY,
+    ed.DISK,
+    ed.OS,
+    ed.acquisition_cost,
+    ed.port_cnt,
+    ed.installation_coordinates,
+    ed.installation_units,
+    ed.equipment_size_units,
+    ed.dbrain_number,
+    ed.serial_number,
+    ed.asset_acquisition_date,
+    ed.asset_disposal_date,
+    ed.eol_status,
+    ed.eos_status
+FROM
+    equipment_basic eb
+JOIN
+    equipment_detail ed
+    ON eb.eqp_manage_id = ed.eqp_manage_id
+JOIN (
+        SELECT eqp_manage_id, ip
+        FROM equipment_regist_ip
+        WHERE idx = (
+            SELECT MIN(idx)
+            FROM equipment_regist_ip
+            WHERE eqp_manage_id = equipment_regist_ip.eqp_manage_id
+        )
+    ) el
+    ON eb.eqp_manage_id = el.eqp_manage_id
+WHERE
+    1=1
+    AND eb.eqp_manage_id = 'SE20240001';
+
+/* 상세 ip 첫번째 보여주기 */
+
+
 
 
 

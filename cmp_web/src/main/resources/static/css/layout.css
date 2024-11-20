@@ -741,8 +741,10 @@ header {
 .custom-margin-tb-20 { margin: 20px 0px; }
 
 /* custom padding */
+.custom-padding-10 { padding: 10px; }
 .custom-padding-20 { padding: 20px; }
 .custom-padding-left-25 { padding-left: 25px; }
+.custom-padding-lr-10 { padding: 0px 10px;}
 .custom-padding-lr-20 { padding: 0px 20px;}
 
 /* custom position */

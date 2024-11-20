@@ -281,6 +281,18 @@ public class hwManageService {
             hwMapper.insertEquipmentBasic(paramMap); // 장비 기본정보 저장
             hwMapper.insertEquipmentDetail(paramMap); // 장비 세부정보 저장
 
+            List<Map<String, Object>> eqpIpAddressList = (List<Map<String, Object>>) paramMap.get("eqpIpAddressList"); // 장비연결정보
+            if(eqpIpAddressList != null) {
+                for(Map<String, Object> selectList : eqpIpAddressList) {
+                    String eqp_ip = selectList.get("ip_address").toString(); // 장비연결정보
+
+                    selectList.put("eqp_manage_id", eqp_manage_id);
+                    selectList.put("ip", eqp_ip);
+                    hwMapper.insertEquipmentIp(selectList);
+                }
+            }
+
+
             List<Map<String, Object>> eqpHardwareSelectList = (List<Map<String, Object>>) paramMap.get("eqpHardwareSelectList"); // 장비연결정보
             if(eqpHardwareSelectList != null) {
                 for(Map<String, Object> selectList : eqpHardwareSelectList) {

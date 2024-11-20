@@ -285,9 +285,9 @@
                                            id="ip_address_first"
                                            maxlength="15" readonly/>
                                     <button type="button"
-                                            class="btn btn-outline-secondary custom-btn custom-normal-btn custom-margin-left2-10"
+                                            class="btn btn-outline-secondary custom-btn custom-normal-btn custom-margin-left-10 custom-padding-lr-10"
                                             onclick="ipAddressManage();">
-                                        <img src='/images/icon/btn/plus.svg' alt='추가' class='btn-icon'>
+                                        <img src='/images/icon/btn/plus.svg' alt='추가'>
                                     </button>
                                 </div>
                             </td>
@@ -376,109 +376,7 @@
     <th:block layout:fragment="script">
         <script th:src="@{/js/eqp/hw/register.js}"></script>
         <script>
-            let ipData = [{'ip_address': "", "" : ""}];
 
-            function ipAddressFormatter(value, row, index) {
-                return `<input type="text" class="form-control ip-input" maxlength="15"
-                        data-row-index="${index}" data-field="ip_address"
-                        value="${value}"
-                        oninput="updateIpAddressData(this, ${index}, 'ip_address', '#eqpIpAddressTable')">`;
-            }
-
-            function updateIpAddressData(input, index, field, tableId) {
-                let $table = $(tableId);
-                let data = $table.bootstrapTable('getData');
-
-                // Update value in the data array without reloading the table
-                data[index][field] = input.value;
-            }
-
-            function addEquipmentIpAddressRow(){
-                let $table = $('#eqpIpAddressTable');
-                let data = $table.bootstrapTable('getData');
-
-                // Add new row with empty IP address
-                data.push({'ip_address': ''});
-                $table.bootstrapTable('load', data);
-            }
-
-            function ipAddressManage(){
-                Swal.fire({
-                    html: generateEquipmentIpAddressRowHTML(),
-                    focusConfirm: false,
-                    confirmButtonText: '확인',
-                    cancelButtonText: '취소',
-                    showCancelButton: true,
-                    allowOutsideClick: false,
-                    heightAuto: false,
-                    customClass: {
-                        popup: 'custom-width'
-                    },
-                    didOpen: () => {
-
-                        let eqpIpAddressColumn = [
-                            createColumn('', true, ''),
-                            createColumn('ip_address', false, 'IP Address', '', (value, row, index) => ipAddressFormatter(value, row, index)),
-                        ];
-
-                        $('#eqpIpAddressTable').bootstrapTable({
-                            data: ipData, columns: eqpIpAddressColumn,
-                            pageSize: 5, pagination: true, sidePagination: 'client',
-                        });
-
-                    },
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        ipData = $('#eqpIpAddressTable').bootstrapTable("getData");
-                        $("#ip_address_first").val(ipData[0].ip_address);
-                    }
-                });
-            }
-
-            function generateEquipmentIpAddressRowHTML(){
-                 return `
-                     <div class="contentCard">
-                         <div class="contentCardWrap">
-                             <div class="contentCardTitle flex-column-left">
-                                 <h2>IP Address 정보</h2>
-                                 <p class="custom-font-size-12 custom-font-color-red">* 대표 IP는 첫 번째로 등록된 IP가 표시됩니다.</p>
-                             </div>
-                             <div class="flex-row-center-between">
-                                 <div>
-                                     <p class="totalCnt" id="eqpIpAddressTotalCnt">총 1건</p>
-                                </div>
-                                <div>
-                                    <button type="button" class="btn btn-outline-secondary" onclick="addEquipmentIpAddressRow();">추가</button>
-                                    <button type="button" class="btn btn-outline-secondary" onclick="deleteEquipmentIpAddressRow();">삭제</button>
-                                </div>
-                             </div>
-                             <div class="tbl-bootstrap-wrap">
-                                 <table id="eqpIpAddressTable"></table>
-                             </div>
-                         </div>
-                     </div>
-                 `;
-             }
-
-            function deleteEquipmentIpAddressRow(){
-                let $table = $('#eqpIpAddressTable');
-                let selectedRows = $table.bootstrapTable('getSelections');
-
-                if (selectedRows.length > 0) {
-                    let data = $table.bootstrapTable('getData');
-                    selectedRows.forEach(row => {
-                        const index = data.indexOf(row);
-                        if (index > -1) {
-                            data.splice(index, 1);
-                        }
-                    });
-                    $table.bootstrapTable('load', data);
-
-                    $("#eqpIpAddressTotalCnt").text("총 " + data.length + "건");
-                } else {
-                    alert2('알림', '선택된 항목이 없습니다.', 'error', '확인');
-                }
-            }
         </script>
     </th:block>
 </div>
