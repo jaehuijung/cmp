@@ -638,12 +638,29 @@
             ed.asset_acquisition_date,
             ed.asset_disposal_date,
             ed.eol_status,
-            ed.eos_status
+            ed.eos_status,
+            el.ip
         from
             equipment_basic eb
         join
             equipment_detail ed
             on eb.eqp_manage_id = ed.eqp_manage_id
+        left join (
+            select
+                eqp_manage_id, ip
+            from
+                equipment_regist_ip
+            where
+                idx = (
+                    select
+                        min(idx)
+                    from
+                        equipment_regist_ip
+                    where
+                        eqp_manage_id = equipment_regist_ip.eqp_manage_id
+                )
+            ) el
+            ON eb.eqp_manage_id = el.eqp_manage_id
         where 1=1
             and eb.eqp_manage_id = #{eqp_manage_id}
     </select>

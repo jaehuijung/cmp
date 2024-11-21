@@ -269,7 +269,7 @@
                                         <input type="text"
                                                class="form-control custom-width-min-150"
                                                id="ip_address_first"
-                                               maxlength="15" readonly/>
+                                               maxlength="15" th:value="${equipment.containsKey('ip')} ? ${equipment['ip']} : ''" readonly/>
                                         <button type="button"
                                                 class="btn btn-outline-secondary custom-btn custom-normal-btn custom-margin-left-10 custom-padding-lr-10"
                                                 onclick="ipAddressManage();">
