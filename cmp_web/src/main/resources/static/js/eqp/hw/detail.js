@@ -170,3 +170,87 @@ function deleteData(){
         }
     });
 }
+
+let ipData = [{'ip_address': "", "" : ""}];
+
+function ipAddressFormatter(value, row, index) {
+    return `<input type="text" class="form-control ip-input custom-font-space" maxlength="15"
+            data-row-index="${index}" data-field="ip_address"
+            value="${value}">`;
+}
+
+function ipAddressManage(){
+    Swal.fire({
+        html: generateEquipmentIpAddressRowHTML(),
+        focusConfirm: false,
+        confirmButtonText: '확인',
+        cancelButtonText: '취소',
+        showCancelButton: true,
+        allowOutsideClick: false,
+        heightAuto: false,
+        customClass: {
+            popup: 'custom-width'
+        },
+        didOpen: () => {
+
+            let eqpIpAddressColumn = [
+                createColumn('', true, ''),
+                createColumn('ip', false, 'IP Address', '', (value, row, index) => ipAddressFormatter(value, row, index)),
+            ];
+
+            $('#eqpIpAddressTable').bootstrapTable({
+                url: '/eqp/hw/equipmentDetailIpAddressList',
+                method: 'post',
+                queryParams: function(params) {
+                    let eqp_manage_id = $("#eqp_manage_id").val();
+                    params.searchData = {
+                        eqp_manage_id
+                    }
+
+                    return params;
+                },
+                pageSize: 5, columns: eqpIpAddressColumn, cache: false, undefinedText: "",
+                pagination: true, sidePagination: 'client', checkboxHeader: true,
+                classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
+                responseHandler: function(res) {
+                    return {
+                        rows: res.rows,
+                        total: res.total,
+                        errorCode: res.errorCode
+                    }
+                },
+                onLoadSuccess: function(res) {
+                    let errorCode = res.errorCode;
+                    if (!errorCode){
+                        alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+                        return;
+                    }
+
+                    $("#eqpIpAddressTotalCnt").text("총 " + res.total + "건")
+                },
+            });
+
+        },
+    })
+}
+
+function generateEquipmentIpAddressRowHTML(){
+     return `
+         <div class="contentCard custom-width-550 custom-height-min-510 custom-height-max-550">
+             <div class="contentCardWrap">
+                 <div class="contentCardTitle flex-column-left">
+                     <h2>IP Address 정보</h2>
+                     <p class="custom-font-size-12 custom-font-color-red">* 대표 IP는 첫 번째로 등록된 IP가 표시됩니다.</p>
+                 </div>
+                 <div class="flex-row-center-between custom-margin-bottom-10">
+                     <div>
+                         <p class="totalCnt" id="eqpIpAddressTotalCnt">총 ${ipData.length}건</p>
+                    </div>
+                 </div>
+                 <div class="tbl-bootstrap-wrap">
+                     <table id="eqpIpAddressTable"></table>
+                 </div>
+             </div>
+         </div>
+     `;
+}

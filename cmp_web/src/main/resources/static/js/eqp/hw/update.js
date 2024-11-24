@@ -195,6 +195,133 @@ $('#sub_id').change(function(){        // 자산세부분류 > 자산상세분�
 })
 
 
+let ipData = [{'ip_address': "", "" : ""}];
+
+function ipAddressFormatter(value, row, index) {
+    return `<input type="text" class="form-control ip-input custom-font-space" maxlength="15"
+            data-row-index="${index}" data-field="ip_address"
+            value="${value}"
+            oninput="updateIpAddressData(this, ${index}, 'ip_address', '#eqpIpAddressTable')">`;
+}
+
+function updateIpAddressData(input, index, field, tableId) {
+    let $table = $(tableId);
+    let data = $table.bootstrapTable('getData');
+
+    data[index][field] = input.value;
+}
+
+function ipAddressManage(){
+    Swal.fire({
+        html: generateEquipmentIpAddressRowHTML(),
+        focusConfirm: false,
+        confirmButtonText: '확인',
+        cancelButtonText: '취소',
+        showCancelButton: true,
+        allowOutsideClick: false,
+        heightAuto: false,
+        customClass: {
+            popup: 'custom-width'
+        },
+        didOpen: () => {
+
+            let eqpIpAddressColumn = [
+                createColumn('', true, ''),
+                createColumn('ip', false, 'IP Address', '', (value, row, index) => ipAddressFormatter(value, row, index)),
+            ];
+
+            $('#eqpIpAddressTable').bootstrapTable({
+                url: '/eqp/hw/equipmentDetailIpAddressList',
+                method: 'post',
+                queryParams: function(params) {
+                    let eqp_manage_id = $("#eqp_manage_id").val();
+                    params.searchData = {
+                        eqp_manage_id
+                    }
+
+                    return params;
+                },
+                pageSize: 5, columns: eqpIpAddressColumn, cache: false, undefinedText: "",
+                pagination: true, sidePagination: 'client', checkboxHeader: true,
+                classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
+                responseHandler: function(res) {
+                    return {
+                        rows: res.rows,
+                        total: res.total,
+                        errorCode: res.errorCode
+                    }
+                },
+                onLoadSuccess: function(res) {
+                    let errorCode = res.errorCode;
+                    if (!errorCode){
+                        alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+                        return;
+                    }
+
+                    $("#eqpIpAddressTotalCnt").text("총 " + res.total + "건")
+                },
+            });
+
+        },
+    })
+}
+
+function generateEquipmentIpAddressRowHTML(){
+     return `
+         <div class="contentCard custom-width-550 custom-height-min-510 custom-height-max-550">
+             <div class="contentCardWrap">
+                 <div class="contentCardTitle flex-column-left">
+                     <h2>IP Address 정보</h2>
+                     <p class="custom-font-size-12 custom-font-color-red">* 대표 IP는 첫 번째로 등록된 IP가 표시됩니다.</p>
+                 </div>
+                 <div class="flex-row-center-between custom-margin-bottom-10">
+                     <div>
+                         <p class="totalCnt" id="eqpIpAddressTotalCnt">총 ${ipData.length}건</p>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-outline-secondary" onclick="addEquipmentIpAddressRow();">추가</button>
+                        <button type="button" class="btn btn-outline-secondary" onclick="deleteEquipmentIpAddressRow();">삭제</button>
+                    </div>
+                 </div>
+                 <div class="tbl-bootstrap-wrap">
+                     <table id="eqpIpAddressTable"></table>
+                 </div>
+             </div>
+         </div>
+     `;
+}
+
+
+function addEquipmentIpAddressRow(){
+    let $table = $('#eqpIpAddressTable');
+    let data = $table.bootstrapTable('getData');
+
+    data.push({'ip': ''});
+    $table.bootstrapTable('load', data);
+}
+
+function deleteEquipmentIpAddressRow(){
+    let $table = $('#eqpIpAddressTable');
+    let selectedRows = $table.bootstrapTable('getSelections');
+
+    if (selectedRows.length > 0) {
+        let data = $table.bootstrapTable('getData');
+        selectedRows.forEach(row => {
+            const index = data.indexOf(row);
+            if (index > -1) {
+                data.splice(index, 1);
+            }
+        });
+        $table.bootstrapTable('load', data);
+
+        $("#eqpIpAddressTotalCnt").text("총 " + data.length + "건");
+    } else {
+        alert2('알림', '선택된 항목이 없습니다.', 'error', '확인');
+    }
+}
+
+
+
 /*
     하드웨어 등록정보 관련 ... 나중에 주석 추가
 */

@@ -297,14 +297,19 @@
                         </tr>
                         <tr>
                             <td class="custom-background-lightblue custom-border-right custom-width-10per">
-                                <label for="ip_block1" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">IP 주소</label>
+                                <label class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">IP 주소</label>
                             </td>
                             <td class="custom-border-left custom-width-15per">
                                 <div class="flex">
-                                    <input type="text" class="form-control custom-width-min-50" id="ip_block1" th:value="${equipment.ip_block1}" maxlength="3" size="3" oninput="checkIPBlock(this)" /> .
-                                    <input type="text" class="form-control custom-width-min-50" id="ip_block2" th:value="${equipment.ip_block2}" maxlength="3" size="3" oninput="checkIPBlock(this)" /> .
-                                    <input type="text" class="form-control custom-width-min-50" id="ip_block3" th:value="${equipment.ip_block3}" maxlength="3" size="3" oninput="checkIPBlock(this)" /> .
-                                    <input type="text" class="form-control custom-width-min-50" id="ip_block4" th:value="${equipment.ip_block4}" maxlength="3" size="3" oninput="checkIPBlock(this)" />
+                                    <input type="text"
+                                           class="form-control custom-width-min-150"
+                                           id="ip_address_first"
+                                           maxlength="15" th:value="${equipment.containsKey('ip')} ? ${equipment['ip']} : ''" readonly/>
+                                    <button type="button"
+                                            class="btn btn-outline-secondary custom-btn custom-normal-btn custom-margin-left-10 custom-padding-lr-10"
+                                            onclick="ipAddressManage();">
+                                        <img src='/images/icon/btn/plus.svg' alt='추가'>
+                                    </button>
                                 </div>
                             </td>
                             <td class="custom-background-lightblue custom-border-right custom-width-10per">
