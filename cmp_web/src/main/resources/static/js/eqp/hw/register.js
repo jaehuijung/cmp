@@ -130,20 +130,34 @@ $(function(){
     });
 });
 
-let ipData = [{'ip_address': "", "" : ""}];
+/**
+ * 맨 처음 페이지 렌더링 될 때 날짜 항목들 현재값으로 설정
+ */
+function setDefaultDates() {
+    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD 형식의 현재 날짜
+
+    ['asset_acquisition_date', 'eol_status', 'eos_status'].forEach(id => {
+        const element = document.getElementById(id);
+        if (!element.value) {
+            element.value = today;
+        }
+    });
+}
+
+/* 장비상세정보 > ip 주소 + 버튼 */
+let ipData = [];
 
 function ipAddressFormatter(value, row, index) {
-    return `<input type="text" class="form-control ip-input" maxlength="15"
-            data-row-index="${index}" data-field="ip_address"
+    return `<input type="text" class="form-control ip-input custom-font-space" maxlength="15"
+            data-row-index="${index}" data-field="ip"
             value="${value}"
-            oninput="updateIpAddressData(this, ${index}, 'ip_address', '#eqpIpAddressTable')">`;
+            oninput="updateIpAddressData(this, ${index}, 'ip', '#eqpIpAddressTable')">`;
 }
 
 function updateIpAddressData(input, index, field, tableId) {
     let $table = $(tableId);
     let data = $table.bootstrapTable('getData');
 
-    // Update value in the data array without reloading the table
     data[index][field] = input.value;
 }
 
@@ -151,8 +165,7 @@ function addEquipmentIpAddressRow(){
     let $table = $('#eqpIpAddressTable');
     let data = $table.bootstrapTable('getData');
 
-    // Add new row with empty IP address
-    data.push({'ip_address': ''});
+    data.push({'ip': ''});
     $table.bootstrapTable('load', data);
 }
 
@@ -172,7 +185,7 @@ function ipAddressManage(){
 
             let eqpIpAddressColumn = [
                 createColumn('', true, ''),
-                createColumn('ip_address', false, 'IP Address', '', (value, row, index) => ipAddressFormatter(value, row, index)),
+                createColumn('ip', false, 'IP Address', '', (value, row, index) => ipAddressFormatter(value, row, index)),
             ];
 
             $('#eqpIpAddressTable').bootstrapTable({
@@ -184,22 +197,21 @@ function ipAddressManage(){
     }).then((result) => {
         if (result.isConfirmed) {
             ipData = $('#eqpIpAddressTable').bootstrapTable("getData");
-            $("#ip_address_first").val(ipData[0].ip_address);
+            $("#ip_address_first").val(ipData[0].ip);
         }
     });
 }
 
 function generateEquipmentIpAddressRowHTML(){
      return `
-         <div class="contentCard">
+         <div class="contentCard custom-width-550 custom-height-min-510 custom-height-max-550">
              <div class="contentCardWrap">
                  <div class="contentCardTitle flex-column-left">
                      <h2>IP Address 정보</h2>
                      <p class="custom-font-size-12 custom-font-color-red">* 대표 IP는 첫 번째로 등록된 IP가 표시됩니다.</p>
                  </div>
-                 <div class="flex-row-center-between">
+                 <div class="flex-row-center-between custom-margin-bottom-10">
                      <div>
-                         <p class="totalCnt" id="eqpIpAddressTotalCnt">총 1건</p>
                     </div>
                     <div>
                         <button type="button" class="btn btn-outline-secondary" onclick="addEquipmentIpAddressRow();">추가</button>
@@ -212,7 +224,7 @@ function generateEquipmentIpAddressRowHTML(){
              </div>
          </div>
      `;
- }
+}
 
 function deleteEquipmentIpAddressRow(){
     let $table = $('#eqpIpAddressTable');
@@ -233,23 +245,6 @@ function deleteEquipmentIpAddressRow(){
         alert2('알림', '선택된 항목이 없습니다.', 'error', '확인');
     }
 }
-
-/**
- * 장비관리 > 장비목록 > 장비추가
- * 맨 처음 페이지 렌더링 될 때 날짜 항목들 현재값으로 설정
- */
-function setDefaultDates() {
-    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD 형식의 현재 날짜
-
-    ['asset_acquisition_date', 'eol_status', 'eos_status'].forEach(id => {
-        const element = document.getElementById(id);
-        if (!element.value) {
-            element.value = today;
-        }
-    });
-}
-
-
 
 /*
     하드웨어 등록정보 관련 ... 나중에 주석 추가

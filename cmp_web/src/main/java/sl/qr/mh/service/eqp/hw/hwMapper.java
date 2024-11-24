@@ -71,6 +71,22 @@ public interface hwMapper {
     int getEquipmentHardwareListCnt(Map<String, Object> paramMap);
 
     /**
+     * 수정/상세 > 선택된 H/W 장비에 등록된 Ip Address 리스트
+     *
+     * @param paramMap 요청 파라미터 맵
+     * @return 선택된 H/W 장비에 등록된 Ip Address 리스트
+     */
+    List<Map<String, Object>> getEquipmentDetailIpAddressList(Map<String, Object> paramMap);
+
+    /**
+     * 수정/상세 > 선택된 H/W 장비에 등록된 Ip Address 리스트 개수
+     *
+     * @param paramMap 요청 파라미터 맵
+     * @return 선택된 H/W 장비에 등록된 Ip Address 리스트 개수
+     */
+    int getEquipmentDetailIpAddressListCnt(Map<String, Object> paramMap);
+
+    /**
      * 수정/상세 > 선택된 H/W 장비에 등록된 H/W 장비 목록 리스트
      *
      * @param paramMap 요청 파라미터 맵
@@ -138,25 +154,27 @@ public interface hwMapper {
      */
     void insertEquipmentDetail(Map<String, Object> paramMap);
 
-
     /**
      * 추가/수정 > 장비 저장 : 장비 IP정보 추가
      *
      * @param paramMap 저장할 장비 데이터
      */
     void insertEquipmentIp(Map<String, Object> paramMap);
+
     /**
      * 추가/수정 > 장비 저장 : 장비연결정보 추가
      *
      * @param paramMap 저장할 장비 데이터
      */
     void insertEquipmentHardware(Map<String, Object> paramMap);
+
     /**
      * 수정 > 장비 저장 : 장비연결정보 수정
      *
      * @param paramMap 수정할 장비 데이터
      */
     void updateEquipmentHardware(Map<String, Object> paramMap);
+
     /**
      * 수정 > 장비 저장 : 장비연결정보 삭제
      *

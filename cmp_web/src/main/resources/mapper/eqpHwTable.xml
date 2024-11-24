@@ -217,6 +217,33 @@
         <include refid="getEquipmentTotalCommon"/>
     </select>
 
+    <select id="getEquipmentDetailIpAddressList" parameterType="Map" resultType="Map">
+        /* getEquipmentDetailIpAddressList ...
+            H/W관리 > 장비목록 > 수정 / 상세 > 선택된 H/W 장비에 등록된 Ip Address 리스트 */
+        select
+            ei.idx,
+            ei.eqp_manage_id,
+            ei.ip
+        from
+            equipment_regist_ip ei
+        where 1=1
+            AND ei.eqp_manage_id = #{eqp_manage_id}
+        ORDER BY
+            ei.idx
+    </select>
+
+    <select id="getEquipmentDetailIpAddressListCnt" parameterType="Map" resultType="int">
+        /* getEquipmentDetailIpAddressListCnt ...
+            H/W관리 > 장비목록 > 수정 / 상세 > 선택된 H/W 장비에 등록된 Ip Address 리스트 개수 */
+        select
+            count(ei.idx)
+        from
+            equipment_regist_ip ei
+        where 1=1
+            AND ei.eqp_manage_id = #{eqp_manage_id}
+    </select>
+
+
     <select id="getEquipmentDetailHardwareList" parameterType="Map" resultType="Map">
         /* getEquipmentDetailHardwareList ...
             H/W관리 > 장비목록 > 수정 / 상세 > 선택된 H/W 장비에 등록된 H/W 장비 목록 리스트 */

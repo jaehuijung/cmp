@@ -175,6 +175,34 @@ public class hwManageService {
     };
 
     /**
+     * 수정/상세 > 선택된 H/W 장비에 등록된 Ip Address 목록 리스트
+     *
+     * @return H/W 장비 목록 리스트
+     */
+    @SuppressWarnings("unchecked")
+    public Map<String, Object> getEquipmentDetailIpAddressList(Map<String, Object> paramMap){
+        Map<String, Object> returnMap = new HashMap<>();
+        returnMap.put("errorCode",false);
+
+        try{
+            if (paramMap.containsKey("searchData")) {
+                paramMap.putAll((Map<String, Object>) paramMap.get("searchData"));
+            }
+
+            List<Map<String, Object>> rows = hwMapper.getEquipmentDetailIpAddressList(paramMap);
+            int total = hwMapper.getEquipmentDetailIpAddressListCnt(paramMap);
+            returnMap.put("rows", rows);
+            returnMap.put("total", total);
+            returnMap.put("errorCode",true);
+        }
+        catch (Exception e){
+            log.error(e.getMessage());
+        }
+
+        return returnMap;
+    };
+
+    /**
      * 수정/상세 > 선택된 H/W 장비에 등록된 H/W 장비 목록 리스트
      *
      * @return H/W 장비 목록 리스트
@@ -284,7 +312,7 @@ public class hwManageService {
             List<Map<String, Object>> eqpIpAddressList = (List<Map<String, Object>>) paramMap.get("eqpIpAddressList"); // 장비연결정보
             if(eqpIpAddressList != null) {
                 for(Map<String, Object> selectList : eqpIpAddressList) {
-                    String eqp_ip = selectList.get("ip_address").toString(); // 장비연결정보
+                    String eqp_ip = selectList.get("ip").toString(); // 장비연결정보
 
                     selectList.put("eqp_manage_id", eqp_manage_id);
                     selectList.put("ip", eqp_ip);

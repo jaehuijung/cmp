@@ -353,7 +353,90 @@ WHERE
     AND eb.eqp_manage_id = 'SE20240001';
 
 /* 상세 ip 첫번째 보여주기 */
+SELECT 
+    idx,
+    eqp_manage_id,
+    ip
+FROM 
+    equipment_regist_ip
+WHERE 
+    eqp_manage_id = 'SE20240001' AND
+    idx = (SELECT MIN(idx) FROM equipment_regist_ip WHERE eqp_manage_id = 'SE20240001');
+;
 
+select
+            eb.eqp_manage_id,
+            eb.eqp_name,
+            eb.host_name,
+            eb.model_name,
+            eb.m_company,
+            eb.domestic,
+            eb.redundancy_config,
+            eb.maintenance_contract_target,
+            eb.config_id,
+            eb.asset_id,
+            eb.sub_id,
+            eb.detail_id,
+            eb.network_operation_type,
+            eb.operating_status,
+            eb.operating_department,
+            eb.primary_operator,
+            eb.secondary_operator,
+            eb.primary_outsourced_operator,
+            eb.secondary_outsourced_operator,
+            ed.CPU,
+            ed.MEMORY,
+            ed.DISK,
+            ed.OS,
+            ed.acquisition_cost,
+            ed.port_cnt,
+            ed.installation_coordinates,
+            ed.installation_units,
+            ed.equipment_size_units,
+            ed.dbrain_number,
+            ed.serial_number,
+            ed.asset_acquisition_date,
+            ed.asset_disposal_date,
+            ed.eol_status,
+            ed.eos_status,
+            el.ip
+        from
+            equipment_basic eb
+        join
+            equipment_detail ed
+            on eb.eqp_manage_id = ed.eqp_manage_id
+        left join (
+            select
+                eqp_manage_id, ip
+            from
+                equipment_regist_ip
+            where
+                idx = (
+                    select
+                        min(idx)
+                    from
+                        equipment_regist_ip
+                    where
+                        eqp_manage_id = equipment_regist_ip.eqp_manage_id
+                )
+            ) el
+            ON eb.eqp_manage_id = el.eqp_manage_id
+        where 1=1
+            and eb.eqp_manage_id = 'SV20240001'
+;
+
+
+select * from equipment_categories ;
+select
+    ei.idx,
+    ei.eqp_manage_id,
+    ei.ip
+from
+    equipment_regist_ip ei
+where 1=1
+;
+
+select * from line_category
 
 
 

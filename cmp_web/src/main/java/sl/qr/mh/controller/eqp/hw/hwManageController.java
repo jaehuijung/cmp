@@ -87,6 +87,18 @@ public class hwManageController {
     }
 
     /**
+     * 수정/상세 > 선택된 H/W 장비에 등록된 Ip Address 리스트
+     *
+     * @param paramMap 요청 파라미터 맵
+     * @return sw 장비 목록 데이터 및 기타 메타 정보
+     */
+    @ResponseBody
+    @PostMapping("/equipmentDetailIpAddressList")
+    public Map<String, Object> getEquipmentDetailIpAddressList(@RequestBody Map<String, Object> paramMap) {
+        return hwManageService.getEquipmentDetailIpAddressList(paramMap);
+    }
+
+    /**
      * 수정/상세 > 선택된 H/W 장비에 등록된 H/W 장비 목록 리스트
      *
      * @param paramMap 요청 파라미터 맵
@@ -97,7 +109,6 @@ public class hwManageController {
     public Map<String, Object> getEquipmentDetailHardwareList(@RequestBody Map<String, Object> paramMap) {
         return hwManageService.getEquipmentDetailHardwareList(paramMap);
     }
-
 
     /**
      * 수정/상세 > 선택된 H/W 장비에 등록된 S/W 장비 목록 리스트

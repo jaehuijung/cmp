@@ -724,6 +724,8 @@ header {
 
 /* custom height */
 .custom-height-350 { height: 350px; }
+.custom-height-min-510 { min-height: 510px; }
+.custom-height-max-550 { max-height: 550px; }
 
 /* custom margin */
 .custom-margin-10 { margin: 10px; }
@@ -765,6 +767,9 @@ header {
 
 /* custom font color */
 .custom-font-color-red { color: red; }
+
+/* custom font letter-space */
+.custom-font-space { letter-spacing: 5px; }
 
 /* custom gap */
 .custom-gap-5 { gap: 5px; }
