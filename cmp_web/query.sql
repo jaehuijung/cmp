@@ -437,12 +437,11 @@ where 1=1
 ;
 
 select * from line_category
+;
 
+select * from equipment_regist_ip ;
 
-
-
-
-
+show tables;
 
 
 

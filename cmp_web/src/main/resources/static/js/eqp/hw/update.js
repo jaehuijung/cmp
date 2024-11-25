@@ -195,13 +195,14 @@ $('#sub_id').change(function(){        // 자산세부분류 > 자산상세분�
 })
 
 
-let ipData = [{'ip_address': "", "" : ""}];
+let ipOldData = [];
+let ipData = [];
 
 function ipAddressFormatter(value, row, index) {
     return `<input type="text" class="form-control ip-input custom-font-space" maxlength="15"
-            data-row-index="${index}" data-field="ip_address"
+            data-row-index="${index}" data-field="ip"
             value="${value}"
-            oninput="updateIpAddressData(this, ${index}, 'ip_address', '#eqpIpAddressTable')">`;
+            oninput="updateIpAddressData(this, ${index}, 'ip', '#eqpIpAddressTable')">`;
 }
 
 function updateIpAddressData(input, index, field, tableId) {
@@ -230,40 +231,51 @@ function ipAddressManage(){
                 createColumn('ip', false, 'IP Address', '', (value, row, index) => ipAddressFormatter(value, row, index)),
             ];
 
-            $('#eqpIpAddressTable').bootstrapTable({
-                url: '/eqp/hw/equipmentDetailIpAddressList',
-                method: 'post',
-                queryParams: function(params) {
-                    let eqp_manage_id = $("#eqp_manage_id").val();
-                    params.searchData = {
-                        eqp_manage_id
-                    }
+            if(ipOldData.length != 0){
+                $('#eqpIpAddressTable').bootstrapTable({
+                    data: ipData, columns: eqpIpAddressColumn,
+                    pageSize: 5, pagination: true, sidePagination: 'client',
+                });
+            }
+            else{
+                $('#eqpIpAddressTable').bootstrapTable({
+                    url: '/eqp/hw/equipmentDetailIpAddressList',
+                    method: 'post',
+                    queryParams: function(params) {
+                        let eqp_manage_id = $("#eqp_manage_id").val();
+                        params.searchData = {
+                            eqp_manage_id
+                        }
 
-                    return params;
-                },
-                pageSize: 5, columns: eqpIpAddressColumn, cache: false, undefinedText: "",
-                pagination: true, sidePagination: 'client', checkboxHeader: true,
-                classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
-                responseHandler: function(res) {
-                    return {
-                        rows: res.rows,
-                        total: res.total,
-                        errorCode: res.errorCode
-                    }
-                },
-                onLoadSuccess: function(res) {
-                    let errorCode = res.errorCode;
-                    if (!errorCode){
-                        alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
-                        return;
-                    }
+                        return params;
+                    },
+                    pageSize: 5, columns: eqpIpAddressColumn, cache: false, undefinedText: "",
+                    pagination: true, sidePagination: 'client', checkboxHeader: true,
+                    classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
+                    responseHandler: function(res) {
+                        return {
+                            rows: res.rows,
+                            total: res.total,
+                            errorCode: res.errorCode
+                        }
+                    },
+                    onLoadSuccess: function(res) {
+                        let errorCode = res.errorCode;
+                        if (!errorCode){
+                            alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+                            return;
+                        }
 
-                    $("#eqpIpAddressTotalCnt").text("총 " + res.total + "건")
-                },
-            });
-
+                        $("#eqpIpAddressTotalCnt").text("총 " + res.total + "건");
+                        ipOldData = structuredClone(res.rows);
+                    },
+                });
+            }
         },
-    })
+    }).then((result) => {
+        ipData = $('#eqpIpAddressTable').bootstrapTable("getData");
+        $("#ip_address_first").val(ipData[0].ip);
+    });
 }
 
 function generateEquipmentIpAddressRowHTML(){
@@ -320,12 +332,10 @@ function deleteEquipmentIpAddressRow(){
     }
 }
 
-
-
 /*
-    하드웨어 등록정보 관련 ... 나중에 주석 추가
+    장비연결정보 관련..
 */
-let selectedRow = null;
+let hwSelectedRow = null;
 
 function addEquipmentHardwareRow(){
     let selectedEqpHardware = [];
@@ -377,21 +387,21 @@ function addEquipmentHardwareRow(){
                     $("#eqpHardwareTotalCnt").text("총 " + res.total + "건");
                 },
                 onClickCell: function(field, value, row, $element) {
-                    if (selectedRow) {
+                    if (hwSelectedRow) {
                         // 기존 선택된 행의 클래스 제거
-                        $('#eqpHardwareTable').find('tr[data-index="' + $('#eqpHardwareTable').bootstrapTable('getData').indexOf(selectedRow) + '"]').removeClass('selected-row');
+                        $('#eqpHardwareTable').find('tr[data-index="' + $('#eqpHardwareTable').bootstrapTable('getData').indexOf(hwSelectedRow) + '"]').removeClass('selected-row');
                     }
 
-                    selectedRow = row;
+                    hwSelectedRow = row;
                     // 새로운 선택된 행에 클래스 추가
-                    $('#eqpHardwareTable').find('tr[data-index="' + $('#eqpHardwareTable').bootstrapTable('getData').indexOf(selectedRow) + '"]').addClass('selected-row');
+                    $('#eqpHardwareTable').find('tr[data-index="' + $('#eqpHardwareTable').bootstrapTable('getData').indexOf(hwSelectedRow) + '"]').addClass('selected-row');
                 },
             });
         }
     }).then((result) => {
         if (result.isConfirmed) {
-            if (selectedRow) {
-                $('#eqpHardwareSelectTable').bootstrapTable('append', selectedRow);
+            if (hwSelectedRow) {
+                $('#eqpHardwareSelectTable').bootstrapTable('append', hwSelectedRow);
                 let updateLen = $('#eqpHardwareSelectTable').bootstrapTable('getData').length;
                 $("#eqpHardwareSelectTotalCnt").text("총 " + updateLen + "건");
             } else {
@@ -703,8 +713,6 @@ function saveData() {
         }
     });
 
-    data["ip_address"] = combineIP(); // ip_block1 ~ ip_block4까지 구분자 붙여서 ip_address 문자열 생성
-
     $('select').each(function() {
         const selectedId = $(this).attr('id');
         const selectedValue = $(this).val();
@@ -720,6 +728,39 @@ function saveData() {
     data["eqp_manage_id"] = $("#eqp_manage_id").val();
     data["config_id"] = "1"; // 구성분류 : H/W
 
+    const ipAdded = [];
+    const ipModified = [];
+    const ipDeleted = [];
+
+    const oldDataMap = new Map();
+    const newDataMap = new Map();
+
+    ipOldData.forEach(row => oldDataMap.set(row.idx, row));
+    ipData.forEach(row => newDataMap.set(row.idx, row));
+
+    ipData.forEach(row => {
+        if (typeof row.idx === 'undefined') {
+            ipAdded.push(row);
+        } else if (typeof row.idx !== 'undefined' && oldDataMap.has(row.idx)) {
+            const oldRow = oldDataMap.get(row.idx);
+            if (oldRow.ip !== row.ip) {
+                ipModified.push(row);
+            }
+        }
+    });
+
+    ipOldData.forEach(row => {
+        if (!newDataMap.has(row.idx)) {
+            ipDeleted.push(row);
+        }
+    });
+
+    data["ipAddedRows"]    = ipAdded;
+    data["ipModifiedRows"] = ipModified;
+    data["ipDeletedRows"]  = ipDeleted;
+
+
+    // 장비연결정보 소프트웨어 등록정보 추가수정삭제 배열 구하는거 MAP 방식으로 바꿔야..
     let eqpHardwareSelectList = $("#eqpHardwareSelectTable").bootstrapTable("getData"); // 장비연결정보
 
     let hwAddedRows = [];

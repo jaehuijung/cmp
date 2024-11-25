@@ -528,7 +528,7 @@
 
     <insert id="insertEquipmentIp" parameterType="map">
         /* insertEquipmentIp...
-            H/W관리 > 장비목록 > 추가/수정 > 장비 저장 : 장비 Ip정보 추가 */
+            H/W관리 > 장비목록 > 추가/수정 > 장비 저장 : 장비 Ip 정보 추가 */
         insert into equipment_regist_ip (
             eqp_manage_id,
             ip
@@ -539,6 +539,25 @@
         )
     </insert>
 
+    <update id="updateEquipmentIp" parameterType="map">
+        /* updateEquipmentIp...
+            H/W관리 > 장비목록 > 수정 > 장비 저장 : 장비 Ip 정보 수정 */
+        update
+            equipment_regist_ip
+        set
+            ip = #{ip}
+        where 1=1
+            and idx = #{idx}
+    </update>
+
+    <delete id="deleteEquipmentIp" parameterType="map">
+        /* deleteEquipmentIp...
+            H/W관리 > 장비목록 > 수정 > 장비 저장 : 장비 Ip 정보 삭제 */
+        delete from
+            equipment_regist_ip
+        where 1=1
+            and idx = #{idx}
+    </delete>
 
     <insert id="insertEquipmentHardware" parameterType="map">
         /* insertEquipmentHardware...
@@ -559,7 +578,7 @@
 
     <update id="updateEquipmentHardware" parameterType="map">
         /* updateEquipmentHardware...
-            H/W관리 > 장비목록 > 추가/수정 > 장비 저장 : 장비연결정보 수정 */
+            H/W관리 > 장비목록 > 수정 > 장비 저장 : 장비연결정보 수정 */
         update
             equipment_regist_hw
         set
@@ -571,7 +590,7 @@
 
     <delete id="deleteEquipmentHardware" parameterType="map">
         /* deleteEquipmentHardware...
-            H/W관리 > 장비목록 > 추가/수정 > 장비 저장 : 장비연결정보 삭제 */
+            H/W관리 > 장비목록 > 수정 > 장비 저장 : 장비연결정보 삭제 */
         delete from
             equipment_regist_hw
         where 1=1
@@ -600,33 +619,6 @@
             and hw_manage_id = #{hw_manage_id}
             and sw_manage_id = #{sw_manage_id}
     </delete>
-
-    <update id="updateEquipmentLink" parameterType="map">
-        /* updateEquipmentLink...
-            H/W관리 > 장비목록 > 수정 > 장비 수정 : 연결정보 */
-        update
-            equipment_link
-        set
-            host = #{host},
-            ip_address = #{ip_address},
-            port = #{port}
-        where
-            id = #{id}
-            and eqp_manage_id = #{eqp_manage_id}
-    </update>
-
-    <delete id="deleteEquipmentLink" parameterType="map">
-        /* deleteEquipmentLink...
-            H/W관리 > 장비목록 > 수정 > 장비 삭제 : 연결정보
-        */
-        delete from
-            equipment_link
-        where
-            id = #{id}
-            and eqp_manage_id = #{eqp_manage_id}
-    </delete>
-
-
 
     <select id="getEquipmentDetailTotalList" parameterType="String" resultType="map">
         /* getEquipmentDetailTotalList...
@@ -711,31 +703,6 @@
         where
             eb.eqp_manage_id = #{eqp_manage_id}
     </select>
-
-    <select id="getEquipmentDetailLinkList" parameterType="map" resultType="map">
-        /* getEquipmentDetailLinkList...
-            H/W관리 > 장비목록 > 수정/상세 > 선택한 장비 정보 : 연결정보
-        */
-        select
-            id, host, ip_address, port
-        from
-            equipment_link
-        where
-            eqp_manage_id = #{eqp_manage_id}
-    </select>
-
-    <select id="getEquipmentDetailLinkListCnt" parameterType="map" resultType="int">
-        /* getEquipmentDetailLinkListCnt...
-            H/W관리 > 장비목록 > 수정/상세 > 선택한 장비 정보 : 연결정보 개수
-        */
-        select
-            count(id)
-        from
-            equipment_link
-        where
-            eqp_manage_id = #{eqp_manage_id}
-    </select>
-
 
     <update id="updateBasicEqpList" parameterType="Map">
         /* updateBasicEqpList ...

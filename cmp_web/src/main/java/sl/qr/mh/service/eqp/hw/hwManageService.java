@@ -309,10 +309,10 @@ public class hwManageService {
             hwMapper.insertEquipmentBasic(paramMap); // 장비 기본정보 저장
             hwMapper.insertEquipmentDetail(paramMap); // 장비 세부정보 저장
 
-            List<Map<String, Object>> eqpIpAddressList = (List<Map<String, Object>>) paramMap.get("eqpIpAddressList"); // 장비연결정보
+            List<Map<String, Object>> eqpIpAddressList = (List<Map<String, Object>>) paramMap.get("eqpIpAddressList"); // ip 주소
             if(eqpIpAddressList != null) {
                 for(Map<String, Object> selectList : eqpIpAddressList) {
-                    String eqp_ip = selectList.get("ip").toString(); // 장비연결정보
+                    String eqp_ip = selectList.get("ip").toString();
 
                     selectList.put("eqp_manage_id", eqp_manage_id);
                     selectList.put("ip", eqp_ip);
@@ -320,11 +320,10 @@ public class hwManageService {
                 }
             }
 
-
             List<Map<String, Object>> eqpHardwareSelectList = (List<Map<String, Object>>) paramMap.get("eqpHardwareSelectList"); // 장비연결정보
             if(eqpHardwareSelectList != null) {
                 for(Map<String, Object> selectList : eqpHardwareSelectList) {
-                    String eqp_link_manage_id = selectList.get("eqp_manage_id").toString(); // 장비연결정보
+                    String eqp_link_manage_id = selectList.get("eqp_manage_id").toString();
 
                     selectList.put("eqp_manage_id", eqp_manage_id);
                     selectList.put("eqp_link_manage_id", eqp_link_manage_id);
@@ -377,12 +376,38 @@ public class hwManageService {
             hwMapper.updateBasicEqpList(paramMap);
             hwMapper.updateDetailEqpList(paramMap);
 
+            List<Map<String, Object>> ipAddedRows    = (List<Map<String, Object>>) paramMap.get("ipAddedRows");
+            List<Map<String, Object>> ipModifiedRows = (List<Map<String, Object>>) paramMap.get("ipModifiedRows");
+            List<Map<String, Object>> ipDeletedRows  = (List<Map<String, Object>>) paramMap.get("ipDeletedRows");
+
             List<Map<String, Object>> hwAddedRows    = (List<Map<String, Object>>) paramMap.get("hwAddedRows");
             List<Map<String, Object>> hwModifiedRows = (List<Map<String, Object>>) paramMap.get("hwModifiedRows");
             List<Map<String, Object>> hwDeletedRows  = (List<Map<String, Object>>) paramMap.get("hwDeletedRows");
 
             List<Map<String, Object>> swAddedRows   = (List<Map<String, Object>>) paramMap.get("swAddedRows");
             List<Map<String, Object>> swDeletedRows = (List<Map<String, Object>>) paramMap.get("swDeletedRows");
+
+
+            if(ipAddedRows != null) {
+                for(Map<String, Object> row : ipAddedRows) {
+                    row.put("eqp_manage_id", paramMap.get("eqp_manage_id"));
+                    row.put("ip", row.get("ip"));
+                    hwMapper.insertEquipmentIp(row);
+                }
+            }
+            if(ipModifiedRows != null) {
+                for(Map<String, Object> row : ipModifiedRows) {
+                    row.put("ip", row.get("ip").toString());
+                    hwMapper.updateEquipmentIp(row);
+                }
+            }
+            if(ipDeletedRows != null) {
+                for(Map<String, Object> row : ipDeletedRows) {
+                    row.put("eqp_link_manage_id", row.get("eqp_manage_id"));
+                    row.put("eqp_manage_id", paramMap.get("eqp_manage_id"));
+                    hwMapper.deleteEquipmentIp(row);
+                }
+            }
 
             if(hwAddedRows != null) {
                 for(Map<String, Object> row : hwAddedRows) {
@@ -400,8 +425,6 @@ public class hwManageService {
             }
             if(hwDeletedRows != null) {
                 for(Map<String, Object> row : hwDeletedRows) {
-                    row.put("eqp_link_manage_id", row.get("eqp_manage_id"));
-                    row.put("eqp_manage_id", paramMap.get("eqp_manage_id"));
                     hwMapper.deleteEquipmentHardware(row);
                 }
             }

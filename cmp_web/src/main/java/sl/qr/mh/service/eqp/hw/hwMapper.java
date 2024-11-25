@@ -162,6 +162,20 @@ public interface hwMapper {
     void insertEquipmentIp(Map<String, Object> paramMap);
 
     /**
+     * 수정 > 장비 저장 : 장비 IP정보 수정
+     *
+     * @param paramMap 저장할 장비 데이터
+     */
+    void updateEquipmentIp(Map<String, Object> paramMap);
+
+    /**
+     * 수정 > 장비 저장 : 장비 IP정보 삭제
+     *
+     * @param paramMap 저장할 장비 데이터
+     */
+    void deleteEquipmentIp(Map<String, Object> paramMap);
+
+    /**
      * 추가/수정 > 장비 저장 : 장비연결정보 추가
      *
      * @param paramMap 저장할 장비 데이터
