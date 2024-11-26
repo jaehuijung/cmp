@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper 
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sl.qr.mh.service.main.dashboard.dashboardMapper">
+
+    <select id="getCableDetailData" resultType="map">
+        select
+            sum(case when lc.value = '광' then 1 else 0 end) as 광,
+            sum(case when lc.value = 'UTF' then 1 else 0 end) as UTF,
+            count(lc.id) as TOTAL
+        from
+            line_basic lb
+        join
+            line_category lc
+            on lb.line_category = lc.id
+        where 1=1
+            and lc.category = 1
+            and is_deleted = 'N';
+    </select>
+
+</mapper>

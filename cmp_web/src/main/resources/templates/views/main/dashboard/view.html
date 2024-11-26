@@ -9,9 +9,9 @@
         .dashboard-grid {
             display: grid;
             grid-template-areas:
-                'header header header'
-                'chart1 chart2 chart2'
-                'chart3 chart3 chart3';
+                'header header header header header'
+                'chart1 chart2 chart2 chart2 chart2'
+                'chart3 chart3 chart4 chart4 chart4';
             grid-gap: 20px;
             padding: 20px;
         }
@@ -32,6 +32,8 @@
         #dashboard-chart1 { grid-area: chart1; }
         #dashboard-chart2 { grid-area: chart2; }
         #dashboard-chart3 { grid-area: chart3; }
+        #dashboard-chart4 { grid-area: chart4; }
+
     </style>
 </head>
 
@@ -53,20 +55,19 @@
                 <h4>케이블 포설 상세현황</h4>
                 <hr>
                 <div class="flex-even custom-margin-top-30">
-                    <div>
-                        <canvas id="chartCableDetailed"></canvas>
-                    </div>
+                    <canvas id="chartCableDetailed"></canvas>
                 </div>
             </div>
-
             <div class="dashboard-chart" id="dashboard-chart3">
                 <h4>장비 등록 상세현황</h4>
                 <hr>
                 <canvas id="equipmentChart"></canvas>
-                <br>
+            </div>
+            <div class="dashboard-chart" id="dashboard-chart4">
+                <h4>소프트웨어 등록 상세현황</h4>
+                <hr>
                 <canvas id="softwareChart"></canvas>
             </div>
-
         </div>
     </main>
 
@@ -80,16 +81,23 @@
                 return ((value / total) * 100).toFixed(1) + '%';
             }
 
-            $(function(){
+            let chartCable, chartCableDetailed, equipmentChart, softwareChart;
 
-                /* 케이블 포설 현황 */
+            // 차트 생성 함수
+            function createCharts() {
+                // 기존 차트가 있다면 모두 제거
+                if (chartCable) chartCable.destroy();
+                if (chartCableDetailed) chartCableDetailed.destroy();
+                if (equipmentChart) equipmentChart.destroy();
+                if (softwareChart) softwareChart.destroy();
+
                 const cableData = {
                     광: 35,
                     UTF: 21,
                     TOTAL: 56
                 };
 
-                new Chart(document.getElementById('chartCable'), {
+                chartCable = new Chart(document.getElementById('chartCable'), {
                     type: 'pie',
                     data: {
                         labels: ['광', 'UTP(Cat6)'],
@@ -122,7 +130,7 @@
                 });
 
                 /* 케이블 포설 상세현황 */
-                new Chart(document.getElementById('chartCableDetailed'), {
+                chartCableDetailed = new Chart(document.getElementById('chartCableDetailed'), {
                     type: 'bar', // 막대그래프 타입 지정
                     data: {
                         labels: ['광', 'UTP'],
@@ -147,15 +155,9 @@
                         }]
                     },
                     options: {
-                        indexAxis: 'y', // 수평 막대그래프가 되도록 축을 전환
+                        maintainAspectRatio: false, // 크기 조절을 위해 비율 유지 옵션 끔
                         scales: {
-                            x: {
-                                stacked: true,
-                                beginAtZero: true,
-                            },
-                            y: {
-                                stacked: true,
-                            }
+                            y: { beginAtZero: true }
                         }
                     }
                 });
@@ -207,7 +209,7 @@
                 };
 
                 // 장비 등록 상세현황 그래프 생성
-                new Chart(document.getElementById('equipmentChart'), {
+                equipmentChart = new Chart(document.getElementById('equipmentChart'), {
                     type: 'bar',
                     data: equipmentData1,
                     options: options,
@@ -215,18 +217,25 @@
                 });
 
                 // 소프트웨어 등록 상세현황 그래프 생성
-                new Chart(document.getElementById('softwareChart'), {
+                softwareChart = new Chart(document.getElementById('softwareChart'), {
                     type: 'bar',
                     data: softwareData1,
                     options: options,
                     plugins: [ChartDataLabels]
                 });
+            }
 
+            $(function(){
+                // 최초 차트 생성
+                createCharts();
+
+                // 창 크기 변경 시 차트 재생성
+                $(window).resize(function() {
+                    createCharts();
+                });
             });
         </script>
     </th:block>
-
 </div>
 </body>
-
 </html>

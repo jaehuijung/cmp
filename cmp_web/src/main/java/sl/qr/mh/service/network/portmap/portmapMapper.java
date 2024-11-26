@@ -1,4 +1,4 @@
-package sl.qr.mh.service.main.dashboard;
+package sl.qr.mh.service.network.portmap;
 
 import org.apache.ibatis.annotations.Mapper;
 
