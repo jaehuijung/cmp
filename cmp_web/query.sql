@@ -80,17 +80,74 @@ select * from line_category2;
 
 CREATE TABLE `line_speed` (
   `idx` int(11) NOT NULL AUTO_INCREMENT,
-  `category` varchar(30) DEFAULT NULL COMMENT '회선속도',
+  `category` varchar(30) DEFAULT NULL COMMENT '회선분류',
   `speed` varchar(30) DEFAULT NULL COMMENT '회선속도',
   `color` varchar(30) DEFAULT NULL COMMENT '회선색상',
   PRIMARY KEY (`idx`)
 ) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COMMENT='선번장 회선속도';
 
-select * from line_speed;
-insert into line_speed(category, id)
-values(1, "1G"), (2, "10G"), (3, "100G");
+drop table aa;
+drop table ab;
+drop table ac;
+drop table Category_Speed;
 
+CREATE TABLE aa (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL
+);
 
+CREATE TABLE ab (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(10) NOT NULL
+);
+
+CREATE TABLE ac (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    speed_id INT,
+    name VARCHAR(20),
+    FOREIGN KEY (speed_id) REFERENCES ab(id) ON DELETE CASCADE
+);
+
+CREATE TABLE Category_Speed (
+    category_id INT,
+    speed_id INT,
+    PRIMARY KEY (category_id, speed_id),
+    FOREIGN KEY (category_id) REFERENCES aa(id) ON DELETE CASCADE,
+    FOREIGN KEY (speed_id) REFERENCES ab(id) ON DELETE CASCADE
+);
+
+INSERT INTO aa(name) VALUES ('광'), ('UTF');
+INSERT INTO ab(name) VALUES ('1G'), ('10G'), ('40G'), ('100G');
+INSERT INTO ac(speed_id, name) VALUES 
+(1, '빨간색'), 
+(2, '파란색'), 
+(3, '검정색'), 
+(4, '초록색');
+
+-- 광과 관련된 속도
+INSERT INTO Category_Speed (category_id, speed_id) VALUES (1, 1), (1, 2), (1, 4);
+
+-- UTF와 관련된 속도
+INSERT INTO Category_Speed (category_id, speed_id) VALUES (2, 1), (2, 2), (2, 3), (2, 4);
+
+select 
+    aa.name, ab.name, ac.name, c.*
+from 
+    Category_Speed c
+join
+    aa
+    on aa.id = c.category_id
+join
+    ab
+    on ab.id = c.speed_id
+join
+    ac
+    on ac.id = ab.id
+;
+
+DELETE FROM ab WHERE value = '1G';
+
+select * from equipment_categories ;
 
 /* 케이블 포설 현황 */
 select 
