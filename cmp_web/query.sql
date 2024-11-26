@@ -444,47 +444,10 @@ select * from equipment_regist_ip ;
 show tables;
 
 
+select * from line_basic ;
 
+select * from equipment_regist_hw ;
 
-
-
-select * from equipment_detail
-;
-
-
-
-
-CREATE TABLE `equipment_detail` (
-  `eqp_manage_id` varchar(10) NOT NULL COMMENT '장비 관리번호',
-  `CPU` varchar(50) DEFAULT NULL COMMENT 'CPU',
-  `MEMORY` varchar(50) DEFAULT NULL COMMENT 'MEMORY',
-  `DISK` varchar(20) NOT NULL COMMENT 'DISK',
-  `OS` varchar(50) DEFAULT NULL COMMENT 'OS',
-  `acquisition_cost` bigint(20) NOT NULL COMMENT '도입금액 (최대 1000억까지)',
-  `port_cnt` int(11) DEFAULT NULL,
-  `installation_coordinates` varchar(20) NOT NULL COMMENT '설치좌표',
-  `installation_units` int(10) unsigned NOT NULL COMMENT '설치좌표 유닛수 (최대 1000까지)',
-  `equipment_size_units` int(10) unsigned NOT NULL COMMENT '장비크기 유닛수 (최대 1000까지)',
-  `dbrain_number` varchar(20) NOT NULL COMMENT '디브레인번호',
-  `serial_number` varchar(50) DEFAULT NULL COMMENT '시리얼번호',
-  `asset_acquisition_date` varchar(10) DEFAULT NULL COMMENT '자산취득일자',
-  `asset_disposal_date` varchar(10) DEFAULT NULL COMMENT '자산폐기일자',
-  `eol_status` varchar(10) DEFAULT NULL COMMENT '단종상태 EOL',
-  `eos_status` varchar(10) DEFAULT NULL COMMENT '단종상태 EOS',
-  PRIMARY KEY (`eqp_manage_id`),
-  CONSTRAINT `equipment_detail_ibfk_1` FOREIGN KEY (`eqp_manage_id`) REFERENCES `equipment_basic` (`eqp_manage_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='HW 장비 상세정보';
-
-
-CREATE TABLE `equipment_regist_ip` (
-  `idx` int(11) NOT NULL AUTO_INCREMENT COMMENT 'idx',
-  `eqp_manage_id` varchar(10) NOT NULL COMMENT '장비관리번호 (장비구분2 + 포설년도4 + 일련번호4)',
-  `ip` varchar(15) NOT NULL COMMENT '장비 IP ADDRESS',
-  PRIMARY KEY (`idx`),
-  KEY `equipment_regist_ip_ibpk_1` (`idx`),
-  KEY `equipment_regist_ip_ibfk_1` (`eqp_manage_id`),
-  CONSTRAINT `equipment_regist_ip_ibfk_1` FOREIGN KEY (`eqp_manage_id`) REFERENCES `equipment_basic` (`eqp_manage_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COMMENT='장비 IP 등록정보';
 
 
 
