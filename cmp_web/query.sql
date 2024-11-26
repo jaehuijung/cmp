@@ -64,6 +64,33 @@ and lc.category = 1
 group by lc.id, lc.value
 ;
 
+select * from equipment_categories ;
+select * from line_category;
+
+CREATE TABLE `line_category2` (
+  `idx` int(11) NOT NULL AUTO_INCREMENT,
+  `category` varchar(30) DEFAULT NULL COMMENT '회선분류',  
+  PRIMARY KEY (`idx`)
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COMMENT='선번장 회선분류';
+
+insert into line_category2(category)
+values("광"), ("UTF");
+
+select * from line_category2;
+
+CREATE TABLE `line_speed` (
+  `idx` int(11) NOT NULL AUTO_INCREMENT,
+  `category` varchar(30) DEFAULT NULL COMMENT '회선속도',
+  `speed` varchar(30) DEFAULT NULL COMMENT '회선속도',
+  `color` varchar(30) DEFAULT NULL COMMENT '회선색상',
+  PRIMARY KEY (`idx`)
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COMMENT='선번장 회선속도';
+
+select * from line_speed;
+insert into line_speed(category, id)
+values(1, "1G"), (2, "10G"), (3, "100G");
+
+
 
 /* 케이블 포설 현황 */
 select 
@@ -73,7 +100,9 @@ select
 from line_basic lb
 join line_category lc
 on lb.line_category = lc.id 
-where lc.category = 1;
+where 1=1 
+and lc.category = 1
+and is_deleted = 'N';
 
 /* 장비 포설 현황 */
 CREATE VIEW equipment_view AS
@@ -447,6 +476,9 @@ show tables;
 select * from line_basic ;
 
 select * from equipment_regist_hw ;
+
+
+select * from line_basic;
 
 
 
