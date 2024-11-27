@@ -67,88 +67,121 @@ group by lc.id, lc.value
 select * from equipment_categories ;
 select * from line_category;
 
-CREATE TABLE `line_category2` (
+create table `line_category`(
   `idx` int(11) NOT NULL AUTO_INCREMENT,
-  `category` varchar(30) DEFAULT NULL COMMENT '회선분류',  
+  `category` varchar(30) DEFAULT NULL COMMENT '회선분류',
   PRIMARY KEY (`idx`)
 ) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COMMENT='선번장 회선분류';
 
-insert into line_category2(category)
-values("광"), ("UTF");
-
-select * from line_category2;
-
 CREATE TABLE `line_speed` (
   `idx` int(11) NOT NULL AUTO_INCREMENT,
-  `category` varchar(30) DEFAULT NULL COMMENT '회선분류',
   `speed` varchar(30) DEFAULT NULL COMMENT '회선속도',
   `color` varchar(30) DEFAULT NULL COMMENT '회선색상',
   PRIMARY KEY (`idx`)
 ) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COMMENT='선번장 회선속도';
 
-drop table aa;
-drop table ab;
-drop table ac;
-drop table Category_Speed;
+insert into line_category2 (category)
+values("광"),("UTF");
 
-CREATE TABLE aa (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(50) NOT NULL
-);
+insert into line_speed(speed, color)
+values("1G", "빨강"), ("10G", "파랑"), ("100G", "초록");
 
-CREATE TABLE ab (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(10) NOT NULL
-);
+select * from line_category;
+select * from line_speed;
 
-CREATE TABLE ac (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    speed_id INT,
-    name VARCHAR(20),
-    FOREIGN KEY (speed_id) REFERENCES ab(id) ON DELETE CASCADE
-);
+select * from line_basic ;
 
-CREATE TABLE Category_Speed (
-    category_id INT,
-    speed_id INT,
-    PRIMARY KEY (category_id, speed_id),
-    FOREIGN KEY (category_id) REFERENCES aa(id) ON DELETE CASCADE,
-    FOREIGN KEY (speed_id) REFERENCES ab(id) ON DELETE CASCADE
-);
-
-INSERT INTO aa(name) VALUES ('광'), ('UTF');
-INSERT INTO ab(name) VALUES ('1G'), ('10G'), ('40G'), ('100G');
-INSERT INTO ac(speed_id, name) VALUES 
-(1, '빨간색'), 
-(2, '파란색'), 
-(3, '검정색'), 
-(4, '초록색');
-
--- 광과 관련된 속도
-INSERT INTO Category_Speed (category_id, speed_id) VALUES (1, 1), (1, 2), (1, 4);
-
--- UTF와 관련된 속도
-INSERT INTO Category_Speed (category_id, speed_id) VALUES (2, 1), (2, 2), (2, 3), (2, 4);
-
-select 
-    aa.name, ab.name, ac.name, c.*
-from 
-    Category_Speed c
-join
-    aa
-    on aa.id = c.category_id
-join
-    ab
-    on ab.id = c.speed_id
-join
-    ac
-    on ac.id = ab.id
-;
-
-DELETE FROM ab WHERE value = '1G';
-
-select * from equipment_categories ;
-
+select
+            lb.line_manage_id, /* 선번장 케이블 관리번호 */
+            lb.qr_image_location, /* 선번장 이미지 */
+            /* 출발지 */
+            seb.asset_id s_asset_id,                                        /* 자산분류 */
+            sec.asset_category s_asset_category  ,                          /* 출발지 자산 카테고리 */
+            sed.installation_coordinates s_installation_coordinates,        /* 설치좌표 */
+            seb.eqp_manage_id s_eqp_manage_id,                              /* 관리 id */
+            seb.eqp_name s_eqp_name ,                                       /* 구성자원명 */
+            seb.model_name s_model_name,                                    /* 모델명 */
+            seb.host_name s_host_name,                                      /* 호스트명 */
+            seb.m_company s_m_company,                                      /* 제조사 */
+            lb.start_eqp_port s_port,                                       /* 포트번호 */
+            seb.primary_operator s_primary_operator,                        /* 운영담당자 */
+            seb.primary_outsourced_operator s_primary_outsourced_operator,  /* 위탁운영담당자 */
+            /* 목적지 */
+            eeb.asset_id e_asset_id,                                        /* 자산분류 */
+            eec.asset_category e_asset_category,                            /* 목적지 자산 카테고리 */
+            eed.installation_coordinates e_installation_coordinates,        /* 설치좌표 */
+            eeb.eqp_manage_id e_eqp_manage_id,                              /* 관리 id */
+            eeb.eqp_name e_eqp_name ,                                       /* 구성자원명 */
+            eeb.model_name e_model_name,                                    /* 모델명 */
+            eeb.host_name e_host_name,                                      /* 호스트명 */
+            eeb.m_company e_m_company,                                      /* 제조사 */
+            lb.end_eqp_port e_port,                                         /* 포트번호 */
+            eeb.primary_operator e_primary_operator,                        /* 운영담당자 */
+            eeb.primary_outsourced_operator e_primary_outsourced_operator,  /* 위탁운영담당자 */
+            /* 선번장 회선 */
+            lctg.category line_category,    /* 회선구분 */
+            lspd.speed line_speed,       /* 회선속도 */
+            lspd.color line_color        /* 회선색상 */
+        from
+            line_basic lb /* 선번장 정보 */
+        join
+            equipment_basic seb /* 출발지 기본정보 */
+            on lb.start_eqp_id = seb.eqp_manage_id
+        join
+            equipment_detail sed /* 출발지 상세정보 */
+            on seb.eqp_manage_id = sed.eqp_manage_id
+        join (
+            select
+                asset_id , asset_category
+            from
+                equipment_categories
+            group by
+                asset_id , asset_category
+            ) sec /* 출발지 연결정보 */
+            on seb.asset_id = sec.asset_id
+        join
+            equipment_basic eeb /* 목적지 기본정보 */
+            on lb.end_eqp_id = eeb.eqp_manage_id
+        join
+            equipment_detail eed /* 목적지 상세정보 */
+            on eeb.eqp_manage_id = eed.eqp_manage_id
+        join (
+            select
+                asset_id , asset_category
+            from
+                equipment_categories
+            group by
+                asset_id , asset_category
+            ) eec /* 목적지 연결정보 */
+            on eeb.asset_id = eec.asset_id
+        join
+            line_category lctg /* 회선구분 */
+            on lb.line_category = lctg.idx
+        join
+            line_speed lspd /* 회선속도 */
+            on lb.line_speed = lspd.idx;
+        
+select
+            idx, category
+        from
+            line_category2
+        order by
+            idx            
+            ;
+select
+    idx, speed, color
+from
+    line_speed
+order by
+    idx;
+  
+ select
+    id line_id, value line_value
+from
+    line_category
+order by
+    id;
+            
 /* 케이블 포설 현황 */
 select 
     sum(case when lc.value = '광' then 1 else 0 end) as 광,
@@ -225,6 +258,23 @@ on
     and eb.detail_id = ec.detail_id 
 group by 
     ec.config_category, ec.asset_category;
+
+/* hw 상세 통계 */
+select 
+    ec.asset_category, 
+    count(eb.asset_id) as asset_count
+from 
+    equipment_basic eb
+join 
+    equipment_categories ec
+on 
+    eb.config_id = ec.config_id 
+    and eb.asset_id = ec.asset_id 
+    and eb.sub_id = ec.sub_id 
+    and eb.detail_id = ec.detail_id 
+group by 
+    ec.asset_category
+with rollup;
 
 /* S/W 장비 등록 상세 현황 */
 select * from equipment_regist_sw;

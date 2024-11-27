@@ -68,9 +68,9 @@
             eeb.primary_operator e_primary_operator,                        /* 운영담당자 */
             eeb.primary_outsourced_operator e_primary_outsourced_operator,  /* 위탁운영담당자 */
             /* 선번장 회선 */
-            lctg.value line_category,    /* 회선구분 */
-            lspd.value line_speed,       /* 회선속도 */
-            lclr.value line_color        /* 회선색상 */
+            lctg.category line_category,    /* 회선구분 */
+            lspd.speed line_speed,       /* 회선속도 */
+            lspd.color line_color        /* 회선색상 */
         from
             line_basic lb /* 선번장 정보 */
         join
@@ -105,13 +105,10 @@
             on eeb.asset_id = eec.asset_id
         join
             line_category lctg /* 회선구분 */
-            on lctg.category = 1 and lb.line_category = lctg.id
+            on lb.line_category = lctg.idx
         join
-            line_category lspd /* 회선속도 */
-            on lspd.category = 2 and lb.line_speed = lspd.id
-        join
-            line_category lclr /* 회선색상 */
-            on lclr.category = 3 and lb.line_color = lclr.id
+            line_speed lspd /* 회선속도 */
+            on lb.line_speed = lspd.idx
         where 1=1
         <include refid="getLineTotalCommon"/>
         ORDER BY lb.line_manage_id desc
@@ -156,13 +153,10 @@
             on eeb.asset_id = eec.asset_id
         join
             line_category lctg /* 회선구분 */
-            on lctg.category = 1 and lb.line_category = lctg.id
+            on lb.line_category = lctg.idx
         join
-            line_category lspd /* 회선속도 */
-            on lspd.category = 2 and lb.line_speed = lspd.id
-        join
-            line_category lclr /* 회선색상 */
-            on lclr.category = 3 and lb.line_color = lclr.id
+            line_speed lspd /* 회선속도 */
+            on lb.line_speed = lspd.idx
         where 1=1
         <include refid="getLineTotalCommon"/>
     </select>
@@ -285,19 +279,6 @@
             erh.eqp_manage_id = #{eqp_manage_id}
     </select>
 
-    <select id="getLineLinkList" parameterType="map" resultType="map">
-        /** getLineLinkList ...
-            선번장관리 > 선번장목록 > 추가 페이지 > 회선구분, 회선속도, 회선색상 리스트 */
-        select
-            id line_id, value line_value
-        from
-            line_category
-        where
-            category = #{lineCategory}
-        order by
-            id
-    </select>
-
     <select id="checkInsertListToContainLine" parameterType="map" resultType="int">
         /* checkInsertListToContainLine...
             선번장관리 > 선번장목록 > 추가 페이지 > 저장 > 선번장 목록 저장하기 전 이미 존재하는지 검증
@@ -372,20 +353,17 @@
             lb.start_eqp_port,
             lb.end_eqp_port,
             lb.installation_year line_installation_year,
-            lctg.value line_category,
-            lspd.value line_speed,
-            lclr.value line_color
+            lctg.category line_category,
+            lspd.speed line_speed,
+            lspd.color line_color
         from
             line_basic lb
         join
             line_category lctg
-            on lctg.category = 1 and lb.line_category = lctg.id
+            on lb.line_category = lctg.idx
         join
-            line_category lspd
-            on lspd.category = 2 and lb.line_speed = lspd.id
-        join
-            line_category lclr
-            on lclr.category = 3 and lb.line_color = lclr.id
+            line_speed lspd
+            on lb.line_speed = lspd.idx
         where
             line_manage_id = #{line_manage_id}
     </select>
@@ -454,45 +432,6 @@
             line_manage_id = #{line_manage_id}
     </select>
 
-    <select id="getSelectLinkCategory" resultType="map">
-        /* getSelectLinkCategory...
-            선번장관리 > 선번장목록 > 수정 페이지 > 회선정보 : 구성
-        */
-        select
-            id,
-            value name
-        from
-            line_category
-        where
-            category = 1
-    </select>
-
-    <select id="getSelectLinkSpeed" resultType="map">
-        /* getSelectLinkSpeed...
-            선번장관리 > 선번장목록 > 수정 페이지 > 회선정보 : 속도
-        */
-        select
-            id,
-            value name
-        from
-            line_category
-        where
-            category = 2
-    </select>
-
-    <select id="getSelectLinkColor" resultType="map">
-        /* getSelectLinkColor...
-            선번장관리 > 선번장목록 > 수정 페이지 > 회선정보 : 색상
-        */
-        select
-            id,
-            value name
-        from
-            line_category
-        where
-            category = 3
-    </select>
-
     <update id="deleteLineList" parameterType="String">
         /* deleteLineList...
             선번장관리 > 선번장목록 > 삭제
@@ -554,9 +493,9 @@
             eeb.primary_operator e_primary_operator,                        /* 운영담당자 */
             eeb.primary_outsourced_operator e_primary_outsourced_operator,  /* 위탁운영담당자 */
             /* 선번장 회선 */
-            lctg.value line_category,    /* 회선구분 */
-            lspd.value line_speed,       /* 회선속도 */
-            lclr.value line_color        /* 회선색상 */
+            lctg.category line_category,    /* 회선구분 */
+            lspd.speed line_speed,       /* 회선속도 */
+            lspd.color line_color        /* 회선색상 */
         from
             line_basic lb /* 선번장 정보 */
         join
@@ -591,13 +530,10 @@
             on eeb.asset_id = eec.asset_id
         join
             line_category lctg /* 회선구분 */
-            on lctg.category = 1 and lb.line_category = lctg.id
+            on lb.line_category = lctg.idx
         join
-            line_category lspd /* 회선속도 */
-            on lspd.category = 2 and lb.line_speed = lspd.id
-        join
-            line_category lclr /* 회선색상 */
-            on lclr.category = 3 and lb.line_color = lclr.id
+            line_speed lspd /* 회선속도 */
+            on lb.line_speed = lspd.idx
         where 1=1
             AND lb.is_deleted = 'N'
         ORDER BY lb.line_manage_id desc

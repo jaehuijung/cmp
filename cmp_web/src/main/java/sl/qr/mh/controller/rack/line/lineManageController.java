@@ -8,7 +8,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import sl.qr.mh.service.common.commonService;
 import sl.qr.mh.service.rack.line.lineManageService;
+import sl.qr.mh.service.common.commonService;
 
 import java.io.IOException;
 import java.util.List;
@@ -24,9 +26,11 @@ import java.util.Map;
 public class lineManageController {
 
     private final lineManageService lineManageService;
+    private final commonService commonService;
 
-    public lineManageController(lineManageService lineManageService) {
+    public lineManageController(lineManageService lineManageService, commonService commonService) {
         this.lineManageService = lineManageService;
+        this.commonService = commonService;
     }
 
     /**
@@ -144,9 +148,10 @@ public class lineManageController {
         Map<String, Object> result = lineManageService.getEquipmentUpdateTotalList(line_manage_id);
         if((boolean) result.get("errorCode")){
             model.addAttribute("line", result.get("selectData"));
-            model.addAttribute("link_category", result.get("link_category"));
-            model.addAttribute("link_speed",    result.get("link_speed"));
-            model.addAttribute("link_color",    result.get("link_color"));
+
+            Map<String, Object> link = commonService.getLineLinkList();
+            model.addAttribute("link_category", link.get("category"));
+            model.addAttribute("link_speed",    link.get("speed"));
 
             return "views/rack/line/update";
         }

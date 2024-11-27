@@ -60,25 +60,23 @@ function back() {
 // 선번장목록 > 추가/상세/수정 > 회선 > 회선구분, 회선속도, 회선색상 리스트
 function getSelectLink(){
     $.ajax({
-        url: "/rack/line/selectLink",
+        url: "/common/selectLineLinkCategory",
         type: "post",
         success: function (res) {
             const categorySelect = $("#line_category");
-            const category = res.category;
-            category.forEach(function(item) {
-                categorySelect.append(new Option(item.line_value, item.line_id));
-            });
-
             const speedSelect = $("#line_speed");
+            const colorSelect = $("#line_color");
+
+            const category = res.category;
             const speed    = res.speed;
-            speed.forEach(function(item) {
-                speedSelect.append(new Option(item.line_value, item.line_id));
+
+            category.forEach(function(item) {
+                categorySelect.append(new Option(item.category, item.idx));
             });
 
-            const colorSelect = $("#line_color");
-            const color    = res.color;
-            color.forEach(function(item) {
-                colorSelect.append(new Option(item.line_value, item.line_id));
+            speed.forEach(function(item) {
+                speedSelect.append(new Option(item.speed, item.idx));
+                colorSelect.append(new Option(item.color, item.idx));
             });
         },
     });

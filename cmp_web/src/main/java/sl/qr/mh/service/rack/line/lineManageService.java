@@ -223,15 +223,7 @@ public class lineManageService {
 
 		try{
 			Map<String, Object> LineMap = lineMapper.getLineDetailLinkList(lineManageId); // 선택된 출발지, 목적지
-			List<Map<String, Object>> link_category = lineMapper.getSelectLinkCategory();   // 회선구분
-			List<Map<String, Object>> link_speed    = lineMapper.getSelectLinkSpeed();      // 회선속도
-			List<Map<String, Object>> link_color    = lineMapper.getSelectLinkColor();      // 회선색상
-
 			returnMap.put("selectData", LineMap);
-			returnMap.put("link_category", link_category);
-			returnMap.put("link_speed", link_speed);
-			returnMap.put("link_color", link_color);
-
 			returnMap.put("errorCode", true);
 		}catch (Exception e){
 			log.error(e.getMessage());

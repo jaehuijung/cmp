@@ -120,6 +120,11 @@ function updateEndSelectTable() {
 
 $(function(){
 
+    $('#line_speed').change(function() {
+        const selectedSpeedId = $(this).val(); // 선택된 speed의 id를 가져옴
+        $('#line_color').val(selectedSpeedId); // line_color 선택박스에서 동일한 id를 선택
+    });
+
     $('#lineStartTable').bootstrapTable({
         url: '/rack/line/startEquipmentList',
         method: 'post',

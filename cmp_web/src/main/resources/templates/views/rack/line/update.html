@@ -109,9 +109,9 @@
                             <td class="custom-border-left custom-width-15per">
                                 <select id="line_category" name="line_category" class="form-control">
                                     <option th:each="category : ${link_category}"
-                                            th:value="${category['id']}"
-                                            th:text="${category['name']}"
-                                            th:selected="${category['name'] == line.line_category}"></option>
+                                            th:value="${category['idx']}"
+                                            th:text="${category['category']}"
+                                            th:selected="${category['category'] == line.line_category}"></option>
                                 </select>
                             </td>
                             <td class="custom-background-lightblue custom-border-right custom-width-10per">
@@ -119,19 +119,19 @@
                             <td class="custom-border-left custom-width-15per">
                                 <select id="line_speed" name="line_speed" class="form-control">
                                     <option th:each="category : ${link_speed}"
-                                            th:value="${category['id']}"
-                                            th:text="${category['name']}"
-                                            th:selected="${category['name'] == line.line_speed}"></option>
+                                            th:value="${category['idx']}"
+                                            th:text="${category['speed']}"
+                                            th:selected="${category['speed'] == line.line_speed}"></option>
                                 </select>
                             </td>
                             <td class="custom-background-lightblue custom-border-right custom-width-10per">
                                 <label for="line_color" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">색상</label></td>
                             <td class="custom-border-left custom-width-15per">
-                                <select id="line_color" name="line_color" class="form-control">
-                                    <option th:each="category : ${link_color}"
-                                            th:value="${category['id']}"
-                                            th:text="${category['name']}"
-                                            th:selected="${category['name'] == line.line_color}"></option>
+                                <select id="line_color" name="line_color" class="form-control" disabled>
+                                    <option th:each="category : ${link_speed}"
+                                            th:value="${category['idx']}"
+                                            th:text="${category['color']}"
+                                            th:selected="${category['color'] == line.line_color}"></option>
                                 </select>
                             </td>
                         </tr>
