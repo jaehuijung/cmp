@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper 
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sl.qr.mh.service.common.commonMapper">
+
+    <select id="getLineLinkCategory" resultType="map">
+        /** getLineLinkCategory ...
+            회선구분 리스트 */
+        select
+            idx, category
+        from
+            line_category2
+        order by
+            idx
+    </select>
+
+    <select id="getLineLinkSpeed" resultType="map">
+        /** getLineLinkSpeed ...
+            회선속도, 회선색상 리스트 */
+        select
+            idx, speed, color
+        from
+            line_speed
+        order by
+            idx
+    </select>
+
+</mapper>
