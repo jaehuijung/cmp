@@ -210,7 +210,7 @@ function generateEquipmentIpAddressRowHTML(){
                      <h2>IP Address 정보</h2>
                      <p class="custom-font-size-12 custom-font-color-red">* 대표 IP는 첫 번째로 등록된 IP가 표시됩니다.</p>
                  </div>
-                 <div class="flex-row-center-between custom-margin-bottom-10">
+                 <div class="flex-row-between custom-margin-bottom-10">
                      <div>
                     </div>
                     <div>

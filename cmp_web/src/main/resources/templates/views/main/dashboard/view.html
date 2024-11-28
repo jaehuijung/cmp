@@ -47,6 +47,33 @@
         .size-2-2-600 { width: 600px; height: 600px; }
         .size-2-2-700 { width: 700px; height: 700px; }
         .size-2-2-800 { width: 800px; height: 800px; }
+
+        .dashboard-header-item {
+            border : 1px solid;
+            border-radius: 5px;
+            width: calc(100% / 3 - 50px);
+            height: 100px;
+            margin: 5px 10px;
+            padding: 5px;
+            display: none; /* 처음엔 모든 아이템을 숨김 */
+        }
+
+        .active {
+            display: inline-block; /* 활성화된 아이템만 표시 */
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .page-btn {
+            cursor: pointer;
+            border: 0px;
+            background-color: #e0e0e0;
+        }
     </style>
 </head>
 
@@ -54,11 +81,22 @@
 <div layout:fragment="content">
     <main id="main" class="dashboard">
         <div class="dashboard-header">
-            <span>Dashboard Overview</span>
-            <div class="flex">
-                <div class="nav-item">1</div>
-                <div class="nav-item">2</div>
-                <div class="nav-item">3</div>
+            <div class="flex-row-center">
+                <div class="dashboard-header-item">1</div>
+                <div class="dashboard-header-item">2</div>
+                <div class="dashboard-header-item">3</div>
+                <div class="dashboard-header-item">4</div>
+                <div class="dashboard-header-item">5</div>
+                <div class="dashboard-header-item">6</div>
+                <div class="dashboard-header-item">7</div>
+                <div class="dashboard-header-item">8</div>
+                <div class="dashboard-header-item">9</div>
+                <div class="dashboard-header-item">10</div>
+            </div>
+
+            <div class="pagination">
+                <button class="page-btn" onclick="changePage('prev')"><</button>
+                <button class="page-btn" onclick="changePage('next')">></button>
             </div>
         </div>
 
@@ -116,6 +154,36 @@
             const swDetailFilterData = softwareData.filter(item => item.asset !== 'total');
             const swDetailLabels = swDetailFilterData.map(item => item.asset);
             const swDetailValues = swDetailFilterData.map(item => item.cnt);
+        </script>
+        <script>
+            const itemsPerPage = 3;
+            let currentPage = 0;
+            const items = document.querySelectorAll('.dashboard-header-item');
+
+            function showItems(page) {
+                items.forEach((item, index) => {
+                    item.classList.remove('active');
+                    if (index >= page * itemsPerPage && index < (page + 1) * itemsPerPage) {
+                        item.classList.add('active');
+                    }
+                });
+            }
+
+            function changePage(direction) {
+                if (direction === 'next') {
+                    if ((currentPage + 1) * itemsPerPage < items.length) {
+                        currentPage++;
+                    }
+                } else {
+                    if (currentPage > 0) {
+                        currentPage--;
+                    }
+                }
+                showItems(currentPage);
+            }
+
+            // 초기 페이지 표시
+            showItems(currentPage);
         </script>
         <script th:src="@{/js/main/dashboard/view.js}"></script>
 

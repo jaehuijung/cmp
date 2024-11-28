@@ -20,15 +20,15 @@
                         <canvas id="chartCable" width="250" height="250"></canvas>
                     </div>
                     <div class="flex-column-end custom-margin-left-30 margin-bottom-10">
-                        <div class="flex-row-center-between custom-width-200 custom-underline">
+                        <div class="flex-row-between custom-width-200 custom-underline">
                             <div class="custom-font-size-18">▪️ 광</div>
                             <div class="custom-font-size-18">35개</div>
                         </div>
-                        <div class="flex-row-center-between custom-width-200 custom-underline">
+                        <div class="flex-row-between custom-width-200 custom-underline">
                             <div class="custom-font-size-18">▪️ UTF</div>
                             <div class="custom-font-size-18">21개</div>
                         </div>
-                        <div class="flex-row-center-between custom-width-200 custom-underline">
+                        <div class="flex-row-between custom-width-200 custom-underline">
                             <div class="custom-font-size-18">▪️ 계</div>
                             <div class="custom-font-size-18">56개</div>
                         </div>
@@ -44,15 +44,15 @@
                         <canvas id="chartEquipment" width="250" height="250"></canvas>
                     </div>
                     <div class="flex-column-end custom-margin-left-30 margin-bottom-10">
-                        <div class="flex-row-center-between custom-width-200 custom-underline">
+                        <div class="flex-row-between custom-width-200 custom-underline">
                             <div class="custom-font-size-18">▪️ H/W</div>
                             <div class="custom-font-size-18">1,937개</div>
                         </div>
-                        <div class="flex-row-center-between custom-width-200 custom-underline">
+                        <div class="flex-row-between custom-width-200 custom-underline">
                             <div class="custom-font-size-18">▪️ S/W</div>
                             <div class="custom-font-size-18">123개</div>
                         </div>
-                        <div class="flex-row-center-between custom-width-200 custom-underline">
+                        <div class="flex-row-between custom-width-200 custom-underline">
                             <div class="custom-font-size-18">▪️ 계</div>
                             <div class="custom-font-size-18">2,060개</div>
                         </div>
@@ -68,15 +68,15 @@
                         <canvas id="chartEquipmentMoney" width="250" height="250"></canvas>
                     </div>
                     <div class="flex-column-end custom-margin-left-30 margin-bottom-10">
-                        <div class="flex-row-center-between custom-width-200 custom-underline">
+                        <div class="flex-row-between custom-width-200 custom-underline">
                             <div class="custom-font-size-18">▪️ H/W</div>
                             <div class="custom-font-size-18">1,100,309천원</div>
                         </div>
-                        <div class="flex-row-center-between custom-width-200 custom-underline">
+                        <div class="flex-row-between custom-width-200 custom-underline">
                             <div class="custom-font-size-18">▪️ S/W</div>
                             <div class="custom-font-size-18">337,000천원</div>
                         </div>
-                        <div class="flex-row-center-between custom-width-200 custom-underline">
+                        <div class="flex-row-between custom-width-200 custom-underline">
                             <div class="custom-font-size-18">▪️ 계</div>
                             <div class="custom-font-size-18">1,437,309천원</div>
                         </div>
@@ -92,19 +92,19 @@
                         <canvas id="chartCableDetail" width="250" height="250"></canvas>
                     </div>
                     <div class="flex-column-end custom-margin-left-30 margin-bottom-10">
-                        <div class="flex-row-center-between custom-width-200 custom-underline">
+                        <div class="flex-row-between custom-width-200 custom-underline">
                             <div class="custom-font-size-18">▪️ 1G</div>
                             <div class="custom-font-size-18">47개</div>
                         </div>
-                        <div class="flex-row-center-between custom-width-200 custom-underline">
+                        <div class="flex-row-between custom-width-200 custom-underline">
                             <div class="custom-font-size-18">▪️ 10G</div>
                             <div class="custom-font-size-18">23개</div>
                         </div>
-                        <div class="flex-row-center-between custom-width-200 custom-underline">
+                        <div class="flex-row-between custom-width-200 custom-underline">
                             <div class="custom-font-size-18">▪️ 100G</div>
                             <div class="custom-font-size-18">15개</div>
                         </div>
-                        <div class="flex-row-center-between custom-width-200 custom-underline">
+                        <div class="flex-row-between custom-width-200 custom-underline">
                             <div class="custom-font-size-18">▪️ 계</div>
                             <div class="custom-font-size-18">95개</div>
                         </div>
@@ -120,15 +120,15 @@
                         <canvas id="chartHardwareDetail" width="250" height="250"></canvas>
                     </div>
                     <div class="flex-column-end custom-margin-left-30 margin-bottom-10">
-                        <div class="flex-row-center-between custom-width-200 custom-underline">
+                        <div class="flex-row-between custom-width-200 custom-underline">
                             <div class="custom-font-size-18">▪️ 광</div>
                             <div class="custom-font-size-18">35개</div>
                         </div>
-                        <div class="flex-row-center-between custom-width-200 custom-underline">
+                        <div class="flex-row-between custom-width-200 custom-underline">
                             <div class="custom-font-size-18">▪️ UTF</div>
                             <div class="custom-font-size-18">21개</div>
                         </div>
-                        <div class="flex-row-center-between custom-width-200 custom-underline">
+                        <div class="flex-row-between custom-width-200 custom-underline">
                             <div class="custom-font-size-18">▪️ 계</div>
                             <div class="custom-font-size-18">56개</div>
                         </div>
@@ -144,15 +144,15 @@
                         <canvas id="chartSoftwareDetail" width="250" height="250"></canvas>
                     </div>
                     <div class="flex-column-end custom-margin-left-30 margin-bottom-10">
-                        <div class="flex-row-center-between custom-width-200 custom-underline">
+                        <div class="flex-row-between custom-width-200 custom-underline">
                             <div class="custom-font-size-18">▪️ 광</div>
                             <div class="custom-font-size-18">35개</div>
                         </div>
-                        <div class="flex-row-center-between custom-width-200 custom-underline">
+                        <div class="flex-row-between custom-width-200 custom-underline">
                             <div class="custom-font-size-18">▪️ UTF</div>
                             <div class="custom-font-size-18">21개</div>
                         </div>
-                        <div class="flex-row-center-between custom-width-200 custom-underline">
+                        <div class="flex-row-between custom-width-200 custom-underline">
                             <div class="custom-font-size-18">▪️ 계</div>
                             <div class="custom-font-size-18">56개</div>
                         </div>
