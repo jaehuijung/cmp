@@ -23,6 +23,8 @@ select * from equipment_sw_basic ;
 select * from equipment_sw_detail ;
 show full columns from equipment_detail;
 
+select * from MENU;
+select * from equipment_categories ;
 
 /* 케이블 포설 현황 */
 select
@@ -41,21 +43,27 @@ with rollup;
 /* 케이블 포설 상세현황 */
 /* 광 */
 select
-    ls.speed, count(lc.idx)
-from 
-    line_basic lb
-join 
-    line_category lc
-    on lb.line_category = lc.idx
-join
-    line_speed ls
-    on lb.line_speed = ls.idx
-where 1=1 
-    and is_deleted = 'N'
-    and lc.idx = '1'
-group by 
-    ls.speed
-with rollup;
+    *
+from(
+    select
+        ifnull(ls.speed, 'total') as speed,
+        count(lc.idx)
+    from 
+        line_basic lb
+    join 
+        line_category lc
+        on lb.line_category = lc.idx
+    join
+        line_speed ls
+        on lb.line_speed = ls.idx
+    where 1=1 
+        and is_deleted = 'N'
+        and lc.idx = '1'
+    group by 
+        ls.speed
+    with rollup
+) fiber
+order by speed desc;
 
 /* utp */
 select
@@ -75,40 +83,51 @@ group by
     ls.speed
 with rollup;
 
-
 /* hw 상세 통계 */
-select 
-    ec.asset_category, 
-    count(eb.asset_id) as asset_count
-from 
-    equipment_basic eb
-join 
-    equipment_categories ec
-on 
-    eb.config_id = ec.config_id 
-    and eb.asset_id = ec.asset_id 
-    and eb.sub_id = ec.sub_id 
-    and eb.detail_id = ec.detail_id 
-group by 
-    ec.asset_category
-with rollup;
+select
+    *
+from(
+    select 
+        ifnull(ec.asset_category, 'total') hw,
+        count(eb.asset_id) cnt
+    from 
+        equipment_basic eb
+    join 
+        equipment_categories ec
+    on 
+        eb.config_id = ec.config_id 
+        and eb.asset_id = ec.asset_id 
+        and eb.sub_id = ec.sub_id 
+        and eb.detail_id = ec.detail_id 
+    group by 
+        ec.asset_category
+    with rollup
+) hw
+order by
+    hw desc;
 
 /* sw 상세 통계 */
-select 
-    ec.asset_category, 
-    count(eb.asset_id) as asset_count
-from 
-    equipment_sw_basic eb
-join 
-    equipment_categories ec
-on 
-    eb.config_id = ec.config_id 
-    and eb.asset_id = ec.asset_id 
-    and eb.sub_id = ec.sub_id 
-    and eb.detail_id = ec.detail_id 
-group by 
-    ec.config_category, ec.asset_category;
-
+select
+    *
+from(    
+    select
+        ifnull(ec.asset_category, 'total') sw,
+        count(eb.asset_id) cnt
+    from 
+        equipment_sw_basic eb
+    join 
+        equipment_categories ec
+    on 
+        eb.config_id = ec.config_id 
+        and eb.asset_id = ec.asset_id 
+        and eb.sub_id = ec.sub_id 
+        and eb.detail_id = ec.detail_id 
+    group by 
+        ec.asset_category
+    with rollup
+) sw
+order by
+    sw desc;
 
 
 /* 상세 ip 첫번째 보여주기 */
