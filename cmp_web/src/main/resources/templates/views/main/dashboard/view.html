@@ -13,90 +13,170 @@
             font-size: 24px;
             border-radius: 10px;
             margin-bottom: 20px;
+            position: relative; /* position 설정 */
         }
-        .dashboard-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-        .dashboard-chart {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            width: 100%;
-            height: 100%;
-            flex: 1 1 200px; /* 기본 너비 300px */
-        }
-        @media (min-width: 980px) and (max-width: 1800px) {
-            .dashboard-chart {
-                flex: 1 1 calc(50% - 40px); /* 너비 1/2 */
-                max-width: calc(50% - 40px);
-            }
-        }
-        @media (max-width: 970px) {
-            .dashboard-chart {
-                flex: 1 1 calc(100% - 40px); /* 너비 100% */
-                max-width: calc(100% - 40px);
-            }
-        }
-        /* Fixed widths and heights for responsive configuration */
-        .size-1-4-500 { width: 500px; height: 500px; }
-        .size-1-4-700 { width: 700px; height: 700px; }
-        .size-2-2-600 { width: 600px; height: 600px; }
-        .size-2-2-700 { width: 700px; height: 700px; }
-        .size-2-2-800 { width: 800px; height: 800px; }
 
         .dashboard-header-item {
-            border : 1px solid;
+            background-color: white;
             border-radius: 5px;
-            width: calc(100% / 3 - 50px);
-            height: 100px;
+            width: calc(100%/3 - 50px);
+            height: 150px;
             margin: 5px 10px;
             padding: 5px;
-            display: none; /* 처음엔 모든 아이템을 숨김 */
-        }
 
-        .active {
-            display: inline-block; /* 활성화된 아이템만 표시 */
-        }
-
-        .pagination {
             display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
-            text-align: center;
-            margin-top: 10px;
         }
 
-        .page-btn {
-            cursor: pointer;
-            border: 0px;
-            background-color: #e0e0e0;
+        .swiper-container {
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .swiper-wrapper {
+            position: relative;
+            width: 100%;
+            height: auto;
+            z-index: 1;
+            display: flex;
+            transition-property: transform;
+            box-sizing: content-box;
+        }
+
+        .swiper-slide {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        /* Swiper pagination bullet styles */
+        .swiper-pagination-bullet {
+            width: 12px;
+            height: 12px;
+            background-color: gray;
+            opacity: 0.8;
+            margin: 0 3px;
+        }
+
+        .swiper-pagination-bullet-active {
+            background-color: black;
+        }
+
+        .swiper-pagination {
+            bottom: 10px; /* 페이지네이션을 요소 하단에 위치 */
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            top: 70%; /* 버튼을 수직 중앙에 위치 */
+            transform: translateY(-50%);
+            color: black; /* 버튼 색상 */
+            width: 25px;
+            height: 25px;
+            overflow: hidden;
         }
     </style>
+
+    <link th:href="@{/css/custom-dashboard.css}" rel="stylesheet">
 </head>
 
 <body>
 <div layout:fragment="content">
     <main id="main" class="dashboard">
         <div class="dashboard-header">
-            <div class="flex-row-center">
-                <div class="dashboard-header-item">1</div>
-                <div class="dashboard-header-item">2</div>
-                <div class="dashboard-header-item">3</div>
-                <div class="dashboard-header-item">4</div>
-                <div class="dashboard-header-item">5</div>
-                <div class="dashboard-header-item">6</div>
-                <div class="dashboard-header-item">7</div>
-                <div class="dashboard-header-item">8</div>
-                <div class="dashboard-header-item">9</div>
-                <div class="dashboard-header-item">10</div>
-            </div>
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="dashboard-header-item">
+                            <div class="custom-font-size-22">케이블 포설 건</div>
+                            <div class="custom-font-size-26 custom-font-weight-bold">
+                                <span class="custom-font-color-red">127,227</span> 건
+                            </div>
+                        </div>
+                        <div class="dashboard-header-item">
+                            <div class="custom-font-size-22">광 케이블 포설 건 (32%)</div>
+                            <div class="custom-font-size-26 custom-font-weight-bold">
+                                <span class="custom-font-color-red">44,552</span> 건
+                            </div>
+                        </div>
+                        <div class="dashboard-header-item">
+                            <div class="custom-font-size-22">UTP 케이블 포설 건 (68%)</div>
+                            <div class="custom-font-size-26 custom-font-weight-bold">
+                                <span class="custom-font-color-red">82,675</span> 건
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="dashboard-header-item">
+                            <div class="custom-font-size-22">포설 요청 건수</div>
+                            <div class="custom-font-size-26 custom-font-weight-bold">
+                                <span class="custom-font-color-red">13,457</span> 건
+                            </div>
+                        </div>
+                        <div class="dashboard-header-item">
+                            <div class="custom-font-size-22">승인 건 (89%)</div>
+                            <div class="custom-font-size-26 custom-font-weight-bold">
+                                <span class="custom-font-color-red">12,955</span> 건
+                            </div>
+                        </div>
+                        <div class="dashboard-header-item">
+                            <div class="custom-font-size-22">반려 건 (11%)</div>
+                            <div class="custom-font-size-26 custom-font-weight-bold">
+                                <span class="custom-font-color-red">502</span> 건
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="dashboard-header-item">
+                            <div class="custom-font-size-22">장비 등록 건</div>
+                            <div class="custom-font-size-26 custom-font-weight-bold">
+                                <span class="custom-font-color-red">339,125</span> 건
+                            </div>
+                        </div>
+                        <div class="dashboard-header-item">
+                            <div class="custom-font-size-22">하드웨어 등록 건 (71%)</div>
+                            <div class="custom-font-size-26 custom-font-weight-bold">
+                                <span class="custom-font-color-red">277,023</span> 건
+                            </div>
+                        </div>
+                        <div class="dashboard-header-item">
+                            <div class="custom-font-size-22">소프트웨어 등록 건 (29%)</div>
+                            <div class="custom-font-size-26 custom-font-weight-bold">
+                                <span class="custom-font-color-red">62,102</span> 건
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="dashboard-header-item">
+                            <div class="custom-font-size-22">장비 도입 금액</div>
+                            <div class="custom-font-size-26 custom-font-weight-bold">
+                                <span class="custom-font-color-red">92,933</span> 천원
+                            </div>
+                        </div>
+                        <div class="dashboard-header-item">
+                            <div class="custom-font-size-22">하드웨어 도입 금액 (41%)</div>
+                            <div class="custom-font-size-26 custom-font-weight-bold">
+                                <span class="custom-font-color-red">22,003</span> 천원
+                            </div>
+                        </div>
+                        <div class="dashboard-header-item">
+                            <div class="custom-font-size-22">소프트웨어 도입 금액 (59%)</div>
+                            <div class="custom-font-size-26 custom-font-weight-bold">
+                                <span class="custom-font-color-red">70,930</span> 천원
+                            </div>
+                        </div>
+                    </div>
 
-            <div class="pagination">
-                <button class="page-btn" onclick="changePage('prev')"><</button>
-                <button class="page-btn" onclick="changePage('next')">></button>
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+                <!-- Add Navigation -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
         </div>
 
@@ -156,34 +236,19 @@
             const swDetailValues = swDetailFilterData.map(item => item.cnt);
         </script>
         <script>
-            const itemsPerPage = 3;
-            let currentPage = 0;
-            const items = document.querySelectorAll('.dashboard-header-item');
-
-            function showItems(page) {
-                items.forEach((item, index) => {
-                    item.classList.remove('active');
-                    if (index >= page * itemsPerPage && index < (page + 1) * itemsPerPage) {
-                        item.classList.add('active');
-                    }
-                });
-            }
-
-            function changePage(direction) {
-                if (direction === 'next') {
-                    if ((currentPage + 1) * itemsPerPage < items.length) {
-                        currentPage++;
-                    }
-                } else {
-                    if (currentPage > 0) {
-                        currentPage--;
-                    }
-                }
-                showItems(currentPage);
-            }
-
-            // 초기 페이지 표시
-            showItems(currentPage);
+            const swiper = new Swiper('.swiper-container', {
+                slidesPerView: 1,
+                spaceBetween: 10,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                    type: 'bullets',
+                },
+            });
         </script>
         <script th:src="@{/js/main/dashboard/view.js}"></script>
 
