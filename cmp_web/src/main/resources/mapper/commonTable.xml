@@ -12,7 +12,7 @@
         select
             idx, category
         from
-            line_category2
+            line_category
         order by
             idx
     </select>

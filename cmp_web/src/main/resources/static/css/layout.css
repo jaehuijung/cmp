@@ -344,8 +344,6 @@ header {
     flex-direction: column;
     justify-content: space-between;
     box-sizing: border-box;
-    min-width: 400px;
-    max-width: 1800px;
 }
 
 /* 중앙 콘텐츠 스크롤바 숨기기 (웹킷 브라우저) */

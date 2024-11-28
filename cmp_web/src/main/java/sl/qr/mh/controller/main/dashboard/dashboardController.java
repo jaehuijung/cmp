@@ -2,10 +2,10 @@ package sl.qr.mh.controller.main.dashboard;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import sl.qr.mh.service.main.dashboard.dashboardManageService;
 
 import java.util.Map;
@@ -30,51 +30,18 @@ public class dashboardController {
      * @return 대시보드 뷰 페이지
      */
     @GetMapping("/view")
-    public String view() {
-        return "views/main/dashboard/view";
-    }
+    public String view(Model model) {
+        Map<String, Object> result = dashboardManageService.getChartData();
+        if((boolean) result.get("errorCode")){
+            model.addAttribute("fiberCableData", result.get("fiberCableData"));
+            model.addAttribute("utpCableData",   result.get("utpCableData"));
+            model.addAttribute("hardwareData",   result.get("hardwareData"));
+            model.addAttribute("softwareData",   result.get("softwareData"));
 
-    /**
-     * 메인 > 대시보드 > 조회 > 케이블 포설 현황 데이터
-     *
-     * @return 대시보드 케이블 포설 현황 차트 데이터
-     */
-    @ResponseBody
-    @GetMapping("/cableData")
-    public String getCableData() {
-        return "views/main/dashboard/view";
-    }
-
-    /**
-     * 메인 > 대시보드 > 조회 > 케이블 포설 현황 상세 데이터
-     *
-     * @return 대시보드 케이블 포설 상세 현황 차트 데이터
-     */
-    @ResponseBody
-    @GetMapping("/cableDetailData")
-    public Map<String, Object> getCableDetailData() {
-        return dashboardManageService.getCableDetailData();
-    }
-
-    /**
-     * 메인 > 대시보드 > 조회 > 장비 등록 상세 현황 데이터
-     *
-     * @return 대시보드 장비 등록 상세 현황 차트 데이터
-     */
-    @ResponseBody
-    @GetMapping("/equipmentData")
-    public String getEquipmentData() {
-        return "views/main/dashboard/view";
-    }
-
-    /**
-     * 메인 > 대시보드 > 조회 > 소프트웨어 등록 상세 현황 데이터
-     *
-     * @return 대시보드 소프트웨어 등록 상세 현황 차트 데이터
-     */
-    @ResponseBody
-    @GetMapping("/softwareData")
-    public String getSoftwareData() {
-        return "views/main/dashboard/view";
+            return "views/main/dashboard/view";
+        }
+        else{
+            return "views/error/error";
+        }
     }
 }

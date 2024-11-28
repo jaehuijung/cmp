@@ -11,7 +11,8 @@ import java.util.Map;
  */
 @Mapper
 public interface dashboardMapper {
-
-    public List<Map<String, Object>> getCableDetailData();
-
+    List<Map<String, Object>> getFiberCableData();
+    List<Map<String, Object>> getUtpCableData();
+    List<Map<String, Object>> getHardwareData();
+    List<Map<String, Object>> getSoftwareData();
 }
