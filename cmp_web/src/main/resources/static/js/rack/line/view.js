@@ -385,7 +385,7 @@ function QRLoad(){
         contentType: "application/json",
         data: JSON.stringify(labelList),
         success: function(result){
-            let newWindow = window.open("", "_blank", "width=900,height=800,menubar=no,toolbar=no,location=no,status=no");
+            let newWindow = window.open("", "_blank", "width=1120,height=800,menubar=no,toolbar=no,location=no,status=no");
             newWindow.document.write(result);
         },
         error: function(err){
