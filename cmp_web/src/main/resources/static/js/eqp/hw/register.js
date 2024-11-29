@@ -38,20 +38,31 @@ function createColumn(field, checkbox = false, title, type = '', formatter = '')
     return column;
 }
 
-function createCommonEqpHardwareColumns(tableId, portFormatter='') {
+function createCommonEqpHardwareColumns(tableId, portFormatter = '') {
     return [
-        ...(tableId === '#eqpHardwareSelectTable' ? [createColumn('', true, '', '')] : []),
-        ...(tableId === '#eqpHardwareSelectTable' ? [createColumn('eqp_port', false, '장비포트번호', '', (value, row, index) => portFormatter(value, row, index, tableId, 'eqp_port'))] : []),
-        createColumn('asset_category', false, '자산분류'),
-        createColumn('installation_coordinates', false, '설치좌표'),
-        createColumn('eqp_manage_id', false, '관리번호'),
-        createColumn('m_company', false, '제조사'),
-        createColumn('model_name', false, '모델명'),
-        createColumn('host_name', false, '호스트명'),
-        createColumn('eqp_name', false, '구성자원명'),
-        createColumn('primary_operator', false, '운영담당자'),
-        createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
-        ...(tableId === '#eqpHardwareSelectTable' ? [createColumn('eqp_link_port', false, '연결장비포트번호', '', (value, row, index) => portFormatter(value, row, index, tableId, 'eqp_link_port'))] : []),
+        ...(tableId === '#eqpHardwareSelectTable' ? [[
+            { title: '', align: 'center', valign: 'middle', colspan: 1 },
+            { title: '출발지(Start)', align: 'center', valign: 'middle', colspan: 1 },
+            { title: '목적지(End)', align: 'center', valign: 'middle', colspan: 9 }
+        ]] : []),
+        [
+            ...(tableId === '#eqpHardwareSelectTable' ? [
+                createColumn('', true, '', ''),
+                createColumn('eqp_port', false, '포트번호', '', (value, row, index) => portFormatter(value, row, index, tableId, 'eqp_port'))
+            ] : []),
+            createColumn('asset_category', false, '자산분류'),
+            createColumn('installation_coordinates', false, '설치좌표'),
+            createColumn('eqp_manage_id', false, '관리번호'),
+            createColumn('m_company', false, '제조사'),
+            createColumn('model_name', false, '모델명'),
+            createColumn('eqp_name', false, '구성자원명'),
+            createColumn('host_name', false, '호스트명'),
+            // createColumn('primary_operator', false, '운영담당자'),
+            createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
+            ...(tableId === '#eqpHardwareSelectTable' ? [
+                createColumn('eqp_link_port', false, '포트번호', '', (value, row, index) => portFormatter(value, row, index, tableId, 'eqp_link_port'))
+            ] : [])
+        ]
     ];
 }
 
@@ -103,7 +114,7 @@ $(function(){
 
     $('#eqpHardwareSelectTable').bootstrapTable({
         data: [],
-        columns: eqpHardwareSelectColumn, pageSize: 5, pagination: true, sidePagination: 'client',
+        columns: eqpHardwareSelectColumn, pageSize: 5, pagination: true, sidePagination: 'client', classes: "txt-pd",
         onPageChange: function () {
             reapplySelections(); // 페이지네이션이 변경될 때 선택 상태를 다시 적용
         },

@@ -18,17 +18,23 @@ function createColumn(field, checkbox = false, title, type = '', formatter = '')
 }
 
 let eqpHardwareColumn = [
-    createColumn('eqp_port', false, '장비포트번호', ''),
-    createColumn('asset_category', false, '자산분류'),
-    createColumn('installation_coordinates', false, '설치좌표'),
-    createColumn('eqp_manage_id', false, '관리번호'),
-    createColumn('m_company', false, '제조사'),
-    createColumn('model_name', false, '모델명'),
-    createColumn('host_name', false, '호스트명'),
-    createColumn('eqp_name', false, '구성자원명'),
-    createColumn('primary_operator', false, '운영담당자'),
-    createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
-    createColumn('eqp_link_port', false, '연결장비포트번호', '')
+    [
+        { title: '출발지(Start)', align: 'center', valign: 'middle', colspan: 1 },
+        { title: '목적지(End)', align: 'center', valign: 'middle', colspan: 9 }
+    ],
+    [
+        createColumn('eqp_port', false, '포트번호', ''),
+        createColumn('asset_category', false, '자산분류'),
+        createColumn('installation_coordinates', false, '설치좌표'),
+        createColumn('eqp_manage_id', false, '관리번호'),
+        createColumn('m_company', false, '제조사'),
+        createColumn('model_name', false, '모델명'),
+        createColumn('eqp_name', false, '구성자원명'),
+        createColumn('host_name', false, '호스트명'),
+        // createColumn('primary_operator', false, '운영담당자'),
+        createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
+        createColumn('eqp_link_port', false, '포트번호', '')
+    ]
 ];
 
 let eqpSoftwareColumn = [
