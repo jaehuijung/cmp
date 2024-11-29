@@ -116,6 +116,10 @@ function updateEndSelectTable() {
     $('#lineEndSelectTable').bootstrapTable('load', data);
 }
 
+function tableRefresh(id){
+    $(id).bootstrapTable('refresh');
+}
+
 $(function(){
 
     setDefaultDates(); // 화면 렌더링 시 날짜 컬럼들 현재날짜로 세팅
@@ -131,9 +135,9 @@ $(function(){
         url: '/rack/line/startEquipmentList',
         method: 'post',
         queryParams: function(params) {
-            let searchWord = $("#searchInput").val();
+            let searchInput = $("#searchStartInput").val();
             params.searchData = {
-                searchWord
+                searchInput
             }
             return params;
         },
@@ -183,10 +187,10 @@ $(function(){
         method: 'post',
         queryParams: function(params) {
             let eqp_manage_id = selectedStartRow ? selectedStartRow.eqp_manage_id : "";
-            let searchWord = $("#searchInput").val();
+            let searchInput = $("#searchEndInput").val();
 
             params.searchData = {
-                eqp_manage_id, searchWord
+                eqp_manage_id, searchInput
             }
             return params;
         },
@@ -236,6 +240,18 @@ $(function(){
         columns: lineEndSelectColumn,
         data: [{}],
     })
+
+    $('#searchStartInput').keyup(function(e) {
+        if(e.which == 13) {
+            tableRefresh('#lineStartTable');
+        }
+    });
+
+    $('#searchEndInput').keyup(function(e) {
+        if(e.which == 13) {
+            tableRefresh('#lineEndTable');
+        }
+    });
 
 });
 

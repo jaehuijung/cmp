@@ -163,7 +163,7 @@
 
     <select id="getLineStartEquipmentList" parameterType="map" resultType="map">
         /** getLineStartEquipmentList ...
-        선번장관리 > 선번장목록 > 추가 페이지 > 출발지 리스트 */
+            선번장관리 > 선번장목록 > 추가 페이지 > 출발지 리스트 */
         select
             eb.eqp_manage_id ,                  /* 관리번호 */
             eb.eqp_name ,                       /* 구성자원명 */
@@ -192,13 +192,27 @@
             and eb.is_deleted = 'N'
             and ec.categories in ('SV', 'NW', 'ST')
             and eb.eqp_manage_id IN (SELECT DISTINCT eqp_manage_id FROM equipment_regist_hw)
+            and (
+                BINARY eb.eqp_manage_id                  LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY eb.eqp_name                       LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY eb.model_name                     LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY eb.host_name                      LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY eb.m_company                      LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY eb.primary_operator               LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY eb.primary_outsourced_operator    LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY ec.config_category                LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY ec.asset_category                 LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY ec.sub_category                   LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY ec.detail_category                LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY ed.installation_coordinates       LIKE CONCAT('%', #{searchInput}, '%')
+            )
         ORDER BY eb.eqp_manage_id desc
         LIMIT #{offset},#{limit}
     </select>
 
     <select id="getLineStartEquipmentListCnt" parameterType="map" resultType="int">
         /** getLineStartEquipmentListCnt ...
-        선번장관리 > 선번장목록 > 추가 페이지 > 출발지 리스트 개수 */
+            선번장관리 > 선번장목록 > 추가 페이지 > 출발지 리스트 개수 */
         select
             count(eb.eqp_manage_id)
         from
@@ -216,6 +230,20 @@
             and eb.is_deleted = 'N'
             and ec.categories in ('SV', 'NW', 'ST')
             and eb.eqp_manage_id IN (SELECT DISTINCT eqp_manage_id FROM equipment_regist_hw)
+            and (
+                BINARY eb.eqp_manage_id                  LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY eb.eqp_name                       LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY eb.model_name                     LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY eb.host_name                      LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY eb.m_company                      LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY eb.primary_operator               LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY eb.primary_outsourced_operator    LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY ec.config_category                LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY ec.asset_category                 LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY ec.sub_category                   LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY ec.detail_category                LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY ed.installation_coordinates       LIKE CONCAT('%', #{searchInput}, '%')
+            )
     </select>
 
     <select id="getLineEndEquipmentList" parameterType="map" resultType="map">
@@ -251,14 +279,31 @@
             and eb.asset_id = ec.asset_id
             and eb.sub_id = ec.sub_id
             and eb.detail_id = ec.detail_id
-        where
-            erh.eqp_manage_id = #{eqp_manage_id}
+        where 1=1
+            and erh.eqp_manage_id = #{eqp_manage_id}
+            and (
+                BINARY eb.eqp_manage_id                  LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY eb.eqp_name                       LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY eb.model_name                     LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY eb.host_name                      LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY eb.m_company                      LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY eb.primary_operator               LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY eb.primary_outsourced_operator    LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY ec.config_category                LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY ec.asset_category                 LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY ec.sub_category                   LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY ec.detail_category                LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY ed.installation_coordinates       LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY erh.eqp_link_manage_id            LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY erh.eqp_port                      LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY erh.eqp_link_port                 LIKE CONCAT('%', #{searchInput}, '%')
+            )
         LIMIT #{offset},#{limit}
     </select>
 
     <select id="getLineEndEquipmentListCnt" parameterType="map" resultType="int">
         /** getLineEndEquipmentListCnt ...
-        선번장관리 > 선번장목록 > 추가 페이지 > 목적지 리스트 개수 */
+            선번장관리 > 선번장목록 > 추가 페이지 > 목적지 리스트 개수 */
         select
             count(eb.eqp_manage_id)
         from
@@ -275,8 +320,25 @@
             and eb.asset_id = ec.asset_id
             and eb.sub_id = ec.sub_id
             and eb.detail_id = ec.detail_id
-        where
-            erh.eqp_manage_id = #{eqp_manage_id}
+        where 1=1
+            and erh.eqp_manage_id = #{eqp_manage_id}
+            and (
+                BINARY eb.eqp_manage_id                  LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY eb.eqp_name                       LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY eb.model_name                     LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY eb.host_name                      LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY eb.m_company                      LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY eb.primary_operator               LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY eb.primary_outsourced_operator    LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY ec.config_category                LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY ec.asset_category                 LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY ec.sub_category                   LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY ec.detail_category                LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY ed.installation_coordinates       LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY erh.eqp_link_manage_id            LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY erh.eqp_port                      LIKE CONCAT('%', #{searchInput}, '%') OR
+                BINARY erh.eqp_link_port                 LIKE CONCAT('%', #{searchInput}, '%')
+            )
     </select>
 
     <select id="checkInsertListToContainLine" parameterType="map" resultType="int">

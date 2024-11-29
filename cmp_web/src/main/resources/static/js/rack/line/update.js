@@ -118,6 +118,10 @@ function updateEndSelectTable() {
     $('#lineEndSelectTable').bootstrapTable('load', data);
 }
 
+function tableRefresh(id){
+    $(id).bootstrapTable('refresh');
+}
+
 $(function(){
 
     $('#line_speed').change(function() {
@@ -129,9 +133,9 @@ $(function(){
         url: '/rack/line/startEquipmentList',
         method: 'post',
         queryParams: function(params) {
-            let searchWord = $("#searchInput").val();
+            let searchInput = $("#searchStartInput").val();
             params.searchData = {
-                searchWord
+                searchInput
             }
             return params;
         },
@@ -191,10 +195,10 @@ $(function(){
         method: 'post',
         queryParams: function(params) {
             let eqp_manage_id = selectedStartRow ? selectedStartRow.eqp_manage_id : $("#start_eqp_id").val();
-            let searchWord = $("#searchInput").val();
+            let searchInput = $("#searchEndInput").val();
 
             params.searchData = {
-                eqp_manage_id, searchWord
+                eqp_manage_id, searchInput
             }
             return params;
         },
@@ -301,6 +305,18 @@ $(function(){
                 return;
             }
         },
+    });
+
+    $('#searchStartInput').keyup(function(e) {
+        if(e.which == 13) {
+            tableRefresh('#lineStartTable');
+        }
+    });
+
+    $('#searchEndInput').keyup(function(e) {
+        if(e.which == 13) {
+            tableRefresh('#lineEndTable');
+        }
     });
 });
 
