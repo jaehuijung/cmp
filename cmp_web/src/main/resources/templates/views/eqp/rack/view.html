@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+    <div layout:fragment="content">
+
+        <main id="main" class="equipment">
+
+            <div class="contentCard">
+
+                <div class="searchWrap">
+                    <div class="searchWordWrap">
+                        <div class="searchWordInput">
+                            <label class="searchTitle" for="searchInput">검색어</label>
+                            <input type="text"    class="searchInput"  id="searchInput" placeholder="검색어를 입력하세요"/>
+                            <button type="button" class="searchButton" onclick="tableRefresh();">검색</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="contentCard">
+                <div style='display: flex; justify-content: space-between;'>
+                    <div>
+                        <p class="totalCnt" id="noticeTotalCnt"></p>
+                    </div>
+                    <div class="custom-button-wrap">
+                        <button type='button' class="btn btn-outline-secondary custom-btn custom-normal-btn"
+                                onclick="noticeCreate()">추가
+                            <img src='/images/icon/btn/plus.svg' alt='추가' class='btn-icon'>
+                        </button>
+                        <button type='button' class="btn btn-outline-secondary custom-btn custom-normal-btn"
+                                onclick="noticeUpdate()">수정
+                            <img src='/images/icon/btn/check.svg' alt='수정' class='btn-icon'>
+                        </button>
+                        <button type='button' class="btn btn-outline-secondary custom-btn custom-normal-btn"
+                                onclick="noticeDelete()">삭제
+                            <img src='/images/icon/btn/minus.svg' alt='삭제' class='btn-icon'>
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="tbl-bootstrap-wrap">
+                    <table id="noticeTable"></table>
+                </div>
+            </div>
+
+        </main>
+
+        <th:block layout:fragment="script">
+            <script th:src="@{/js/eqp/rack/view.js}"></script>
+        </th:block>
+    </div>
+
+
+</html>

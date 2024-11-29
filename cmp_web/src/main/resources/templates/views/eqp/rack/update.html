@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<div layout:fragment="content">
+    <main id="main" class="equipment">
+
+        <div class="contentCard">
+            수정
+        </div>
+
+    </main>
+
+    <th:block layout:fragment="script">
+        <script th:src="@{/js/eqp/rack/update.js}"></script>
+    </th:block>
+</div>
+
+</html>

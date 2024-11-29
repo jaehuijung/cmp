@@ -53,7 +53,7 @@ function createColumn(field, checkbox = false, title, type = 'default') {
  */
 var equColumns = [
     createColumn('',                                true,  ''                      ),
-    createColumn('no',                              false, 'no'                      ),
+    createColumn('no',                              false, 'No'                      ),
     createColumn('eqp_manage_id',                   false, '관리번호',   'underline' ),
     createColumn('m_company',                       false, '제조사'                 ),
     createColumn('model_name',                      false, '모델명'                 ),

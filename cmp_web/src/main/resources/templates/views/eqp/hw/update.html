@@ -60,6 +60,78 @@
                 </div>
             </div>
 
+            <!-- 장비운영정보 -->
+            <div class="contentCardWrap">
+                <div class="contentCardTitle">
+                    <h2>▪️ 장비운영정보</h2>
+                </div>
+                <div class="tbl-bootstrap-wrap custom-border-top-solid">
+                    <table class="table-hover-delete">
+                        <tbody>
+                        <tr>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                                <label for="network_operation_type" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영구분</label>
+                            </td>
+                            <td class="custom-border-left custom-width-15per">
+                                <select id="network_operation_type" name="network_operation_type" class="form-control">
+                                    <option value="1" th:selected="${equipment.network_operation_type == '1'}">인터넷망</option>
+                                    <option value="2" th:selected="${equipment.network_operation_type == '2'}">업무망</option>
+                                    <option value="3" th:selected="${equipment.network_operation_type == '3'}">운영망</option>
+                                </select>
+                            </td>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                                <label for="primary_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영담당자(정)</label>
+                            </td>
+                            <td class="custom-border-left custom-width-15per">
+                                <input type="text" id="primary_operator" name="primary_operator" th:value="${equipment.primary_operator}" class="form-control"/>
+                            </td>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                                <label for="primary_outsourced_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">위탁운영사용자(정)</label>
+                            </td>
+                            <td class="custom-border-left custom-width-15per">
+                                <input type="text" id="primary_outsourced_operator" name="primary_outsourced_operator" th:value="${equipment.primary_outsourced_operator}" class="form-control"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                                <label for="operating_department" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영부서</label>
+                            </td>
+                            <td class="custom-border-left custom-width-15per">
+                                <input type="text" id="operating_department" name="operating_department" th:value="${equipment.operating_department}" class="form-control"/>
+                            </td>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                                <label for="secondary_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영담당자(부)</label>
+                            </td>
+                            <td class="custom-border-left custom-width-15per">
+                                <input type="text" id="secondary_operator" name="secondary_operator" th:value="${equipment.secondary_operator}" class="form-control"/>
+                            </td>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                                <label for="secondary_outsourced_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">위탁운영사용자(부)</label>
+                            </td>
+                            <td class="custom-border-left custom-width-15per">
+                                <input type="text" id="secondary_outsourced_operator" name="secondary_outsourced_operator" th:value="${equipment.secondary_outsourced_operator}" class="form-control"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
+                                <label for="operating_status" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영상태</label>
+                            </td>
+                            <td class="custom-border-left custom-width-15per">
+                                <select id="operating_status" name="operating_status" class="form-control">
+                                    <option value="1" th:selected="${equipment.operating_status == '1'}">사용</option>
+                                    <option value="2" th:selected="${equipment.operating_status == '2'}">정지</option>
+                                </select>
+                            </td>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per"></td>
+                            <td class="custom-border-left custom-width-15per"></td>
+                            <td class="custom-background-lightblue custom-border-right custom-width-10per"></td>
+                            <td class="custom-border-left custom-width-15per"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <!-- 장비기본정보 -->
             <div class="contentCardWrap">
                 <div class="contentCardTitle">
@@ -129,78 +201,6 @@
                                     <option value="2" th:selected="${equipment.maintenance_contract_target == '2'}">N</option>
                                 </select>
                             </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- 장비운영정보 -->
-            <div class="contentCardWrap">
-                <div class="contentCardTitle">
-                    <h2>▪️ 장비운영정보</h2>
-                </div>
-                <div class="tbl-bootstrap-wrap custom-border-top-solid">
-                    <table class="table-hover-delete">
-                        <tbody>
-                        <tr>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
-                                <label for="network_operation_type" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영구분</label>
-                            </td>
-                            <td class="custom-border-left custom-width-15per">
-                                <select id="network_operation_type" name="network_operation_type" class="form-control">
-                                    <option value="1" th:selected="${equipment.network_operation_type == '1'}">인터넷망</option>
-                                    <option value="2" th:selected="${equipment.network_operation_type == '2'}">업무망</option>
-                                    <option value="3" th:selected="${equipment.network_operation_type == '3'}">운영망</option>
-                                </select>
-                            </td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
-                                <label for="primary_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영담당자(정)</label>
-                            </td>
-                            <td class="custom-border-left custom-width-15per">
-                                <input type="text" id="primary_operator" name="primary_operator" th:value="${equipment.primary_operator}" class="form-control"/>
-                            </td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
-                                <label for="primary_outsourced_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">위탁운영사용자(정)</label>
-                            </td>
-                            <td class="custom-border-left custom-width-15per">
-                                <input type="text" id="primary_outsourced_operator" name="primary_outsourced_operator" th:value="${equipment.primary_outsourced_operator}" class="form-control"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
-                                <label for="operating_department" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영부서</label>
-                            </td>
-                            <td class="custom-border-left custom-width-15per">
-                                <input type="text" id="operating_department" name="operating_department" th:value="${equipment.operating_department}" class="form-control"/>
-                            </td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
-                                <label for="secondary_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영담당자(부)</label>
-                            </td>
-                            <td class="custom-border-left custom-width-15per">
-                                <input type="text" id="secondary_operator" name="secondary_operator" th:value="${equipment.secondary_operator}" class="form-control"/>
-                            </td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
-                                <label for="secondary_outsourced_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">위탁운영사용자(부)</label>
-                            </td>
-                            <td class="custom-border-left custom-width-15per">
-                                <input type="text" id="secondary_outsourced_operator" name="secondary_outsourced_operator" th:value="${equipment.secondary_outsourced_operator}" class="form-control"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per">
-                                <label for="operating_status" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영상태</label>
-                            </td>
-                            <td class="custom-border-left custom-width-15per">
-                                <select id="operating_status" name="operating_status" class="form-control">
-                                    <option value="1" th:selected="${equipment.operating_status == '1'}">사용</option>
-                                    <option value="2" th:selected="${equipment.operating_status == '2'}">정지</option>
-                                </select>
-                            </td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per"></td>
-                            <td class="custom-border-left custom-width-15per"></td>
-                            <td class="custom-background-lightblue custom-border-right custom-width-10per"></td>
-                            <td class="custom-border-left custom-width-15per"></td>
                         </tr>
                         </tbody>
                     </table>

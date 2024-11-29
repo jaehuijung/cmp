@@ -53,6 +53,61 @@
 
 			<div class="contentCardWrap">
 				<div class="contentCardTitle">
+					<h2>▪️ 소프트웨어 운영정보</h2>
+				</div>
+				<div class="tbl-bootstrap-wrap custom-border-top-solid">
+					<table class="table-hover-delete">
+						<tbody>
+						<tr>
+							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
+								<label for="operating_department" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영부서</label>
+							</td>
+							<td class="custom-border-left custom-width-15per custom-width-min-150">
+								<input type="text" id="operating_department" name="operating_department" class="form-control"/>
+							</td>
+							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
+								<label for="primary_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영담당자(정)</label>
+							</td>
+							<td class="custom-border-left custom-width-15per custom-width-min-150">
+								<input type="text" id="primary_operator" name="primary_operator" class="form-control"/>
+							</td>
+							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
+								<label for="primary_outsourced_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">위탁운영사용자(정)</label>
+							</td>
+							<td class="custom-border-left custom-width-15per custom-width-min-150">
+								<input type="text" id="primary_outsourced_operator" name="primary_outsourced_operator" class="form-control"/>
+							</td>
+						</tr>
+						<tr>
+							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
+								<label for="operating_status" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영상태</label>
+							</td>
+							<td class="custom-border-left custom-width-15per custom-width-min-150">
+								<select id="operating_status" name="operating_status" class="form-control">
+									<option value="1">사용</option>
+									<option value="2">정지</option>
+								</select>
+							</td>
+							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
+								<label for="secondary_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영담당자(부)</label>
+							</td>
+							<td class="custom-border-left custom-width-15per custom-width-min-150">
+								<input type="text" id="secondary_operator" name="secondary_operator" class="form-control"/>
+							</td>
+							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
+								<label for="secondary_outsourced_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">위탁운영사용자(부)</label>
+							</td>
+							<td class="custom-border-left custom-width-15per custom-width-min-150">
+								<input type="text" id="secondary_outsourced_operator" name="secondary_outsourced_operator" class="form-control"/>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="contentCardWrap">
+				<div class="contentCardTitle">
 					<h2>▪️ 소프트웨어 기본정보</h2>
 				</div>
 				<div class="tbl-bootstrap-wrap custom-border-top-solid">
@@ -105,61 +160,6 @@
 									<option value="1">Y</option>
 									<option value="2">N</option>
 								</select>
-							</td>
-						</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-
-			<div class="contentCardWrap">
-				<div class="contentCardTitle">
-					<h2>▪️ 소프트웨어 운영정보</h2>
-				</div>
-				<div class="tbl-bootstrap-wrap custom-border-top-solid">
-					<table class="table-hover-delete">
-						<tbody>
-						<tr>
-							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
-								<label for="operating_department" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영부서</label>
-							</td>
-							<td class="custom-border-left custom-width-15per custom-width-min-150">
-								<input type="text" id="operating_department" name="operating_department" class="form-control"/>
-							</td>
-							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
-								<label for="primary_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영담당자(정)</label>
-							</td>
-							<td class="custom-border-left custom-width-15per custom-width-min-150">
-								<input type="text" id="primary_operator" name="primary_operator" class="form-control"/>
-							</td>
-							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
-								<label for="primary_outsourced_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">위탁운영사용자(정)</label>
-							</td>
-							<td class="custom-border-left custom-width-15per custom-width-min-150">
-								<input type="text" id="primary_outsourced_operator" name="primary_outsourced_operator" class="form-control"/>
-							</td>
-						</tr>
-						<tr>
-							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
-								<label for="operating_status" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영상태</label>
-							</td>
-							<td class="custom-border-left custom-width-15per custom-width-min-150">
-								<select id="operating_status" name="operating_status" class="form-control">
-									<option value="1">사용</option>
-									<option value="2">정지</option>
-								</select>
-							</td>
-							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
-								<label for="secondary_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">운영담당자(부)</label>
-							</td>
-							<td class="custom-border-left custom-width-15per custom-width-min-150">
-								<input type="text" id="secondary_operator" name="secondary_operator" class="form-control"/>
-							</td>
-							<td class="custom-background-lightblue custom-border-right custom-width-10per custom-width-min-150">
-								<label for="secondary_outsourced_operator" class="custom-margin-left-10 custom-font-weight-500 custom-width-nowrap">위탁운영사용자(부)</label>
-							</td>
-							<td class="custom-border-left custom-width-15per custom-width-min-150">
-								<input type="text" id="secondary_outsourced_operator" name="secondary_outsourced_operator" class="form-control"/>
 							</td>
 						</tr>
 						</tbody>
