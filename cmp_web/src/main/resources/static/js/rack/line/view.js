@@ -39,8 +39,8 @@ function createColumn(field, checkbox = false, title, type = 'default') {
 let columns = [
     [
         { title: '구분',          align: 'center', valign: 'middle', colspan: 3 },
-        { title: '출발지(Start)', align: 'center', valign: 'middle', colspan: 10 },
-        { title: '목적지(End)',   align: 'center', valign: 'middle', colspan: 10 },
+        { title: '출발지(Start)', align: 'center', valign: 'middle', colspan: 9 },
+        { title: '목적지(End)',   align: 'center', valign: 'middle', colspan: 9 },
         { title: '회선',          align: 'center', valign: 'middle', colspan: 3 }
     ],
     [
@@ -58,7 +58,7 @@ let columns = [
         createColumn('s_host_name',                   false, '호스트명'),
         createColumn('s_eqp_name',                    false, '구성자원명'),
         createColumn('s_port',                        false, '포트번호'),
-        createColumn('s_primary_operator',            false, '운영담당자'),
+        // createColumn('s_primary_operator',            false, '운영담당자'),
         createColumn('s_primary_outsourced_operator', false, '위탁운영담당자'),
 
         // 목적지
@@ -70,7 +70,7 @@ let columns = [
         createColumn('e_host_name',                   false, '호스트명'),
         createColumn('e_eqp_name',                    false, '구성자원명'),
         createColumn('e_port',                        false, '포트번호'),
-        createColumn('e_primary_operator',            false, '운영담당자'),
+        // createColumn('e_primary_operator',            false, '운영담당자'),
         createColumn('e_primary_outsourced_operator', false, '위탁운영담당자'),
 
         // 회선

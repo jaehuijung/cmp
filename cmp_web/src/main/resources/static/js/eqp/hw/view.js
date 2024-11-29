@@ -28,6 +28,11 @@ function createColumn(field, checkbox = false, title, type = 'default') {
         checkbox: checkbox
     };
 
+    if(field === 'no'){
+       column.formatter = function(value, row, index) {
+           return index + 1;
+       };
+    }
     if (type === 'underline') {
         column.class = 'nowrap underline custom-width-min-160';
     } else {
@@ -52,17 +57,19 @@ function createColumn(field, checkbox = false, title, type = 'default') {
  */
 var equColumns = [
     createColumn('',                                true,  ''                      ),
+    createColumn('no',                              false, 'no'                      ),
     createColumn('eqp_manage_id',                   false, '관리번호',   'underline' ),
+    createColumn('m_company',                       false, '제조사'                 ),
+    createColumn('model_name',                      false, '모델명'                 ),
     createColumn('eqp_name',                        false, '구성자원명'             ),
     createColumn('host_name',                       false, '호스트명'               ),
-    createColumn('model_name',                      false, '모델명'                 ),
-    createColumn('m_company',                       false, '제조사'                 ),
     createColumn('operating_status',                false, '운영상태'               ),
-    createColumn('operating_department',            false, '운영부서'               ),
-    createColumn('primary_operator',                false, '운영담당자(정)'          ),
-    createColumn('secondary_operator',              false, '운영담당자(부)'          ),
-    createColumn('primary_outsourced_operator',     false, '위탁운영사용자(정)'       ),
-    createColumn('secondary_outsourced_operator',   false, '위탁운영사용자(부)'       )
+    // createColumn('operating_department',            false, '운영부서'               ),
+    //createColumn('primary_operator',                false, '운영담당자(정)'          ),
+    //createColumn('secondary_operator',              false, '운영담당자(부)'          ),
+    //createColumn('primary_outsourced_operator',     false, '위탁운영사용자(정)'       ),
+    //createColumn('secondary_outsourced_operator',   false, '위탁운영사용자(부)'       )
+    createColumn('primary_outsourced_operator',     false, '위탁운영사용자'       ),
 ];
 
 

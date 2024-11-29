@@ -18,8 +18,14 @@
                                 <span class="searchChkTitle" >전체</span>
                             </label>
                             <label class="searchChk">
-                                <input type="checkbox" class="selectStateChk" onchange="searchState('host_name', this.checked)" checked>
-                                <span class="searchChkTitle" >호스트명</span>
+                                <input type="checkbox" class="selectStateChk" onchange="searchState('m_company', this.checked)" checked>
+                                <span class="searchChkTitle" >제조사</span>
+                            </label>
+                            <!-- 추가해야함! -->
+                            <label class="searchChk">
+                                <input type="checkbox" class="selectStateChk" onchange="searchState('model_name', this.checked)" checked>
+                                <span></span>
+                                <span class="searchChkTitle" >구성자원명</span>
                             </label>
                             <label class="searchChk">
                                 <input type="checkbox" class="selectStateChk" onchange="searchState('model_name', this.checked)" checked>
@@ -27,8 +33,8 @@
                                 <span class="searchChkTitle" >모델명</span>
                             </label>
                             <label class="searchChk">
-                                <input type="checkbox" class="selectStateChk" onchange="searchState('m_company', this.checked)" checked>
-                                <span class="searchChkTitle" >제조사</span>
+                                <input type="checkbox" class="selectStateChk" onchange="searchState('host_name', this.checked)" checked>
+                                <span class="searchChkTitle" >호스트명</span>
                             </label>
                             <label class="searchChk">
                                 <input type="checkbox" class="selectStateChk" onchange="searchState('operating_status', this.checked)" checked>
@@ -38,6 +44,7 @@
                                 <input type="checkbox" class="selectStateChk" onchange="searchState('operating_department', this.checked)" checked>
                                 <span class="searchChkTitle" >운영부서</span>
                             </label>
+                            <!--
                             <label class="searchChk">
                                 <input type="checkbox" class="selectStateChk" onchange="searchState('primary_operator', this.checked)" checked>
                                 <span class="searchChkTitle" >운영담당자(정)</span>
@@ -53,6 +60,11 @@
                             <label class="searchChk">
                                 <input type="checkbox" class="selectStateChk" onchange="searchState('secondary_outsourced_operator', this.checked)" checked>
                                 <span class="searchChkTitle" >위탁운영사용자(부)</span>
+                            </label>
+                            -->
+                            <label class="searchChk">
+                                <input type="checkbox" class="selectStateChk" onchange="searchState('primary_outsourced_operator', this.checked)" checked>
+                                <span class="searchChkTitle" >위탁운영사용자</span>
                             </label>
                         </div>
                     </div>
