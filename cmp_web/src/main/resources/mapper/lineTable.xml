@@ -190,7 +190,7 @@
             and eb.detail_id = ec.detail_id
         where 1=1
             and eb.is_deleted = 'N'
-            and ec.categories in ('SV', 'NW', 'SE')
+            and ec.categories in ('SV', 'NW', 'ST')
             and eb.eqp_manage_id IN (SELECT DISTINCT eqp_manage_id FROM equipment_regist_hw)
         ORDER BY eb.eqp_manage_id desc
         LIMIT #{offset},#{limit}
@@ -214,7 +214,7 @@
             and eb.detail_id = ec.detail_id
         where 1=1
             and eb.is_deleted = 'N'
-            and ec.categories in ('SV', 'NW', 'SE')
+            and ec.categories in ('SV', 'NW', 'ST')
             and eb.eqp_manage_id IN (SELECT DISTINCT eqp_manage_id FROM equipment_regist_hw)
     </select>
 
