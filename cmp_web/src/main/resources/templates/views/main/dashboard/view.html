@@ -6,79 +6,25 @@
 
 <head>
     <style>
-        .dashboard-header {
-            background-color: #e0e0e0;
-            padding: 20px;
-            text-align: center;
-            font-size: 24px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            position: relative; /* position 설정 */
+        .dashboard-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2개의 열로 설정 */
+        gap: 20px;
+        justify-items: center;
+    }
+    .dashboard-chart {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        width: 100%;
+    }
+    @media (max-width: 1000px) {
+        .dashboard-container {
+            grid-template-columns: 1fr; /* 화면이 600px 이하일 때 열을 1개로 설정 */
         }
+    }
 
-        .dashboard-header-item {
-            background-color: white;
-            border-radius: 5px;
-            width: calc(100%/3 - 50px);
-            height: 150px;
-            margin: 5px 10px;
-            padding: 5px;
-
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .swiper-container {
-            margin-left: auto;
-            margin-right: auto;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .swiper-wrapper {
-            position: relative;
-            width: 100%;
-            height: auto;
-            z-index: 1;
-            display: flex;
-            transition-property: transform;
-            box-sizing: content-box;
-        }
-
-        .swiper-slide {
-            display: flex;
-            justify-content: space-around;
-        }
-
-        /* Swiper pagination bullet styles */
-        .swiper-pagination-bullet {
-            width: 12px;
-            height: 12px;
-            background-color: gray;
-            opacity: 0.8;
-            margin: 0 3px;
-        }
-
-        .swiper-pagination-bullet-active {
-            background-color: black;
-        }
-
-        .swiper-pagination {
-            bottom: 10px; /* 페이지네이션을 요소 하단에 위치 */
-        }
-
-        .swiper-button-next,
-        .swiper-button-prev {
-            top: 70%; /* 버튼을 수직 중앙에 위치 */
-            transform: translateY(-50%);
-            color: black; /* 버튼 색상 */
-            width: 25px;
-            height: 25px;
-            overflow: hidden;
-        }
     </style>
 
     <link th:href="@{/css/custom-dashboard.css}" rel="stylesheet">
@@ -170,11 +116,10 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-                <!-- Add Pagination -->
+
                 <div class="swiper-pagination"></div>
-                <!-- Add Navigation -->
+
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
             </div>
