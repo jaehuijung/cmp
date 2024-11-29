@@ -72,4 +72,21 @@
     overflow: hidden;
 }
 
-
+.dashboard-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2개의 열로 설정 */
+    gap: 20px;
+    justify-items: center;
+}
+.dashboard-chart {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 100%;
+}
+@media (max-width: 1000px) {
+    .dashboard-container {
+        grid-template-columns: 1fr; /* 화면이 600px 이하일 때 열을 1개로 설정 */
+    }
+}

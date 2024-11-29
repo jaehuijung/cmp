@@ -332,7 +332,6 @@ header {
     margin: 0;
 }
 
-
 /* 중앙 콘텐츠 */
 .content {
     flex: 1;
@@ -690,6 +689,36 @@ header {
     font-size: 12px;
 }
 
+/* 화면 크기가 1000px 이하일 때 자동으로 toggled 스타일 적용 */
+@media (max-width: 1000px) {
+    .side-menu {
+        width: 100px;
+    }
+    #left-logo {
+        width: 100px;
+    }
+    #left-logo-img {
+        display: none;
+    }
+    #left-logo-toggle-img {
+        display: flex;
+    }
+    #menu-items {
+        display: none;
+    }
+    #menu-toggle-items {
+        display: flex;
+    }
+    .content {
+        margin-left: 100px;
+    }
+    .bottom-section {
+        display: none;
+    }
+    #sidebarToggle{
+        display: none;
+    }
+}
 
 /* 기타 공통 커스텀 항목들 */
 
