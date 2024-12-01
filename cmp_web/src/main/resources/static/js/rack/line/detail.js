@@ -32,7 +32,7 @@ let lineStartSelectColumn = [
         createColumn('s_eqp_name',                    false, '구성자원명'),
         createColumn('s_port',                        false, '포트번호'),
         // createColumn('s_primary_operator',            false, '운영담당자'),
-        createColumn('s_primary_outsourced_operator', false, '운영담당자'),
+        createColumn('s_primary_outsourced_operator', false, '운영사용자'),
     ]
 ];
 
@@ -50,7 +50,7 @@ let lineEndSelectColumn = [
         createColumn('e_eqp_name',                    false, '구성자원명'),
         createColumn('e_port',                        false, '포트번호'),
         // createColumn('e_primary_operator',            false, '운영담당자'),
-        createColumn('e_primary_outsourced_operator', false, '운영담당자'),
+        createColumn('e_primary_outsourced_operator', false, '운영사용자'),
     ]
 ];
 

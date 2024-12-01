@@ -25,8 +25,8 @@ let lineStartColumn = [
     createColumn('model_name',                  false, '모델명'),
     createColumn('host_name',                   false, '호스트명'),
     createColumn('eqp_name',                    false, '구성자원명'),
-    createColumn('primary_operator',            false, '운영담당자'),
-    createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
+    // createColumn('primary_operator',            false, '운영담당자'),
+    createColumn('primary_outsourced_operator', false, '운영사용자'),
 ];
 
 let lineEndColumn = [
@@ -39,8 +39,8 @@ let lineEndColumn = [
     createColumn('host_name',                   false, '호스트명'),
     createColumn('eqp_name',                    false, '구성자원명'),
     createColumn('eqp_link_port',               false, '연결장비포트번호'),
-    createColumn('primary_operator',            false, '운영담당자'),
-    createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
+    //createColumn('primary_operator',            false, '운영담당자'),
+    createColumn('primary_outsourced_operator', false, '운영사용자'),
 ];
 
 let selectedStartRow = null;
@@ -50,7 +50,7 @@ let selectInitEndRow = false;
 
 let lineStartSelectColumn = [
     [
-        { title: '출발지(Start)', align: 'center', valign: 'middle', colspan: 10 },
+        { title: '출발지(Start)', align: 'center', valign: 'middle', colspan: 9 },
     ],
     [
         createColumn('s_asset_category',              false, '자산분류'),
@@ -61,14 +61,14 @@ let lineStartSelectColumn = [
         createColumn('s_host_name',                   false, '호스트명'),
         createColumn('s_eqp_name',                    false, '구성자원명'),
         createColumn('s_port',                        false, '포트번호'),
-        createColumn('s_primary_operator',            false, '운영담당자'),
-        createColumn('s_primary_outsourced_operator', false, '위탁운영담당자'),
+        //createColumn('s_primary_operator',            false, '운영담당자'),
+        createColumn('s_primary_outsourced_operator', false, '운영사용자'),
     ]
 ];
 
 let lineEndSelectColumn = [
     [
-        { title: '목적지(End)',   align: 'center', valign: 'middle', colspan: 10 },
+        { title: '목적지(End)',   align: 'center', valign: 'middle', colspan: 9 },
     ],
     [
         createColumn('e_asset_category',              false, '자산분류'),
@@ -79,8 +79,8 @@ let lineEndSelectColumn = [
         createColumn('e_host_name',                   false, '호스트명'),
         createColumn('e_eqp_name',                    false, '구성자원명'),
         createColumn('e_port',                        false, '포트번호'),
-        createColumn('e_primary_operator',            false, '운영담당자'),
-        createColumn('e_primary_outsourced_operator', false, '위탁운영담당자'),
+        //createColumn('e_primary_operator',            false, '운영담당자'),
+        createColumn('e_primary_outsourced_operator', false, '운영사용자'),
     ]
 ];
 
@@ -94,7 +94,7 @@ function updateStartSelectTable() {
         s_host_name: selectedStartRow.host_name,
         s_eqp_name: selectedStartRow.eqp_name,
         s_port: selectedEndRow.eqp_port,
-        s_primary_operator: selectedStartRow.primary_operator,
+        //s_primary_operator: selectedStartRow.primary_operator,
         s_primary_outsourced_operator: selectedStartRow.primary_outsourced_operator,
     }];
 
@@ -111,7 +111,7 @@ function updateEndSelectTable() {
         e_host_name: selectedEndRow.host_name,
         e_eqp_name: selectedEndRow.eqp_name,
         e_port: selectedEndRow.eqp_link_port,
-        e_primary_operator: selectedEndRow.primary_operator,
+        //e_primary_operator: selectedEndRow.primary_operator,
         e_primary_outsourced_operator: selectedEndRow.primary_outsourced_operator,
     }];
 

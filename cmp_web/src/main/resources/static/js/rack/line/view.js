@@ -59,7 +59,7 @@ let columns = [
         createColumn('s_eqp_name',                    false, '구성자원명'),
         createColumn('s_port',                        false, '포트번호'),
         // createColumn('s_primary_operator',            false, '운영담당자'),
-        createColumn('s_primary_outsourced_operator', false, '위탁운영담당자'),
+        createColumn('s_primary_outsourced_operator', false, '운영사용자'),
 
         // 목적지
         createColumn('e_asset_category',              false, '자산분류'),
@@ -71,7 +71,7 @@ let columns = [
         createColumn('e_eqp_name',                    false, '구성자원명'),
         createColumn('e_port',                        false, '포트번호'),
         // createColumn('e_primary_operator',            false, '운영담당자'),
-        createColumn('e_primary_outsourced_operator', false, '위탁운영담당자'),
+        createColumn('e_primary_outsourced_operator', false, '운영사용자'),
 
         // 회선
         createColumn('line_speed',     false, '속도'),
