@@ -31,13 +31,19 @@
                                 <span class="searchChkTitle" >구성자원명</span>
                             </label>
                             <label class="searchChk">
-                                <input type="checkbox" class="selectStateChk" onchange="searchState('host_name', this.checked)" checked>
-                                <span class="searchChkTitle" >호스트명</span>
-                            </label>
-                            <label class="searchChk">
                                 <input type="checkbox" class="selectStateChk" onchange="searchState('operating_status', this.checked)" checked>
                                 <span class="searchChkTitle" >운영상태</span>
                             </label>
+                            <label class="searchChk">
+                                <input type="checkbox" class="selectStateChk" onchange="searchState('primary_outsourced_operator', this.checked)" checked>
+                                <span class="searchChkTitle" >운영사용자</span>
+                            </label>
+                            <!--
+                            <label class="searchChk">
+                                <input type="checkbox" class="selectStateChk" onchange="searchState('host_name', this.checked)" checked>
+                                <span class="searchChkTitle" >호스트명</span>
+                            </label>
+                            -->
                             <!--
                             <label class="searchChk">
                                 <input type="checkbox" class="selectStateChk" onchange="searchState('operating_department', this.checked)" checked>
@@ -60,10 +66,6 @@
                                 <span class="searchChkTitle" >위탁운영사용자(부)</span>
                             </label>
                             -->
-                            <label class="searchChk">
-                                <input type="checkbox" class="selectStateChk" onchange="searchState('primary_outsourced_operator', this.checked)" checked>
-                                <span class="searchChkTitle" >위탁운영사용자</span>
-                            </label>
                         </div>
                     </div>
                 </div>
