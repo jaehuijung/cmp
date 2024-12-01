@@ -89,7 +89,7 @@
             equipment_basic A
         WHERE 1=1
         <include refid="getEquipmentTotalCommon"/>
-        ORDER BY A.eqp_manage_id desc
+        ORDER BY A.eqp_manage_id
         LIMIT #{offset},#{limit}
     </select>
 

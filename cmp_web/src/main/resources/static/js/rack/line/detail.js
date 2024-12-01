@@ -20,7 +20,7 @@ function createColumn(field, checkbox = false, title, type = 'default') {
 
 let lineStartSelectColumn = [
     [
-        { title: '출발지(Start)', align: 'center', valign: 'middle', colspan: 10 },
+        { title: '출발지(Start)', align: 'center', valign: 'middle', colspan: 9 },
     ],
     [
         createColumn('s_asset_category',              false, '자산분류'),
@@ -31,14 +31,14 @@ let lineStartSelectColumn = [
         createColumn('s_host_name',                   false, '호스트명'),
         createColumn('s_eqp_name',                    false, '구성자원명'),
         createColumn('s_port',                        false, '포트번호'),
-        createColumn('s_primary_operator',            false, '운영담당자'),
-        createColumn('s_primary_outsourced_operator', false, '위탁운영담당자'),
+        // createColumn('s_primary_operator',            false, '운영담당자'),
+        createColumn('s_primary_outsourced_operator', false, '운영담당자'),
     ]
 ];
 
 let lineEndSelectColumn = [
     [
-        { title: '목적지(End)',   align: 'center', valign: 'middle', colspan: 10 },
+        { title: '목적지(End)',   align: 'center', valign: 'middle', colspan: 9 },
     ],
     [
         createColumn('e_asset_category',              false, '자산분류'),
@@ -49,8 +49,8 @@ let lineEndSelectColumn = [
         createColumn('e_host_name',                   false, '호스트명'),
         createColumn('e_eqp_name',                    false, '구성자원명'),
         createColumn('e_port',                        false, '포트번호'),
-        createColumn('e_primary_operator',            false, '운영담당자'),
-        createColumn('e_primary_outsourced_operator', false, '위탁운영담당자'),
+        // createColumn('e_primary_operator',            false, '운영담당자'),
+        createColumn('e_primary_outsourced_operator', false, '운영담당자'),
     ]
 ];
 
