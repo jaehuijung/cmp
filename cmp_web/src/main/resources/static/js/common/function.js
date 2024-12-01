@@ -90,7 +90,6 @@ function getSelectLink(){
 // 장비분류 > 구성분류 리스트
 function getSelectConfig(){
     $.ajax({
-        // url: "/eqp/hw/selectConfig",
         url: "/common/selectConfig",
         type: "post",
         success: function (res) {
@@ -123,7 +122,6 @@ function getSelectConfig(){
 // 장비분류 > 자산분류 리스트
 function getSelectAsset(configValue){
     $.ajax({
-        // url: "/eqp/hw/selectAsset",
         url: "/common/selectAsset",
         type: "post",
         data: {config_id: configValue},
@@ -153,7 +151,6 @@ function getSelectAsset(configValue){
 // 장비분류 > 자산세부 리스트
 function getSelectSub(assetValue){
     $.ajax({
-        // url: "/eqp/hw/selectSub",
         url: "/common/selectSub",
         type: "post",
         data: {asset_id: assetValue},
@@ -186,7 +183,6 @@ function getSelectSub(assetValue){
 // 장비분류 > 자산상세 리스트
 function getSelectDetail(subValue){
     $.ajax({
-        // url: "/eqp/hw/selectDetail",
         url: "/common/selectDetail",
         type: "post",
         data: {sub_id: subValue},

@@ -91,7 +91,6 @@ function buildSideMenu(menuData, currentUrl) {
     const sideMenuHtml = filteredMenu
         .map(menu => {
             const isActive = menu.menu_id === currentMenu.menu_id ? ' active' : '';
-            // return `<a href="${menu.url}" class="side-menu-item${isActive}"><img src="/images/icon/folder.png" alt="icon" class="menu-icon" />${menu.menu_name}</a>`;
             return `<a href="${menu.url}" class="side-menu-item${isActive}"><img src="${menu.icon}" alt="icon" class="menu-icon" />${menu.menu_name}</a>`;
         })
         .join('');
@@ -99,7 +98,6 @@ function buildSideMenu(menuData, currentUrl) {
     const sideToggleMenuHtml = filteredMenu
         .map(menu => {
             const isActive = menu.menu_id === currentMenu.menu_id ? ' active' : '';
-            // return `<a href="${menu.url}" class="side-menu-item${isActive}"><img src="/images/icon/folder.png" alt="icon" class="menu-icon" /></a>`;
             return `<a href="${menu.url}" class="side-menu-item${isActive}"><img src="${menu.icon}" alt="icon" class="menu-toggle-icon" /></a>`;
         })
         .join('');
@@ -151,7 +149,7 @@ function buildPageNavigation(menuData, currentUrl) {
     // home 링크는 만약 대시보드 만들면 거기로 이동하도록 수정!
     if (breadcrumbElement) {
         breadcrumbElement.innerHTML = `
-            <li class="breadcrumb-item"><a href="/rack/line/view">Home</a></li>
+            <li class="breadcrumb-item"><a href="/eqp/hw/view">Home</a></li>
             <li class="breadcrumb-item"><a href="${parentMenu.url}">${parentMenu.menu_name}</a></li>
             <li class="breadcrumb-item active"><a href="${currentMenu.url}">${currentMenu.menu_name}</a></li>
         `;
