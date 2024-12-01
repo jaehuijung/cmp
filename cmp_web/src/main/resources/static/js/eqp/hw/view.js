@@ -71,7 +71,7 @@ var equColumns = [
     //createColumn('secondary_operator',              false, '운영담당자(부)'          ),
     //createColumn('primary_outsourced_operator',     false, '위탁운영사용자(정)'       ),
     //createColumn('secondary_outsourced_operator',   false, '위탁운영사용자(부)'       )
-    createColumn('primary_outsourced_operator',     false, '위탁운영사용자'       ),
+    createColumn('primary_outsourced_operator',     false, '운영사용자'       ),
 ];
 
 

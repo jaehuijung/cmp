@@ -149,7 +149,7 @@ function searchState(btn, type, isChecked) {
         's_host_name',
         's_eqp_name',
         's_port',
-        's_primary_operator',
+        // 's_primary_operator',
         's_primary_outsourced_operator'
     ];
 
@@ -162,7 +162,7 @@ function searchState(btn, type, isChecked) {
         'e_host_name',
         'e_eqp_name',
         'e_port',
-        'e_primary_operator',
+        // 'e_primary_operator',
         'e_primary_outsourced_operator'
     ];
 
@@ -176,7 +176,7 @@ function searchState(btn, type, isChecked) {
     } else if (btn === 'e') {
         querySelector = "#end .selectStateChk";
         querySelectorAll = "#end .selectStateChkAll";
-        columnIdx = 13;
+        columnIdx = 12;
         columnsToToggle = endColumns;
     }
 
