@@ -58,13 +58,13 @@ function createCommonEqpHardwareColumns(tableId, portFormatter = '') {
             ] : []),
             createColumn('asset_category', false, '자산분류'),
             createColumn('installation_coordinates', false, '설치좌표'),
-            createColumn('eqp_manage_id', false, '관리번호'),
+            createColumn('eqp_manage_id', false, '관리ID'),
             createColumn('m_company', false, '제조사'),
             createColumn('model_name', false, '모델명'),
             createColumn('eqp_name', false, '구성자원명'),
             createColumn('host_name', false, '호스트명'),
             // createColumn('primary_operator', false, '운영담당자'),
-            createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
+            createColumn('primary_outsourced_operator', false, '운영사용자'),
             ...(tableId === '#eqpHardwareSelectTable' ? [
                 createColumn('eqp_link_port', false, '포트번호', '', (value, row, index) => portFormatter(value, row, index, tableId, 'eqp_link_port'))
             ] : [])
@@ -91,14 +91,14 @@ function updateEqpHardwarePortInputData(input, index, field, tableId) {
 let eqpSoftwareColumn = [
     createColumn('',                            true,  ''),
     createColumn('asset_category',              false, '자산분류'),
-    createColumn('eqp_manage_id',               false, '관리번호'),
+    createColumn('eqp_manage_id',               false, '관리ID'),
     createColumn('m_company',                   false, '제조사'),
     createColumn('model_name',                  false, '모델명'),
     createColumn('host_name',                   false, '호스트명'),
     createColumn('eqp_name',                    false, '구성자원명'),
     createColumn('dependent_config',            false, '종속 SW 여부'),
-    createColumn('primary_operator',            false, '운영담당자'),
-    createColumn('primary_outsourced_operator', false, '위탁운영담당자'),
+    //createColumn('primary_operator',            false, '운영담당자'),
+    createColumn('primary_outsourced_operator', false, '운영사용자'),
 ];
 
 let eqpHardwareOldData = [];

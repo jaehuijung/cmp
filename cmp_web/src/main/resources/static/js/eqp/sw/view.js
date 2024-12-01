@@ -26,7 +26,8 @@ function createColumn(field, checkbox = false, title, type = 'default') {
 
     if(field === 'no'){
        column.formatter = function(value, row, index) {
-           return index + 1;
+           let tableOptions = $('#eqpTable').bootstrapTable('getOptions');
+           return tableOptions.totalRows - index;
        };
     }
     if (type === 'underline') {
@@ -53,8 +54,9 @@ function createColumn(field, checkbox = false, title, type = 'default') {
  */
 var equColumns = [
     createColumn('',                                true,  ''                      ),
-    createColumn('no',                              false, 'No'                      ),
-    createColumn('eqp_manage_id',                   false, '관리번호',   'underline' ),
+    // INDEX 로직 수정해야
+    // createColumn('no',                              false, 'No'                      ),
+    createColumn('eqp_manage_id',                   false, '관리ID',   'underline' ),
     createColumn('m_company',                       false, '제조사'                 ),
     createColumn('model_name',                      false, '모델명'                 ),
     createColumn('eqp_name',                        false, '구성자원명'             ),
@@ -64,7 +66,7 @@ var equColumns = [
     //createColumn('secondary_operator',              false, '운영담당자(부)'          ),
     //createColumn('primary_outsourced_operator',     false, '위탁운영사용자(정)'       ),
     //createColumn('secondary_outsourced_operator',   false, '위탁운영사용자(부)'       )
-    createColumn('primary_outsourced_operator',     false, '위탁운영사용자'       ),
+    createColumn('primary_outsourced_operator',     false, '운영사용자'       ),
 ];
 
 
