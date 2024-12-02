@@ -47,36 +47,36 @@ let columns = [
         // 구분
         createColumn('', true, ''),
         createColumn('no', false, 'no', 'formatter'),
-        createColumn('line_manage_id', false, '케이블 관리번호', 'underline'),
+        createColumn('line_manage_id', false, '<span class="custom-font-color-red">*</span> 케이블 관리번호', 'underline'),
 
         // 출발지
         createColumn('s_asset_category',              false, '자산분류'),
         createColumn('s_installation_coordinates',    false, '설치좌표'),
-        createColumn('s_eqp_manage_id',               false, '관리번호'),
-        createColumn('s_m_company',                   false, '제조사'),
-        createColumn('s_model_name',                  false, '모델명'),
-        createColumn('s_host_name',                   false, '호스트명'),
-        createColumn('s_eqp_name',                    false, '구성자원명'),
-        createColumn('s_port',                        false, '포트번호'),
+        createColumn('s_eqp_manage_id',               false, '<span class="custom-font-color-red">*</span> 관리번호'),
+        createColumn('s_m_company',                   false, '<span class="custom-font-color-red">*</span> 제조사'),
+        createColumn('s_model_name',                  false, '<span class="custom-font-color-red">*</span> 모델명'),
+        createColumn('s_host_name',                   false, '<span class="custom-font-color-red">*</span> 호스트명'),
+        createColumn('s_eqp_name',                    false, '<span class="custom-font-color-red">*</span> 구성자원명'),
+        createColumn('s_port',                        false, '<span class="custom-font-color-red">*</span> 포트번호'),
+        createColumn('s_primary_outsourced_operator', false, '<span class="custom-font-color-red">*</span> 운영사용자'),
         // createColumn('s_primary_operator',            false, '운영담당자'),
-        createColumn('s_primary_outsourced_operator', false, '운영사용자'),
 
         // 목적지
         createColumn('e_asset_category',              false, '자산분류'),
         createColumn('e_installation_coordinates',    false, '설치좌표'),
-        createColumn('e_eqp_manage_id',               false, '관리번호'),
-        createColumn('e_m_company',                   false, '제조사'),
-        createColumn('e_model_name',                  false, '모델명'),
-        createColumn('e_host_name',                   false, '호스트명'),
-        createColumn('e_eqp_name',                    false, '구성자원명'),
-        createColumn('e_port',                        false, '포트번호'),
+        createColumn('e_eqp_manage_id',               false, '<span class="custom-font-color-red">*</span> 관리번호'),
+        createColumn('e_m_company',                   false, '<span class="custom-font-color-red">*</span> 제조사'),
+        createColumn('e_model_name',                  false, '<span class="custom-font-color-red">*</span> 모델명'),
+        createColumn('e_host_name',                   false, '<span class="custom-font-color-red">*</span> 호스트명'),
+        createColumn('e_eqp_name',                    false, '<span class="custom-font-color-red">*</span> 구성자원명'),
+        createColumn('e_port',                        false, '<span class="custom-font-color-red">*</span> 포트번호'),
+        createColumn('e_primary_outsourced_operator', false, '<span class="custom-font-color-red">*</span> 운영사용자'),
         // createColumn('e_primary_operator',            false, '운영담당자'),
-        createColumn('e_primary_outsourced_operator', false, '운영사용자'),
 
         // 회선
-        createColumn('line_speed',     false, '속도'),
-        createColumn('line_category',  false, '구분'),
-        createColumn('line_color',     false, '색상')
+        createColumn('line_speed',     false, '<span class="custom-font-color-red">*</span> 속도'),
+        createColumn('line_category',  false, '<span class="custom-font-color-red">*</span> 구분'),
+        createColumn('line_color',     false, '<span class="custom-font-color-red">*</span> 색상')
     ]
 ];
 
