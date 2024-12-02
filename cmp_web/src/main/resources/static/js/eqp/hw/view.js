@@ -58,20 +58,20 @@ function createColumn(field, checkbox = false, title, type = 'default') {
  */
 var equColumns = [
     createColumn('',                                true,  ''                      ),
-    // INDEX 로직 수정해야
-    //createColumn('no',                              false, 'No'                      ),
-    createColumn('eqp_manage_id',                   false, '관리ID',   'underline' ),
-    createColumn('m_company',                       false, '제조사'                 ),
-    createColumn('model_name',                      false, '모델명'                 ),
-    createColumn('eqp_name',                        false, '구성자원명'             ),
-    createColumn('host_name',                       false, '호스트명'               ),
-    createColumn('operating_status',                false, '운영상태'               ),
+    createColumn('eqp_manage_id',                   false, '<span class="custom-font-color-red">*</span> 관리ID',   'underline' ),
+    createColumn('m_company',                       false, '<span class="custom-font-color-red">*</span> 제조사'                 ),
+    createColumn('model_name',                      false, '<span class="custom-font-color-red">*</span> 모델명'                 ),
+    createColumn('eqp_name',                        false, '<span class="custom-font-color-red">*</span> 구성자원명'             ),
+    createColumn('host_name',                       false, '<span class="custom-font-color-red">*</span> 호스트명'               ),
+    createColumn('operating_status',                false, '<span class="custom-font-color-red">*</span> 운영상태'               ),
+    createColumn('primary_outsourced_operator',     false, '<span class="custom-font-color-red">*</span> 운영사용자'       ),
+    //createColumn('no',                              false, 'No'                      ), // INDEX 로직 수정해야
     // createColumn('operating_department',            false, '운영부서'               ),
     //createColumn('primary_operator',                false, '운영담당자(정)'          ),
     //createColumn('secondary_operator',              false, '운영담당자(부)'          ),
     //createColumn('primary_outsourced_operator',     false, '위탁운영사용자(정)'       ),
     //createColumn('secondary_outsourced_operator',   false, '위탁운영사용자(부)'       )
-    createColumn('primary_outsourced_operator',     false, '운영사용자'       ),
+
 ];
 
 
