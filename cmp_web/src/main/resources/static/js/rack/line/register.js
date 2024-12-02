@@ -158,7 +158,8 @@ $(function(){
                 return false;
             }
 
-            $("#lineStartTotalCnt").text("총 " + res.total + "건")
+            $("#lineStartTotalCnt").text("총 " + res.total + "건");
+            customRenderPagination(res.total);
         },
         onClickCell: function(field, value, row, $element) {
             // 기존 선택된 행의 클래스 제거
@@ -211,7 +212,8 @@ $(function(){
                 return false;
             }
 
-            $("#lineEndTotalCnt").text("총 " + res.total + "건")
+            $("#lineEndTotalCnt").text("총 " + res.total + "건");
+            customRenderPagination(res.total);
         },
         onClickCell: function(field, value, row, $element) {
             // 기존 선택된 행의 클래스 제거

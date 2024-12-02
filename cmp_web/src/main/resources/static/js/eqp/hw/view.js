@@ -74,10 +74,10 @@ var equColumns = [
 
 ];
 
-
 $(function(){
 
-    $('#eqpTable').bootstrapTable({
+    let tbl = $('#eqpTable');
+    tbl.bootstrapTable({
         url: '/eqp/hw/list',
         method: 'post',
         queryParams: function(params) {
@@ -88,12 +88,15 @@ $(function(){
             return params;
         },
         pageSize: 10, columns: equColumns, cache: false, undefinedText: "",
+        paginationLoop: false,
         pagination: true, sidePagination: 'server', checkboxHeader: true,
         classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
         responseHandler: function(res) {
             return {
                 rows: res.rows,
                 total: res.total,
+                pageSize: 10,
+                pageNumber: 2,
                 errorCode: res.errorCode
             }
         },
@@ -103,7 +106,8 @@ $(function(){
                 alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
             }
 
-            $("#eqpTotalCnt").text("총 " + res.total + "건")
+            $("#eqpTotalCnt").text("총 " + res.total + "건");
+            customRenderPagination(tbl, res.total);
         },
         onClickCell: function (field, value, row, $element){
             if (!$element.hasClass("bs-checkbox")) {
@@ -127,7 +131,6 @@ $(function(){
     })
 
 });
-
 
 /**
  * 컬럼 활성화/비활성화를 처리하는 함수

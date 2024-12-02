@@ -82,6 +82,7 @@ $(function(){
             return params;
         },
         pageSize: 10, columns: equColumns, cache: false, undefinedText: "",
+        paginationLoop: false,
         pagination: true, sidePagination: 'server', checkboxHeader: true,
         classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
         responseHandler: function(res) {
@@ -97,7 +98,8 @@ $(function(){
                 alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
             }
 
-            $("#eqpTotalCnt").text("총 " + res.total + "건")
+            $("#eqpTotalCnt").text("총 " + res.total + "건");
+            customRenderPagination(res.total);
         },
         onClickCell: function (field, value, row, $element){
             if (!$element.hasClass("bs-checkbox")) {

@@ -109,6 +109,7 @@ $(function() {
             }
 
             $("#lineTotalCnt").text("총 " + res.total + "건");
+            customRenderPagination(res.total);
         },
         onClickCell: function(field, value, row, $element) {
             if (!$element.hasClass("bs-checkbox")) {
