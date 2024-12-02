@@ -17,6 +17,12 @@
             BINARY A.model_name                     Like CONCAT('%', #{searchInput}, '%') OR
             BINARY A.m_company                      Like CONCAT('%', #{searchInput}, '%') OR
             BINARY A.operating_department           Like CONCAT('%', #{searchInput}, '%') OR
+            <if test="searchInput == '사용'">
+                BINARY A.operating_status               Like CONCAT('%', "1", '%') OR
+            </if>
+            <if test="searchInput == '정지'">
+                BINARY A.operating_status               Like CONCAT('%', "2", '%') OR
+            </if>
             BINARY A.primary_operator               Like CONCAT('%', #{searchInput}, '%') OR
             BINARY A.secondary_operator             Like CONCAT('%', #{searchInput}, '%') OR
             BINARY A.primary_outsourced_operator    Like CONCAT('%', #{searchInput}, '%') OR
