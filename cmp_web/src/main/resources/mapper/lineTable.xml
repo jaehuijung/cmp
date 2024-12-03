@@ -211,7 +211,6 @@
                 BINARY ed.installation_coordinates       LIKE CONCAT('%', #{searchInput}, '%')
             )
         ORDER BY eb.eqp_manage_id desc
-        LIMIT #{offset},#{limit}
     </select>
 
     <select id="getLineStartEquipmentListCnt" parameterType="map" resultType="int">
@@ -302,7 +301,6 @@
                 BINARY erh.eqp_port                      LIKE CONCAT('%', #{searchInput}, '%') OR
                 BINARY erh.eqp_link_port                 LIKE CONCAT('%', #{searchInput}, '%')
             )
-        LIMIT #{offset},#{limit}
     </select>
 
     <select id="getLineEndEquipmentListCnt" parameterType="map" resultType="int">

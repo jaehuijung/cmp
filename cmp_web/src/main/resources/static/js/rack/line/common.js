@@ -25,7 +25,6 @@ let lineStartColumn = [
     createColumn('model_name',                  false, '모델명'),
     createColumn('host_name',                   false, '호스트명'),
     createColumn('eqp_name',                    false, '구성자원명'),
-    // createColumn('primary_operator',            false, '운영담당자'),
     createColumn('primary_outsourced_operator', false, '운영사용자'),
 ];
 
@@ -39,7 +38,6 @@ let lineEndColumn = [
     createColumn('host_name',                   false, '호스트명'),
     createColumn('eqp_name',                    false, '구성자원명'),
     createColumn('eqp_link_port',               false, '연결장비포트번호'),
-    //createColumn('primary_operator',            false, '운영담당자'),
     createColumn('primary_outsourced_operator', false, '운영사용자'),
 ];
 
@@ -61,7 +59,6 @@ let lineStartSelectColumn = [
         createColumn('s_host_name',                   false, '호스트명'),
         createColumn('s_eqp_name',                    false, '구성자원명'),
         createColumn('s_port',                        false, '포트번호'),
-        //createColumn('s_primary_operator',            false, '운영담당자'),
         createColumn('s_primary_outsourced_operator', false, '운영사용자'),
     ]
 ];
@@ -79,7 +76,6 @@ let lineEndSelectColumn = [
         createColumn('e_host_name',                   false, '호스트명'),
         createColumn('e_eqp_name',                    false, '구성자원명'),
         createColumn('e_port',                        false, '포트번호'),
-        //createColumn('e_primary_operator',            false, '운영담당자'),
         createColumn('e_primary_outsourced_operator', false, '운영사용자'),
     ]
 ];
@@ -94,11 +90,10 @@ function updateStartSelectTable() {
         s_host_name: selectedStartRow.host_name,
         s_eqp_name: selectedStartRow.eqp_name,
         s_port: selectedEndRow.eqp_port,
-        //s_primary_operator: selectedStartRow.primary_operator,
         s_primary_outsourced_operator: selectedStartRow.primary_outsourced_operator,
     }];
 
-    $('#lineStartSelectTable').bootstrapTable('load', data);
+    $(tbl_select_start).bootstrapTable('load', data);
 }
 
 function updateEndSelectTable() {
@@ -111,28 +106,37 @@ function updateEndSelectTable() {
         e_host_name: selectedEndRow.host_name,
         e_eqp_name: selectedEndRow.eqp_name,
         e_port: selectedEndRow.eqp_link_port,
-        //e_primary_operator: selectedEndRow.primary_operator,
         e_primary_outsourced_operator: selectedEndRow.primary_outsourced_operator,
     }];
 
-    $('#lineEndSelectTable').bootstrapTable('load', data);
+    $(tbl_select_end).bootstrapTable('load', data);
 }
 
-function tableRefresh(id){
-    $(id).bootstrapTable('refresh');
-}
+let tbl_start = "#lineStartTable";
+let tbl_end   = "#lineEndTable";
+let tbl_select_start = "#lineStartSelectTable";
+let tbl_select_end   = "#lineEndSelectTable";
 
+let pageChk = window.location.href.indexOf('create') != -1;
 $(function(){
+
+    if(pageChk){
+        setDefaultDates(); // 화면 렌더링 시 날짜 컬럼들 현재날짜로 세팅
+        getSelectLink(); // 화면 렌더링 시 회선 선택박스 세팅
+    }
 
     $('#line_speed').change(function() {
         const selectedSpeedId = $(this).val(); // 선택된 speed의 id를 가져옴
         $('#line_color').val(selectedSpeedId); // line_color 선택박스에서 동일한 id를 선택
     });
 
-    $('#lineStartTable').bootstrapTable({
+    $(tbl_start).bootstrapTable({
         url: '/rack/line/startEquipmentList',
         method: 'post',
         queryParams: function(params) {
+            params.pageSize = 5;
+            params.pageNumber = this.pageNumber || 1; // 현재 페이지 번호
+
             let searchInput = $("#searchStartInput").val();
             params.searchData = {
                 searchInput
@@ -140,12 +144,15 @@ $(function(){
             return params;
         },
         pageSize: 5, columns: lineStartColumn, cache: false, undefinedText: "",
-        pagination: true, sidePagination: 'client', checkboxHeader: true,
+        paginationLoop: false, paginationContainer: '#tbl_start_pagination',
+        pagination: true, sidePagination: 'server', checkboxHeader: true,
         classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
         responseHandler: function(res) {
             return {
                 rows: res.rows,
                 total: res.total,
+                pageSize: res.pageSize,
+                pageNumber: res.pageNumber,
                 errorCode: res.errorCode
             }
         },
@@ -156,69 +163,10 @@ $(function(){
                 return false;
             }
 
-            $("#lineStartTotalCnt").text("총 " + res.total + "건")
+            $("#lineStartTotalCnt").text("총 " + res.total + "건");
+            customRenderPagination(tbl_start, res, "#tbl_start_pagination");
 
-            let data = res.rows;
-            if(!selectInitStartRow){
-                data.forEach(ele => {
-                    let start_eqp_id = ele.eqp_manage_id == $("#start_eqp_id").val() ? true : false;
-
-                    if(start_eqp_id){
-                        $('#lineStartTable').find('tr[data-index="' + $('#lineStartTable').bootstrapTable('getData').indexOf(ele) + '"]').addClass('selected-row');
-                        selectedStartRow = ele;
-                    }
-                })
-            }
-        },
-        onClickCell: function(field, value, row, $element) {
-            // 기존 선택된 행의 클래스 제거
-            $('#lineStartTable').find('tr[data-index="' + $('#lineStartTable').bootstrapTable('getData').indexOf(selectedStartRow) + '"]').removeClass('selected-row');
-
-            // 새로운 선택된 행에 클래스 추가
-            selectedStartRow = row;
-            $('#lineStartTable').find('tr[data-index="' + $('#lineStartTable').bootstrapTable('getData').indexOf(selectedStartRow) + '"]').addClass('selected-row');
-
-            // 선번장 구성 목적지 테이블 데이터 업데이트
-            selectedEndRow = [{}];
-            updateEndSelectTable();
-
-            // 선번장 구성 출발지 테이블 데이터 업데이트 (목적지 row 초기화 먼저 해야 선번장구성 출발지 포트번호 컬럼 초기화 가능)
-            updateStartSelectTable();
-
-            // 목적지 선택 테이블 데이터 업데이트
-            $('#lineEndTable').bootstrapTable('refresh');
-        },
-    });
-
-    $('#lineEndTable').bootstrapTable({
-        url: '/rack/line/endEquipmentList',
-        method: 'post',
-        queryParams: function(params) {
-            let eqp_manage_id = selectedStartRow ? selectedStartRow.eqp_manage_id : $("#start_eqp_id").val();
-            let searchInput = $("#searchEndInput").val();
-
-            params.searchData = {
-                eqp_manage_id, searchInput
-            }
-            return params;
-        },
-        pageSize: 5, columns: lineEndColumn, cache: false, undefinedText: "",
-        pagination: true, sidePagination: 'server', checkboxHeader: true,
-        classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
-        responseHandler: function(res) {
-            return {
-                rows: res.rows,
-                total: res.total,
-                errorCode: res.errorCode
-            }
-        },
-        onLoadSuccess: function(res) {
-            let errorCode = res.errorCode;
-            if (!errorCode) {
-                alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
-            } else {
-                $("#lineEndTotalCnt").text("총 " + res.total + "건")
-
+            if(!pageChk){
                 let data = res.rows;
                 if(!selectInitEndRow){
                     data.forEach(ele => {
@@ -226,7 +174,7 @@ $(function(){
                         let end_eqp_port = ele.eqp_link_port == $("#end_eqp_port").val() ? true : false;
 
                         if(end_eqp_id && end_eqp_port){
-                            $('#lineEndTable').find('tr[data-index="' + $('#lineEndTable').bootstrapTable('getData').indexOf(ele) + '"]').addClass('selected-row');
+                            $(tbl_end).find('tr[data-index="' + $(tbl_end).bootstrapTable('getData').indexOf(ele) + '"]').addClass('selected-row');
                             selectedEndRow = ele;
                         }
                     })
@@ -235,11 +183,92 @@ $(function(){
         },
         onClickCell: function(field, value, row, $element) {
             // 기존 선택된 행의 클래스 제거
-            $('#lineEndTable').find('tr[data-index="' + $('#lineEndTable').bootstrapTable('getData').indexOf(selectedEndRow) + '"]').removeClass('selected-row');
+            if (selectedStartRow) {
+                $(tbl_start).find('tr[data-index="' + $(tbl_start).bootstrapTable('getData').indexOf(selectedStartRow) + '"]').removeClass('selected-row');
+            }
+
+            // 새로운 선택된 행에 클래스 추가
+            selectedStartRow = row;
+            $(tbl_start).find('tr[data-index="' + $(tbl_start).bootstrapTable('getData').indexOf(selectedStartRow) + '"]').addClass('selected-row');
+
+            // 선번장 구성 목적지 테이블 데이터 업데이트
+            if(pageChk){
+                selectedEndRow = [{}];
+            }
+
+            updateEndSelectTable();
+
+            // 선번장 구성 출발지 테이블 데이터 업데이트 (목적지 row 초기화 먼저 해야 선번장구성 출발지 포트번호 컬럼 초기화 가능)
+            updateStartSelectTable();
+
+            // 목적지 선택 테이블 데이터 업데이트
+            $(tbl_end).bootstrapTable('refresh');
+        },
+    });
+
+    $(tbl_end).bootstrapTable({
+        url: '/rack/line/endEquipmentList',
+        method: 'post',
+        queryParams: function(params) {
+            params.pageSize = 5;
+            params.pageNumber = this.pageNumber || 1; // 현재 페이지 번호
+
+            let eqp_manage_id = selectedStartRow ? selectedStartRow.eqp_manage_id : "";
+            let searchInput = $("#searchEndInput").val();
+
+            params.searchData = {
+                eqp_manage_id, searchInput
+            }
+            return params;
+        },
+        pageSize: 5, columns: lineEndColumn, cache: false, undefinedText: "",
+        paginationLoop: false, paginationContainer: '#tbl_end_pagination',
+        pagination: true, sidePagination: 'server', checkboxHeader: true,
+        classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
+        responseHandler: function(res) {
+            return {
+                rows: res.rows,
+                total: res.total,
+                pageSize: res.pageSize,
+                pageNumber: res.pageNumber,
+                errorCode: res.errorCode
+            }
+        },
+        onLoadSuccess: function(res) {
+            let errorCode = res.errorCode;
+            if (!errorCode) {
+                alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+                return false;
+            }
+
+            $("#lineEndTotalCnt").text("총 " + res.total + "건");
+            customRenderPagination(tbl_end, res, "#tbl_end_pagination");
+
+            if(!pageChk){
+                let data = res.rows;
+                if(!selectInitEndRow){
+                    data.forEach(ele => {
+                        let end_eqp_id = ele.eqp_manage_id == $("#end_eqp_id").val() ? true : false;
+                        let end_eqp_port = ele.eqp_link_port == $("#end_eqp_port").val() ? true : false;
+
+                        if(end_eqp_id && end_eqp_port){
+                            $(tbl_end).find('tr[data-index="' + $(tbl_end).bootstrapTable('getData').indexOf(ele) + '"]').addClass('selected-row');
+                            selectedEndRow = ele;
+                        }
+                    })
+                }
+            }
+
+        },
+        onClickCell: function(field, value, row, $element) {
+            // 기존 선택된 행의 클래스 제거
+            if (selectedEndRow) {
+                $(tbl_end).find('tr[data-index="' + $(tbl_end).bootstrapTable('getData').indexOf(selectedEndRow) + '"]').removeClass('selected-row');
+            }
 
             // 새로운 선택된 행에 클래스 추가
             selectedEndRow = row;
-            $('#lineEndTable').find('tr[data-index="' + $('#lineEndTable').bootstrapTable('getData').indexOf(selectedEndRow) + '"]').addClass('selected-row');
+            $(tbl_end).find('tr[data-index="' + $(tbl_end).bootstrapTable('getData').indexOf(selectedEndRow) + '"]').addClass('selected-row');
 
             // 선번장 구성 출발지 테이블 데이터 업데이트 (포트번호 업데이트용)
             updateStartSelectTable();
@@ -249,76 +278,109 @@ $(function(){
         },
     });
 
-    $('#lineStartSelectTable').bootstrapTable({
-        url: '/rack/line/getLineDetailInfo',
-        method: 'post',
-        queryParams: function(params) {
-            let line_manage_id = $("#line_manage_id").val();
-            params.searchData = {
-                line_manage_id
-            }
-            return params;
-        },
-        pageSize: 5, columns: lineStartSelectColumn, cache: false, undefinedText: "-",
-        pagination: true, sidePagination: 'server', checkboxHeader: true,
-        classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
-        responseHandler: function(res) {
-            return {
-                rows: res.rows,
-                total: res.total,
-                errorCode: res.errorCode
-            }
-        },
-        onLoadSuccess: function(res) {
-            let errorCode = res.errorCode;
-            if (!errorCode) {
-                alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
-                return;
-            }
-        },
-    });
+    if(pageChk){
+        $(tbl_select_start).bootstrapTable({
+            columns: lineStartSelectColumn,
+            data: [{}],
+        });
+    }
+    else{
+        $(tbl_select_start).bootstrapTable({
+            url: '/rack/line/getLineDetailInfo',
+            method: 'post',
+            queryParams: function(params) {
+                let line_manage_id = $("#line_manage_id").val();
+                params.searchData = {
+                    line_manage_id
+                }
+                return params;
+            },
+            pageSize: 5, columns: lineStartSelectColumn, cache: false, undefinedText: "-",
+            pagination: true, sidePagination: 'server', checkboxHeader: true,
+            classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
+            responseHandler: function(res) {
+                return {
+                    rows: res.rows,
+                    total: res.total,
+                    errorCode: res.errorCode
+                }
+            },
+            onLoadSuccess: function(res) {
+                let errorCode = res.errorCode;
+                if (!errorCode) {
+                    alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+                    return;
+                }
+            },
+        });
+    }
 
-    $('#lineEndSelectTable').bootstrapTable({
-        url: '/rack/line/getLineDetailInfo',
-        method: 'post',
-        queryParams: function(params) {
-            let line_manage_id = $("#line_manage_id").val();
-            params.searchData = {
-                line_manage_id
-            }
-            return params;
-        },
-        pageSize: 5, columns: lineEndSelectColumn, cache: false, undefinedText: "-",
-        pagination: true, sidePagination: 'server', checkboxHeader: true,
-        classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
-        responseHandler: function(res) {
-            return {
-                rows: res.rows,
-                total: res.total,
-                errorCode: res.errorCode
-            }
-        },
-        onLoadSuccess: function(res) {
-            let errorCode = res.errorCode;
-            if (!errorCode) {
-                alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
-                return;
-            }
-        },
-    });
+
+    if(pageChk){
+        $(tbl_select_end).bootstrapTable({
+            columns: lineEndSelectColumn,
+            data: [{}],
+        });
+    }
+    else{
+        $(tbl_select_end).bootstrapTable({
+            url: '/rack/line/getLineDetailInfo',
+            method: 'post',
+            queryParams: function(params) {
+                let line_manage_id = $("#line_manage_id").val();
+                params.searchData = {
+                    line_manage_id
+                }
+                return params;
+            },
+            pageSize: 5, columns: lineEndSelectColumn, cache: false, undefinedText: "-",
+            pagination: true, sidePagination: 'server', checkboxHeader: true,
+            classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
+            responseHandler: function(res) {
+                return {
+                    rows: res.rows,
+                    total: res.total,
+                    errorCode: res.errorCode
+                }
+            },
+            onLoadSuccess: function(res) {
+                let errorCode = res.errorCode;
+                if (!errorCode) {
+                    alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+                    return;
+                }
+            },
+        });
+    }
 
     $('#searchStartInput').keyup(function(e) {
         if(e.which == 13) {
-            tableRefresh('#lineStartTable');
+            tableRefresh(tbl_start);
         }
     });
 
     $('#searchEndInput').keyup(function(e) {
         if(e.which == 13) {
-            tableRefresh('#lineEndTable');
+            tableRefresh(tbl_end);
         }
     });
 });
+
+
+/**
+ * 선번장관리 > 선번장목록 > 추가
+ * 맨 처음 페이지 렌더링 될 때 날짜 항목들 현재값으로 설정
+ */
+function setDefaultDates() {
+    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD 형식의 현재 날짜
+
+    ['line_installation_year'].forEach(id => {
+        const element = document.getElementById(id);
+        if (!element.value) {
+            element.value = today;
+        }
+    });
+}
 
 /**
  * 선번장관리 > 선번장목록 > 추가 > 저장버튼
@@ -374,6 +436,7 @@ function saveData() {
     data["line_category"]  = line_category;
     data["line_speed"]     = line_speed;
     data["line_color"]     = line_color;
+    data["line_installation_year"] = $("#line_installation_year").val();
 
     Swal.fire({
         title: '알림',
@@ -387,27 +450,60 @@ function saveData() {
     }).then((result) => {
         if (result.isConfirmed) {
             alert3("save");
+            if (pageChk){
+                $.ajax({
+                    type: "POST",
+                    url: "/rack/line/saveLineInfo",
+                    data: JSON.stringify(data),
+                    contentType: "application/json",
+                    success: function(res) {
+                        alert3Close();
+                        if(!res.errorCode){
+                            alert2("알림", "저장 중 오류가 발생했습니다. <br>관리자에게 문의하세요", "error", "확인");
+                            return false;
+                        }
 
-            $.ajax({
-                type: "POST",
-                url: "/rack/line/updateLineInfo",
-                data: JSON.stringify(data),
-                contentType: "application/json",
-                success: function(res) {
-                    alert3Close();
-                    if(!res.errorCode){
+                        let isContain = res.isContain;
+                        if(isContain != 0){
+                            alert2("알림", "이미 등록된 선번장입니다.", "error", "확인");
+                            return false;
+                        }
+
+                        alert2("알림", "저장되었습니다.", "info", "확인", back);
+                    },
+                    error: function(error) {
                         alert2("알림", "저장 중 오류가 발생했습니다. <br>관리자에게 문의하세요", "error", "확인");
                         return false;
                     }
+                });
+            }
+            else{
+                $.ajax({
+                    type: "POST",
+                    url: "/rack/line/updateLineInfo",
+                    data: JSON.stringify(data),
+                    contentType: "application/json",
+                    success: function(res) {
+                        alert3Close();
+                        if(!res.errorCode){
+                            alert2("알림", "저장 중 오류가 발생했습니다. <br>관리자에게 문의하세요", "error", "확인");
+                            return false;
+                        }
 
-                    alert2("알림", "저장되었습니다.", "info", "확인", back);
-                },
-                error: function(error) {
-                    alert2("알림", "저장 중 오류가 발생했습니다. <br>관리자에게 문의하세요", "error", "확인");
-                    return false;
-                }
-            });
+                        let isContain = res.isContain;
+                        // if(isContain != 0){
+                        //     alert2("알림", "이미 등록된 선번장입니다.", "error", "확인");
+                        //     return false;
+                        // }
+
+                        alert2("알림", "저장되었습니다.", "info", "확인", back);
+                    },
+                    error: function(error) {
+                        alert2("알림", "저장 중 오류가 발생했습니다. <br>관리자에게 문의하세요", "error", "확인");
+                        return false;
+                    }
+                });
+            }
         }
     })
-
 }

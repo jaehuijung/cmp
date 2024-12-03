@@ -81,6 +81,8 @@ public class lineManageService {
 
 			returnMap.put("rows", rows);
 			returnMap.put("total", total);
+			returnMap.put("pageSize", paramMap.getOrDefault("pageSize", 10));  // 기본값으로 10 설정
+			returnMap.put("pageNumber", paramMap.getOrDefault("pageNumber", 1)); // 기본값으로 1 설정
 			returnMap.put("errorCode", true);
 
 		} catch (Exception e){
@@ -110,6 +112,8 @@ public class lineManageService {
 
 			returnMap.put("rows", rows);
 			returnMap.put("total", total);
+			returnMap.put("pageSize", paramMap.getOrDefault("pageSize", 10));  // 기본값으로 10 설정
+			returnMap.put("pageNumber", paramMap.getOrDefault("pageNumber", 1)); // 기본값으로 1 설정
 			returnMap.put("errorCode", true);
 
 		} catch (Exception e){

@@ -1,6 +1,8 @@
+function tableRefresh(id){
+    $(id).bootstrapTable('refresh');
+}
 
-
-function customRenderPagination(tbl, res) {
+function customRenderPagination(tbl, res, containerId="") {
     let pageSize = res.pageSize;
     let pageNumber = res.pageNumber;
     let totalPages = Math.ceil(res.total / pageSize);
@@ -48,10 +50,6 @@ function customRenderPagination(tbl, res) {
     }
 
     // 기존 페이지네이션 숨기고 커스터마이즈된 페이지네이션 삽입
-    $('.fixed-table-pagination').html($pagination);
+    containerId = containerId == "" ? ".fixed-table-pagination" : containerId;
+    $(containerId).html($pagination);
 }
-
-
-
-
-
