@@ -25,7 +25,7 @@ function createColumn(field, checkbox = false, title, type = 'default') {
     }
     else if(type === 'formatter'){
         column.formatter = function(value, row, index) {
-            let tableOptions = $('#lineTable').bootstrapTable('getOptions');
+            let tableOptions = $(tbl).bootstrapTable('getOptions');
             return tableOptions.totalRows - index;
         };
     }
@@ -80,11 +80,15 @@ let columns = [
     ]
 ];
 
+let tbl = '#lineTable';
 $(function() {
-    $('#lineTable').bootstrapTable({
+    $(tbl).bootstrapTable({
         url: '/rack/line/list',
         method: 'post',
         queryParams: function(params) {
+            params.pageSize = 10;
+            params.pageNumber = this.pageNumber || 1; // 현재 페이지 번호
+
             let searchInput = $("#searchInput").val().trim();
             params.searchData = {
                 searchInput
@@ -92,12 +96,14 @@ $(function() {
             return params;
         },
         pageSize: 10, columns: columns, cache: false, undefinedText: "",
-        pagination: true, sidePagination: 'client', checkboxHeader: true,
+        pagination: true, sidePagination: 'server', checkboxHeader: true,
         classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
         responseHandler: function(res) {
             return {
                 rows: res.rows,
                 total: res.total,
+                pageSize: res.pageSize,
+                pageNumber: res.pageNumber,
                 errorCode: res.errorCode
             }
         },
@@ -109,7 +115,7 @@ $(function() {
             }
 
             $("#lineTotalCnt").text("총 " + res.total + "건");
-            customRenderPagination(res.total);
+            customRenderPagination(tbl, res);
         },
         onClickCell: function(field, value, row, $element) {
             if (!$element.hasClass("bs-checkbox")) {
@@ -128,7 +134,7 @@ $(function() {
 
     $('#searchInput').keyup(function(e) {
         if(e.which == 13) {
-            $('#lineTable').bootstrapTable('refresh');
+            $(tbl).bootstrapTable('refresh');
         }
     });
 });
@@ -210,7 +216,7 @@ function searchState(btn, type, isChecked) {
         }
     }
 
-    $('#lineTable').bootstrapTable('refreshOptions', { columns: columns });
+    $(tbl).bootstrapTable('refreshOptions', { columns: columns });
 }
 
 // 선번장관리 > 선번장목록 > 선번장추가 페이지 이동

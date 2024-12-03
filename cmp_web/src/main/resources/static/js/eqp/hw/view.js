@@ -30,7 +30,7 @@ function createColumn(field, checkbox = false, title, type = 'default') {
 
     if(field === 'no'){
         column.formatter = function(value, row, index) {
-            let tableOptions = $('#eqpTable').bootstrapTable('getOptions');
+            let tableOptions = $(tbl).bootstrapTable('getOptions');
             return tableOptions.totalRows - index;
         };
     }
@@ -74,17 +74,20 @@ var equColumns = [
 
 ];
 
+let tbl = "#eqpTable";
 $(function(){
-
-    let tbl = $('#eqpTable');
-    tbl.bootstrapTable({
+    $(tbl).bootstrapTable({
         url: '/eqp/hw/list',
         method: 'post',
         queryParams: function(params) {
+            params.pageSize = 10;
+            params.pageNumber = this.pageNumber || 1; // 현재 페이지 번호
+
             let searchInput = $("#searchInput").val().trim();
             params.searchData = {
                 searchInput
             }
+
             return params;
         },
         pageSize: 10, columns: equColumns, cache: false, undefinedText: "",
@@ -95,8 +98,8 @@ $(function(){
             return {
                 rows: res.rows,
                 total: res.total,
-                pageSize: 10,
-                pageNumber: 2,
+                pageSize: res.pageSize,
+                pageNumber: res.pageNumber,
                 errorCode: res.errorCode
             }
         },
@@ -107,21 +110,8 @@ $(function(){
             }
 
             $("#eqpTotalCnt").text("총 " + res.total + "건");
-            customRenderPagination(tbl, res.total);
-        },
-        onClickCell: function (field, value, row, $element){
-            if (!$element.hasClass("bs-checkbox")) {
-                if(field == 'eqp_manage_id'){
-                    eqpDetail(row.eqp_manage_id)
-                }
-                else{
-                    let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
-                    if ($checkbox.length) {
-                        $checkbox.click();
-                    }
-                }
-            }
-        },
+            customRenderPagination(tbl, res);
+        }
     });
 
     $('#searchInput').keyup(function(e){
@@ -186,7 +176,7 @@ function searchState(type, isChecked){
         }
     }
 
-    $('#eqpTable').bootstrapTable('refreshOptions', { columns: equColumns });
+    $(tbl).bootstrapTable('refreshOptions', { columns: equColumns });
 }
 
 // 장비관리 > 장비목록 > 장비추가 페이지 이동

@@ -140,6 +140,37 @@ tr:hover {
     transform: rotate(45deg);
 }
 
+/* 페이지네이션 스타일 재정의 */
+.custom-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.custom-pagination .page-num {
+    color: #007bff; /* 부트스트랩 기본 파랑색 */
+    text-decoration: none;
+    padding: 8px 12px;
+    margin: 0 4px;
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+    display: block;
+    transition: background-color 0.15s ease;
+}
+
+.custom-pagination .page-num:hover {
+    background-color: #e9ecef; /* 부트스트랩 기본 회색 배경 */
+}
+
+.custom-pagination .page-num.active {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+
+
 
 /* 선번장관리 */
 

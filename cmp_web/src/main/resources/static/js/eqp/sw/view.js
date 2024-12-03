@@ -26,7 +26,7 @@ function createColumn(field, checkbox = false, title, type = 'default') {
 
     if(field === 'no'){
        column.formatter = function(value, row, index) {
-           let tableOptions = $('#eqpTable').bootstrapTable('getOptions');
+           let tableOptions = $(tbl).bootstrapTable('getOptions');
            return tableOptions.totalRows - index;
        };
     }
@@ -68,13 +68,15 @@ var equColumns = [
     //createColumn('secondary_outsourced_operator',   false, '위탁운영사용자(부)'       )
 ];
 
-
+let tbl = "#eqpTable";
 $(function(){
-
-    $('#eqpTable').bootstrapTable({
+    $(tbl).bootstrapTable({
         url: '/eqp/sw/list',
         method: 'post',
         queryParams: function(params) {
+            params.pageSize = 10;
+            params.pageNumber = this.pageNumber || 1; // 현재 페이지 번호
+
             let searchInput = $("#searchInput").val().trim();
             params.searchData = {
                 searchInput
@@ -89,6 +91,8 @@ $(function(){
             return {
                 rows: res.rows,
                 total: res.total,
+                pageSize: res.pageSize,
+                pageNumber: res.pageNumber,
                 errorCode: res.errorCode
             }
         },
@@ -99,7 +103,7 @@ $(function(){
             }
 
             $("#eqpTotalCnt").text("총 " + res.total + "건");
-            customRenderPagination(res.total);
+            customRenderPagination(tbl, res);
         },
         onClickCell: function (field, value, row, $element){
             if (!$element.hasClass("bs-checkbox")) {
@@ -178,7 +182,7 @@ function searchState(type, isChecked){
         }
     }
 
-    $('#eqpTable').bootstrapTable('refreshOptions', { columns: equColumns });
+    $(tbl).bootstrapTable('refreshOptions', { columns: equColumns });
 }
 
 // 장비관리 > 장비목록 > 장비추가 페이지 이동

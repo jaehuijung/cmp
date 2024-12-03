@@ -115,6 +115,7 @@
         where 1=1
         <include refid="getLineTotalCommon"/>
         ORDER BY lb.line_manage_id desc
+        LIMIT #{offset},#{limit}
     </select>
 
     <select id="getLineTotalListCnt" parameterType="map" resultType="int">
