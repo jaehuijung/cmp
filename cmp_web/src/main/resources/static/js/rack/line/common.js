@@ -18,27 +18,37 @@ function createColumn(field, checkbox = false, title, type = 'default') {
 }
 
 let lineStartColumn = [
-    createColumn('asset_category',              false, '자산분류'),
-    createColumn('installation_coordinates',    false, '설치좌표'),
-    createColumn('eqp_manage_id',               false, '관리번호'),
-    createColumn('m_company',                   false, '제조사'),
-    createColumn('model_name',                  false, '모델명'),
-    createColumn('host_name',                   false, '호스트명'),
-    createColumn('eqp_name',                    false, '구성자원명'),
-    createColumn('primary_outsourced_operator', false, '운영사용자'),
+    [
+        { title: '출발지(Start)', align: 'center', valign: 'middle', colspan: 8 },
+    ],
+    [
+        createColumn('asset_category',              false, '자산분류'),
+        createColumn('installation_coordinates',    false, '설치좌표'),
+        createColumn('eqp_manage_id',               false, '관리번호'),
+        createColumn('m_company',                   false, '제조사'),
+        createColumn('model_name',                  false, '모델명'),
+        createColumn('host_name',                   false, '호스트명'),
+        createColumn('eqp_name',                    false, '구성자원명'),
+        createColumn('primary_outsourced_operator', false, '운영사용자'),
+    ]
 ];
 
 let lineEndColumn = [
-    createColumn('eqp_port',                    false, '장비포트번호'),
-    createColumn('asset_category',              false, '자산분류'),
-    createColumn('installation_coordinates',    false, '설치좌표'),
-    createColumn('eqp_manage_id',               false, '관리번호'),
-    createColumn('m_company',                   false, '제조사'),
-    createColumn('model_name',                  false, '모델명'),
-    createColumn('host_name',                   false, '호스트명'),
-    createColumn('eqp_name',                    false, '구성자원명'),
-    createColumn('eqp_link_port',               false, '연결장비포트번호'),
-    createColumn('primary_outsourced_operator', false, '운영사용자'),
+    [
+        { title: '목적지(End)',   align: 'center', valign: 'middle', colspan: 10 },
+    ],
+    [
+        createColumn('eqp_port',                    false, '장비포트번호'),
+        createColumn('asset_category',              false, '자산분류'),
+        createColumn('installation_coordinates',    false, '설치좌표'),
+        createColumn('eqp_manage_id',               false, '관리번호'),
+        createColumn('m_company',                   false, '제조사'),
+        createColumn('model_name',                  false, '모델명'),
+        createColumn('host_name',                   false, '호스트명'),
+        createColumn('eqp_name',                    false, '구성자원명'),
+        createColumn('eqp_link_port',               false, '연결장비포트번호'),
+        createColumn('primary_outsourced_operator', false, '운영사용자'),
+    ]
 ];
 
 let selectedStartRow = null;
@@ -192,10 +202,7 @@ $(function(){
             $(tbl_start).find('tr[data-index="' + $(tbl_start).bootstrapTable('getData').indexOf(selectedStartRow) + '"]').addClass('selected-row');
 
             // 선번장 구성 목적지 테이블 데이터 업데이트
-            if(pageChk){
-                selectedEndRow = [{}];
-            }
-
+            selectedEndRow = [{}];
             updateEndSelectTable();
 
             // 선번장 구성 출발지 테이블 데이터 업데이트 (목적지 row 초기화 먼저 해야 선번장구성 출발지 포트번호 컬럼 초기화 가능)
@@ -369,7 +376,7 @@ $(function(){
 
 /**
  * 선번장관리 > 선번장목록 > 추가
- * 맨 처음 페이지 렌더링 될 때 날짜 항목들 현재값으로 설정
+ * 맨 처음 페이지 렌더링 될 때 포설년도 항목 현재값으로 설정
  */
 function setDefaultDates() {
     const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD 형식의 현재 날짜
@@ -383,7 +390,61 @@ function setDefaultDates() {
 }
 
 /**
- * 선번장관리 > 선번장목록 > 추가 > 저장버튼
+ * 선번장관리 > 선번장목록 > 상세 > 수정버튼
+ * 수정 버튼을 클릭했을 때 호출되는 함수입니다.
+ * 사용자가 수정 페이지로 이동하도록 합니다.
+ */
+function updateData(){
+    let id = $("#line_manage_id").val();
+    const url = `/rack/line/update/${id}`;
+    window.location.href = url;
+}
+
+/**
+ * 선번장관리 > 선번장목록 > 상세 > 삭제버튼
+ * 삭제 버튼을 클릭했을 때 호출되는 함수입니다.
+ * 사용자가 선택한 장비를 삭제합니다
+ */
+function deleteData(){
+    Swal.fire({
+        title: '선번장 목록 삭제',
+        html : '선택한 선번장을 삭제하시겠습니까? 삭제하면 복구할 수 없습니다.',
+        icon : 'error',
+        focusConfirm: false,
+        confirmButtonText: '삭제',
+        cancelButtonText: '취소',
+        showCancelButton: true,
+        customClass: {
+            popup: 'custom-width'
+        },
+    }).then((result) => {
+        if (result.isConfirmed) {
+            alert3("delete");
+            let data = [{"line_manage_id": $("#line_manage_id").val()}];
+            $.ajax({
+                url : '/rack/line/delete',
+                type: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                dataType : 'JSON',
+                success : function(res){
+                    alert3Close();
+
+                    let errorCode = res.errorCode;
+                    if(!errorCode){
+                        alert2('알림', '데이터를 삭제하는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+                        return false;
+                    }
+
+                    alert2('알림', '삭제되었습니다.', 'info', '확인', back);
+               }
+            });
+        }
+    });
+}
+
+/**
+ * 선번장관리 > 선번장목록 > 추가/수정 > 저장버튼
  * 저장 버튼을 클릭했을 때 호출되는 함수입니다.
  */
 function saveData() {
