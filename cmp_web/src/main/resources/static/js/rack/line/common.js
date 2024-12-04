@@ -144,7 +144,7 @@ $(function(){
             return params;
         },
         pageSize: 5, columns: lineStartColumn, cache: false, undefinedText: "",
-        paginationLoop: false, paginationContainer: '#tbl_start_pagination',
+        paginationLoop: false,
         pagination: true, sidePagination: 'server', checkboxHeader: true,
         classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
         responseHandler: function(res) {
@@ -164,7 +164,7 @@ $(function(){
             }
 
             $("#lineStartTotalCnt").text("총 " + res.total + "건");
-            customRenderPagination(tbl_start, res, "#tbl_start_pagination");
+            customRenderPagination(tbl_start, res);
 
             if(!pageChk){
                 let data = res.rows;
@@ -222,7 +222,7 @@ $(function(){
             return params;
         },
         pageSize: 5, columns: lineEndColumn, cache: false, undefinedText: "",
-        paginationLoop: false, paginationContainer: '#tbl_end_pagination',
+        paginationLoop: false,
         pagination: true, sidePagination: 'server', checkboxHeader: true,
         classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
         responseHandler: function(res) {
@@ -242,7 +242,7 @@ $(function(){
             }
 
             $("#lineEndTotalCnt").text("총 " + res.total + "건");
-            customRenderPagination(tbl_end, res, "#tbl_end_pagination");
+            customRenderPagination(tbl_end, res);
 
             if(!pageChk){
                 let data = res.rows;

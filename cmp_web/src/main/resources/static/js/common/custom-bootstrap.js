@@ -49,7 +49,10 @@ function customRenderPagination(tbl, res, containerId="") {
         });
     }
 
-    // 기존 페이지네이션 숨기고 커스터마이즈된 페이지네이션 삽입
-    containerId = containerId == "" ? ".fixed-table-pagination" : containerId;
-    $(containerId).html($pagination);
+    // 테이블의 부모 요소에서 fixed-table-pagination 요소를 찾습니다.
+    let $wrap = $(tbl).closest('.tbl-bootstrap-wrap');
+    let $paginationContainer = $wrap.find('.fixed-table-pagination');
+
+    // 기존 페이지네이션에 커스터마이즈된 페이지네이션을 삽입합니다.
+    $paginationContainer.html($pagination);
 }

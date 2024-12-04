@@ -140,7 +140,7 @@ $(function(){
             return params;
         },
         pageSize: 5, columns: lineStartColumn, cache: false, undefinedText: "",
-        pagination: true, sidePagination: 'client', checkboxHeader: true,
+        pagination: true, sidePagination: 'server', checkboxHeader: true,
         classes: "txt-pd", clickToSelect: false, sortOrder: 'desc', sortName: 'ORDER',
         responseHandler: function(res) {
             return {
