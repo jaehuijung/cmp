@@ -111,7 +111,20 @@ $(function(){
 
             $("#eqpTotalCnt").text("총 " + res.total + "건");
             customRenderPagination(tbl, res);
-        }
+        },
+        onClickCell: function (field, value, row, $element){
+            if (!$element.hasClass("bs-checkbox")) {
+                if(field == 'eqp_manage_id') {
+                    eqpDetail(row.eqp_manage_id)
+                }
+                else{
+                    let $checkbox = $element.closest('tr').find('.bs-checkbox input[type="checkbox"]');
+                    if ($checkbox.length) {
+                        $checkbox.click();
+                    }
+                }
+            }
+        },
     });
 
     $('#searchInput').keyup(function(e){
