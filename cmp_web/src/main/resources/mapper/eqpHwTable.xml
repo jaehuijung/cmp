@@ -510,7 +510,8 @@
             asset_acquisition_date,
             asset_disposal_date,
             eol_status,
-            eos_status
+            eos_status,
+            remark
         )
         values(
             #{eqp_manage_id},
@@ -528,7 +529,8 @@
             #{asset_acquisition_date},
             #{asset_disposal_date},
             #{eol_status},
-            #{eos_status}
+            #{eos_status},
+            #{remark}
         )
     </insert>
 
@@ -664,7 +666,8 @@
             ed.asset_disposal_date,
             ed.eol_status,
             ed.eos_status,
-            el.ip
+            el.ip,
+            ed.remark
         from
             equipment_basic eb
         join
@@ -821,6 +824,9 @@
         </if>
         <if test="eos_status != null and eos_status != ''">
             , eos_status = #{eos_status}
+        </if>
+        <if test="remark != null and remark != ''">
+            , remark = #{remark}
         </if>
         WHERE
             eqp_manage_id = #{eqp_manage_id}

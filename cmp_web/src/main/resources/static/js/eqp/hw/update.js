@@ -825,6 +825,8 @@ function saveData() {
     data["swAddedRows"]    = swAddedRows;
     data["swDeletedRows"]  = swDeletedRows;
 
+    data["remark"] = document.getElementById('remark').value; // 기타정보
+
     Swal.fire({
         title: '알림',
         html : '저장하시겠습니까?',

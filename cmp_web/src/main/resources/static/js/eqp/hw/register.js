@@ -802,6 +802,8 @@ function saveData() {
     data["eqpHardwareSelectList"] = $("#eqpHardwareSelectTable").bootstrapTable("getData"); // 장비연결정보
     data["eqpSoftwareSelectList"] = $("#eqpSoftwareSelectTable").bootstrapTable("getData"); // 소프트웨어 등록정보
 
+    data["remark"] = document.getElementById('remark').value; // 기타정보
+
     Swal.fire({
         title: '알림',
         html : '저장하시겠습니까?',
