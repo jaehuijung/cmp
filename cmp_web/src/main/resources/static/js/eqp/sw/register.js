@@ -137,6 +137,8 @@ function saveData() {
     data["categories"] = $("#categories").val(); // 장비 추가 시 서버에서 관리번호 생성할 때 자산세부분류 사용
     data["config_id"] = "2"; // 구성분류 : S/W
 
+    data["remark"] = document.getElementById('remark').value; // 기타정보
+
     Swal.fire({
         title: '알림',
         html : '저장하시겠습니까?',

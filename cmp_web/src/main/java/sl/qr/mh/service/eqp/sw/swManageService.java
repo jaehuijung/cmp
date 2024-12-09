@@ -121,6 +121,31 @@ public class swManageService {
         return returnMap;
     }
 
+    @SuppressWarnings("unchecked")
+    public Map<String, Object> getEquipmentDetailHardwareConnectList(Map<String, Object> paramMap){
+
+        Map<String, Object> returnMap = new HashMap<>();
+        returnMap.put("errorCode",false);
+
+        try{
+            if (paramMap.containsKey("searchData")) {
+                paramMap.putAll((Map<String, Object>) paramMap.get("searchData"));
+            }
+
+            List<Map<String, Object>> rows = swMapper.getEquipmentDetailHardwareConnectList(paramMap);
+            int total = 1;
+
+            returnMap.put("rows", rows);
+            returnMap.put("total", total);
+            returnMap.put("errorCode",true);
+        }
+        catch (Exception e){
+            log.error(e.getMessage());
+        }
+
+        return returnMap;
+    }
+
     /**
      * S/W관리 > 장비목록 > 수정 > 선택한 장비 정보 : 기본정보, 세부정보
      *

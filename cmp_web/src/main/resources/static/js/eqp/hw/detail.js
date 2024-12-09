@@ -31,7 +31,6 @@ let eqpHardwareColumn = [
         createColumn('model_name', false, '모델명'),
         createColumn('eqp_name', false, '구성자원명'),
         createColumn('host_name', false, '호스트명'),
-        // createColumn('primary_operator', false, '운영담당자'),
         createColumn('primary_outsourced_operator', false, '운영사용자'),
         createColumn('eqp_link_port', false, '포트번호', '')
     ]
@@ -45,7 +44,6 @@ let eqpSoftwareColumn = [
     createColumn('host_name',                   false, '호스트명'),
     createColumn('eqp_name',                    false, '구성자원명'),
     createColumn('dependent_config',            false, '종속 SW 여부'),
-    //createColumn('primary_operator',            false, '운영담당자'),
     createColumn('primary_outsourced_operator', false, '운영사용자'),
 ];
 

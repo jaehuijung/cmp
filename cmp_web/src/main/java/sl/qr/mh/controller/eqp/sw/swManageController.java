@@ -98,6 +98,12 @@ public class swManageController {
         }
     }
 
+    @ResponseBody
+    @PostMapping("/hardwareConnectList")
+    public Map<String, Object> getHardwareConnectList(@RequestBody Map<String, Object> paramMap){
+        return swManageService.getEquipmentDetailHardwareConnectList(paramMap);
+    }
+
     /**
      * S/W관리 > 장비목록 > 수정 뷰 페이지
      *

@@ -1,7 +1,86 @@
 
+function createColumn(field, checkbox = false, title, type = '', formatter = '') {
+    let column = {
+        title: title,
+        field: field,
+        align: 'center',
+        valign: 'middle',
+        checkbox: checkbox
+    };
+
+    if (type === 'underline') {
+        column.class = 'nowrap underline';
+    }
+    else if (type === 'hidden') {
+        column.visible = false;
+    }
+    else {
+        column.class = 'nowrap';
+    }
+
+    if (field === 'dependent_config') {
+        column.formatter = function(value, row, index) {
+            if (value === '1') {
+                return '공개';
+            } else {
+                return '상용';
+            }
+        };
+    }
+
+    if (formatter != '') {
+        column.formatter = formatter;
+    }
+
+    return column;
+}
+
+let eqpHardwareConnectColumn = [
+    createColumn('asset_category', false, '자산분류'),
+    createColumn('installation_coordinates', false, '설치좌표'),
+    createColumn('eqp_manage_id', false, '관리ID'),
+    createColumn('m_company', false, '제조사'),
+    createColumn('model_name', false, '모델명'),
+    createColumn('eqp_name', false, '구성자원명'),
+    createColumn('host_name', false, '호스트명'),
+    createColumn('primary_outsourced_operator', false, '운영사용자')
+    // createColumn('eqp_link_port', false, '포트번호', '')
+];
+
+
 $(function(){
 
     addComma(document.getElementById("acquisition_cost")); // 도입금액 콤마처리
+
+    $('#eqpHardwareConnectTable').bootstrapTable({
+        url: '/eqp/sw/hardwareConnectList',
+        method: 'post',
+        queryParams: function(params) {
+            let eqp_manage_id = $("#eqp_manage_id").val();
+            params.searchData = {
+                eqp_manage_id
+            }
+
+            return params;
+        },
+        columns: eqpHardwareConnectColumn, pageSize: 5, pagination: true, sidePagination: 'client',
+        responseHandler: function(res) {
+            return {
+                rows: res.rows,
+                total: res.total,
+                errorCode: res.errorCode
+            }
+        },
+        onLoadSuccess: function(res) {
+            let errorCode = res.errorCode;
+            if (!errorCode) {
+                alert2('알림', '데이터를 불러오는 데 문제가 발생하였습니다. </br>관리자에게 문의해주세요.', 'error', '확인');
+                return false;
+            }
+
+            $("#eqpHardwareTotalCnt").text("총 " + res.total + "건");
+        },
+    });
 
 });
 

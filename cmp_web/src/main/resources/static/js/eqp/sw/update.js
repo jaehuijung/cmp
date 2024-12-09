@@ -117,6 +117,8 @@ function saveData() {
     data["config_id"] = "2"; // 구성분류 : S/W
     data["eqp_manage_id"] = $("#eqp_manage_id").val();
 
+    data["remark"] = document.getElementById('remark').value; // 기타정보
+
     Swal.fire({
         title: '알림',
         html : '저장하시겠습니까?',

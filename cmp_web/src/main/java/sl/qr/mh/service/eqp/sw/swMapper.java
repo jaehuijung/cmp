@@ -58,6 +58,14 @@ public interface swMapper {
      */
     Map<String, Object> getEquipmentDetailTotalList(String eqp_manage_id); //
 
+
+    /**
+     * S/W관리 > 장비목록 > 수정/상세 > 선택한 장비 정보 : 상위 연결장비 정보
+     *
+     * @return 장비 정보 리스트
+     */
+    List<Map<String, Object>> getEquipmentDetailHardwareConnectList(Map<String, Object> paramMap);
+
     /**
      * S/W관리 > 장비목록 > 수정/상세 > 선택한 장비 정보 : 장비 분류 (구성분류, 자산분류, 자산세부분류, 자산상세분류)
      *
