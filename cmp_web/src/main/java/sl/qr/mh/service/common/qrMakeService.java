@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -32,9 +33,19 @@ public class qrMakeService {
         String encryptedTarget = AESUtil.encryptWithSafeFileName(target, key);
 
         String crunchifyFileType = "jpg";
-        String filePath = sep + "images" + sep + "qr" + sep + encryptedTarget + ".jpg";
+        // String filePath = sep + "images" + sep + "qr" + sep + encryptedTarget + ".jpg";
 
-        File crunchifyFile = new File(staticPath + filePath);
+        String projectRootPath = Paths.get("").toAbsolutePath().toString();
+        File qrDirectory = new File(projectRootPath + sep + "qr");
+
+        // qr 디렉토리가 존재하지 않으면 생성
+        if (!qrDirectory.exists()) {
+            qrDirectory.mkdirs();
+        }
+
+        String filePath = projectRootPath + sep + "qr" + sep + encryptedTarget + ".jpg";
+        // File crunchifyFile = new File(staticPath + filePath);
+        File crunchifyFile = new File(filePath);
         Map<EncodeHintType, Object> crunchifyHintType = new EnumMap<>(EncodeHintType.class);
         crunchifyHintType.put(EncodeHintType.CHARACTER_SET, "UTF-8");
         crunchifyHintType.put(EncodeHintType.MARGIN, 1); /* default = 4 */
@@ -64,7 +75,8 @@ public class qrMakeService {
         }
 
         ImageIO.write(crunchifyImage, crunchifyFileType, crunchifyFile);
-        return filePath;
+        // return filePath;
+        return encryptedTarget;
     }
 
 }
