@@ -572,6 +572,12 @@ public class hwManageService {
                 insertDataToSheet(wb, sheetIndex, ele);
             }
 
+            sheetIndex = 2;
+            List<Map<String, Object>> equipmentIpList = hwMapper.getExcelEquipmentIpList();
+            for(Map<String, Object> ele : equipmentIpList) {
+                insertDataToSheet(wb, sheetIndex, ele);
+            }
+
         } catch (Exception e){
             log.error(e.getMessage());
         }
@@ -633,12 +639,16 @@ public class hwManageService {
             setCellValue(sheetIndex, 34, workbook, dataRow, data.get("serial_number")); // 시리얼 번호
             setCellValue(sheetIndex, 35, workbook, dataRow, data.get("created_at")); // 생성일
         }
-        // else{ // 장비연결정보
-        //     setCellValue(sheetIndex, 0,  workbook, dataRow, data.get("eqp_manage_id")); // 관리번호
-        //     setCellValue(sheetIndex, 1,  workbook, dataRow, data.get("host")); // 호스트명
-        //     setCellValue(sheetIndex, 2,  workbook, dataRow, data.get("ip_address")); // IP ADDRESS
-        //     setCellValue(sheetIndex, 3,  workbook, dataRow, data.get("port")); // 포트번호
-        // }
+        else if(sheetIndex == 1) { // H/W 장비 연결정보
+            setCellValue(sheetIndex, 0,  workbook, dataRow, data.get("eqp_manage_id")); // 관리번호
+            setCellValue(sheetIndex, 1,  workbook, dataRow, data.get("eqp_port")); // 장비포트번호
+            setCellValue(sheetIndex, 2,  workbook, dataRow, data.get("eqp_link_manage_id")); // 연결장비관리번호
+            setCellValue(sheetIndex, 3,  workbook, dataRow, data.get("eqp_link_port")); // 연결장비포트번호
+        }
+        else if(sheetIndex == 2) { // H/W 장비 Ip 정보
+            setCellValue(sheetIndex, 0,  workbook, dataRow, data.get("eqp_manage_id")); // 관리번호
+            setCellValue(sheetIndex, 1,  workbook, dataRow, data.get("ip")); // 장비 ip
+        }
     }
 
     /**

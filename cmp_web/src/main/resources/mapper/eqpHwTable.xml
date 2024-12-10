@@ -899,7 +899,6 @@
             ed.CPU cpu,
             ed.MEMORY mem,
             ed.DISK disk,
-            ed.ip_address,
             ed.OS os_version,
             ed.acquisition_cost,
             ed.installation_coordinates,
@@ -933,19 +932,32 @@
         /* getExcelEquipmentLinkList...
             H/W관리 > 장비목록 > 장비 목록 다운로드 > 장비목록 전체 리스트 : 연결정보 */
         SELECT
-            el.eqp_manage_id,
-            el.host,
-            el.ip_address ,
-            el.port
+            erh.eqp_manage_id,
+            erh.eqp_port,
+            erh.eqp_link_manage_id,
+            erh.eqp_link_port
         FROM
             equipment_basic eb
         join
-            equipment_link el
-            on eb.eqp_manage_id = el.eqp_manage_id
+            equipment_regist_hw erh
+            on eb.eqp_manage_id = erh.eqp_manage_id
         where
             eb.is_deleted = 'N'
         ORDER BY
-            el.eqp_manage_id
+            erh.eqp_manage_id, erh.eqp_port
+    </select>
+
+    <select id="getExcelEquipmentIpList" resultType="map">
+        select
+            eri.eqp_manage_id,
+            eri.ip
+        from
+            equipment_regist_ip eri
+        join
+            equipment_basic eb
+            on eri.eqp_manage_id = eb.eqp_manage_id
+        where 1=1
+            and eb.is_deleted = 'N'
     </select>
 
 </mapper>

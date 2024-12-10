@@ -269,5 +269,11 @@ public interface hwMapper {
      */
     List<Map<String, Object>> getExcelEquipmentLinkList();
 
+    /**
+     * 조회 > 장비 목록 다운로드 > 장비목록 전체 리스트 : ip정보
+     *
+     * @return 장비 목록 데이터
+     */
+    List<Map<String, Object>> getExcelEquipmentIpList();
 
 }
