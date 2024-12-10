@@ -68,10 +68,11 @@
 
         </header>
         <div th:each="item : ${selections}">
+
             <div class="printWrap">
                 <div class="printArea">
                     <img src="/images/char_S.png" alt="start 이미지" class="printImg">
-                    <img th:src="@{${item.qr_image_location}}" alt="QR 이미지" class="printImg">
+                    <img th:src="@{/common/qrImage/{filename}(filename=${item.qr_image_location})}" alt="이미지" class="printImg">
                     <div class="printInfoWrap">
                         <div class="infoLabel">
                             <span th:text="'[' + ${item.s_installation_coordinates} + ']' + ' ' + ${item.s_eqp_manage_id} + ' - ' + ${item.s_host_name} + ' - Fe1'"></span>
@@ -89,7 +90,7 @@
                             <span th:text="'[' + ${item.e_installation_coordinates} + ']' + ' ' + ${item.e_eqp_manage_id} + ' - ' + ${item.e_host_name} + ' - Fe1'"></span>
                         </div>
                     </div>
-                    <img th:src="@{/images/{item.qr_image_location}(fileName=${item.qr_image_location})}" alt="QR Code Image">
+                    <img th:src="@{/common/qrImage/{filename}(filename=${item.qr_image_location})}" alt="이미지" class="printImg">
                     <img src="/images/char_E.png" alt="end 이미지" class="printImg">
                 </div>
             </div>

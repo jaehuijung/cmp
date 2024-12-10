@@ -87,8 +87,9 @@ public class commonController {
         return commonService.getLineLinkList();
     }
 
-    @GetMapping("/images/{filename:.+}")
-    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+    @ResponseBody
+    @GetMapping("/qrImage/{filename}")
+    public ResponseEntity<Resource> serveFile(@PathVariable("filename") String filename) {
         try {
             // 프로젝트 루트 경로를 기준으로 파일 경로 생성
             String sep = File.separator;

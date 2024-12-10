@@ -43,7 +43,8 @@ public class qrMakeService {
             qrDirectory.mkdirs();
         }
 
-        String filePath = projectRootPath + sep + "qr" + sep + encryptedTarget + ".jpg";
+        // String filePath = projectRootPath + sep + "qr" + sep + encryptedTarget + ".jpg";
+        String filePath = projectRootPath + sep + "qr" + sep + encryptedTarget;
         // File crunchifyFile = new File(staticPath + filePath);
         File crunchifyFile = new File(filePath);
         Map<EncodeHintType, Object> crunchifyHintType = new EnumMap<>(EncodeHintType.class);
