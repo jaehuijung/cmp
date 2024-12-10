@@ -99,6 +99,11 @@
     <th:block layout:fragment="script">
         <script th:src="@{/assets/vendor/jquery/jquery.min.js}"></script>
         <script th:src="@{/js/rack/line/qrLoad.js}"></script>
+        <script>
+            $(function() {
+                window.print();
+            });
+        </script>
     </th:block>
 
     </body>
