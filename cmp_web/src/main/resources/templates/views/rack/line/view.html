@@ -10,7 +10,118 @@
 
 <head>
     <style>
+        /* 인쇄 카드영역 */
+        .printContentCard {
+            background-color: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            overflow-x: auto;
+        }
 
+        /* 인쇄 카드 */
+        .printContentWrap {
+            display: flex;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            background: yellow;
+            width: 25cm; /* 설정된 너비 */
+            height: 1.5cm; /* 설정된 높이 */
+        }
+        /* 개별 영역 구성 */
+        .printArea {
+            display: flex;
+            padding: 3px 5px; /* 안쪽 여백 */
+            border: 1px solid #ccc; /* 윤곽선 */
+            box-sizing: border-box; /* 패딩 포함 크기 설정 */
+            width: 12.5cm; /* 설정된 너비 */
+        }
+
+        .printArea-right {
+            justify-content: flex-end;
+        }
+
+        /* .printInfoWrap: 정보 텍스트를 감싸는 스타일 */
+        .printInfoWrap {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-left: 5px; /* 이미지와 간격 */
+        }
+
+        /* 텍스트 레이블 스타일 */
+        .infoLabel {
+            font-size: 9pt; /* 글자 크기 */
+            color: #333; /* 텍스트 색상 */
+            font-weight: normal; /* 기본 텍스트 굵기 */
+        }
+
+        /* 이미지 스타일 */
+        .printImg {
+            width: 1.3cm; /* 이미지 너비 */
+            height: 1.3cm; /* 이미지 높이 */
+            margin: 0 2px; /* 이미지 간 간격 */
+            object-fit: contain; /* 이미지 비율 유지 */
+        }
+
+        @media print {
+            /* 페이지 크기 설정 */
+            @page {
+                size: auto; /* 브라우저가 콘텐츠 크기에 따른 페이지 크기를 설정함 */
+                margin: 10mm; /* 페이지 여백 */
+            }
+
+            body * {
+                display: none !important; /* 기본적으로 모든 요소 숨기기 */
+            }
+
+            .printContentCard, .printContentCard * {
+                display: block !important; /* 출력할 대상과 그 내부 요소 표시 */
+                visibility: visible; /* 내부 콘텐츠 보이기 */
+            }
+
+            /* 출력 카드의 배치 */
+            .printContentCard {
+                background-color: white !important; /* 흰색 출력 배경 */
+                border: none !important; /* 출력 시 외곽선 제거 */
+                box-shadow: none !important; /* 그늘 효과 제거 */
+                width: 100%; /* 너비를 페이지 크기에 맞게 조정 */
+                margin: 0 auto; /* 중앙 정렬 */
+                padding: 0;
+                page-break-before: always; /* 각 카드가 새 페이지에서 시작 */
+                overflow: visible !important; /* 출력 시 모든 콘텐츠 표시 */
+            }
+
+            /* 각 내부 영역 구성 */
+            .printContentWrap {
+                background: none !important; /* 배경 제거 */
+                margin: 0; /* 출력 시 내부 여백 제거 */
+                height: auto; /* 높이 조정 */
+                width: 100%; /* 페이지 크기에 맞도록 */
+                page-break-inside: avoid; /* 영역이 페이지를 넘어가지 않도록 */
+            }
+
+            /* 이미지와 텍스트 스타일 */
+            .printArea {
+                padding: 0;
+                border: none; /* 인쇄 시 테두리 제거 */
+            }
+
+            .printInfoWrap {
+                margin: 0;
+                font-size: 10pt; /* 인쇄 시 적절한 크기 지정 */
+            }
+
+            /* QR 이미지 출력 조정 */
+            .printImg {
+                width: 1.3cm;
+                height: 1.3cm;
+                object-fit: contain;
+                margin: 0;
+            }
+        }
     </style>
 </head>
 
@@ -57,12 +168,6 @@
                                 <input type="checkbox" class="selectStateChk" onchange="searchState('s', 's_port', this.checked)" checked>
                                 <span class="searchChkTitle">포트번호</span>
                             </label>
-                            <!--
-                            <label class="searchChk">
-                                <input type="checkbox" class="selectStateChk" onchange="searchState('s', 's_primary_operator', this.checked)" checked>
-                                <span class="searchChkTitle">운영담당자</span>
-                            </label>
-                            -->
                             <label class="searchChk">
                                 <input type="checkbox" class="selectStateChk" onchange="searchState('s', 's_primary_outsourced_operator', this.checked)" checked>
                                 <span class="searchChkTitle">운영사용자</span>
@@ -111,44 +216,12 @@
                                 <input type="checkbox" class="selectStateChk" onchange="searchState('e', 'e_primary_outsourced_operator', this.checked)" checked>
                                 <span class="searchChkTitle">운영사용자</span>
                             </label>
-                            <!--
-                            <label class="searchChk">
-                                <input type="checkbox" class="selectStateChk" onchange="searchState('e', 'e_primary_operator', this.checked)" checked>
-                                <span class="searchChkTitle">운영담당자</span>
-                            </label>
-                            -->
                         </div>
                     </div>
                 </div>
 
 
                 <div class="searchWrap">
-                    <!--
-                    <div class="searchSelectWrap">
-                        <label class="searchSelect">
-                            <label class="searchTitle" for="asset_category">자산분류</label>
-                            <select id="asset_category" name="asset_category">
-                                <option value="all">전체</option>
-                                <option value="101">서버</option>
-                                <option value="102">보안장비</option>
-                                <option value="103">네트워크</option>
-                                <option value="104">스토리지장비</option>
-                                <option value="105">백업장비</option>
-                                <option value="106">기타장비</option>
-                                <option value="107">전산기반시설</option>
-                                <option value="201">시스템S/W</option>
-                                <option value="202">미들웨어</option>
-                                <option value="203">DB관리</option>
-                                <option value="204">백업관리</option>
-                                <option value="205">정보보호</option>
-                                <option value="206">관제</option>
-                                <option value="207">가상화SW</option>
-                                <option value="208">응용SW</option>
-                                <option value="209">개발SW</option>
-                            </select>
-                        </label>
-                    </div>
-                    -->
                     <div class="searchWordWrap">
                         <div class="searchWordInput">
                             <label class="searchTitle" for="searchInput">검색어</label>
@@ -183,7 +256,7 @@
                             <img src='/images/icon/btn/download.svg' alt='다운로드' class='btn-icon'>
                         </button>
                         <button type='button' class="btn btn-outline-secondary custom-btn custom-blue-btn"
-                                onclick="QRLoad()">QR 라벨 출력
+                                onclick="generateQRLabelImage()">QR 라벨 출력
                             <img src='/images/icon/btn/print.svg' alt='PDF' class='btn-icon'>
                         </button>
                     </div>
@@ -198,6 +271,74 @@
 
         <th:block layout:fragment="script">
             <script th:src="@{/js/rack/line/view.js}"></script>
+            <script>
+                function generateQRLabelImage(){
+                    let labelList = $("#lineTable").bootstrapTable("getSelections");
+
+                    if (labelList.length === 0) {
+                        Swal.fire({
+                            icon: 'info',
+                            title: '알림',
+                            text: 'PDF로 출력할 선번장을 선택해주세요.',
+                            confirmButtonText: '확인'
+                        });
+                        return false;
+                    }
+
+                    Swal.fire({
+                        title: 'QR 라벨 출력 미리보기',
+                        html: generateQRLabelImageRowHTML(labelList),
+                        focusConfirm: false,
+                        confirmButtonText: '출력',
+                        cancelButtonText: '취소',
+                        showCancelButton: true,
+                        allowOutsideClick: false,
+                        heightAuto: false,
+                        customClass: {
+                            popup: 'custom-width'
+                        },
+                        preConfirm: () => {
+                            window.print();
+                            return false;
+                        },
+                    })
+                }
+
+                function generateQRLabelImageRowHTML(selections){
+                    let htmlContent = '';
+                    htmlContent += `<div class="printContentCard">`;
+
+                    selections.forEach(item => {
+                        htmlContent += `
+                        <div class="printContentWrap">
+                            <div class="printArea a">
+                                <img src="/images/char_S.png" alt="start 이미지" class="printImg">
+                                <img src="/common/qrImage/${item.qr_image_location}" alt="QR 이미지" class="printImg">
+                                <div class="printInfoWrap">
+                                    <div class="infoLabel">
+                                        <span>[${item.s_installation_coordinates}] ${item.s_eqp_manage_id} - ${item.s_host_name} - Fe1</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="printArea printArea-right">
+                                <div class="printInfoWrap">
+                                    <div class="infoLabel">
+                                        <span>[${item.e_installation_coordinates}] ${item.e_eqp_manage_id} - ${item.e_host_name} - Fe1</span>
+                                    </div>
+                                </div>
+                                <img src="/common/qrImage/${item.qr_image_location}" alt="QR 이미지" class="printImg">
+                                <img src="/images/char_E.png" alt="end 이미지" class="printImg">
+                            </div>
+                        </div>
+                        `;
+                    });
+
+                    htmlContent += `</div>`
+                    return htmlContent;
+                }
+
+            </script>
         </th:block>
 
     </div>
