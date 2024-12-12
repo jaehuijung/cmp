@@ -24,11 +24,8 @@
         /* 인쇄 카드 */
         .printContentWrap {
             display: flex;
-            margin-top: 10px;
-            margin-bottom: 10px;
-            background: yellow;
             width: 25cm; /* 설정된 너비 */
-            height: 1.5cm; /* 설정된 높이 */
+            height: 1.2cm; /* 설정된 높이 */
         }
         /* 개별 영역 구성 */
         .printArea {
@@ -37,6 +34,7 @@
             border: 1px solid #ccc; /* 윤곽선 */
             box-sizing: border-box; /* 패딩 포함 크기 설정 */
             width: 12.5cm; /* 설정된 너비 */
+            background: yellow;
         }
 
         .printArea-right {
@@ -60,67 +58,55 @@
 
         /* 이미지 스타일 */
         .printImg {
-            width: 1.3cm; /* 이미지 너비 */
-            height: 1.3cm; /* 이미지 높이 */
+            width: 1cm; /* 이미지 너비 */
+            height: 1cm; /* 이미지 높이 */
             margin: 0 2px; /* 이미지 간 간격 */
             object-fit: contain; /* 이미지 비율 유지 */
         }
 
         @media print {
-            /* 페이지 크기 설정 */
             @page {
-                size: auto; /* 브라우저가 콘텐츠 크기에 따른 페이지 크기를 설정함 */
-                margin: 10mm; /* 페이지 여백 */
+                size: 25cm 1.2cm;
+                margin: 0;
+                padding: 0;
             }
 
-            body * {
-                display: none !important; /* 기본적으로 모든 요소 숨기기 */
+            * {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust:exact;
             }
 
-            .printContentCard, .printContentCard * {
-                display: block !important; /* 출력할 대상과 그 내부 요소 표시 */
-                visibility: visible; /* 내부 콘텐츠 보이기 */
-            }
-
-            /* 출력 카드의 배치 */
             .printContentCard {
-                background-color: white !important; /* 흰색 출력 배경 */
-                border: none !important; /* 출력 시 외곽선 제거 */
-                box-shadow: none !important; /* 그늘 효과 제거 */
-                width: 100%; /* 너비를 페이지 크기에 맞게 조정 */
-                margin: 0 auto; /* 중앙 정렬 */
+                margin:  0;
                 padding: 0;
-                page-break-before: always; /* 각 카드가 새 페이지에서 시작 */
-                overflow: visible !important; /* 출력 시 모든 콘텐츠 표시 */
+                border: 0;
+                border-radius: 0;
             }
 
-            /* 각 내부 영역 구성 */
             .printContentWrap {
-                background: none !important; /* 배경 제거 */
-                margin: 0; /* 출력 시 내부 여백 제거 */
-                height: auto; /* 높이 조정 */
-                width: 100%; /* 페이지 크기에 맞도록 */
-                page-break-inside: avoid; /* 영역이 페이지를 넘어가지 않도록 */
+                page-break-after: always; /* 항목별로 페이지 분리 */
             }
 
-            /* 이미지와 텍스트 스타일 */
-            .printArea {
+            .swal2-title {
+                display: none !important;
+                margin:  0;
                 padding: 0;
-                border: none; /* 인쇄 시 테두리 제거 */
             }
 
-            .printInfoWrap {
-                margin: 0;
-                font-size: 10pt; /* 인쇄 시 적절한 크기 지정 */
+            .swal2-html-container {
+                margin:  0;
+                padding: 0;
             }
 
-            /* QR 이미지 출력 조정 */
-            .printImg {
-                width: 1.3cm;
-                height: 1.3cm;
-                object-fit: contain;
-                margin: 0;
+            .swal2-actions {
+                display: none !important;
             }
+
+            .swal2-popup {
+                padding: 0;
+            }
+
+
         }
     </style>
 </head>
@@ -255,8 +241,9 @@
                                 onclick="selectLineDownload()">선번장 목록 다운로드
                             <img src='/images/icon/btn/download.svg' alt='다운로드' class='btn-icon'>
                         </button>
+                        <!--                                onclick="QRLoad()">QR 라벨 출력-->
                         <button type='button' class="btn btn-outline-secondary custom-btn custom-blue-btn"
-                                onclick="generateQRLabelImage()">QR 라벨 출력
+                                    onclick="generateQRLabelImage()">QR 라벨 출력
                             <img src='/images/icon/btn/print.svg' alt='PDF' class='btn-icon'>
                         </button>
                     </div>
@@ -298,20 +285,35 @@
                             popup: 'custom-width'
                         },
                         preConfirm: () => {
-                            window.print();
-                            return false;
+
+                            // return false;
+
+                            // window.print();
+                            // return false;
                         },
-                    })
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var initBody;
+                            window.onbeforeprint = function(){
+                                initBody = document.body.innerHTML;
+                                document.body.innerHTML =  document.getElementById('printContentCard').innerHTML;
+                            };
+                            window.onafterprint = function(){
+                                location.reload(); // 페이지 새로고침
+                            };
+                            window.print();
+                        }
+                    });
                 }
 
                 function generateQRLabelImageRowHTML(selections){
                     let htmlContent = '';
-                    htmlContent += `<div class="printContentCard">`;
+                    htmlContent += `<div class="printContentCard" id="printContentCard">`;
 
                     selections.forEach(item => {
                         htmlContent += `
                         <div class="printContentWrap">
-                            <div class="printArea a">
+                            <div class="printArea">
                                 <img src="/images/char_S.png" alt="start 이미지" class="printImg">
                                 <img src="/common/qrImage/${item.qr_image_location}" alt="QR 이미지" class="printImg">
                                 <div class="printInfoWrap">

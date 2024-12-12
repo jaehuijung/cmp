@@ -28,7 +28,7 @@
             @media print {
                 /* 페이지 크기 설정 */
                 @page {
-                    size: 30cm 1.5cm;
+                    size: 30cm 1.2cm;
                     font-size: 24pt;
                     margin: 0;
                 }
@@ -52,14 +52,12 @@
         <header>
 
             <div id="QRPrintHead">
-                <!--
                 <hr id="sep">
                 <input type="button" class="printBtn" value="-" onClick="QRMinusFunction();">
                 <input type="range"  id="printRange" value="1" min="1" max="3" step="0.01" oninput="QRPlusMinusFunction(this.value);"/>
                 <input type="button" class="printBtn" value="+" onClick="QRPlusFunction();">
                 <input type="button" class="printBtn" value="저장" onClick="QRPrintFunction();">
                 <hr id="sep" style="margin:20px 0px;">
-                -->
 
                 <hr id="sep">
                 <h2>※ 라벨 미리보기 : 실제로 프린터로 출력될 모습</h2>
@@ -99,11 +97,6 @@
     <th:block layout:fragment="script">
         <script th:src="@{/assets/vendor/jquery/jquery.min.js}"></script>
         <script th:src="@{/js/rack/line/qrLoad.js}"></script>
-        <script>
-            $(function() {
-                window.print();
-            });
-        </script>
     </th:block>
 
     </body>
