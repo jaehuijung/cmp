@@ -1,7 +1,6 @@
 <!--
 	선번장관리 > 선번장목록
 -->
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
@@ -17,23 +16,23 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             border-radius: 10px;
             padding: 20px;
-            margin-bottom: 30px;
             overflow-x: auto;
         }
 
         /* 인쇄 카드 */
         .printContentWrap {
             display: flex;
-            width: 25cm; /* 설정된 너비 */
-            height: 1.2cm; /* 설정된 높이 */
+            width: 250mm; /* 설정된 너비 */
+            height: 12mm; /* 설정된 높이 */
         }
+
         /* 개별 영역 구성 */
         .printArea {
             display: flex;
             padding: 3px 5px; /* 안쪽 여백 */
             border: 1px solid #ccc; /* 윤곽선 */
             box-sizing: border-box; /* 패딩 포함 크기 설정 */
-            width: 12.5cm; /* 설정된 너비 */
+            width: 125mm; /* 설정된 너비 */
             background: yellow;
         }
 
@@ -66,51 +65,28 @@
 
         @media print {
             @page {
-                size: 25cm 1.2cm;
+                size: landscape;
                 margin: 0;
-                padding: 0;
             }
 
-            * {
-                -webkit-print-color-adjust: exact;
-                print-color-adjust:exact;
-            }
-
-            .printContentCard {
-                margin:  0;
-                padding: 0;
+            .printArea {
                 border: 0;
-                border-radius: 0;
             }
-
-            .printContentWrap {
-                page-break-after: always; /* 항목별로 페이지 분리 */
+            .printArea-right {
+                border-left: 1px solid #ccc; /* 윤곽선 */
             }
-
-            .swal2-title {
-                display: none !important;
-                margin:  0;
-                padding: 0;
-            }
-
-            .swal2-html-container {
-                margin:  0;
-                padding: 0;
-            }
-
-            .swal2-actions {
-                display: none !important;
-            }
-
-            .swal2-popup {
-                padding: 0;
-            }
-
 
         }
     </style>
 </head>
-
+<!--
+.printArea {
+    border: 0;
+}
+.printArea-right {
+    border-left: 1px solid #ccc; /* 윤곽선 */
+}
+-->
     <div layout:fragment="content">
 
         <main id="main" class="line">
@@ -242,6 +218,7 @@
                             <img src='/images/icon/btn/download.svg' alt='다운로드' class='btn-icon'>
                         </button>
                         <!--                                onclick="QRLoad()">QR 라벨 출력-->
+                        <!--                                onclick="generateQRLabelImage()">QR 라벨 출력-->
                         <button type='button' class="btn btn-outline-secondary custom-btn custom-blue-btn"
                                     onclick="generateQRLabelImage()">QR 라벨 출력
                             <img src='/images/icon/btn/print.svg' alt='PDF' class='btn-icon'>
@@ -339,7 +316,6 @@
                     htmlContent += `</div>`
                     return htmlContent;
                 }
-
             </script>
         </th:block>
 
