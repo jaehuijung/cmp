@@ -75,7 +75,8 @@
                     data: $(this).serialize(),
                     success: function(response) {
                         // 로그인 성공 시 페이지 이동
-                        window.location.href = '/eqp/hw/view';
+                        // window.location.href = '/eqp/hw/view';
+                        window.location.href = '/cable/agency/view';
                     },
                     error: function(xhr) {
                         alert(xhr.responseJSON.message)
