@@ -611,33 +611,32 @@ public class hwManageService {
             setCellValue(sheetIndex, 6,  workbook, dataRow, data.get("asset_category")); // 자산분류
             setCellValue(sheetIndex, 7,  workbook, dataRow, data.get("sub_category")); // 자산세부분류
             setCellValue(sheetIndex, 8,  workbook, dataRow, data.get("detail_category")); // 자산상세분류
-            setCellValue(sheetIndex, 9,  workbook, dataRow, data.get("ip_address")); // IP ADDRESS
-            setCellValue(sheetIndex, 10, workbook, dataRow, data.get("os_version")); // OS VERSION
-            setCellValue(sheetIndex, 11, workbook, dataRow, data.get("operating_department")); // 운영부서
-            setCellValue(sheetIndex, 12, workbook, dataRow, data.get("primary_operator")); // 운영담당자 정
-            setCellValue(sheetIndex, 13, workbook, dataRow, data.get("secondary_operator")); // 운영담당자 부
-            setCellValue(sheetIndex, 14, workbook, dataRow, data.get("primary_outsourced_operator")); // 위탁운영담당자 정
-            setCellValue(sheetIndex, 15, workbook, dataRow, data.get("secondary_outsourced_operator")); // 위탁운영담당자 부
-            setCellValue(sheetIndex, 16, workbook, dataRow, data.get("operating_status")); // 운영상태
-            setCellValue(sheetIndex, 17, workbook, dataRow, data.get("eol_status")); // 단종상태 EOL
-            setCellValue(sheetIndex, 18, workbook, dataRow, data.get("eos_status")); // 단종상태 EOS
-            setCellValue(sheetIndex, 19, workbook, dataRow, data.get("redundancy_config")); // 이중화 구성여부
-            setCellValue(sheetIndex, 20, workbook, dataRow, data.get("network_operation_type")); // 네트워크 운영구분
-            setCellValue(sheetIndex, 21, workbook, dataRow, data.get("asset_acquisition_date")); // 자산취득일자
-            setCellValue(sheetIndex, 22, workbook, dataRow, data.get("asset_disposal_date")); // 자산폐기일자
-            setCellValue(sheetIndex, 23, workbook, dataRow, data.get("acquisition_cost")); // 도입금액
-            setCellValue(sheetIndex, 24, workbook, dataRow, data.get("dbrain_number")); // 디브레인번호
-            setCellValue(sheetIndex, 25, workbook, dataRow, data.get("domestic")); // 국산여부
-            setCellValue(sheetIndex, 26, workbook, dataRow, data.get("unit_position")); // 유닛위치
-            setCellValue(sheetIndex, 27, workbook, dataRow, data.get("installation_coordinates")); // 설치좌표 좌표
-            setCellValue(sheetIndex, 28, workbook, dataRow, data.get("installation_units")); // 설치좌표 유닛수
-            setCellValue(sheetIndex, 29, workbook, dataRow, data.get("equipment_size_units")); // 장비크기 유닛수
-            setCellValue(sheetIndex, 30, workbook, dataRow, data.get("maintenance_contract_target")); // 유지관리 계약대상 여부
-            setCellValue(sheetIndex, 31, workbook, dataRow, data.get("cpu")); // CPU
-            setCellValue(sheetIndex, 32, workbook, dataRow, data.get("mem")); // MEMORY
-            setCellValue(sheetIndex, 33, workbook, dataRow, data.get("disk")); // DISK
-            setCellValue(sheetIndex, 34, workbook, dataRow, data.get("serial_number")); // 시리얼 번호
-            setCellValue(sheetIndex, 35, workbook, dataRow, data.get("created_at")); // 생성일
+            setCellValue(sheetIndex, 9 , workbook, dataRow, data.get("os_version")); // OS VERSION
+            setCellValue(sheetIndex, 10, workbook, dataRow, data.get("operating_department")); // 운영부서
+            setCellValue(sheetIndex, 11, workbook, dataRow, data.get("primary_operator")); // 운영담당자 정
+            setCellValue(sheetIndex, 12, workbook, dataRow, data.get("secondary_operator")); // 운영담당자 부
+            setCellValue(sheetIndex, 13, workbook, dataRow, data.get("primary_outsourced_operator")); // 위탁운영담당자 정
+            setCellValue(sheetIndex, 14, workbook, dataRow, data.get("secondary_outsourced_operator")); // 위탁운영담당자 부
+            setCellValue(sheetIndex, 15, workbook, dataRow, data.get("operating_status")); // 운영상태
+            setCellValue(sheetIndex, 16, workbook, dataRow, data.get("eol_status")); // 단종상태 EOL
+            setCellValue(sheetIndex, 17, workbook, dataRow, data.get("eos_status")); // 단종상태 EOS
+            setCellValue(sheetIndex, 18, workbook, dataRow, data.get("redundancy_config")); // 이중화 구성여부
+            setCellValue(sheetIndex, 19, workbook, dataRow, data.get("network_operation_type")); // 네트워크 운영구분
+            setCellValue(sheetIndex, 20, workbook, dataRow, data.get("asset_acquisition_date")); // 자산취득일자
+            setCellValue(sheetIndex, 21, workbook, dataRow, data.get("asset_disposal_date")); // 자산폐기일자
+            setCellValue(sheetIndex, 22, workbook, dataRow, data.get("acquisition_cost")); // 도입금액
+            setCellValue(sheetIndex, 23, workbook, dataRow, data.get("dbrain_number")); // 디브레인번호
+            setCellValue(sheetIndex, 24, workbook, dataRow, data.get("domestic")); // 국산여부
+            setCellValue(sheetIndex, 25, workbook, dataRow, data.get("unit_position")); // 유닛위치
+            setCellValue(sheetIndex, 26, workbook, dataRow, data.get("installation_coordinates")); // 설치좌표 좌표
+            setCellValue(sheetIndex, 27, workbook, dataRow, data.get("installation_units")); // 설치좌표 유닛수
+            setCellValue(sheetIndex, 28, workbook, dataRow, data.get("equipment_size_units")); // 장비크기 유닛수
+            setCellValue(sheetIndex, 29, workbook, dataRow, data.get("maintenance_contract_target")); // 유지관리 계약대상 여부
+            setCellValue(sheetIndex, 30, workbook, dataRow, data.get("cpu")); // CPU
+            setCellValue(sheetIndex, 31, workbook, dataRow, data.get("mem")); // MEMORY
+            setCellValue(sheetIndex, 32, workbook, dataRow, data.get("disk")); // DISK
+            setCellValue(sheetIndex, 33, workbook, dataRow, data.get("serial_number")); // 시리얼 번호
+            setCellValue(sheetIndex, 34, workbook, dataRow, data.get("created_at")); // 생성일
         }
         else if(sheetIndex == 1) { // H/W 장비 연결정보
             setCellValue(sheetIndex, 0,  workbook, dataRow, data.get("eqp_manage_id")); // 관리번호
