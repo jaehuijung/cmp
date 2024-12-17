@@ -1,76 +1,89 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="utf-8" http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-		<title>CMS Login</title>
-		<link rel="icon" type="image/x-icon" href="/images/icon/favicon.png">
-		<th:block layout:fragment="css">
-			<link rel="stylesheet" href="/css/login.css" />
-		</th:block>
-
-	</head>
-
-	<body>
-		<div class="image-background">
-			<img src="/images/bg.jpg" alt="Background Image">
-		</div>
-
-		<div class="login-form">
-			<div class="left-content">
-				<div class="introduce-title">
-					<p class="smart-cms">Smart CMS</p>
-					<p class="cable-management">CABLE MANAGEMENT SYSTEM</p>
-
-				</div>
-				<div class="company-logo">
-					<img src="/images/logo/logo.png" alt="logo" />
-				</div>
-			</div>
-			<div class="right-content">
-				<div class="logo-section">
-					<img src="/images/logo/technopark.png" alt="logo" />
-				</div>
-
-
-				<form action="/perform_login" id="formDiv" method="post">
-					<div class="login-inputs">
-						<div class="line-with-text"><span>Login</span></div>
-						<div class="login-input-id">
-							<input type="text" placeholder="아이디를 입력해주세요" name="username" />
-						</div>
-						<div class="login-input-password">
-							<input type="password" placeholder="비밀번호를 입력해주세요." name="password" />
-						</div>
-					</div>
-
-					<div class="login-button">
-						<button type="submit">로그인</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</body>
-	<th:block layout:fragment="script">
-		<script th:src="@{/assets/vendor/jquery/jquery.min.js}"></script>
-		<script>
-			$(document).ready(function() {
-				$('#formDiv').submit(function(event) {
-					event.preventDefault();
-					$.ajax({
-						type: 'POST',
-						url: '/perform_login',
-						data: $(this).serialize(),
-						success: function(response) {
-							// 로그인 성공 시 페이지 이동
-							window.location.href = '/eqp/hw/view';
-						},
-						error: function(xhr) {
-							alert(xhr.responseJSON.message)
-						}
-					});
-				});
-			});
-		</script>
+<head>
+	<meta charset="utf-8" http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+	<title>CMS Login</title>
+	<link rel="icon" type="image/x-icon" href="/images/icon/favicon.png">
+	<th:block layout:fragment="css">
+		<link rel="stylesheet" href="/css/login.css" />
 	</th:block>
+
+</head>
+
+<body>
+<div class="image-background">
+	<img src="/images/bg.jpg" alt="Background Image">
+</div>
+
+<div class="login-form">
+	<div class="company-logo">
+		<img src="/images/logo/logo.png" alt="logo" />
+	</div>
+
+	<div class="introduce-title">
+		<p class="smart-cms">Cable</p>
+		<p class="cable-management">Management System</p>
+	</div>
+
+	<form action="/perform_login" id="formDiv" style="width: 100%;" method="post">
+		<div class="login-inputs">
+			<div class="login-input-id">
+				<input type="text" placeholder="아이디를 입력해주세요" name="username" />
+			</div>
+			<div class="login-input-password">
+				<input type="password" placeholder="비밀번호를 입력해주세요." name="password" />
+			</div>
+		</div>
+
+		<div class="login-button">
+			<button type="submit">로그인</button>
+		</div>
+
+		<div style="display: flex; justify-content: center; align-items: center;">
+			<p class="login-ask">※ 이용문의 : 공통인프라유지관리</p>
+		</div>
+	</form>
+
+	<div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+		<p class="login-chrome">※ 1920x1080 해상도의 크롬 브라우저에 최적화되어 있습니다.</p>
+		<div style="display: flex;">
+			<select id="login-chrome-select" class="form-control">
+				<option value="1">Chrome(x64)</option>
+			</select>
+
+			<div class="login-chrome-download">
+				<button>DOWNLOAD</button>
+			</div>
+		</div>
+	</div>
+
+	<div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+		<p class="login-copyright">COPYRIGHT © 2020 <span style="font-weight: 700;">National Information Resources Service.</span></p>
+		<p class="login-copyright">ALL RIGHT RESERVED.</p>
+	</div>
+</div>
+</body>
+<th:block layout:fragment="script">
+	<script th:src="@{/assets/vendor/jquery/jquery.min.js}"></script>
+	<script>
+		$(document).ready(function() {
+            $('#formDiv').submit(function(event) {
+                event.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: '/perform_login',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        // 로그인 성공 시 페이지 이동
+                        window.location.href = '/eqp/hw/view';
+                    },
+                    error: function(xhr) {
+                        alert(xhr.responseJSON.message)
+                    }
+                });
+            });
+        });
+	</script>
+</th:block>
 
 </html>
