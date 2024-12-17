@@ -312,11 +312,12 @@ public class lineManageService {
 	 * 선번장관리 > 선번장목록 > 선번장 목록 다운로드
 	 */
 	private final String sep = File.separator;
-	private final String staticPath = System.getProperty("user.dir") + sep + "src" + sep + "main" + sep + "resources" + sep + "static";
+	// private final String staticPath = System.getProperty("user.dir") + sep + "src" + sep + "main" + sep + "resources" + sep + "static";
+	private final String staticPath = System.getProperty("user.dir") + sep + "excelTemplate" + sep;
 
 	@Transactional
 	public Workbook downloadLineList() throws IOException {
-		String resultPath = staticPath + sep + "excelTemplate" + sep + "lineListTemplate.xlsx";
+		String resultPath = staticPath + "lineListTemplate.xlsx";
 		FileInputStream file = new FileInputStream(resultPath);
 		Workbook wb = new XSSFWorkbook(file);
 

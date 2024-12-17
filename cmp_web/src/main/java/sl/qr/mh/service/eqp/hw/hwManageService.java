@@ -27,7 +27,8 @@ public class hwManageService {
 
     private final hwMapper hwMapper;
     private final String sep = File.separator;
-    private final String staticPath = System.getProperty("user.dir") + sep + "src" + sep + "main" + sep + "resources" + sep + "static" + sep + "excelTemplate" + sep;
+    // private final String staticPath = System.getProperty("user.dir") + sep + "src" + sep + "main" + sep + "resources" + sep + "static" + sep + "excelTemplate" + sep;
+    private final String staticPath = System.getProperty("user.dir") + sep + "excelTemplate" + sep;
 
     public hwManageService(hwMapper hwMapper) {
         this.hwMapper = hwMapper;
