@@ -28,10 +28,10 @@
 	<form action="/perform_login" id="formDiv" style="width: 100%;" method="post">
 		<div class="login-inputs">
 			<div class="login-input-id">
-				<input type="text" placeholder="아이디를 입력해주세요" name="username" />
+				<input type="text" placeholder="아이디" name="username" />
 			</div>
 			<div class="login-input-password">
-				<input type="password" placeholder="비밀번호를 입력해주세요." name="password" />
+				<input type="password" placeholder="비밀번호" name="password" />
 			</div>
 		</div>
 
@@ -39,15 +39,15 @@
 			<button type="submit">로그인</button>
 		</div>
 
-		<div style="display: flex; justify-content: center; align-items: center;">
-			<p class="login-ask">※ 이용문의 : 공통인프라유지관리</p>
+		<div class="login-ask">
+			<p>※ 이용문의 : 공통인프라유지관리</p>
 		</div>
 	</form>
 
-	<div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
-		<p class="login-chrome">※ 1920x1080 해상도의 크롬 브라우저에 최적화되어 있습니다.</p>
-		<div style="display: flex;">
-			<select id="login-chrome-select" class="form-control">
+	<div class="login-chrome">
+		<p style="margin:5px;">※ 1920x1080 해상도의 크롬브라우저에 최적화되어 있습니다.</p>
+		<div style="display: flex; width: 100%; justify-content: center;">
+			<select id="login-chrome-select" class="form-control" style="width: 100%; border-radius: 5px;">
 				<option value="1">Chrome(x64)</option>
 			</select>
 
@@ -57,9 +57,9 @@
 		</div>
 	</div>
 
-	<div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
-		<p class="login-copyright">COPYRIGHT © 2020 <span style="font-weight: 700;">National Information Resources Service.</span></p>
-		<p class="login-copyright">ALL RIGHT RESERVED.</p>
+	<div class="login-copyright">
+		<p style="margin:0px;">COPYRIGHT © 2020 <span style="font-weight: 700;">National Information Resources Service.</span></p>
+		<p style="margin:0px;">ALL RIGHT RESERVED.</p>
 	</div>
 </div>
 </body>
