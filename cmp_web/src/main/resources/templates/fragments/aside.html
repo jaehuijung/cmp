@@ -3,54 +3,7 @@
 
 <div th:fragment="aside">
 
-    <header>
-        <div class="left-section">
-            <div id="left-logo">
-                <img id="left-logo-img"        src="/images/logo/technopark.png" alt="logo" onclick="location.href='/eqp/hw/view'" />
-                <img id="left-logo-toggle-img" src="/images/icon/home.png"       alt="logo" onclick="location.href='/eqp/hw/view'" />
-            </div>
-            <!-- 왼쪽 사이드바 접는 버튼 -->
-            <button id="sidebarToggle" class="btn">
-                <img src="/images/icon/before_toggle.png" alt="Toggle Sidebar" id="sidebarToggleIcon">
-            </button>
-            <!-- 상단 메뉴 항목 -->
-            <nav id="top-menu" class="top-menu" th:fragment="topMenuFragment"></nav>
-        </div>
 
-        <div class="right-section">
-            <a class="nav-link align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-               <span class="dropdown-toggle ps-2" th:text="${accountData.name}+'님'"></span>
-            </a>
-
-            <ul class="dropdown-menu dropdown-menu-arrow profile">
-                <li class="dropdown-header">
-                    <h6>관리자 권한 계정</h6>
-                </li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-                <li>
-                    <a class="dropdown-item d-flex align-items-center" href="#" onclick="usrlogout();">
-                        <span>로그아웃</span>
-                    </a>
-                </li>
-            </ul>
-
-            <form name='logoutform' id='logoutform' method='POST' action='/logout'></form>
-        </div>
-    </header>
-
-    <div class="side-menu" th:fragment="asideFragment">
-        <div class="menu-section">
-            <!-- 사이드바 메뉴 항목 custom-menu.js 에서 동적생성 -->
-            <div id="menu-items" class="items-section"> </div>
-            <div id="menu-toggle-items" class="items-section"> </div>
-        </div>
-        <div class="bottom-section">
-            <p class="bottom-text-title">Smart CMS</p>
-            <p class="bottom-text-content">CABLEMANAGEMENT SYSTEM</p>
-        </div>
-    </div>
 </div>
 
 </html>

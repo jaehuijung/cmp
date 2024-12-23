@@ -19,6 +19,203 @@
 			<link th:href="@{/css/custom-sweetAlert2.css}" rel="stylesheet">
 			<link th:href="@{/css/custom-pikaday.css}" rel="stylesheet">
 		</th:block>
+
+		<style>
+			/* styles.css */
+            body, html {
+              margin: 0;
+              padding: 0;
+              font-family: Arial, sans-serif;
+              box-sizing: border-box;
+            }
+
+            .layout {
+              display: flex;
+              flex-direction: column;
+              height: 100vh;
+            }
+
+            /* 1영역: 헤더 스타일 */
+            .header {
+              display:flex;
+			  justify-content: space-between;
+			  background-color: #00274D;
+              color: white;
+              text-align: center;
+              padding: 10px 0px;;
+              font-size: 24px;
+              flex-shrink: 0;
+            }
+
+            .header-left{
+            	display: flex;
+            }
+
+            #header-left-logo {
+				width: 200px;
+				height: 30px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border-right: 1px solid #999;
+			}
+
+			#header-left-logo-img {
+				width: 150px;
+				height: 30px;
+				cursor: pointer;
+			}
+
+			#header-left-content {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 13px;
+				font-weight: 500;
+				color: white;
+				padding: 0px 15px;
+				border-right: 1px solid #999;
+			}
+
+			.header-right {
+				display: flex;
+			}
+
+			#header-right-name {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 13px;
+				font-weight: 500;
+				color: white;
+				padding: 0px 15px;
+				border-left: 1px solid #999;
+			}
+
+			#header-right-logout {
+				width: 100px;
+				height: 30px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border-left: 1px solid #999;
+				font-size: 13px;
+				color: #fff;
+			}
+
+
+			@media (max-width: 650px) {
+				#header-right-name {
+					border-left: 0px;
+				}
+			}
+
+			@media (max-width: 550px) {
+				#header-right-name {
+					display: none;
+				}
+
+				#header-right-logout {
+					border-left: 0px;
+				}
+			}
+
+			@media (max-width: 430px) {
+				#header-left-content {
+					display: none;
+				}
+			}
+
+			@media (max-width: 250px) {
+				.header {
+					justify-content: center;
+				}
+
+				#header-right-logout {
+					display: none;
+				}
+
+				#header-left-logo {
+					width: 100%;
+					border-right: 0px;
+				}
+
+				#header-left-logo-img {
+					width: 100px;
+					height: 20px;
+					cursor: pointer;
+				}
+
+				.content {
+					display: none;
+				}
+
+				.main-container {
+					width: 100%;
+				}
+
+				.sidebar {
+					width: 100% !important;
+				}
+
+			}
+
+			@media (max-width: 180px) {
+				#header-left-logo-img {
+					width: 70px;
+					height: 15px;
+					cursor: pointer;
+				}
+			}
+
+            /* 메인 컨테이너 레이아웃 */
+            .main-container {
+              display: flex;
+              flex: 1;
+              overflow: hidden;
+            }
+
+            /* 2영역: 사이드바 스타일 */
+            .sidebar {
+              background-color: #4B4B4B;
+              width: 200px;
+              padding: 20px;
+              box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+              overflow-y: auto;
+            }
+
+            .sidebar ul {
+              list-style: none;
+              padding: 0;
+              margin: 0;
+            }
+
+            .sidebar ul li {
+              margin-bottom: 10px;
+            }
+
+            .sidebar ul li a {
+              text-decoration: none;
+              color: #fff;
+              transition: color 0.3s;
+            }
+
+            .sidebar ul li a:hover {
+              color: #007bff;
+            }
+
+            /* 3영역: 콘텐츠 스타일 */
+            .content {
+              flex: 1;
+              padding: 20px;
+              background-color: #ffffff;
+              overflow-y: auto;
+            }
+
+            .content h2 {
+              margin-top: 0;
+            }
+		</style>
 	</head>
 
 	<body>
@@ -40,18 +237,55 @@
 
 		</th:block>
 
+		<div class="layout">
+			<!-- 1영역: 헤더 -->
+			<div class="header">
+				<div class="header-left">
+					<div id="header-left-logo">
+						<img id="header-left-logo-img" src="/images/logo/logo.png" alt="logo" onclick="location.href='/cable/agency/view'" />
+					</div>
 
-		<th:block th:replace="~{fragments/aside :: aside}"></th:block>
+					<div id="header-left-content">
+						<p style="margin:0;">케이블 관리시스템</p>
+					</div>
+				</div>
 
-		<div class="content">
-			<div>
-				<th:block th:replace="~{fragments/pageTitle :: pageTitle}"></th:block>
-				<th:block layout:fragment="content"></th:block>
+				<div class="header-right">
+
+					<div id="header-right-name">
+						<a>
+							<span th:text="${accountData.name}+'님'"></span>
+						</a>
+					</div>
+
+					<div id="header-right-logout">
+						<a href="#" onclick="usrlogout();">
+							<span>로그아웃</span>
+						</a>
+					</div>
+
+					<form name='logoutform' id='logoutform' method='POST' action='/logout'></form>
+				</div>
 			</div>
-			<div style="margin-top: 30px;">
-				<th:block th:replace="~{fragments/copyright :: copyright}"></th:block>
+
+			<div class="main-container">
+				<!-- 2영역: 사이드바 -->
+				<div class="sidebar">
+					<ul>
+						<li><a href="#">메뉴 1</a></li>
+						<li><a href="#">메뉴 2</a></li>
+						<li><a href="#">메뉴 3</a></li>
+					</ul>
+				</div>
+
+				<!-- 3영역: 콘텐츠 -->
+				<div class="content">
+					<h2>3영역 (페이지 콘텐츠)</h2>
+					<p>여기에 메뉴별 페이지 내용이 표시됩니다.</p>
+				</div>
 			</div>
 		</div>
+
 
 	</body>
 
