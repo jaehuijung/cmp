@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+    <div layout:fragment="content">
+
+        <main id="main" class="equipment">
+
+            <div class="contentCard">
+
+                <div class="searchWrap">
+                    <div class="searchWordWrap">
+                        <div class="searchWordInput">
+                            <label class="searchTitle" for="searchInput">검색어</label>
+                            <input type="text"    class="searchInput"  id="searchInput" placeholder="검색어를 입력하세요"/>
+                            <button type="button" class="searchButton" onclick="tableRefresh();">검색</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="contentCard">
+                <div style='display: flex; justify-content: space-between;'>
+                    <div>
+                        <p class="totalCnt" id="eqpTotalCnt"></p>
+                    </div>
+                    <div>
+                        <button type='button' class="btn btn-outline-secondary custom-normal-btn"
+                                onclick="eqpCreate()">추가
+                        </button>
+                        <button type='button' class="btn btn-outline-secondary custom-normal-btn"
+                                onclick="eqpUpdate()">수정
+                        </button>
+                        <button type='button' class="btn btn-outline-secondary custom-normal-btn"
+                                onclick="eqpDelete()">삭제
+                        </button>
+                    </div>
+                </div>
+
+                <div class="tbl-bootstrap-wrap">
+                    <table id="dashboardTable"></table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+
+</html>

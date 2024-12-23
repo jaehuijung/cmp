@@ -77,7 +77,7 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/login")  // 사용자 정의 로그인 페이지 경로
                         .loginProcessingUrl("/perform_login")  // 로그인 폼 액션 URL
-                        .defaultSuccessUrl("/rack/line/view", true)  // 로그인 성공 후 이동할 기본 URL
+                        .defaultSuccessUrl("/cable/agency/view", true)  // 로그인 성공 후 이동할 기본 URL
                         .failureHandler(customAuthenticationFailureHandler())
                         .permitAll())  // 로그인 페이지는 누구나 접근 가능
                 .logout(logout -> logout
