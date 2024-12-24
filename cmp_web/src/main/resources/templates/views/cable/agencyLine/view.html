@@ -4,21 +4,17 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 
-    <div layout:fragment="content">
+    <main layout:fragment="content">
 
-        <main id="main" class="equipment">
 
             <div class="contentCard">
-
-                <div class="searchWrap">
-                    <div class="searchWordWrap">
-                        <div class="searchWordInput">
-                            <label class="searchTitle" for="searchInput">검색어</label>
-                            <input type="text"    class="searchInput"  id="searchInput" placeholder="검색어를 입력하세요"/>
-                            <button type="button" class="searchButton" onclick="tableRefresh();">검색</button>
-                        </div>
-                    </div>
+                <div class="flex-row-end">
+                    <p style="margin: 0;">조회시간 : 2023-05-11 09:11:30</p>
+                    <button type="button" class="searchHistory" onclick="tableRefresh();">이력조회</button>
+                    <button type="button" class="searchButton" onclick="tableRefresh();">검색</button>
                 </div>
+
+
 
             </div>
 
@@ -45,8 +41,7 @@
                 </div>
             </div>
 
-        </main>
-    </div>
+    </main>
 
 
 </html>

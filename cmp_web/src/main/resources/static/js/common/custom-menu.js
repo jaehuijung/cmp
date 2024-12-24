@@ -123,7 +123,7 @@ function buildPageNavigation(menuData, currentUrl) {
     }
 
     // 페이지 구성
-    const h1Element = document.querySelector('.pageTitle h1');
+    const h1Element = document.querySelector('#page-title');
     if (h1Element) {
         let subTitle = "";
         if(currentUrl.includes("create")){
@@ -136,7 +136,7 @@ function buildPageNavigation(menuData, currentUrl) {
             subTitle = " (상세)"
         }
 
-        h1Element.textContent = currentMenu.menu_name + subTitle;
+        h1Element.textContent = "➖ " + currentMenu.menu_name + subTitle;
     }
 
     const breadcrumbElement = document.querySelector('.breadcrumb');
