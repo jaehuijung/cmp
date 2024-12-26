@@ -38,10 +38,6 @@
     <script th:src="@{/assets/vendor/pikaday/pikaday.js}"></script>
     <script th:src="@{/assets/vendor/swiper/swiper-bundle.min.js}"></script>
 
-    <script>
-
-
-    </script>
     <script th:src="@{/js/common/custom-menu.js}"></script>
     <script th:src="@{/js/common/custom-function.js}"></script>
     <script th:src="@{/js/common/custom-sweetAlert2.js}"></script>
@@ -102,7 +98,11 @@
     </div>
 </div>
 
-
+<th:block layout:fragment="script">
+    $(function(){
+        console.log("ready");
+    });
+</th:block>
 </body>
 
 </html>
