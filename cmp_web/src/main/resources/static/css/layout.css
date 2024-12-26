@@ -320,7 +320,6 @@ body {
 /* 3영역: 콘텐츠 스타일 */
 .content {
     flex: 1;
-    background-color: #ffffff;
     overflow-y: auto;
 }
 
@@ -329,6 +328,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: #fff;
     margin-bottom: 20px;
     padding: 15px 25px;
     border-bottom: 1px solid #D4D9E0;
@@ -375,19 +375,138 @@ body {
     font-weight: 600;
 }
 
+
+main {
+    padding: 0 20px;
+}
+
+/* 중앙 콘텐츠 카드영역 */
+.contentCard {
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.contentCardWrap {
+    background: #fff;
+}
+
+
+/* 커스텀 버튼 영역 스타일 */
+.custom-button-wrap{
+    display: flex; flex-direction: row;
+}
+
+/* 커스텀 버튼 공통 스타일 */
+.custom-btn {
+    font-size: 12px;
+    font-weight: 500;
+    color: #014188;
+    border: 1px solid #014188;
+    border-radius: 5px;
+    margin: 0px 5px;
+    padding: 4px 10px;
+    display: flex; /* flexbox를 사용하여 텍스트와 이미지 정렬 */
+    align-items: center;
+    justify-content: center; /* 가운데 정렬 */
+}
+
+/* 커스텀 버튼 기본 버튼 색 */
+.custom-normal-btn {
+    color: #014188;
+}
+
+/* 커스텀 버튼 파란색 버튼 색 */
+.custom-blue-btn {
+    color: #fff;
+    background-color: #014188;
+}
+
+.custom-card-btn {
+    width: 120px;
+    height: 45px;
+    margin-left: 10px;
+}
+
+/* 커스텀 버튼 내부 이미지 스타일 */
+.btn-icon {
+    margin-left: 6px;
+}
+
+
 /* 기타 공통 커스텀 항목들 */
+
+/* 선택박스 */
+.custom-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    /* 커스텀 꺾쇠 아이콘 추가 ("∨" 모양) */
+    background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gray"><text x="8" y="16" font-size="10" font-family="Arial, sans-serif">∨</text></svg>');
+    background-repeat: no-repeat;
+
+    /* 꺾쇠 위치와 마진 */
+    background-position: right center;
+
+    /* 셀렉트 박스 스타일 */
+    background-color: white;
+    color: black;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    width: 100%;
+    height: 24px;
+    padding-left: 10px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+/* 체크박스 */
+.custom-checkbox {
+    display: flex; /* 체크박스와 텍스트를 가로로 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    font-size: 12px;
+}
+
+.custom-checkbox input[type="checkbox"] {
+    margin: 0; /* 기본적인 여백 제거 */
+}
+
+.custom-checkbox span {
+    margin-right: 8px; /* 체크박스와 텍스트 사이 여백 */
+    cursor: pointer;
+    background-color: white;
+    transition: all 0.2s ease-in-out;
+}
+
 
 /* custom-background */
 .custom-background-lightblue { background-color: #F6F9FE; }
 
 /* custom width */
+.custom-width-5per  { width: 5%; }
 .custom-width-10per { width: 10%; }
+.custom-width-11per { width: 11%; }
+.custom-width-12per { width: 12%; }
+.custom-width-13per { width: 13%; }
 .custom-width-15per { width: 15%; }
+.custom-width-19per { width: 19%; }
 .custom-width-20per { width: 20%; }
 .custom-width-25per { width: 25%; }
+.custom-width-28per { width: 28%; }
+.custom-width-37per { width: 37%; }
+.custom-width-47per { width: 47%; }
+.custom-width-48per { width: 48%; }
+.custom-width-52per { width: 52%; }
 .custom-width-100per { width: 100%; }
 
-.custom-width-45 { width: 45px; }
+.custom-width-45  { width: 45px; }
+.custom-width-50  { width: 50px; }
+.custom-width-55  { width: 55px; }
 .custom-width-100 { width: 100px; }
 .custom-width-150 { width: 150px; }
 .custom-width-200 { width: 200px; }
@@ -436,12 +555,22 @@ body {
 .custom-position-absolute { position: absolute; }
 
 /* custom font size */
+.custom-font-size-10 { font-size: 10px; }
+.custom-font-size-11 { font-size: 11px; }
 .custom-font-size-12 { font-size: 12px; }
+.custom-font-size-13 { font-size: 13px; }
 .custom-font-size-14 { font-size: 14px; }
+.custom-font-size-15 { font-size: 15px; }
 .custom-font-size-16 { font-size: 16px; }
+.custom-font-size-17 { font-size: 17px; }
 .custom-font-size-18 { font-size: 18px; }
+.custom-font-size-19 { font-size: 19px; }
+.custom-font-size-20 { font-size: 20px; }
+.custom-font-size-21 { font-size: 21px; }
 .custom-font-size-22 { font-size: 22px; }
+.custom-font-size-23 { font-size: 23px; }
 .custom-font-size-24 { font-size: 24px; }
+.custom-font-size-25 { font-size: 25px; }
 .custom-font-size-26 { font-size: 26px; }
 
 /* custom font weight */
@@ -483,6 +612,7 @@ body {
 
 /* custom text location */
 .custom-text-left { text-align: left; }
+.custom-text-center { text-align: center; }
 
 /* custom text color */
 .custom-color-red { color: red; }

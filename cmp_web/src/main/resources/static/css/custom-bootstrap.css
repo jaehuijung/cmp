@@ -169,7 +169,24 @@ tr:hover {
     border-color: #007bff;
 }
 
+/* 테이블 타이틀 */
+.custom-tb-title {
+    background-color: #F6F9FE;
+    border-right: 0;
+    text-align: center;
+    font-size: 13px;
+    padding: 0;
+}
 
+.custom-tb-title-text {
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* 테이블 타이틀 내용 */
+.custom-tb-content {
+    padding-left: 10px;
+}
 
 
 /* 선번장관리 */
