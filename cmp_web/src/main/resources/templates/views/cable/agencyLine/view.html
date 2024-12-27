@@ -7,6 +7,11 @@
 <head>
 <style>
 
+    .custom-input {
+        font-size: 12px;
+        width: max-content;
+    }
+
     .custom-radio {
         font-size: 12px;
         margin-right: 10px;
@@ -30,7 +35,7 @@
         <div class="contentCardWrap">
 
             <div class="flex-row-end custom-padding-10">
-                <p id="" style="margin: 0;">조회시간 : 2023-05-11 09:11:30</p>
+                <p id="" style="margin: 0;">조회시간 : 2023-05-11 09:11:30 2</p>
                 <div class="custom-button-wrap custom-margin-left-10">
                     <button type="button" class="custom-btn custom-blue-btn" onclick="searchHistory()">이력조회</button>
                     <button type="button" class="custom-btn custom-blue-btn" onclick="searchButton()">검색</button>
@@ -100,7 +105,7 @@
                                 <label class="custom-radio">
                                     <input type="radio" name="radio-group"><span></span>기간선택
                                 </label>
-                                <input type="date" id="asset_acquisition_date" name="asset_acquisition_date" />
+                                <input type="date" id="asset_acquisition_date5" name="asset_acquisition_date5" />
                             </td>
                             <td class="custom-tb-title custom-width-5per">
                                 <label for="asset_id" class="custom-tb-title-text">회선번호</label>
@@ -157,16 +162,33 @@
                                 <select id="asset_id" name="asset_id" class="custom-select"></select>
                             </td>
                         </tr>
+                        <tr>
+                            <td class="custom-tb-title custom-width-5per">
+                                <label for="date_range" class="custom-tb-title-text">기간 선택</label>
+                            </td>
+                            <td class="custom-tb-content custom-width-13per">
+                                <div id="date_picker"></div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
+        <th:block layout:fragment="script">
+            <script>
+                $(function() {
+                    new Kalendae(
+        document.getElementById('date_picker'),
+        {
+            mode: 'range', // 기간 선택 모드
+            format: 'YYYY-MM-DD'
+        }
+    );
+                });
+            </script>
+            <script th:src="@{/js/cable/agencyLine/view.js}"></script>
+        </th:block>
     </main>
-
-    <th:block layout:fragment="script">
-        <script th:src="@{/js/cable/agencyLine/view.js}"></script>
-    </th:block>
-
 
 </html>

@@ -4,9 +4,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="sl.qr.mh.service.config.configMapper">
+<mapper namespace="sl.qr.mh.security.configMapper">
 
-    <select id="getSecurityUserInfoList" parameterType="String" resultType="sl.qr.mh.config.MemberDao">
+    <select id="getSecurityUserInfoList" parameterType="String" resultType="sl.qr.mh.security.MemberDao">
         select
             id,
             password,

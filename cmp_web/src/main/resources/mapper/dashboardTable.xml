@@ -4,7 +4,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="sl.qr.mh.service.main.dashboard.dashboardMapper">
+<mapper namespace="sl.qr.mh.zold.service.main.dashboard.dashboardMapper">
 
     <select id="getFiberCableData" resultType="map">
         /* 케이블 포설 상세현황 - 광 */

@@ -1,0 +1,208 @@
+<< CSS >>
+
+1. CSS 파일 네이밍
+- CSS 파일명은 소문자를 사용하며, 단어 사이에는 하이픈(-)을 사용합니다.
+- 파일명을 작성할 때 파일이 담고 있는 내용과 성격을 명확히 표현해야 합니다.
+    - 예: `styles.css`, `main.css`, `header.css`, `buttons.css`
+
+2. 클래스 이름 네이밍
+    2.1. 일반 클래스 네이밍 규칙
+    - 클래스명은 소문자를 사용하며, 여러 단어로 이루어진 경우에는 하이픈(-)으로 연결합니다.
+    - 클래스명은 해당 요소의 역할과 내용을 확실히 설명할 수 있도록 작성합니다.
+        - 예: `navbar`, `main-content`, `footer-links`, `btn-primary`
+        /* Good */
+        .navbar {
+          background-color: #333;
+          color: #fff;
+        }
+
+        /* Bad */
+        .navBar { /* CamelCase를 사용하지 않음 */ }
+        .nav_bar { /* Underscore를 사용하지 않음 */ }
+
+    2.2. BEM (Block Element Modifier) 네이밍
+    - CSS에서 가장 널리 사용되는 구조화된 네이밍 규칙 중 하나입니다.
+    - BEM 방식은 클래스를 3가지 구성요소로 나눕니다:
+        - Block: 독립적이고 재사용 가능한 UI 컴포넌트 (예: `button`, `navbar`)
+        - Element: 특정 블록의 구성 요소 (예: `button__icon`, `navbar__item`)
+        - Modifier: 블록이나 요소의 상태/속성을 정의 (예: `button--disabled`, `navbar__item--active`)
+        - 예 :
+        <div class="card">
+          <div class="card__header">Header</div>
+          <div class="card__content">Content</div>
+          <div class="card__footer card__footer--highlighted">Footer</div>
+        </div>
+
+        /* Block */
+        .card {
+          border: 1px solid #ddd;
+          padding: 16px;
+        }
+
+        /* Element */
+        .card__header {
+          font-size: 20px;
+          font-weight: bold;
+        }
+
+        .card__content {
+          font-size: 16px;
+        }
+
+        /* Modifier */
+        .card__footer--highlighted {
+          background-color: #f9f9f9;
+        }
+
+    2.3 스코프(Class Prefix)
+    - 큰 프로젝트에서 특정 페이지, 모듈, 컴포넌트를 명확하게 구분하기 위해 Prefix(접두어)를 사용합니다.
+        - 예: `btn-` (버튼 컴포넌트), `nav-` (네비게이션), `form-` (폼 관련 스타일), ...
+            .btn-primary {
+              background-color: blue;
+              color: white;
+            }
+
+            .nav-item {
+              padding: 10px;
+            }
+
+3. id 이름 네이밍
+- `id`는 고유한 값으로 사용되며 이름은 클래스와 동일한 방식으로 작성합니다.
+- HTML 내에서 한 번만 사용되는 요소에 적합하며, CSS보다는 주로 JavaScript를 사용할 때 DOM 조작에 활용됩니다.
+- CSS에서는 `class`를 선호하고, `id` 사용은 최소화하십시오. `id`는 특정 요소에 강한 우선순위를 부여하므로 사용이 제한적일 수 있습니다.
+  
+
+4. CSS 변수 네이밍
+- CSS 변수는 `--` (더블 하이픈)으로 시작하며, 스코프를 나타낼 접두어(prefix)와 소문자-하이픈 스타일을 사용합니다.
+- 변수명은 재사용성을 고려해 명확하고 구체적으로 작성합니다.
+- 전역에서 사용할 변수를 정의할 경우, `:root`를 사용해 선언합니다.
+    - 예 :
+    :root {
+      --color-primary: #3498db;
+      --color-secondary: #2ecc71;
+      --font-size-base: 16px;
+    }
+    body {
+      font-size: var(--font-size-base);
+      color: var(--color-primary);
+    }
+
+5. 가독성과 유지보수성
+    5.1 속성 정렬
+    - 속성은 관련 속성끼리 그룹화하여 정렬합니다. 일반적으로 아래 순서를 따릅니다:
+        1. Box Model: `width`, `height`, `margin`, `padding`
+        2. Positioning: `position`, `top`, `left`, `z-index`
+        3. Typography: `font-size`, `color`, `line-height`
+        4. Visual Styling: `background`, `border`, `box-shadow`
+    
+    5.2 들여쓰기
+    - CSS는 2칸 들여쓰기 또는 4칸 들여쓰기를 사용합니다. 대부분 2칸을 권장합니다.
+    - 중첩된 선택자는 들여쓰기를 사용하여 구조를 명확히 합니다.
+
+
+6. 리셋과 기본 스타일
+    6.1 HTML 기본 스타일 초기화(Reset CSS)
+    - 브라우저의 기본 스타일을 제거하는 리셋 CSS를 사용하거나 CSS 프레임워크와 함께 활용합니다.
+        - 예: Normalize.css
+    
+7. 미디어 쿼리 정리
+- 반응형 디자인을 구현할 때 CSS 규칙에 모두 동일한 기준을 적용합니다.
+- 모바일 우선 접근법을 사용하여 작은 화면부터 시작합니다.    
+    
+    
+
+
+<< 미디어 쿼리 관련 >>
+ 
+1. 정의
+- 미디어 쿼리란 화면 크기, 해상도, 방향, 색 깊이 등의 조건에 따라 서로 다른 CSS 스타일을 적용하기 위한 강력한 도구입니다. 
+- 반응형 웹 디자인의 핵심 요소로, 다양한 디바이스에서 일관된 사용자 경험을 제공하기 위해 사용됩니다.
+
+2. 모바일 우선 접근법
+   - 모바일 디바이스 사용자가 많아짐에 따라, **모바일 우선 접근법**이 선호됩니다.
+   - 기본 스타일을 모바일에 맞게 작성한 후, 더 큰 화면에 대해 점진적으로 추가 스타일을 정의합니다.
+   - 장점:
+        - 작은 화면부터 큰 화면으로 확장하기 때문에 불필요한 스타일을 오버라이드해야 하는 경우가 적습니다.
+        - 유지보수가 쉽고, 로딩 속도도 더 빠릅니다.
+
+        /* 기본 스타일은 mobile-first 기반 */
+        body {
+          font-size: 16px; /* 기본: 모바일 */
+          color: black;
+        }
+
+        @media (min-width: 768px) { /* 태블릿 */
+          body {
+            font-size: 18px;
+          }
+        }
+
+        @media (min-width: 1024px) { /* 데스크탑 */
+          body {
+            font-size: 20px;
+          }
+        }
+
+3. 반응형 Breakpoints 정의
+    - 프로젝트마다 **화면 크기 기준(breakpoints)**를 명확히 정의하고 일관되게 사용합니다.
+    - 다음은 일반적인 breakpoints 예시입니다:
+        - 모바일 : 0px ~ 767px
+        - 태블릿 : 768px ~ 1023px
+        - 데스크탑 (작음) : 1024px ~ 1279px
+        - 데스크탑 (중간) : 1280px ~ 1919px
+        - 데스크탑 (대형) : 1920px 이상
+
+        /* 모바일 */
+        @media (max-width: 767px) {
+          body {
+            background-color: pink;
+          }
+        }
+
+        /* 태블릿 */
+        @media (min-width: 768px) and (max-width: 1023px) {
+          body {
+            background-color: lightblue;
+          }
+        }
+
+        /* 작은 데스크탑 */
+        @media (min-width: 1024px) and (max-width: 1279px) {
+          body {
+            background-color: lightgreen;
+          }
+        }
+
+4. 중복 스타일 최소화
+    - 동일한 선택자에 여러 미디어 쿼리를 나눠 작성하면 비효율적일 수 있습니다. 가능하면 하나의 선택자에서 모든 미디어 쿼리를 작성해 중복을 줄이세요.
+
+    /* bad case : 여러 번 반복 작성 */
+    @media (min-width: 768px) {
+      .box {
+        font-size: 18px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .box {
+        font-size: 20px;
+      }
+    }
+
+
+    /* good case : 하나의 선택자로 정리 */
+    .box {
+      font-size: 16px; /* 기본 */
+
+      @media (min-width: 768px) {
+        font-size: 18px;
+      }
+
+      @media (min-width: 1024px) {
+        font-size: 20px;
+      }
+    }
+
+5. 미디어 쿼리 정리 위치
+    - 미디어 쿼리를 CSS 파일의 맨 아래에 작성하거나, 요소별로 정리해서 관리하는 것이 좋습니다.
+

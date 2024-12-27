@@ -18,6 +18,10 @@
         <link th:href="@{/css/custom-bootstrap.css}" rel="stylesheet">
         <link th:href="@{/css/custom-sweetAlert2.css}" rel="stylesheet">
         <link th:href="@{/css/custom-pikaday.css}" rel="stylesheet">
+
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/kalendae/build/kalendae.css">
+
     </th:block>
 
     <style>
@@ -42,6 +46,10 @@
     <script th:src="@{/js/common/custom-function.js}"></script>
     <script th:src="@{/js/common/custom-sweetAlert2.js}"></script>
     <script th:src="@{/js/common/custom-bootstrap.js}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/kalendae/build/kalendae.standalone.js"></script>
+
+
 
 </th:block>
 
@@ -98,11 +106,6 @@
     </div>
 </div>
 
-<th:block layout:fragment="script">
-    $(function(){
-        console.log("ready");
-    });
-</th:block>
 </body>
 
 </html>

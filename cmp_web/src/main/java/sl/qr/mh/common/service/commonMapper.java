@@ -1,0 +1,17 @@
+package sl.qr.mh.common.service;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
+import java.util.Map;
+
+@Mapper
+public interface commonMapper {
+
+    // 회선구분 리스트
+    public List<Map<String, Object>> getLineLinkCategory();
+
+    // 회선속도, 회선색상 리스트
+    public List<Map<String, Object>> getLineLinkSpeed();
+
+}
