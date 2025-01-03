@@ -425,6 +425,12 @@ main {
     background-color: #014188;
 }
 
+/* 커스텀 버튼 회색 버튼 색 */
+.custom-gray-btn {
+    color: #fff;
+    background-color: #696969;
+}
+
 .custom-card-btn {
     width: 120px;
     height: 45px;

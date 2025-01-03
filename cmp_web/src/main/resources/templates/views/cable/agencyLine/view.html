@@ -27,15 +27,23 @@
         background-color: white;
         transition: all 0.2s ease-in-out;
     }
+
+    .custom-scroll {
+        max-height: 100%; /* 테이블 최대 높이 설정 */
+        overflow-y: auto; /* 세로 스크롤 활성화 */
+        border: 1px solid #ddd; /* 경계선 스타일 */
+        position: relative;
+    }
+
 </style>
 </head>
 
     <main layout:fragment="content">
 
-        <div class="contentCardWrap">
+        <div class="contentCardWrap custom-margin-bottom-20">
 
             <div class="flex-row-end custom-padding-10">
-                <p id="" style="margin: 0;">조회시간 : 2023-05-11 09:11:30 2</p>
+                <p id="inquiry_time" style="margin: 0;">조회시간 : 2023-05-11 09:11:30 2</p>
                 <div class="custom-button-wrap custom-margin-left-10">
                     <button type="button" class="custom-btn custom-blue-btn" onclick="searchHistory()">이력조회</button>
                     <button type="button" class="custom-btn custom-blue-btn" onclick="searchButton()">검색</button>
@@ -162,6 +170,7 @@
                                 <select id="asset_id" name="asset_id" class="custom-select"></select>
                             </td>
                         </tr>
+                        <!--
                         <tr>
                             <td class="custom-tb-title custom-width-5per">
                                 <label for="date_range" class="custom-tb-title-text">기간 선택</label>
@@ -170,21 +179,44 @@
                                 <div id="date_picker"></div>
                             </td>
                         </tr>
+                        -->
                     </tbody>
                 </table>
             </div>
         </div>
 
+
+        <div class="contentCardWrap">
+
+            <div class="flex-row-between custom-padding-10">
+                <p id="table_cnt" style="margin: 0;">전체 개수 : 105개</p>
+                <div class="custom-button-wrap custom-margin-left-10">
+                    <button type="button" class="custom-btn custom-blue-btn" onclick="searchHistory()">QR출력</button>
+                    <button type="button" class="custom-btn custom-blue-btn" onclick="searchButton()">QR드라이버</button>
+                    <button type="button" class="custom-btn custom-blue-btn" onclick="searchButton()">삭제</button>
+                    <button type="button" class="custom-btn custom-gray-btn" onclick="searchButton()">엑셀</button>
+
+                </div>
+            </div>
+
+            <div class="tbl-bootstrap-wrap custom-border-top-solid custom-scroll">
+                <table id="tbl-bootstrap-table"></table>
+            </div>
+        </div>
+
         <th:block layout:fragment="script">
             <script>
-                $(function() {
-                    new Kalendae(
-        document.getElementById('date_picker'),
-        {
-            mode: 'range', // 기간 선택 모드
-            format: 'YYYY-MM-DD'
-        }
-    );
+
+                let tbl = "#tbl-bootstrap-table";
+                $(function(){
+
+                    $(tbl).bootstrapTable({
+                        columns: tableColumns,
+                        data: tableData,
+                        height: 800,
+                        fixedHeader: true       // 헤더를 고정 처리
+                    });
+
                 });
             </script>
             <script th:src="@{/js/cable/agencyLine/view.js}"></script>

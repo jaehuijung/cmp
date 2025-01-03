@@ -56,3 +56,46 @@ function customRenderPagination(tbl, res, containerId="") {
     // 기존 페이지네이션에 커스터마이즈된 페이지네이션을 삽입합니다.
     $paginationContainer.html($pagination);
 }
+
+/**
+ * BootstrapTable에서 사용할 컬럼 리스트를 생성하는 함수
+ *
+ * @param {string} field - 컬럼 데이터 필드명
+ * @param {boolean} checkbox - 체크박스 여부
+ * @param {string} title - 컬럼 제목
+ * @returns {object} 컬럼 설정 객체
+ */
+// 모든 유형의 컬럼을 생성할 수 있는 공통 함수
+function createColumn(field, checkbox = false, title, type = 'default') {
+    let column = {
+        title: title,
+        field: field,
+        align: 'center',
+        valign: 'middle',
+        checkbox: checkbox
+    };
+
+    if(field === 'no'){
+        column.formatter = function(value, row, index) {
+            let tableOptions = $(tbl).bootstrapTable('getOptions');
+            return tableOptions.totalRows - index;
+        };
+    }
+    if (type === 'underline') {
+        column.class = 'nowrap underline custom-width-min-160';
+    } else {
+        column.class = 'nowrap';
+    }
+
+    if (field === 'operating_status') {
+        column.formatter = function(value, row, index) {
+            if (value === '1') {
+                return '사용';
+            } else {
+                return '정지';
+            }
+        };
+    }
+
+    return column;
+}
