@@ -26,7 +26,7 @@ function createColumn(field, checkbox = false, title, type = 'default') {
     else if(type === 'formatter'){
         column.formatter = function(value, row, index) {
             let tableOptions = $(tbl).bootstrapTable('getOptions');
-            return tableOptions.totalRows - index;
+            return tableOptions.totalRows - ((tableOptions.pageNumber-1) * tableOptions.pageSize) + index;
         };
     }
     else {
@@ -38,7 +38,8 @@ function createColumn(field, checkbox = false, title, type = 'default') {
 
 let columns = [
     [
-        { title: '구분',          align: 'center', valign: 'middle', colspan: 3 },
+        //{ title: '구분',          align: 'center', valign: 'middle', colspan: 3 },
+        { title: '구분',          align: 'center', valign: 'middle', colspan: 2 },
         { title: '출발지(Start)', align: 'center', valign: 'middle', colspan: 9 },
         { title: '목적지(End)',   align: 'center', valign: 'middle', colspan: 9 },
         { title: '회선',          align: 'center', valign: 'middle', colspan: 3 }
@@ -46,7 +47,7 @@ let columns = [
     [
         // 구분
         createColumn('', true, ''),
-        createColumn('no', false, 'no', 'formatter'),
+        //createColumn('no', false, 'no', 'formatter'),
         createColumn('line_manage_id', false, '<span class="custom-font-color-red">*</span> 케이블 관리번호', 'underline'),
 
         // 출발지
