@@ -19,7 +19,8 @@ import java.util.Map;
 public class qrMakeService {
 
     private final String sep = File.separator;
-    private final String staticPath = System.getProperty("user.dir") + sep + "src" + sep + "main" + sep + "resources" + sep + "static";
+    // private final String staticPath = System.getProperty("user.dir") + sep + "src" + sep + "main" + sep + "resources" + sep + "static";
+    private final String KEY_FILE_PATH = "secret.key";
 
     /**
      * QR 이미지 생성
@@ -29,7 +30,9 @@ public class qrMakeService {
      */
     public String QRMake(String target) throws Exception {
 
-        SecretKey key = AESUtil.generateKey();
+        //SecretKey key = AESUtil.generateKey();
+        SecretKey key = FileKeyManager.loadKey(KEY_FILE_PATH); // 파일에서 키 로드
+
         String encryptedTarget = AESUtil.encryptWithSafeFileName(target, key);
 
         String crunchifyFileType = "jpg";

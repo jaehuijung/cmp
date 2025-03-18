@@ -4,15 +4,23 @@ package sl.qr.mh.controller.rack.line;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import sl.qr.mh.service.common.AESUtil;
+import sl.qr.mh.service.common.FileKeyManager;
 import sl.qr.mh.service.common.commonService;
 import sl.qr.mh.service.rack.line.lineManageService;
 import sl.qr.mh.service.common.commonService;
 
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -208,5 +216,30 @@ public class lineManageController {
         wb.write(response.getOutputStream());
         wb.close();
     }
+
+    private static final String KEY_FILE_PATH = "secret.key";
+
+    @ResponseBody
+    @GetMapping("/showKey")
+    public ResponseEntity<String> showKey(@RequestParam("encryptedSerialNumber") String encryptedSerialNumber) {
+        try {
+            SecretKey key = FileKeyManager.loadKey(KEY_FILE_PATH);
+            String decryptedSerialNumber = AESUtil.decryptFromSafeFileName(encryptedSerialNumber, key);
+            return ResponseEntity.ok(decryptedSerialNumber);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to decode: " + e.getMessage());
+        }
+    }
+
+
+    @ResponseBody
+    @GetMapping("/generateQRImage")
+    public Map<String, Object> generateImage() {
+        return lineManageService.generateImage();
+    }
+
+
 
 }
