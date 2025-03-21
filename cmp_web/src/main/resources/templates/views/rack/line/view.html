@@ -270,18 +270,55 @@
                         },
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            var initBody;
-                            window.onbeforeprint = function(){
-                                initBody = document.body.innerHTML;
-                                document.body.innerHTML =  document.getElementById('printContentCard').innerHTML;
-                            };
-                            window.onafterprint = function(){
-                                location.reload(); // 페이지 새로고침
-                            };
-                            window.print();
+                            printWithImageLoading();
                         }
                     });
                 }
+
+                function printWithImageLoading() {
+                    var originalBodyHTML = document.body.innerHTML;
+                    var printContentHTML = document.getElementById('printContentCard').innerHTML;
+
+                    document.body.innerHTML = printContentHTML;
+
+                    var images = document.querySelectorAll('.printImg');
+                    var loadedCount = 0;
+
+                    if (images.length === 0) {
+                        window.print();
+                        document.body.innerHTML = originalBodyHTML;
+                        return;
+                    }
+
+                    images.forEach(img => {
+                        img.onload = function() {
+                            loadedCount++;
+                            if (loadedCount === images.length) {
+                                window.print();
+                                document.body.innerHTML = originalBodyHTML;
+                            }
+                        };
+                        img.onerror = function() {
+                            loadedCount++;
+                            if (loadedCount === images.length) {
+                                window.print();
+                                document.body.innerHTML = originalBodyHTML;
+                            }
+                        };
+                        if(img.complete) {
+                            loadedCount++;
+                            if (loadedCount === images.length) {
+                                window.print();
+                                document.body.innerHTML = originalBodyHTML;
+                            }
+                        }
+                    });
+
+                    window.onafterprint = function(){
+                        location.reload();
+                    };
+                }
+
 
                 function generateQRLabelImageRowHTML(selections){
                     let htmlContent = '';

@@ -73,4 +73,9 @@ public interface lineMapper {
 
     // 선번장관리 > 선번장목록 > 선번장 목록 다운로드 > 전체 선번장 목록 다운로드
     List<Map<String, Object>> getExcelLineTotalList();
+    
+    // 선번장 라벨 재렌더링용
+    List<Map<String, Object>> getAllList();
+
+    void updateAllList(Map<String, Object> paramMap);
 }

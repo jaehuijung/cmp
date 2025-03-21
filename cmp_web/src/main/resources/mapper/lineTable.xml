@@ -584,5 +584,21 @@
         ORDER BY lb.line_manage_id desc
     </select>
 
+    <select id="getAllList" resultType="map">
+        select
+            line_manage_id
+        from
+            line_basic
+    </select>
+
+    <update id="updateAllList" parameterType="map">
+        update
+            line_basic
+        set
+            qr_image_location = #{qrImageLocation},
+            updated_at = now()
+        where
+            line_manage_id = #{line_manage_id}
+    </update>
 
 </mapper>

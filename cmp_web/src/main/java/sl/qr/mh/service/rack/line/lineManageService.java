@@ -427,4 +427,32 @@ public class lineManageService {
 			dataRow.createCell(cellIndex).setCellValue(value.toString());
 		}
 	}
+
+	public Map<String, Object> generateImage() {
+		Map<String, Object> returnMap = new HashMap<>();
+		returnMap.put("errorCode",false);
+
+		try {
+			List<Map<String,Object>> list = lineMapper.getAllList();
+
+			for (Map<String,Object> map : list) {
+				String lineManageId = map.get("line_manage_id").toString();
+
+				// create qr label image
+				String filePath = qrMakeService.QRMake(lineManageId);
+				map.put("qrImageLocation", filePath);
+
+				// update line_basic
+				lineMapper.updateAllList(map);
+			}
+
+			returnMap.put("errorCode",true);
+
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+
+		return returnMap;
+	}
+
 }
